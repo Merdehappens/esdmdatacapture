@@ -8,6 +8,8 @@ import systemModel.ESDMModel;
 
 public class ChildView extends PanelView {
 
+	//testing
+	
 	JButton btnAddChild;
 	JButton btnRetrieveChild;
 	JButton btnAddObjectiveChild;
