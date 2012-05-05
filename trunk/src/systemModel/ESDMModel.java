@@ -81,12 +81,25 @@ public class ESDMModel {
         
         roomList.add(new Room("Room 1"));
         roomList.add(new Room("Room 2"));
+        
+        sessionList.add(new Session("S01", "Session 1"));
+        sessionList.add(new Session("S01", "Session 2"));
+        sessionList.add(new Session("S01", "Session 3"));
+        sessionList.add(new Session("S01", "Session 4"));
+        sessionList.add(new Session("S01", "Session 5"));
+        
     }
     
     public boolean login(String username, char[] password)
     {
+        if(username.equalsIgnoreCase(""))
+        {
+        	currentUser = null;
+        	return false;
+        }
         
         currentUser = new UserAccount();
+        
         return true;
     }
     
@@ -99,11 +112,12 @@ public class ESDMModel {
     
     public boolean loggedIn()
     {
-        if(currentUser != null)
+        if(currentUser == null)
         {
-            return true;
+            return false;
         }
-        return false;
+        
+        return true;
     }
     
     public void addChild(String name, Date dob, Guardian guardian)
