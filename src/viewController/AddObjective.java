@@ -64,6 +64,10 @@ public class AddObjective extends PanelView {
 		txtObjectiveName.setColumns(10);
 		
 		btnSubmit = new JButton("Submit");
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnSubmit.setBounds(21, 252, 89, 23);
 		add(btnSubmit);
 		

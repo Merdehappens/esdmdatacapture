@@ -32,4 +32,9 @@ public class Session implements SimpleKey {
     {
         return id;
     }
+    
+    public String toString()
+    {
+    	return description;
+    }
 }

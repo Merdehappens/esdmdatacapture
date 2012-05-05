@@ -4,7 +4,11 @@ import java.awt.EventQueue;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -167,6 +171,7 @@ public class Controller extends JFrame {
 		accountView = new AccountView();
 		accountPanel.add(accountView, "Account");
 
+		showLogin();
 
 
 	}
@@ -341,6 +346,48 @@ public class Controller extends JFrame {
 		}
 
 	}
+	
+	
+    public void showLogin()
+    {
+        JLabel label_loginname = new JLabel("Enter your login name:");
+        JTextField loginname;
+        
+        JLabel label_password = new JLabel("Enter your password:");
+        JPasswordField password;
+        
+        int tries = 0;
+        
+        do
+        {
+            loginname = new JTextField(15);
+            password = new JPasswordField();
+        
+
+        
+         Object[] array = { label_loginname, 
+                       loginname,
+                       label_password,
+                       password };
+         
+         int res = JOptionPane.showConfirmDialog(null, array, "Login", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+         
+         tries++;
+         
+        } while( !model.login(loginname.getText(), password.getPassword()) && tries != 3);
+         
+         if(model.loggedIn())
+         {
+           	System.out.println("testLoggedIn");   
+         }
+         else
+         {
+        	 JOptionPane.showMessageDialog(null, "Unable to log on to server. Closing program");
+        	 
+        	 System.exit(1);
+         }
+         
+    }
 
 
 }

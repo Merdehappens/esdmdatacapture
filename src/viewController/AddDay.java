@@ -21,6 +21,7 @@ import java.util.Vector;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.JComboBox;
@@ -39,6 +40,11 @@ public class AddDay extends PanelView {
 	private JPanel childPanel;
 	private JScrollPane childScrollPane;
 	private JComboBox<Room> cmbRoom;
+	private JList lstCurrentSession;
+	private JList lstSession;
+	
+	private DefaultListModel listModel;
+	private JButton button_1;
 	
 	
 	public AddDay() {
@@ -126,15 +132,22 @@ public class AddDay extends PanelView {
 		lblCurrentSessionsinOrder.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblCurrentSessionsinOrder);
 		
-		JList lstSession = new JList();
+		lstSession = new JList(new Vector(this.getModel().getSessionList()));
 		lstSession.setBounds(403, 158, 133, 240);
 		add(lstSession);
 		
-		JList lstCurrentSession = new JList();
+		listModel = new DefaultListModel();
+		
+		lstCurrentSession = new JList(listModel);
 		lstCurrentSession.setBounds(591, 158, 143, 240);
 		add(lstCurrentSession);
 		
 		JButton button = new JButton(">");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listModel.addElement(lstSession.getSelectedValue());
+			}
+		});
 		button.setBounds(546, 210, 43, 29);
 		add(button);
 		
@@ -150,6 +163,15 @@ public class AddDay extends PanelView {
 		cmbRoom.setModel(cmbModel);
 		cmbRoom.setBounds(451, 427, 138, 21);
 		add(cmbRoom);
+		
+		button_1 = new JButton("<");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listModel.remove(lstCurrentSession.getSelectedIndex());
+			}
+		});
+		button_1.setBounds(546, 246, 43, 29);
+		add(button_1);
 		
 		refreshView();
 

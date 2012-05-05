@@ -5,6 +5,7 @@
 package systemModel;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -14,11 +15,12 @@ import java.util.List;
  */
 public class Day implements SimpleKey {
     
-    List<Child> children;
-    Date date;
-    String id;
-    Room room;
-    List<Session> sessions;
+    private List<Child> children;
+    private Date date;
+    private String id;
+    private Room room;
+    private List<Session> sessions;
+    private boolean template;
     
     public Day()
     {
@@ -49,5 +51,22 @@ public class Day implements SimpleKey {
         return id;
     }
     
+    public Collection getSessions()
+    {
+    	return sessions;
+   
+    }
+
+	public Collection getChildren() {
+		return children;
+	}
+    
+	public boolean getTemplate(){
+		return template;
+	}
+	
+	public void setTemplate(boolean template) {
+		this.template = template;
+	}
     
 }
