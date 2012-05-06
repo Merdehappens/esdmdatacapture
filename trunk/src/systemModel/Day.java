@@ -51,13 +51,13 @@ public class Day implements SimpleKey {
         return id;
     }
     
-    public Collection getSessions()
+    public Collection<Session> getSessions()
     {
     	return sessions;
    
     }
 
-	public Collection getChildren() {
+	public Collection<Child> getChildren() {
 		return children;
 	}
     

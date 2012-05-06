@@ -9,8 +9,6 @@ import javax.swing.JButton;
 import systemModel.ESDMModel;
 
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
 public class ChangePassword extends PanelView {
@@ -86,4 +84,19 @@ public class ChangePassword extends PanelView {
 	{
 		btnCancel.addActionListener(al);
 	}
+	
+	public boolean newPasswordMatch()
+	{
+		return txtNew.getText().equals(txtConfirm.getText());
+	}
+	
+	public String getNewPassword()
+	{
+		return txtNew.getText();
+	}
+
+	public String getOldPassword() {
+		return txtOld.getText();
+	}
+	
 }

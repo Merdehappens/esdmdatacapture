@@ -9,6 +9,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
+import BCrypt.BCrypt;
+
 /**
  *
  * @author DAMIAN
@@ -18,8 +20,8 @@ public class ESDMModel {
     private List<Child> childList;
     private Set<Setting> settingList;
     private Set<Session> sessionList;
-    private Set<Guardian> guardianList;
-    private Set<Therapist> therapistList;
+    private List<Guardian> guardianList;
+    private List<Therapist> therapistList;
     private Set<Objective> objectiveList;
     private Set<Mark> markList;
     private Set<Day> dayList;
@@ -31,9 +33,9 @@ public class ESDMModel {
         childList = new ArrayList<Child>();
         settingList = new HashSet<Setting>();
         sessionList = new HashSet<Session>();
-        therapistList = new HashSet<Therapist>();
+        therapistList = new ArrayList<Therapist>();
         objectiveList = new HashSet<Objective>();
-        guardianList = new HashSet<Guardian>();
+        guardianList = new ArrayList<Guardian>();
         markList = new HashSet<Mark>();
         roomList = new ArrayList<Room>();
         currentUser = null;
@@ -88,19 +90,46 @@ public class ESDMModel {
         sessionList.add(new Session("S01", "Session 4"));
         sessionList.add(new Session("S01", "Session 5"));
         
+        Therapist user = new Therapist();
+        user.setPassword("Temporary");
+        user.setUsername("Temporary");
+        therapistList.add(user);
+        
+        user = new Therapist();
+        user.setUsername("temp");
+        user.setPassword("temp");
+        therapistList.add(user);
+        
     }
     
-    public boolean login(String username, char[] password)
+
+    public boolean login(String username, String password)
     {
-        if(username.equalsIgnoreCase(""))
+        for(int i = 0; i < therapistList.size(); i++)
         {
-        	currentUser = null;
-        	return false;
+        	UserAccount temp = therapistList.get(i);
+        	
+        	if(temp.getUsername().equals(username))
+        	{
+        		if(BCrypt.checkpw(password, temp.getPassword()))
+        		{
+        			currentUser = temp;
+        			return true;
+        		}
+        		else
+        		{
+        			return false;
+        		}
+        	}
+        		        		
         }
-        
-        currentUser = new UserAccount();
-        
-        return true;
+      
+        return false;
+    }
+    
+    public void setPassword(String temp)
+    {
+    	currentUser.setPassword(temp);
     }
     
     
@@ -116,7 +145,6 @@ public class ESDMModel {
         {
             return false;
         }
-        
         return true;
     }
     
@@ -127,14 +155,10 @@ public class ESDMModel {
         
         childList.add(child);
         
-        System.out.println(child.getId());
-        System.out.println(child.getName());
-        System.out.println(child.getDob());
-        System.out.println(child.getDateJoined());
-        ArrayList<Guardian> temp = new ArrayList<Guardian>(child.getGuardians());
-        
         return child;
     }
+    
+
     
 	public Child viewChild(String childId)
     {
@@ -151,7 +175,27 @@ public class ESDMModel {
 		
 	}
 	
+	
+	
+	
+	/* Takes in a String Name Which is the name of the objective, String description which is the description of the Objective
+	 * 
+	 *  it takes String[][] which are the steps.
+	 *  (i.e. steps[0][0] is the code of the first step, steps[0][1] is the Description of the first step
+	 *        steps[1][0] is the code of the second step, step [1][1] is the description of the second step. and so on.
+	 */
+	
+	public void addObjective(String Name, String description, String[][] steps)
+	{
+	
 
 
-    
+	}
+
+	public UserAccount getCurrentUser() {
+		return currentUser;
+	}
+	
+	
+	
 }

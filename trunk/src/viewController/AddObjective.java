@@ -3,8 +3,6 @@ package viewController;
 import javax.swing.JButton;
 
 import systemModel.ESDMModel;
-import systemModel.Step;
-
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -21,9 +19,9 @@ public class AddObjective extends PanelView {
 	private JButton btnSubmit;
 	private JButton btnReset;
 	private JButton btnCancel;
-	private JButton btnAddStep;
 	private JTable tblStep;
 	private DefaultTableModel tableModel;
+	private JTextArea txtObjectiveDescription;
 	
 	/**
 	 * Create the panel.
@@ -66,10 +64,6 @@ public class AddObjective extends PanelView {
 		txtObjectiveName.setColumns(10);
 		
 		btnSubmit = new JButton("Submit");
-		btnSubmit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnSubmit.setBounds(21, 324, 89, 23);
 		add(btnSubmit);
 		
@@ -86,9 +80,10 @@ public class AddObjective extends PanelView {
 		btnCancel.setBounds(235, 324, 94, 21);
 		add(btnCancel);
 		
-		JTextArea txtObjectiveDescription = new JTextArea();
+		txtObjectiveDescription = new JTextArea();
 		txtObjectiveDescription.setBounds(10, 114, 345, 178);
 		add(txtObjectiveDescription);
+		txtObjectiveDescription.setLineWrap(true);
 		
 		JLabel lblCurrentSteps = new JLabel("Current Steps (In Order)");
 		lblCurrentSteps.setHorizontalAlignment(SwingConstants.CENTER);
@@ -124,15 +119,15 @@ public class AddObjective extends PanelView {
 		btnDeleteSelectedStep.setBounds(503, 324, 150, 23);
 		add(btnDeleteSelectedStep);
 		
-		JButton btnAddStep_1 = new JButton("Add Step");
-		btnAddStep_1.addActionListener(new ActionListener() {
+		JButton btnAddStep = new JButton("Add Step");
+		btnAddStep.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String[] tempRow = new String[] {"", ""};
 				tableModel.addRow(tempRow);
 			}
 		});
-		btnAddStep_1.setBounds(404, 324, 89, 23);
-		add(btnAddStep_1);
+		btnAddStep.setBounds(404, 324, 89, 23);
+		add(btnAddStep);
 		
 		JButton btnUp = new JButton("Up");
 		btnUp.addActionListener(new ActionListener() {
@@ -170,7 +165,8 @@ public class AddObjective extends PanelView {
 	
 	private void resetForm()
 	{
-		
+		txtObjectiveName.setText("");
+		txtObjectiveDescription.setText("");
 	}
 	
 	private void swapRows(int i)
@@ -180,6 +176,27 @@ public class AddObjective extends PanelView {
 		{
 			tableModel.moveRow(start, start, start + i);
 		}
+	}
+
+	public String getObjectiveName() {
+		return txtObjectiveName.getText();
+	}
+
+	public String getObjectiveDescription() {
+		return txtObjectiveDescription.getText();
+	}
+
+	public String[][] getSteps() {
+		
+		String[][] temp = new String[tblStep.getRowCount()][2];
+		
+		for(int i = 0; i < tblStep.getRowCount(); i++) 
+		{
+			temp[i][0] = (String) tblStep.getValueAt(i, 0);
+			temp[i][1] = (String) tblStep.getValueAt(i, 1);
+		}
+		
+		return temp;
 	}
 	
 }
