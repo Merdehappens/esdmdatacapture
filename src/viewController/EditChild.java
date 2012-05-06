@@ -129,6 +129,7 @@ public class EditChild extends PanelView {
 	{
 		this.childId = childId;
 		refreshView();
+		
 	}
 	
 	
@@ -145,8 +146,6 @@ public class EditChild extends PanelView {
 		dateJoinedChooser.setDate(child.getDateJoined());
 		txtId.setText(child.getId());
 		txtName.setText(child.getName());
-
-		
 	}
 	
 }

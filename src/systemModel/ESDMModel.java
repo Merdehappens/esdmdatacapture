@@ -15,7 +15,7 @@ import java.util.*;
  */
 public class ESDMModel {
     
-    private Set<Child> childList;
+    private List<Child> childList;
     private Set<Setting> settingList;
     private Set<Session> sessionList;
     private Set<Guardian> guardianList;
@@ -28,7 +28,7 @@ public class ESDMModel {
     
     public ESDMModel() throws MalformedURLException
     {
-        childList = new HashSet<Child>();
+        childList = new ArrayList<Child>();
         settingList = new HashSet<Setting>();
         sessionList = new HashSet<Session>();
         therapistList = new HashSet<Therapist>();
@@ -41,7 +41,7 @@ public class ESDMModel {
         
     }
 
-    public Collection<Child> getChildList() {
+    public List<Child> getChildList() {
         return childList;
     }
     
@@ -120,7 +120,7 @@ public class ESDMModel {
         return true;
     }
     
-    public void addChild(String name, Date dob, Guardian guardian)
+    public Child addChild(String name, Date dob, Guardian guardian)
     {
         Child child = new Child(name, dob);
         child.addGuardian(guardian);
@@ -133,6 +133,7 @@ public class ESDMModel {
         System.out.println(child.getDateJoined());
         ArrayList<Guardian> temp = new ArrayList<Guardian>(child.getGuardians());
         
+        return child;
     }
     
 	public Child viewChild(String childId)

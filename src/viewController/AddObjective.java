@@ -3,6 +3,8 @@ package viewController;
 import javax.swing.JButton;
 
 import systemModel.ESDMModel;
+import systemModel.Step;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -20,10 +22,9 @@ public class AddObjective extends PanelView {
 	private JButton btnReset;
 	private JButton btnCancel;
 	private JButton btnAddStep;
-	private JTextField txtCode;
-	private JTextField txtStep;
 	private JTable tblStep;
-
+	private DefaultTableModel tableModel;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -50,16 +51,17 @@ public class AddObjective extends PanelView {
 		add(lblTitle);
 		
 		JLabel lblName = new JLabel("Objective Name");
-		lblName.setBounds(10, 43, 130, 14);
+		lblName.setBounds(10, 43, 130, 35);
 		add(lblName);
 		
 		
 		JLabel lblDateOfBirth = new JLabel("Objective Description");
-		lblDateOfBirth.setBounds(10, 68, 111, 14);
+		lblDateOfBirth.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDateOfBirth.setBounds(10, 89, 345, 14);
 		add(lblDateOfBirth);
 		
 		txtObjectiveName = new JTextField();
-		txtObjectiveName.setBounds(128, 43, 227, 20);
+		txtObjectiveName.setBounds(114, 43, 241, 30);
 		add(txtObjectiveName);
 		txtObjectiveName.setColumns(10);
 		
@@ -68,7 +70,7 @@ public class AddObjective extends PanelView {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnSubmit.setBounds(21, 252, 89, 23);
+		btnSubmit.setBounds(21, 324, 89, 23);
 		add(btnSubmit);
 		
 		btnReset = new JButton("Reset");
@@ -77,67 +79,82 @@ public class AddObjective extends PanelView {
 				resetForm();
 			}
 		});
-		btnReset.setBounds(120, 252, 105, 21);
+		btnReset.setBounds(120, 324, 105, 21);
 		add(btnReset);
 		
 		btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(235, 252, 94, 21);
+		btnCancel.setBounds(235, 324, 94, 21);
 		add(btnCancel);
 		
 		JTextArea txtObjectiveDescription = new JTextArea();
-		txtObjectiveDescription.setBounds(128, 68, 227, 61);
+		txtObjectiveDescription.setBounds(10, 114, 345, 178);
 		add(txtObjectiveDescription);
 		
-		JLabel lblCode = new JLabel("Code");
-		lblCode.setBounds(22, 155, 46, 14);
-		add(lblCode);
-		
-		JLabel lblSteps = new JLabel("Steps");
-		lblSteps.setBounds(94, 155, 261, 14);
-		add(lblSteps);
-		
-		txtCode = new JTextField();
-		txtCode.setBounds(10, 177, 74, 21);
-		add(txtCode);
-		txtCode.setColumns(10);
-		
-		txtStep = new JTextField();
-		txtStep.setBounds(94, 177, 323, 21);
-		add(txtStep);
-		txtStep.setColumns(10);
-		
-		JButton btnAddStep = new JButton("Add Step");
-
-		btnAddStep.setBounds(328, 203, 89, 23);
-		add(btnAddStep);
-		
-		JLabel lblCurrentSteps = new JLabel("Current Steps");
+		JLabel lblCurrentSteps = new JLabel("Current Steps (In Order)");
 		lblCurrentSteps.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCurrentSteps.setBounds(479, 43, 309, 14);
+		lblCurrentSteps.setBounds(394, 43, 467, 14);
 		add(lblCurrentSteps);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(443, 68, 357, 207);
+		scrollPane.setBounds(394, 68, 478, 244);
 		add(scrollPane);
 		
 		
 		tblStep = new JTable();
 		scrollPane.setViewportView(tblStep);
-		tblStep.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"1", "C2F", "Orients and grasp/tap w/ partial physical prompt 50% opp "},
-			},
-			new String[] {
-				"No", "Code", "Step"
-			}
-		));
+		String[] columnNames = new String[] {"Code", "Step"};
+		
+		
+		tableModel = new DefaultTableModel();
+		tableModel.setColumnIdentifiers(columnNames);
+		
+		tblStep.setModel(tableModel);
+		
+		String[] tempRow = new String[] {"", ""};
+		tableModel.addRow(tempRow);
+		
+		
 		
 		JButton btnDeleteSelectedStep = new JButton("Delete Selected Step");
-		btnDeleteSelectedStep.setBounds(443, 280, 139, 23);
+		btnDeleteSelectedStep.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tableModel.removeRow(tblStep.getSelectedRow());
+			}
+		});
+		btnDeleteSelectedStep.setBounds(503, 324, 150, 23);
 		add(btnDeleteSelectedStep);
-		tblStep.getColumnModel().getColumn(0).setPreferredWidth(15);
-		tblStep.getColumnModel().getColumn(1).setPreferredWidth(35);
-		tblStep.getColumnModel().getColumn(2).setPreferredWidth(320);
+		
+		JButton btnAddStep_1 = new JButton("Add Step");
+		btnAddStep_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String[] tempRow = new String[] {"", ""};
+				tableModel.addRow(tempRow);
+			}
+		});
+		btnAddStep_1.setBounds(404, 324, 89, 23);
+		add(btnAddStep_1);
+		
+		JButton btnUp = new JButton("Up");
+		btnUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				swapRows(-1);
+			}
+		});
+		btnUp.setBounds(877, 115, 59, 35);
+		add(btnUp);
+		
+		JButton btnDown = new JButton("Down");
+		btnDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				swapRows(1);
+				
+			}
+		});
+		btnDown.setBounds(876, 161, 60, 40);
+		add(btnDown);
+		
+		tblStep.getColumnModel().getColumn(0).setPreferredWidth(40);
+		tblStep.getColumnModel().getColumn(1).setPreferredWidth(320);
 	}
 	
 	public void submitListener(ActionListener al)
@@ -155,4 +172,14 @@ public class AddObjective extends PanelView {
 	{
 		
 	}
+	
+	private void swapRows(int i)
+	{
+		int start = tblStep.getSelectedRow();
+		if(start + i >= 0 && start + i < tblStep.getRowCount())
+		{
+			tableModel.moveRow(start, start, start + i);
+		}
+	}
+	
 }

@@ -6,12 +6,22 @@ import javax.swing.JButton;
 
 import systemModel.Child;
 import systemModel.ESDMModel;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.ListModel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
+import javax.swing.text.Position;
+
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Vector;
 
 public class FindChild extends PanelView {
 
@@ -22,6 +32,8 @@ public class FindChild extends PanelView {
 	private JButton btnReset;
 	private JButton btnCancel;
 	private JList<Child> childList;
+	private DefaultListModel childListModel;
+	private ArrayList<Child> children;
 
 	public FindChild() {
 
@@ -61,9 +73,13 @@ public class FindChild extends PanelView {
 		btnCancel.setBounds(210, 316, 89, 23);
 		add(btnCancel);
 		
-		childList = new JList();
+		childListModel = new DefaultListModel();
+		
+		childList = new JList(childListModel);
 		childList.setBounds(27, 118, 238, 172);
 		add(childList);
+		
+
 		
 		JLabel lblSelectChild = new JLabel("Select Child that you wish to view details of");
 		lblSelectChild.setHorizontalAlignment(SwingConstants.CENTER);
@@ -71,20 +87,39 @@ public class FindChild extends PanelView {
 		add(lblSelectChild);
 		
 		JLabel lblSearchChild = new JLabel("Search Child");
-		lblSearchChild.setBounds(27, 35, 77, 14);
+		lblSearchChild.setBounds(27, 31, 77, 30);
 		add(lblSearchChild);
 		
 		txtChildName = new JTextField();
-		txtChildName.setBounds(100, 31, 162, 23);
+		txtChildName.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+
+				searchList(txtChildName.getText());
+				
+			}
+		});
+
+
+		txtChildName.setBounds(100, 31, 162, 30);
 		add(txtChildName);
 		txtChildName.setColumns(10);
 
 	}
 	
-	public void setList(ListModel<Child> list)
+
+	public void setChildren(List<Child> list)
 	{
-		childList.setModel(list);
+		children = (ArrayList<Child>)list;
+		childListModel.clear();
+		txtChildName.setText("");
+		
+		for(int i = 0; i < children.size(); i++)
+		{
+			childListModel.addElement(children.get(i));
+		}
 	}
+	
 	
 	public Child getSelectedChild()
 	{
@@ -101,10 +136,22 @@ public class FindChild extends PanelView {
 		btnCancel.addActionListener(al);
 	}
 	
-	public String getId()
-	{
-		return "ds";
+	private void searchList(String text) {
+		
+		childListModel.clear();
+		
+		for(int i = 0; i < children.size(); i++)
+		{
+			Child temp = children.get(i);
+			
+			if(temp.toString().contains(text))
+			{
+				childListModel.addElement(temp);
+			}
+		}
+		
 	}
+
 	
 	
 }
