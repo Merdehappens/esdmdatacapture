@@ -9,7 +9,6 @@ import javax.swing.JButton;
 import systemModel.ESDMModel;
 
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class AccountView extends PanelView {
 

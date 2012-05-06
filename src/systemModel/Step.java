@@ -52,6 +52,15 @@ public class Step {
         return id;
     }
     
+    public String getCode()
+    {
+    	return code;
+    }
+    
+    public String getNo()
+    {
+    	return no;
+    }
     
     
 }

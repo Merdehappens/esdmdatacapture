@@ -10,18 +10,13 @@ import systemModel.ESDMModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JLabel;
-import javax.swing.ListModel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
-import javax.swing.text.Position;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Vector;
 
 public class FindChild extends PanelView {
 
@@ -32,7 +27,7 @@ public class FindChild extends PanelView {
 	private JButton btnReset;
 	private JButton btnCancel;
 	private JList<Child> childList;
-	private DefaultListModel childListModel;
+	private DefaultListModel<Child> childListModel;
 	private ArrayList<Child> children;
 
 	public FindChild() {
@@ -73,9 +68,9 @@ public class FindChild extends PanelView {
 		btnCancel.setBounds(210, 316, 89, 23);
 		add(btnCancel);
 		
-		childListModel = new DefaultListModel();
+		childListModel = new DefaultListModel<Child>();
 		
-		childList = new JList(childListModel);
+		childList = new JList<Child>(childListModel);
 		childList.setBounds(27, 118, 238, 172);
 		add(childList);
 		

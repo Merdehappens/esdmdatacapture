@@ -19,4 +19,9 @@ public class Room {
 	{
 		return roomName;
 	}
+	
+	public String getId()
+	{
+		return id;
+	}
 }

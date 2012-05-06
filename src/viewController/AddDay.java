@@ -41,10 +41,10 @@ public class AddDay extends PanelView {
 	private JPanel childPanel;
 	private JScrollPane childScrollPane;
 	private JComboBox<Room> cmbRoom;
-	private JList lstCurrentSession;
-	private JList lstSession;
+	private JList<Session> lstCurrentSession;
+	private JList<Session> lstSession;
 	
-	private DefaultListModel listModel;
+	private DefaultListModel<Session> listModel;
 	private JButton button_1;
 	
 	
@@ -133,20 +133,20 @@ public class AddDay extends PanelView {
 		lblCurrentSessionsinOrder.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblCurrentSessionsinOrder);
 		
-		lstSession = new JList(new Vector(this.getModel().getSessionList()));
+		lstSession = new JList<Session>(new Vector<Session>(this.getModel().getSessionList()));
 		lstSession.setBounds(403, 158, 133, 240);
 		add(lstSession);
 		
-		listModel = new DefaultListModel();
+		listModel = new DefaultListModel<Session>();
 		
-		lstCurrentSession = new JList(listModel);
+		lstCurrentSession = new JList<Session>(listModel);
 		lstCurrentSession.setBounds(591, 158, 143, 240);
 		add(lstCurrentSession);
 		
 		JButton button = new JButton(">");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				listModel.addElement(lstSession.getSelectedValue());
+				listModel.addElement((Session)lstSession.getSelectedValue());
 			}
 		});
 		button.setBounds(546, 210, 43, 29);
@@ -156,7 +156,7 @@ public class AddDay extends PanelView {
 		lblRoom.setBounds(403, 430, 46, 14);
 		add(lblRoom);
 		
-		cmbRoom = new JComboBox();
+		cmbRoom = new JComboBox<Room>();
 		
 		Vector<Room> v = new Vector<Room>(this.getModel().getRoomList());
 		ComboBoxModel<Room> cmbModel = new DefaultComboBoxModel<Room>(v);

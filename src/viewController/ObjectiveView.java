@@ -29,15 +29,15 @@ public class ObjectiveView extends PanelView {
 		setLayout(null);
 		
 		btnAddNewObjective = new JButton("Add New Objective");
-		btnAddNewObjective.setBounds(10, 11, 152, 23);
+		btnAddNewObjective.setBounds(10, 11, 152, 30);
 		add(btnAddNewObjective);
 		
 		btnViewObjectives = new JButton("View Objectives");
-		btnViewObjectives.setBounds(10, 42, 152, 23);
+		btnViewObjectives.setBounds(10, 52, 152, 30);
 		add(btnViewObjectives);
 		
 		btnAddObjectiveTo = new JButton("Add Objective to Child");
-		btnAddObjectiveTo.setBounds(10, 76, 152, 23);
+		btnAddObjectiveTo.setBounds(10, 92, 152, 30);
 		add(btnAddObjectiveTo);
 	
 	}

@@ -2,14 +2,12 @@ package viewController;
 
 import java.awt.EventQueue;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.ListModel;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
@@ -20,12 +18,11 @@ import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
-import systemModel.Child;
 import systemModel.ESDMModel;
+import systemModel.UserAccount;
 
 
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 
 //testing
 /**
@@ -56,6 +53,7 @@ public class Controller extends JFrame {
 	private ReportingView reportingView;
 	private AccountView accountView;
 	private ESDMModel model;
+	private ChangePassword changePassword;
 	
 	
 	
@@ -201,6 +199,9 @@ public class Controller extends JFrame {
 		
 		accountView = new AccountView();
 		accountPanel.add(accountView, "Account");
+		
+		changePassword = new ChangePassword();
+		accountPanel.add(changePassword, "changePassword");
 
 		
 		// Show the login screen
@@ -283,6 +284,68 @@ public class Controller extends JFrame {
 		objectiveView.addNewObjective(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				show(objectivePanel, "addObjective");
+			}
+		});
+		
+		addObjective.submitListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				
+				String name = addObjective.getObjectiveName();
+				String description = addObjective.getObjectiveDescription();
+				String[][] steps = addObjective.getSteps();
+				
+				model.addObjective(name, description, steps);
+				
+				show(objectivePanel, "Objective");
+			}
+		});
+		
+		addObjective.cancelListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(objectivePanel, "Objective");
+			}
+		});
+	
+		
+		accountView.changeEmailAddress(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				
+			}
+		});
+		
+		accountView.changePassword(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(accountPanel, "changePassword");
+			}
+		});
+		
+		changePassword.changePassword(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if(changePassword.newPasswordMatch())
+				{
+					UserAccount temp = model.getCurrentUser();
+					
+					if(BCrypt.BCrypt.checkpw(changePassword.getOldPassword(), temp.getPassword()))
+					{
+						model.setPassword(changePassword.getNewPassword());
+						System.out.println("Password Was Changed");
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "Entered Incorrect password");
+					}
+					
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "The two passwords did not match");
+				}
+			}
+		});
+		
+		changePassword.cancel(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(accountPanel, "Account");
 			}
 		});
 
@@ -398,9 +461,13 @@ public class Controller extends JFrame {
          
          int res = JOptionPane.showConfirmDialog(null, array, "Login", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
          
+         if(res == 2)
+         {
+        	 System.exit(1);
+         }
          tries++;
          
-        } while( !model.login(loginname.getText(), password.getPassword()) && tries != 3);
+        } while( !model.login(loginname.getText(), password.getText()) && tries != 3);
          
          if(model.loggedIn())
          {

@@ -3,15 +3,20 @@ package viewController;
 
 import javax.swing.JButton;
 
+import systemModel.Child;
 import systemModel.Day;
 import systemModel.ESDMModel;
+import systemModel.Objective;
+import systemModel.Session;
+import systemModel.Step;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import javax.swing.JList;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.util.Vector;
 
 public class LogSessionData extends PanelView {
 	private JButton btnSubmit;
@@ -22,11 +27,11 @@ public class LogSessionData extends PanelView {
 	private JLabel lblMark;
 	private JButton btnCommitMark;
 	private JButton btnAddTimestamp;
-	private JList lstSetting;
-	private JList lstChild;
-	private JList lstObjective;
-	private JList lstStep;
-	private JList lstMark;
+	private JList<Session> lstSession;
+	private JList<Child> lstChild;
+	private JList<Objective> lstObjective;
+	private JList<Step> lstStep;
+	private JList<Integer> lstMark;
 	private Day day;
 	private JButton btnChildPrevious;
 	private JButton btnChildNext;
@@ -36,6 +41,12 @@ public class LogSessionData extends PanelView {
 	private JButton btnStepNext;
 	private JButton btnMarkPrevious;
 	private JButton btnMarkNext;
+	
+	private DefaultListModel<Session> sessionModel;
+	private DefaultListModel<Child> childModel;
+	private DefaultListModel<Objective> objectiveModel;
+	private DefaultListModel<Step> stepModel;
+	private DefaultListModel<Integer> markModel;
 	
 	/**
 	 * Create the panel.
@@ -98,16 +109,28 @@ public class LogSessionData extends PanelView {
 		add(lblMark);
 
 		
+		sessionModel = new DefaultListModel<Session>();
+		lstSession = new JList<Session>(sessionModel);
+		lstSession.setBounds(10, 94, 154, 174);
+		add(lstSession);
 		
-		lstObjective = new JList();
+		childModel = new DefaultListModel<Child>();
+		lstChild = new JList<Child>(childModel);
+		lstChild.setBounds(174, 94, 126, 174);
+		add(lstChild);
+		
+		objectiveModel = new DefaultListModel<Objective>();
+		lstObjective = new JList<Objective>(objectiveModel);
 		lstObjective.setBounds(310, 94, 146, 174);
 		add(lstObjective);
 		
-		lstStep = new JList();
+		stepModel = new DefaultListModel<Step>();
+		lstStep = new JList<Step>(stepModel);
 		lstStep.setBounds(466, 94, 206, 174);
 		add(lstStep);
 		
-		lstMark = new JList();
+		markModel = new DefaultListModel<Integer>();
+		lstMark = new JList<Integer>(markModel);
 		lstMark.setBounds(682, 94, 85, 174);
 		add(lstMark);
 		
@@ -122,7 +145,7 @@ public class LogSessionData extends PanelView {
 		JButton btnSettingNext = new JButton(">");
 		btnSettingNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				lstSetting.setSelectedIndex(lstSetting.getSelectedIndex() + 1);
+				lstSession.setSelectedIndex(lstSession.getSelectedIndex() + 1);
 			}
 		});
 		btnSettingNext.setBounds(90, 270, 40, 40);
@@ -131,7 +154,7 @@ public class LogSessionData extends PanelView {
 		JButton btnSettingPrevious = new JButton("<");
 		btnSettingPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lstSetting.setSelectedIndex(lstSetting.getSelectedIndex() - 1);
+				lstSession.setSelectedIndex(lstSession.getSelectedIndex() - 1);
 			}
 			
 			
@@ -219,14 +242,16 @@ public class LogSessionData extends PanelView {
 	
 	public void refresh()
 	{
-		lstSetting = new JList(new Vector(day.getSessions()));
-		lstSetting.setBounds(10, 94, 154, 174);
-		add(lstSetting);
-
+		sessionModel.clear();
+		childModel.clear();
+		objectiveModel.clear();
+		stepModel.clear();
+		markModel.clear();
 		
-		lstChild = new JList(new Vector(day.getChildren()));
-		lstChild.setBounds(174, 94, 126, 174);
-		add(lstChild);
+		day.getChildren();
+		day.getSessions();
+		
+		
 	}
 	
 	public void submitListener(ActionListener al)

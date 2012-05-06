@@ -4,16 +4,16 @@
  */
 package systemModel;
 
+import BCrypt.BCrypt;
+
 /**
  *
  * @author DAMIAN
  */
 public class UserAccount implements SimpleKey {
-    private String id;
     private String name;
     private String emailAddress;
     private String password;
-    private String salt;
     private String username;
     private String phoneNo;
 
@@ -26,17 +26,16 @@ public class UserAccount implements SimpleKey {
         this.phoneNo = phoneNo;
     }
     
+  
+    
     public UserAccount()
     {
     }
 
     public String getId() {
-        return id;
+    	return username;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getEmailAddress() {
         return emailAddress;
@@ -59,15 +58,7 @@ public class UserAccount implements SimpleKey {
     }
 
     public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
+    	this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     public String getUsername() {
