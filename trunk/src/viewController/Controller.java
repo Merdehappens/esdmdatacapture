@@ -56,6 +56,22 @@ public class Controller extends JFrame {
 	private ReportingView reportingView;
 	private AccountView accountView;
 	private ESDMModel model;
+	
+	
+	
+	public Controller() throws MalformedURLException {
+		setLookAndFeel();
+		model = new ESDMModel();
+		initComponents();
+		initButtonListeners();
+	}
+	
+	public Controller(ESDMModel model) throws MalformedURLException {
+		setLookAndFeel();
+		this.model = model;
+		initComponents();
+		initButtonListeners();
+	}
 
 
 	/**
@@ -74,11 +90,10 @@ public class Controller extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * @throws MalformedURLException 
-	 */
 
+
+	// Initialises all of the Graphical information in the class
+	
 	public void initComponents()
 	{
 		
@@ -86,7 +101,7 @@ public class Controller extends JFrame {
 
 		setTitle("ESDM Data Capture");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 870, 657);
+		setBounds(100, 100, 979, 683);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -97,11 +112,13 @@ public class Controller extends JFrame {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBorder(null);
 		
-		tabbedPane.setBounds(0, 0, 848, 613);
+		tabbedPane.setBounds(0, 0, 963, 613);
 		contentPane.add(tabbedPane);
 		
 		
-
+		
+		//Add the 6 main panels to the program and then add them to the tabbed pane.
+			
 		homePanel = new JPanel();
 		tabbedPane.addTab("Home", null, homePanel, null);
 		homePanel.setLayout(new CardLayout(0, 0));
@@ -118,16 +135,25 @@ public class Controller extends JFrame {
 		tabbedPane.addTab("Objectives", null, objectivePanel, null);
 		objectivePanel.setLayout(new CardLayout(0, 0));
 		
+		reportingPanel = new JPanel();
+		tabbedPane.addTab("Reporting", null, reportingPanel, null);
+		reportingPanel.setLayout(new CardLayout(0, 0));
+		
 		accountPanel = new JPanel();
 		tabbedPane.addTab("Account Managment", null, accountPanel, null);
 		accountPanel.setLayout(new CardLayout(0, 0));
 		
+
 		
+		
+		
+		//Add all the panels (Cards) to the Session Tab
 
 		homeView = new HomeView();
 		homePanel.add(homeView, "Home");
 
 		
+		//Add all the panels (Cards) to the Session Tab
 		
 		sessionView = new SessionView();
 		sessionPanel.add(sessionView, "Session");
@@ -142,6 +168,7 @@ public class Controller extends JFrame {
 		sessionPanel.add(logSessionData, "logSessionData");
 
 
+		//Add all the panels (Cards) to the Child Tab
 
 		childView = new ChildView();
 		childPanel.add(childView, "Child");
@@ -154,23 +181,30 @@ public class Controller extends JFrame {
 
 		findChild = new FindChild(model);
 		childPanel.add(findChild, "findChild");
+		
+		
+		//Add all the panels (Cards) to the Objectives Tab
 
 		objectiveView = new ObjectiveView();
 		objectivePanel.add(objectiveView, "Objective");
 
 		addObjective = new AddObjective();
 		objectivePanel.add(addObjective, "addObjective");
-
-		reportingPanel = new JPanel();
-		tabbedPane.addTab("Reporting", null, reportingPanel, null);
-		reportingPanel.setLayout(new CardLayout(0, 0));
+		
+		
+		//Add all the panels (Cards) to the Reporting Tab
 
 		reportingView = new ReportingView();
 		reportingPanel.add(reportingView, "Reporting");
 
+		//Add all the panels (Cards) to the Accounts Tab
+		
 		accountView = new AccountView();
 		accountPanel.add(accountView, "Account");
 
+		
+		// Show the login screen
+		
 		showLogin();
 
 
@@ -205,16 +239,7 @@ public class Controller extends JFrame {
 		childView.retrieveChildListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				show(childPanel, "findChild");
-				DefaultListModel<Child> list = new DefaultListModel();
-				
-				ArrayList<Child> childList = new ArrayList<Child>(model.getChildList());
-				
-				for(int i = 0; i < childList.size(); i++)
-				{
-					list.addElement(childList.get(i));
-				}					
-				findChild.setList(list);
-				
+				findChild.setChildren(model.getChildList());
 			}
 		});
 
@@ -233,7 +258,6 @@ public class Controller extends JFrame {
 		findChild.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				findChildSubmit(evt);
-				editChild.setChild(findChild.getSelectedChild());
 			}
 		});
 
@@ -277,22 +301,11 @@ public class Controller extends JFrame {
 		});
 
 	}
-
-	public Controller() throws MalformedURLException {
-		setLookAndFeel();
-		model = new ESDMModel();
-		initComponents();
-		initButtonListeners();
-	}
 	
-	public Controller(ESDMModel model) throws MalformedURLException {
-		setLookAndFeel();
-		this.model = model;
-		initComponents();
-		initButtonListeners();
-	}
 	
-	//Takes in one of the tabbed panes panels and a string of card name and shows that panel
+	// Takes in one of the tabbed panes panels and a string of card name and shows that panel
+	// Only panels that are compatible with this method are panels that are CardLayout.
+	// Such as: 	homePanel, sessionPanel, childPanel, objectivePanel, reportingPanel, accountPanel.
 
 	private void show(JPanel panel, String card)
 	{
@@ -301,22 +314,28 @@ public class Controller extends JFrame {
 	}
 
 
-
+	//Shows main child panel 
+	
 	private void findChildCancel(ActionEvent evt)
 	{
 		show(childPanel, "Child");
 	}
 
+	
+	//Sets the child in the edit child panel and then shows the edit child panel
+	
 	private void findChildSubmit(ActionEvent evt)
 	{
 		editChild.setChild(findChild.getSelectedChild());
 		show(childPanel, "editChild");
 	}
+	
+	//Adds a child to the model then shows the EditChild panel with all those details listed 
 
 	private void addChildSubmit(ActionEvent evt)
 	{
-		addChild.addChild();
-		show(childPanel, "addChild");
+		editChild.setChild(addChild.addChild());
+		show(childPanel, "editChild");
 	}
 
 	private void addObjectiveChild(ActionEvent evt)
@@ -331,7 +350,8 @@ public class Controller extends JFrame {
 	}
 
 
-
+	//Sets the look and feel of the user interface.
+	
 	private void setLookAndFeel()
 	{
 		try {
@@ -347,6 +367,12 @@ public class Controller extends JFrame {
 
 	}
 	
+	
+	/***********************************************************************************
+	 * 
+	 * Sets up the login JOptionpane, then calls the model object to log in.
+	 * 
+	 ***********************************************************************************/
 	
     public void showLogin()
     {
@@ -378,7 +404,7 @@ public class Controller extends JFrame {
          
          if(model.loggedIn())
          {
-           	System.out.println("testLoggedIn");   
+           	
          }
          else
          {

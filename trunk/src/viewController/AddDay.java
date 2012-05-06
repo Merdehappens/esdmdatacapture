@@ -5,6 +5,7 @@ import javax.swing.JButton;
 import systemModel.Child;
 import systemModel.ESDMModel;
 import systemModel.Room;
+import systemModel.Session;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -173,6 +174,24 @@ public class AddDay extends PanelView {
 		button_1.setBounds(546, 246, 43, 29);
 		add(button_1);
 		
+		JButton btnUp = new JButton("up");
+		btnUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				swapButton(-1);
+			}
+		});
+		btnUp.setBounds(744, 210, 60, 29);
+		add(btnUp);
+		
+		JButton btnDown = new JButton("down");
+		btnDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				swapButton(1);
+			}
+		});
+		btnDown.setBounds(744, 249, 60, 26);
+		add(btnDown);
+		
 		refreshView();
 
 	}
@@ -222,4 +241,27 @@ public class AddDay extends PanelView {
 		cmbRoom.setModel(cmbModel);
 	
 	}
+	
+	private void swapButton(int i) 
+	{
+		int index = lstCurrentSession.getSelectedIndex();
+		System.out.println(index);
+		if(index >= 0)
+		{
+			Session temp = (Session)listModel.remove(index);
+		
+			index = index + i;
+		
+			if(index >= 0 && index <= listModel.size())
+			{
+				listModel.add(index, temp);
+			}
+			else
+			{
+				index = index - i;
+				listModel.add(index, temp);
+			}
+		}
+	}
+	
 }

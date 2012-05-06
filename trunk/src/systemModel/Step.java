@@ -11,6 +11,8 @@ package systemModel;
 public class Step {
     
     private String id;
+    private String no;
+    private String code;
     private String description;
     
     public Step()
@@ -21,6 +23,13 @@ public class Step {
     {
         this.id = id;
         this.description = description;
+    }
+    
+    public Step(String no, String code, String description)
+    {
+    	this.no = no;
+    	this.code = code;
+    	this.description = description;
     }
     
     public void setId(String id)

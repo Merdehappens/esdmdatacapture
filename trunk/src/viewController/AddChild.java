@@ -2,6 +2,7 @@ package viewController;
 
 import javax.swing.JButton;
 
+import systemModel.Child;
 import systemModel.ESDMModel;
 import systemModel.Guardian;
 
@@ -110,9 +111,9 @@ public class AddChild extends PanelView {
 		add(btnCancel);
 	}
 	
-	public void addChild()
+	public Child addChild()
 	{
-		super.getModel().addChild(txtName.getText(), dobChooser.getDate(), new Guardian(txtGuardianName.getText(), txtGuardianPhone.getText()));
+		return super.getModel().addChild(txtName.getText(), dobChooser.getDate(), new Guardian(txtGuardianName.getText(), txtGuardianPhone.getText()));
 		
 		//testing
 	}
