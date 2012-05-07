@@ -148,10 +148,14 @@ public class ESDMModel {
         return true;
     }
     
-    public Child addChild(String name, Date dob, Guardian guardian)
+    public Child addChild(String name, Date dob, ArrayList<Guardian> guardians)
     {
         Child child = new Child(name, dob);
-        child.addGuardian(guardian);
+
+        for(int i = 0; i < guardians.size(); i++)
+        {
+        	child.addGuardian(guardians.get(i));
+        }
         
         childList.add(child);
         
@@ -194,6 +198,14 @@ public class ESDMModel {
 
 	public UserAccount getCurrentUser() {
 		return currentUser;
+	}
+
+	public void setEmail(String email) {
+		currentUser.setEmailAddress(email);
+	}
+
+	public void addGuardian(Guardian temp) {
+		guardianList.add(temp);
 	}
 	
 	

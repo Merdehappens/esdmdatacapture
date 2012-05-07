@@ -26,7 +26,11 @@ public class UserAccount implements SimpleKey {
         this.phoneNo = phoneNo;
     }
     
-  
+    public String toString()
+    {
+    	return username;
+    }
+    
     
     public UserAccount()
     {

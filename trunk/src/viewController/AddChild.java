@@ -7,35 +7,45 @@ import systemModel.ESDMModel;
 import systemModel.Guardian;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JScrollPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class AddChild extends PanelView {
 	private JTextField txtName;
-	private JTextField txtGuardianName;
-	private JTextField txtGuardianPhone;
 	private JButton btnSubmit;
 	private JButton btnReset;
 	private JButton btnCancel;
 	private JDateChooser dateJoinedChooser;
 	private JDateChooser dobChooser;
+	private ArrayList<Guardian> guardians;
+	private JTable tblGuardian;
+	private DefaultTableModel tblGuardianModel;
 
 	/**
 	 * Create the panel.
 	 */
 	public AddChild() {
 		initialise();
+		guardians = new ArrayList<Guardian>();
 	}
 	
 	public AddChild(ESDMModel model)
 	{
 		super(model);
+		guardians = new ArrayList<Guardian>();
 		initialise();
+		
 	}
 	
 	private void initialise()
@@ -61,28 +71,10 @@ public class AddChild extends PanelView {
 		lblDateJoined.setBounds(10, 120, 73, 30);
 		add(lblDateJoined);
 		
-		JLabel lblGuardianName = new JLabel("Guardian Name");
-		lblGuardianName.setBounds(10, 161, 120, 30);
-		add(lblGuardianName);
-		
-		JLabel lblGuardianPhoneNumber = new JLabel("Guardian Phone Number:");
-		lblGuardianPhoneNumber.setBounds(10, 202, 120, 30);
-		add(lblGuardianPhoneNumber);
-		
 		txtName = new JTextField();
 		txtName.setBounds(66, 40, 271, 30);
 		add(txtName);
 		txtName.setColumns(10);
-		
-		txtGuardianName = new JTextField();
-		txtGuardianName.setBounds(103, 161, 234, 30);
-		add(txtGuardianName);
-		txtGuardianName.setColumns(10);
-		
-		txtGuardianPhone = new JTextField();
-		txtGuardianPhone.setBounds(140, 202, 197, 30);
-		add(txtGuardianPhone);
-		txtGuardianPhone.setColumns(10);
 		
 		
 		dobChooser = new JDateChooser();
@@ -94,7 +86,7 @@ public class AddChild extends PanelView {
 		add(dateJoinedChooser);
 		
 		btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(10, 263, 89, 23);
+		btnSubmit.setBounds(10, 343, 89, 23);
 		add(btnSubmit);
 		
 		btnReset = new JButton("Reset");
@@ -103,19 +95,89 @@ public class AddChild extends PanelView {
 				resetTextField();
 			}
 		});
-		btnReset.setBounds(109, 263, 105, 21);
+		btnReset.setBounds(109, 344, 105, 21);
 		add(btnReset);
 		
 		btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(224, 263, 94, 21);
+		btnCancel.setBounds(224, 344, 94, 21);
 		add(btnCancel);
+		
+		JButton btnAddGuardianAlready = new JButton("Add Guardian already in system");
+		btnAddGuardianAlready.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addExistingGuardian();
+			}
+		});
+		btnAddGuardianAlready.setBounds(10, 161, 327, 23);
+		add(btnAddGuardianAlready);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 237, 342, 95);
+		add(scrollPane);
+		
+		
+		
+		
+		
+		tblGuardian = new JTable();
+		scrollPane.setViewportView(tblGuardian);
+		String[] columnNames = new String[] {"Guardian", "Name", "Phone Number"};
+		
+		tblGuardianModel = new DefaultTableModel();
+
+		tblGuardianModel.setColumnIdentifiers(columnNames);
+		
+		tblGuardian.setModel(tblGuardianModel);
+		
+		JLabel lblChildsGuardians = new JLabel("Childs Guardians");
+		lblChildsGuardians.setHorizontalAlignment(SwingConstants.CENTER);
+		lblChildsGuardians.setBounds(10, 212, 342, 14);
+		add(lblChildsGuardians);
+		
+		Object[] tempRow = new Object[3];
+
+		Guardian guardian = new Guardian();
+		
+		tempRow[0] = guardian;
+		tempRow[1] = "String 1";
+		tempRow[2] = "String 2";
+		
+		
+		tblGuardianModel.addRow(tempRow);
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 	
+	private void addExistingGuardian() {
+
+
+		
+	}
+	
+	private void refreshView()
+	{
+		tblGuardianModel = new DefaultTableModel();
+		
+		String[][] temp = new String[guardians.size()][2];
+		
+		for(int i = 0; i < guardians.size(); i++)
+		{
+			temp[i][0] = guardians.get(i).getName();
+			temp[i][1] = guardians.get(i).getPhoneNo();
+			tblGuardianModel.addRow(temp[i]);
+		}
+		
+	}
+
 	public Child addChild()
 	{
-		return super.getModel().addChild(txtName.getText(), dobChooser.getDate(), new Guardian(txtGuardianName.getText(), txtGuardianPhone.getText()));
-		
-		//testing
+		return super.getModel().addChild(txtName.getText(), dobChooser.getDate(), guardians);
 	}
 	
 	
@@ -133,11 +195,9 @@ public class AddChild extends PanelView {
 	private void resetTextField()
 	{
 		txtName.setText("");
-		txtGuardianName.setText("");
-		txtGuardianPhone.setText("");
 		Date tempDate = null;
+		guardians = new ArrayList<Guardian>();
 		dateJoinedChooser.setDate(tempDate);
 		dobChooser.setDate(tempDate);
 	}
-	
 }
