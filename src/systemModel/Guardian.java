@@ -26,4 +26,11 @@ public class Guardian extends UserAccount {
         super.setPhoneNo(phone);
         children = new HashSet<Child>();
     }
+    
+    public void addChild(Child child)
+    {
+    	children.add(child);
+    }
+    
+    
 }

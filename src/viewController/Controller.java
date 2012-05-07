@@ -31,6 +31,8 @@ import java.net.MalformedURLException;
  */
 public class Controller extends JFrame {
 
+	private ESDMModel model;
+	
 	private JPanel contentPane;
 	private JPanel homePanel;
 	private JPanel sessionPanel;
@@ -52,8 +54,8 @@ public class Controller extends JFrame {
 	private AddChild addChild;
 	private ReportingView reportingView;
 	private AccountView accountView;
-	private ESDMModel model;
 	private ChangePassword changePassword;
+	private ChangeEmail changeEmail;
 	
 	
 	
@@ -200,6 +202,9 @@ public class Controller extends JFrame {
 		accountView = new AccountView();
 		accountPanel.add(accountView, "Account");
 		
+		changeEmail = new ChangeEmail();
+		accountPanel.add(changeEmail, "changeEmail");
+		
 		changePassword = new ChangePassword();
 		accountPanel.add(changePassword, "changePassword");
 
@@ -321,25 +326,7 @@ public class Controller extends JFrame {
 		
 		changePassword.changePassword(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				if(changePassword.newPasswordMatch())
-				{
-					UserAccount temp = model.getCurrentUser();
-					
-					if(BCrypt.BCrypt.checkpw(changePassword.getOldPassword(), temp.getPassword()))
-					{
-						model.setPassword(changePassword.getNewPassword());
-						System.out.println("Password Was Changed");
-					}
-					else
-					{
-						JOptionPane.showMessageDialog(null, "Entered Incorrect password");
-					}
-					
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(null, "The two passwords did not match");
-				}
+				changePassword();
 			}
 		});
 		
@@ -348,6 +335,14 @@ public class Controller extends JFrame {
 				show(accountPanel, "Account");
 			}
 		});
+		
+		changeEmail.changeEmail(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				model.setEmail(changeEmail.getEmail());
+			}
+		});
+		
+		
 
 		
 		
@@ -366,6 +361,28 @@ public class Controller extends JFrame {
 	}
 	
 	
+	protected void changePassword() {
+		if(changePassword.newPasswordMatch())
+		{
+			UserAccount temp = model.getCurrentUser();
+			
+			if(BCrypt.BCrypt.checkpw(changePassword.getOldPassword(), temp.getPassword()))
+			{
+				model.setPassword(changePassword.getNewPassword());
+				System.out.println("Password Was Changed");
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "Entered Incorrect password");
+			}
+			
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null, "The two passwords did not match");
+		}
+	}
+
 	// Takes in one of the tabbed panes panels and a string of card name and shows that panel
 	// Only panels that are compatible with this method are panels that are CardLayout.
 	// Such as: 	homePanel, sessionPanel, childPanel, objectivePanel, reportingPanel, accountPanel.
