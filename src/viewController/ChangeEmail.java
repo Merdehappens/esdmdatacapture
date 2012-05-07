@@ -1,0 +1,76 @@
+package viewController;
+
+
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import javax.swing.JButton;
+
+import systemModel.ESDMModel;
+
+import java.awt.event.ActionListener;
+import javax.swing.JPasswordField;
+
+public class ChangeEmail extends PanelView {
+	private JPasswordField txtNewEmailAddress;
+	private JButton btnChangeEmail;
+	private JButton btnCancel;
+
+
+	public ChangeEmail() {
+		initialise();
+
+	}
+
+	public ChangeEmail(ESDMModel model)
+	{
+		super(model);
+		initialise();
+	}
+
+
+	public void initialise()
+	{
+		setLayout(null);
+
+		JLabel lblTitle = new JLabel("Change Email Address");
+		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setBounds(10, 25, 504, 34);
+		add(lblTitle);
+		
+		JLabel lblOldPassword = new JLabel("New Email Address:");
+		lblOldPassword.setBounds(10, 77, 114, 30);
+		add(lblOldPassword);
+		
+		txtNewEmailAddress = new JPasswordField();
+		txtNewEmailAddress.setBounds(134, 77, 209, 30);
+		add(txtNewEmailAddress);
+		
+		btnChangeEmail = new JButton("Change Email");
+		btnChangeEmail.setBounds(10, 230, 139, 30);
+		add(btnChangeEmail);
+		
+		btnCancel = new JButton("Cancel");
+		btnCancel.setBounds(160, 230, 139, 30);
+		add(btnCancel);
+
+	}
+	
+	public void changeEmail(ActionListener al)
+	{
+		btnChangeEmail.addActionListener(al);
+	}
+	
+	public void cancel(ActionListener al)
+	{
+		btnCancel.addActionListener(al);
+	}
+
+	public String getEmail() {
+		return txtNewEmailAddress.getText();
+	}
+	
+
+	
+}
