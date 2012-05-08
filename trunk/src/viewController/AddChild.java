@@ -204,7 +204,7 @@ public class AddChild extends PanelView {
 			guardians.add(guardian);
 		}
 		
-		return super.getModel().addChild(txtName.getText(), dobChooser.getDate(), guardians);
+		return super.getModel().addChild(txtName.getText(), dobChooser.getDate(), dateJoinedChooser.getDate(), guardians);
 	}
 	
 	

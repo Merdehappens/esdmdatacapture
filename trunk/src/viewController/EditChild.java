@@ -78,13 +78,18 @@ public class EditChild extends PanelView {
 		dateJoinedChooser.setEnabled(false);
 		
 		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				saveChild();
+			}
+		});
 		btnSave.setBounds(10, 189, 89, 23);
 		add(btnSave);
 		
 		JButton btnReset = new JButton("Reset");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				refreshView();
+				resetTextFields();
 			}
 		});
 		btnReset.setBounds(109, 189, 105, 21);
@@ -105,24 +110,42 @@ public class EditChild extends PanelView {
 		tglbtnToggleEditable = new JToggleButton("Toggle Editable");
 		tglbtnToggleEditable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(tglbtnToggleEditable.isSelected())
-				{
-					txtName.setEnabled(true);
-					dobChooser.setEnabled(true);
-					dateJoinedChooser.setEnabled(true);
-				}
-				else
-				{
-					txtName.setEnabled(false);
-					dobChooser.setEnabled(false);
-					dateJoinedChooser.setEnabled(false);
-				}
+				enableTextFields();
 			}
 		});
 		tglbtnToggleEditable.setBounds(281, 63, 121, 33);
 		add(tglbtnToggleEditable);
 	}
 	
+	private void resetTextFields() {
+		txtName.setText(child.getName());
+		dobChooser.setDate(child.getDob());
+		dateJoinedChooser.setDate(child.getDateJoined());
+		
+	}
+
+	private void enableTextFields() {
+		
+		if(tglbtnToggleEditable.isSelected())
+		{
+			txtName.setEnabled(true);
+			dobChooser.setEnabled(true);
+			dateJoinedChooser.setEnabled(true);
+		}
+		else
+		{
+			txtName.setEnabled(false);
+			dobChooser.setEnabled(false);
+			dateJoinedChooser.setEnabled(false);
+		}
+	}
+
+	private void saveChild() {
+		child.setName(txtName.getText());
+		child.setDob(dobChooser.getDate());
+		child.setDateJoined(dateJoinedChooser.getDate());
+	}
+
 	public void setId(String childId)
 	{
 		this.childId = childId;
@@ -140,6 +163,8 @@ public class EditChild extends PanelView {
 	
 	public void refreshView()
 	{
+		tglbtnToggleEditable.setSelected(false);
+		enableTextFields();
 		dobChooser.setDate(child.getDob());
 		dateJoinedChooser.setDate(child.getDateJoined());
 		txtId.setText(child.getId());
