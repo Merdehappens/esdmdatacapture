@@ -9,6 +9,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
+
+
 import BCrypt.BCrypt;
 
 /**
@@ -24,7 +26,7 @@ public class ESDMModel {
     private List<Therapist> therapistList;
     private Set<Objective> objectiveList;
     private Set<Mark> markList;
-    private Set<Day> dayList;
+    private List<Day> dayList;
     private List<Room> roomList;
     private UserAccount currentUser;
     
@@ -38,6 +40,7 @@ public class ESDMModel {
         guardianList = new ArrayList<Guardian>();
         markList = new HashSet<Mark>();
         roomList = new ArrayList<Room>();
+        dayList = new ArrayList<Day>();
         currentUser = null;
         loadFromDatabase();
         
@@ -100,6 +103,19 @@ public class ESDMModel {
         user.setPassword("temp");
         therapistList.add(user);
         
+        Guardian guardian = new Guardian();
+        guardian.setName("Name1");
+        guardian.setEmailAddress("EmailAddress1");
+        guardian.setPhoneNo("Phone No 1");
+        
+        guardianList.add(guardian);
+        
+        guardian = new Guardian();
+        guardian.setName("Name2");
+        guardian.setEmailAddress("EmailAddress2");
+        guardian.setPhoneNo("Phone No 2");
+        
+        guardianList.add(guardian);
     }
     
 
@@ -206,6 +222,14 @@ public class ESDMModel {
 
 	public void addGuardian(Guardian temp) {
 		guardianList.add(temp);
+	}
+
+	public List<Guardian> getGuardianList() {
+		return guardianList;
+	}
+
+	public List<Day> getDayList() {
+		return dayList;
 	}
 	
 	

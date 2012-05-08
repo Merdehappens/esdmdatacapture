@@ -414,8 +414,10 @@ public class Controller extends JFrame {
 
 	private void addChildSubmit(ActionEvent evt)
 	{
+		
 		editChild.setChild(addChild.addChild());
 		show(childPanel, "editChild");
+		addChild.resetTextField();
 	}
 
 	private void addObjectiveChild(ActionEvent evt)
