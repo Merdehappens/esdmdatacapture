@@ -51,6 +51,11 @@ public class Day implements SimpleKey {
         return id;
     }
     
+    public Room getRoom()
+    {
+    	return room;
+    }
+    
     public Collection<Session> getSessions()
     {
     	return sessions;
@@ -67,6 +72,11 @@ public class Day implements SimpleKey {
 	
 	public void setTemplate(boolean template) {
 		this.template = template;
+	}
+	
+	public String toString()
+	{
+		return id;
 	}
     
 }

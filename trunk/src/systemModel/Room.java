@@ -24,4 +24,9 @@ public class Room {
 	{
 		return id;
 	}
+	
+	public String getRoomName()
+	{
+		return roomName;
+	}
 }

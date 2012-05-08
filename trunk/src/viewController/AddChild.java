@@ -6,6 +6,7 @@ import systemModel.Child;
 import systemModel.ESDMModel;
 import systemModel.Guardian;
 
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -14,10 +15,10 @@ import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JScrollPane;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,25 +32,27 @@ public class AddChild extends PanelView {
 	private ArrayList<Guardian> guardians;
 	private JTable tblGuardian;
 	private DefaultTableModel tblGuardianModel;
-
+	private File picture;
+	
 	/**
 	 * Create the panel.
 	 */
 	public AddChild() {
 		initialise();
-		guardians = new ArrayList<Guardian>();
+		
 	}
 	
 	public AddChild(ESDMModel model)
 	{
 		super(model);
-		guardians = new ArrayList<Guardian>();
 		initialise();
 		
 	}
 	
 	private void initialise()
 	{
+		picture = null;
+		guardians = new ArrayList<Guardian>();
 		
 		setLayout(null);
 		
@@ -102,15 +105,6 @@ public class AddChild extends PanelView {
 		btnCancel.setBounds(224, 344, 94, 21);
 		add(btnCancel);
 		
-		JButton btnAddGuardianAlready = new JButton("Add Guardian already in system");
-		btnAddGuardianAlready.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				addExistingGuardian();
-			}
-		});
-		btnAddGuardianAlready.setBounds(10, 161, 327, 23);
-		add(btnAddGuardianAlready);
-		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 237, 342, 95);
 		add(scrollPane);
@@ -119,7 +113,13 @@ public class AddChild extends PanelView {
 		
 		
 		
-		tblGuardian = new JTable();
+		tblGuardian = new JTable(){ public boolean isCellEditable(int rowIndex, int colIndex) 
+			{ if(colIndex == 0)
+				{
+					return false;
+				}
+				return true; } };
+		
 		scrollPane.setViewportView(tblGuardian);
 		String[] columnNames = new String[] {"Guardian", "Name", "Phone Number"};
 		
@@ -134,49 +134,76 @@ public class AddChild extends PanelView {
 		lblChildsGuardians.setBounds(10, 212, 342, 14);
 		add(lblChildsGuardians);
 		
-		Object[] tempRow = new Object[3];
+		JButton btnAddGuardian = new JButton("Add Guardian");
+		btnAddGuardian.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Object[] tempRow = new Object[3];
+				tempRow[0] = null;
+				tempRow[1] = "";
+				tempRow[2] = "";
+				
+				tblGuardianModel.addRow(tempRow);
+			}
+		});
+		btnAddGuardian.setBounds(364, 249, 120, 23);
+		add(btnAddGuardian);
+		
+		JButton btnDeleteGuardian = new JButton("Remove Guardian");
+		btnDeleteGuardian.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tblGuardianModel.removeRow(tblGuardian.getSelectedRow());
+			}
+		});
+		btnDeleteGuardian.setBounds(364, 281, 120, 23);
+		add(btnDeleteGuardian);
 
-		Guardian guardian = new Guardian();
-		
-		tempRow[0] = guardian;
-		tempRow[1] = "String 1";
-		tempRow[2] = "String 2";
-		
-		
-		tblGuardianModel.addRow(tempRow);
-		
-		
-		
-		
-		
+		JButton btnSelectPictureTo = new JButton("Select Picture to Add");
+		btnSelectPictureTo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+
+				
+				JLabel typeLabel = new JLabel("Choose a picture to upload (.JPG, .JPEG, .PNG or .GIF");
+				JFileChooser fileChooser = new JFileChooser();
+
+
+				Object[] array = { typeLabel,
+						fileChooser };
+
+				int res = JOptionPane.showConfirmDialog(null, array, "Select File to Add", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				
+				if(res == 1)
+				{
+					picture = fileChooser.getSelectedFile();
+				}
+
+			}
+		});
+		btnSelectPictureTo.setBounds(364, 43, 144, 27);
+		add(btnSelectPictureTo);
 		
 		
 		
 	}
 	
-	private void addExistingGuardian() {
-
-
-		
-	}
-	
-	private void refreshView()
-	{
-		tblGuardianModel = new DefaultTableModel();
-		
-		String[][] temp = new String[guardians.size()][2];
-		
-		for(int i = 0; i < guardians.size(); i++)
-		{
-			temp[i][0] = guardians.get(i).getName();
-			temp[i][1] = guardians.get(i).getPhoneNo();
-			tblGuardianModel.addRow(temp[i]);
-		}
-		
-	}
 
 	public Child addChild()
 	{
+		guardians = new ArrayList<Guardian>();
+		
+		for(int i = 0; i < tblGuardian.getRowCount(); i++)
+		{
+			Guardian guardian = (Guardian)tblGuardianModel.getValueAt(i, 0);
+			if(guardian == null)
+			{
+				guardian = new Guardian();
+				guardian.setName((String)tblGuardianModel.getValueAt(i, 1));
+				guardian.setPhoneNo((String)tblGuardianModel.getValueAt(i, 2));
+			}
+			guardians.add(guardian);
+		}
+		
 		return super.getModel().addChild(txtName.getText(), dobChooser.getDate(), guardians);
 	}
 	
@@ -192,12 +219,13 @@ public class AddChild extends PanelView {
 		btnCancel.addActionListener(al);	
 	}
 	
-	private void resetTextField()
+	public void resetTextField()
 	{
 		txtName.setText("");
 		Date tempDate = null;
 		guardians = new ArrayList<Guardian>();
 		dateJoinedChooser.setDate(tempDate);
 		dobChooser.setDate(tempDate);
+		tblGuardianModel.setRowCount(0);
 	}
 }
