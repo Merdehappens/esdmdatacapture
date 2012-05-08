@@ -164,9 +164,9 @@ public class ESDMModel {
         return true;
     }
     
-    public Child addChild(String name, Date dob, ArrayList<Guardian> guardians)
+    public Child addChild(String name, Date dob, Date dateJoined, ArrayList<Guardian> guardians)
     {
-        Child child = new Child(name, dob);
+        Child child = new Child(name, dob, dateJoined);
 
         for(int i = 0; i < guardians.size(); i++)
         {

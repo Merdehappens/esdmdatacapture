@@ -30,12 +30,13 @@ public class Child implements SimpleKey {
         objectives = new HashSet<Objective>();
     }
     
-    public Child(String name, Date dob)
+    public Child(String name, Date dob, Date dateJoined)
     {
         guardians = new HashSet<Guardian>();
         objectives = new HashSet<Objective>();
         this.name = name;
         this.dob = dob;
+        this.dateJoined = dateJoined;
     }
 
     public Date getDateJoined() {
