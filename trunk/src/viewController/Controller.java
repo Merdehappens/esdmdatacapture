@@ -62,6 +62,7 @@ public class Controller extends JFrame {
 	private ChangePassword changePassword;
 	private ChangeEmail changeEmail;
 	private AddObjectiveChild addObjectiveChild;
+	private ReviewSession reviewSession;
 	
 	
 	
@@ -169,6 +170,9 @@ public class Controller extends JFrame {
 
 		viewDay = new ViewDay(model);
 		sessionPanel.add(viewDay, "viewDay");
+		
+		reviewSession = new ReviewSession();
+		sessionPanel.add(reviewSession, "reviewSession");
 
 		logSessionData = new LogSessionData(model);
 		sessionPanel.add(logSessionData, "logSessionData");
@@ -253,6 +257,27 @@ public class Controller extends JFrame {
 		});
 		
 		logSessionData.commitMarkListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				logSessionData.addMark();
+			}
+		});
+		
+		logSessionData.submitListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				reviewSession.setDay(logSessionData.getDay());
+				show(sessionPanel, "reviewSession");
+			}
+		});
+		
+		
+		viewDay.submitListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				reviewSession.setDay(viewDay.getDay());
+				show(sessionPanel, "reviewSession");
+			}
+		});
+		
+		viewDay.cancelListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				logSessionData.addMark();
 				show(sessionPanel, "Session");

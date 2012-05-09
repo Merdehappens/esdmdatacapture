@@ -128,7 +128,7 @@ public class ViewDay extends PanelView {
 		
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(202, 160, 478, 244);
+		scrollPane.setBounds(88, 160, 592, 244);
 		add(scrollPane);
 		
 		
@@ -142,9 +142,17 @@ public class ViewDay extends PanelView {
 		
 		tblSession.setModel(tableModel);
 		
-		String[] tempRow = new String[] {"", "", ""};
-		tableModel.addRow(tempRow);
-		
+	}
+	
+	public void submitListener(ActionListener al)
+	{
+		btnSubmit.addActionListener(al);
+	}
+
+	
+	public void cancelListener(ActionListener al)
+	{
+		btnCancel.addActionListener(al);	
 	}
 
 	private void refreshForm() {
@@ -165,10 +173,10 @@ public class ViewDay extends PanelView {
 		
 		for(int i = 0; i < dayList.size(); i++)
 		{
-			String[] row = new String[3];
+			Object[] row = new Object[3];
 			Day temp = dayList.get(i);
 			
-			row[0] = temp.getId();
+			row[0] = temp;
 			row[1] = temp.getRoom().getRoomName();
 			row[2] = temp.getDate().toString();
 			
@@ -177,5 +185,9 @@ public class ViewDay extends PanelView {
 		
 		tblSession.setModel(tableModel);
 		
+	}
+
+	public Day getDay() {
+		return (Day)tableModel.getValueAt(tblSession.getSelectedRow(), 0);
 	}
 }

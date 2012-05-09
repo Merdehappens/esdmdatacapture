@@ -36,12 +36,13 @@ public class Mark implements SimpleKey {
 
 
 	public Mark(Session session, Child child, Objective objective,
-			Step step, int mark, Therapist currentUser) {
+			Step step, int mark, Therapist therapist, Day day) {
 		this.session = session;
 		this.child = child;
 		this.objective = objective;
 		this.step = step;
 		this.mark = mark;
+		this.day = day;
 		this.therapist = therapist;
 		time = Calendar.getInstance();
 	}

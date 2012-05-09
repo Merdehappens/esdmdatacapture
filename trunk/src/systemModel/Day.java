@@ -84,8 +84,7 @@ public class Day implements SimpleKey {
 	
 	public String toString()
 	{
-		return id + " Room: " + room.getRoomName() + " Session size: " 
-				+ sessions.size() + " ChildList SIze: " + children.size();
+		return id;
 	}
 	
 	public Date getDate()
