@@ -18,11 +18,16 @@ import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
+import systemModel.Child;
 import systemModel.ESDMModel;
+import systemModel.Room;
+import systemModel.Session;
 import systemModel.UserAccount;
 
 
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Date;
 
 //testing
 /**
@@ -161,7 +166,7 @@ public class Controller extends JFrame {
 		addDay = new AddDay(model);
 		sessionPanel.add(addDay, "addDay");
 
-		viewSession = new ViewSession();
+		viewSession = new ViewSession(model);
 		sessionPanel.add(viewSession, "viewSession");
 
 		logSessionData = new LogSessionData();
@@ -294,14 +299,7 @@ public class Controller extends JFrame {
 		
 		addObjective.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				
-				String name = addObjective.getObjectiveName();
-				String description = addObjective.getObjectiveDescription();
-				String[][] steps = addObjective.getSteps();
-				
-				model.addObjective(name, description, steps);
-				
-				show(objectivePanel, "Objective");
+				addObjective();
 			}
 		});
 		
@@ -343,6 +341,26 @@ public class Controller extends JFrame {
 		});
 		
 		
+		addDay.submitListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				
+				
+				ArrayList<Child> children = addDay.getChildren();
+				Room room = addDay.getRoom();
+				ArrayList<Session> sessions = addDay.getSessions();
+				Date date = addDay.getDate();
+				
+				model.addDay(date, children, room, sessions);
+			}
+		});
+		
+		addDay.cancelListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(sessionPanel, "Session");
+			}
+		});
+		
+		
 
 		
 		
@@ -361,6 +379,17 @@ public class Controller extends JFrame {
 	}
 	
 	
+	private void addObjective() {
+
+		String name = addObjective.getObjectiveName();
+		String description = addObjective.getObjectiveDescription();
+		String[][] steps = addObjective.getSteps();
+		
+		model.addObjective(name, description, steps);
+		
+		show(objectivePanel, "Objective");
+	}
+
 	protected void changePassword() {
 		if(changePassword.newPasswordMatch())
 		{

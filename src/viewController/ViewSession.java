@@ -14,25 +14,26 @@ import java.util.Calendar;
 import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
 
 public class ViewSession extends PanelView {
 
 	private JButton btnSubmit;
 	private JButton btnReset;
 	private JButton btnCancel;
-	private JTable tblDay;
 	private DefaultTableModel tblDayModel; 
 	private JDateChooser dateChooserFrom;
 	private JDateChooser dateChooserTo;
 	private JCheckBox chkbxActiveSessions;
 	private JCheckBox chkbxCompletedSessions;
+	private JScrollPane scrollPane;
+	private JTable tblSession;
+	private DefaultTableModel tableModel;
 	
 	/**
 	 * Create the panel.
 	 */
 	public ViewSession() {
-		setLayout(null);
-		
 
 		initialise();
 	
@@ -46,7 +47,7 @@ public class ViewSession extends PanelView {
 	
 	private void initialise()
 	{
-		
+		setLayout(null);
 		
 		
 		JLabel lblTitle = new JLabel("View Session");
@@ -97,7 +98,7 @@ public class ViewSession extends PanelView {
 				
 			}
 		});
-		btnTodaysDate.setBounds(505, 54, 112, 51);
+		btnTodaysDate.setBounds(504, 43, 112, 51);
 		add(btnTodaysDate);
 		
 		JLabel lblToDate = new JLabel("To Date:");
@@ -113,11 +114,38 @@ public class ViewSession extends PanelView {
 		add(dateChooserTo);
 		
 		
-		tblDayModel = new DefaultTableModel();
 		
-		tblDay = new JTable(tblDayModel);
-		tblDay.setBounds(10, 148, 646, 273);
-		add(tblDay);
+		
+		JButton btnSearch = new JButton("Search");
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				refreshTable();
+			}
+		});
+		btnSearch.setBounds(498, 105, 118, 21);
+		add(btnSearch);
+		
+		
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(202, 160, 478, 244);
+		add(scrollPane);
+		
+		
+		tblSession = new JTable();
+		scrollPane.setViewportView(tblSession);
+		String[] columnNames = new String[] {"ID", "Room Name", "Date"};
+		
+		
+		tableModel = new DefaultTableModel();
+		tableModel.setColumnIdentifiers(columnNames);
+		
+		tblSession.setModel(tableModel);
+		
+		String[] tempRow = new String[] {"", "", ""};
+		tableModel.addRow(tempRow);
+		
+		
 	}
 
 	private void refreshForm() {
@@ -125,24 +153,31 @@ public class ViewSession extends PanelView {
 		dateChooserTo.setDate(null);
 		chkbxActiveSessions.setSelected(false);
 		chkbxCompletedSessions.setSelected(false);
-		
 	}
 	
 	private void refreshTable()
 	{
 		ArrayList<Day> dayList = (ArrayList<Day>)this.getModel().getDayList();
-		
-		for(int i = 0; i <dayList.size(); i++)
+
+		while(tblSession.getRowCount() > 0)
 		{
-			Object[] row = new Object[3];
+			tableModel.removeRow(0);
+		}
+		
+		for(int i = 0; i < dayList.size(); i++)
+		{
+			System.out.println("TeSTESTEST");
+			String[] row = new String[3];
 			Day temp = dayList.get(i);
 			
-			
-			row[0] = temp;
+			row[0] = temp.getId();
 			row[1] = temp.getRoom().getRoomName();
+			row[2] = temp.getDate().toString();
 			
-			
+			tableModel.addRow(row);
 		}
+		
+		tblSession.setModel(tableModel);
 		
 	}
 }

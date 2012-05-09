@@ -18,6 +18,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.ComboBoxModel;
@@ -43,6 +44,9 @@ public class AddDay extends PanelView {
 	private JComboBox<Room> cmbRoom;
 	private JList<Session> lstCurrentSession;
 	private JList<Session> lstSession;
+	private Object[][] tglbtn;
+	private JDateChooser dateChooser;
+	private ComboBoxModel<Room> cmbModel;
 	
 	private DefaultListModel<Session> listModel;
 	private JButton button_1;
@@ -85,7 +89,7 @@ public class AddDay extends PanelView {
 		lblDate.setBounds(10, 43, 73, 14);
 		add(lblDate);
 		
-		JDateChooser dateChooser = new JDateChooser();
+		dateChooser = new JDateChooser();
 		dateChooser.setBounds(48, 43, 184, 29);
 		add(dateChooser);
 		
@@ -159,7 +163,7 @@ public class AddDay extends PanelView {
 		cmbRoom = new JComboBox<Room>();
 		
 		Vector<Room> v = new Vector<Room>(this.getModel().getRoomList());
-		ComboBoxModel<Room> cmbModel = new DefaultComboBoxModel<Room>(v);
+		cmbModel = new DefaultComboBoxModel<Room>(v);
 		
 		cmbRoom.setModel(cmbModel);
 		cmbRoom.setBounds(451, 427, 138, 21);
@@ -201,11 +205,10 @@ public class AddDay extends PanelView {
 	{
 		childPanel.removeAll();
 		
-		ArrayList<Child> temp = new ArrayList<Child>(this.getModel().getChildList());
+		ArrayList<Child> temp = (ArrayList<Child>)this.getModel().getChildList();
 		
 		
-		
-		Object[] tglbtn = new JToggleButton[temp.size()];
+		tglbtn = new Object[temp.size()][2];
 		
 		JToggleButton tempButton;
 		
@@ -214,20 +217,20 @@ public class AddDay extends PanelView {
 		
 		for(int i = 0; i < temp.size(); i++)
 		{
-			
 			if(i % 3 == 0)
 			{
 				x = x + 100;
 				s = s + 300;
 			}
 			
-			tempButton = (JToggleButton)tglbtn[i];
 			
 			Child child = temp.get(i);
 			
+			tglbtn[i][1] = child;
+			
 			tempButton = new JToggleButton(child.getName());
 			tempButton.setBounds(10 + (100 * i) - s, x, 100, 100);
-			
+			tglbtn[i][0] = tempButton;
 			childPanel.add(tempButton);
 			
 		}
@@ -262,6 +265,54 @@ public class AddDay extends PanelView {
 				listModel.add(index, temp);
 			}
 		}
+	}
+	
+	public void submitListener(ActionListener al)
+	{
+		btnSubmit.addActionListener(al);	
+	}
+	
+	public void cancelListener(ActionListener al)
+	{
+		btnCancel.addActionListener(al);
+	}
+	
+	public ArrayList<Child> getChildren()
+	{
+		ArrayList<Child> childList = new ArrayList<Child>();
+		System.out.println(tglbtn.length);
+		for(int i = 0; i < tglbtn.length; i++)
+		{
+			JToggleButton toggleButton = (JToggleButton)tglbtn[i][0];
+			System.out.println(i);
+			if(toggleButton.isSelected())
+			{
+				childList.add((Child)tglbtn[i][1]);
+			}
+		}
+		
+		return childList;
+	}
+
+	public Room getRoom() {
+		
+		return (Room)cmbModel.getSelectedItem();
+	}
+
+	public ArrayList<Session> getSessions() {
+		ArrayList<Session> session = new ArrayList<Session>();
+		
+		
+		for(int i = 0; i < listModel.size(); i++)
+		{
+			session.add(listModel.get(i));
+		}
+		
+		return session;
+	}
+
+	public Date getDate() {
+		return dateChooser.getDate();
 	}
 	
 }

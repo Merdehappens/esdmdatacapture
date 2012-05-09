@@ -189,7 +189,7 @@ public class ESDMModel {
 	
 	
 	
-	public void addDay(Date date, ArrayList<Child> children, String room, ArrayList<Session> sessions)
+	public void addDay(Date date, ArrayList<Child> children, Room room, ArrayList<Session> sessions)
 	{
 
 		//make new constructor for these parameters//
@@ -203,7 +203,10 @@ public class ESDMModel {
 			day.addSession(sessions.get(x));
 		}
 		dayList.add(day);
-				
+		
+		
+		
+		System.out.println(day);
 		
 	}
 	
