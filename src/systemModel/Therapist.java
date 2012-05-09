@@ -14,6 +14,5 @@ public class Therapist extends UserAccount {
     {
         super();
     }
-    /* Steven is unsure of what sets of what objects a Therapist has here */
     
 }

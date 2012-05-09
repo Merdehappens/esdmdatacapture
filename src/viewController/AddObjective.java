@@ -151,7 +151,9 @@ public class AddObjective extends PanelView {
 		
 		tblStep.getColumnModel().getColumn(0).setPreferredWidth(40);
 		tblStep.getColumnModel().getColumn(1).setPreferredWidth(320);
+		
 	}
+
 	
 	public void submitListener(ActionListener al)
 	{

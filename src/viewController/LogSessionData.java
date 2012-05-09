@@ -367,6 +367,10 @@ public class LogSessionData extends PanelView {
 		Step step = stepModel.get(lstStep.getSelectedIndex());
 		int mark = markModel.get(lstMark.getSelectedIndex());
 		
-		this.getModel().addMark(session, child, objective, step, mark);
+		this.getModel().addMark(session, child, objective, step, mark, day);
+	}
+
+	public Day getDay() {
+		return day;
 	}
 }
