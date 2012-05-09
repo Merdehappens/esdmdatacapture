@@ -41,6 +41,14 @@ public class Day implements SimpleKey {
         sessions = new ArrayList<Session>();
     }
     
+    public Day(Date date, Room room)
+    {
+    	this.date = date;
+    	this.room = room;
+    	children = new ArrayList<Child>();
+    	sessions = new ArrayList<Session>();
+    }
+    
     public void setRoom(Room room)
     {
     	this.room = room;
@@ -77,6 +85,18 @@ public class Day implements SimpleKey {
 	public String toString()
 	{
 		return id;
+	}
+	
+	public void addChildren(Child child)
+	{
+	        children.add(child);
+	}
+	
+	public void addSession(Session session)
+
+	{
+		sessions.add(session);
+
 	}
     
 }
