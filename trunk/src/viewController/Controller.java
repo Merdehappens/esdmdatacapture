@@ -279,7 +279,6 @@ public class Controller extends JFrame {
 		
 		viewDay.cancelListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				logSessionData.addMark();
 				show(sessionPanel, "Session");
 			}
 		});

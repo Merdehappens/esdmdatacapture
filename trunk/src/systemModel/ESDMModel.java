@@ -303,6 +303,7 @@ public class ESDMModel {
 	public void addMark(Session session, Child child, Objective objective, Step step, int mark, Day day)
 	{
 		Mark tempMark = new Mark(session, child, objective, step, mark, (Therapist)currentUser, day);
+		day.addMark(tempMark);
 		markList.add(tempMark);
 	}
 	

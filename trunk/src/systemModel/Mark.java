@@ -21,6 +21,45 @@ public class Mark implements SimpleKey {
     Step step;
     Therapist therapist;
     Calendar time;
+	String comment;
+    
+    public Child getChild() {
+		return child;
+	}
+
+	public int getMark() {
+		return mark;
+	}
+
+	public Day getDay() {
+		return day;
+	}
+
+	public Session getSession() {
+		return session;
+	}
+
+	public Objective getObjective() {
+		return objective;
+	}
+
+	public Step getStep() {
+		return step;
+	}
+
+	public Therapist getTherapist() {
+		return therapist;
+	}
+
+	public Calendar getTime() {
+		return time;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+
 
     public Mark(String id, Child child, int Mark, Session session, Step step, Therapist therapist, Calendar time) {
         this.id = id;
@@ -32,8 +71,6 @@ public class Mark implements SimpleKey {
         this.time = time;
     }
     
-
-
 
 	public Mark(Session session, Child child, Objective objective,
 			Step step, int mark, Therapist therapist, Day day) {
@@ -47,11 +84,18 @@ public class Mark implements SimpleKey {
 		time = Calendar.getInstance();
 	}
 
-
-
-
 	public String getId()
     {
         return id;
     }
+	
+	public String toString()
+	{
+		return id;
+	}
+	
+	public void setComments(String comment)
+	{
+		this.comment = comment;
+	}
 }
