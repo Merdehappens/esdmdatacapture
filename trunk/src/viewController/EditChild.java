@@ -15,6 +15,8 @@ import javax.swing.JToggleButton;
 
 public class EditChild extends PanelView {
 	
+	//test
+	
 	private JTextField txtName;
 	private String childId;
 	private Child child;
