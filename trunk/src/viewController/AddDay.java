@@ -54,9 +54,6 @@ public class AddDay extends PanelView {
 	
 	public AddDay() {
 
-		
-		
-
 		initialise();
 	
 	}
@@ -238,6 +235,7 @@ public class AddDay extends PanelView {
 		childPanel.setPreferredSize(new Dimension(350, (tglbtn.length * 40)));
 		revalidate();
 		
+		listModel.clear();
 		
 		Vector<Room> v = new Vector<Room>(this.getModel().getRoomList());
 		ComboBoxModel<Room> cmbModel = new DefaultComboBoxModel<Room>(v);
@@ -280,7 +278,7 @@ public class AddDay extends PanelView {
 	public ArrayList<Child> getChildren()
 	{
 		ArrayList<Child> childList = new ArrayList<Child>();
-		System.out.println(tglbtn.length);
+
 		for(int i = 0; i < tglbtn.length; i++)
 		{
 			JToggleButton toggleButton = (JToggleButton)tglbtn[i][0];
@@ -290,13 +288,13 @@ public class AddDay extends PanelView {
 				childList.add((Child)tglbtn[i][1]);
 			}
 		}
-		
+		System.out.println(childList.size());
 		return childList;
 	}
 
 	public Room getRoom() {
-		
-		return (Room)cmbModel.getSelectedItem();
+		Room room = cmbModel.getElementAt(cmbRoom.getSelectedIndex());
+		return room;
 	}
 
 	public ArrayList<Session> getSessions() {

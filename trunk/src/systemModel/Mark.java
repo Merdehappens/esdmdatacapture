@@ -4,6 +4,7 @@
  */
 package systemModel;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -13,23 +14,42 @@ import java.util.Date;
 public class Mark implements SimpleKey {
     String id;
     Child child;
-    int Mark;
+    int mark;
+    Day day;
     Session session;
+    Objective objective;
     Step step;
     Therapist therapist;
-    Date time;
+    Calendar time;
 
-    public Mark(String id, Child child, int Mark, Session session, Step step, Therapist therapist, Date time) {
+    public Mark(String id, Child child, int Mark, Session session, Step step, Therapist therapist, Calendar time) {
         this.id = id;
         this.child = child;
-        this.Mark = Mark;
+        this.mark = mark;
         this.session = session;
         this.step = step;
         this.therapist = therapist;
         this.time = time;
     }
     
-    public String getId()
+
+
+
+	public Mark(Session session, Child child, Objective objective,
+			Step step, int mark, Therapist currentUser) {
+		this.session = session;
+		this.child = child;
+		this.objective = objective;
+		this.step = step;
+		this.mark = mark;
+		this.therapist = therapist;
+		time = Calendar.getInstance();
+	}
+
+
+
+
+	public String getId()
     {
         return id;
     }

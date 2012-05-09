@@ -92,9 +92,13 @@ public class ChangePassword extends PanelView {
 		return txtNew.getText().equals(txtConfirm.getText());
 	}
 	
-	public String getNewPassword()
+	public String[] getNewPassword()
 	{
-		return txtNew.getText();
+		String[] temp = new String[2];
+		temp[0] = txtNew.getText();
+		temp[1] = txtConfirm.getText();
+		
+		return temp;
 	}
 
 	public String getOldPassword() {
