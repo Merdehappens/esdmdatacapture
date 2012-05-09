@@ -145,7 +145,6 @@ public class ViewSession extends PanelView {
 		String[] tempRow = new String[] {"", "", ""};
 		tableModel.addRow(tempRow);
 		
-		
 	}
 
 	private void refreshForm() {
@@ -166,7 +165,6 @@ public class ViewSession extends PanelView {
 		
 		for(int i = 0; i < dayList.size(); i++)
 		{
-			System.out.println("TeSTESTEST");
 			String[] row = new String[3];
 			Day temp = dayList.get(i);
 			
