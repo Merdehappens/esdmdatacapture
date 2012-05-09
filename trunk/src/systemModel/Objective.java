@@ -27,6 +27,13 @@ public class Objective {
         steps = new ArrayList<Step>(c);
     }
     
+    public Objective(String name, String description)
+    {
+    	this.name = name;
+    	this.description = description;
+    	steps = new ArrayList<Step>();
+    }
+    
     public void addSteps(Step newStep)
     {
         steps.add(newStep);

@@ -191,7 +191,19 @@ public class ESDMModel {
 	
 	public void addDay(Date date, ArrayList<Child> children, String room, ArrayList<Session> sessions)
 	{
-		
+
+		//make new constructor for these parameters//
+		Day day = new Day(date, room);
+		for (int i = 0; i < children.size(); i++)
+		{
+			day.addChildren(children.get(i)); //adds selected children to this day
+		}
+		for (int x = 0; x < sessions.size(); x++)
+		{
+			day.addSession(sessions.get(x));
+		}
+		dayList.add(day);
+				
 		
 	}
 	
@@ -208,8 +220,16 @@ public class ESDMModel {
 	public void addObjective(String Name, String description, String[][] steps)
 	{
 	
-
-
+		//iterate through string//
+		//create step for each pair//
+		//create objective with these steps//
+		Objective o = new Objective(Name, description);
+		for (int i = 0; i < steps.length; i++)
+		{
+			String no = (i + 1) + "";
+			Step step = new Step(no, steps[i][0], steps[i][1]);//retrieves info from 2D array and makes a new step
+			o.addSteps(step);
+		}
 	}
 
 	public UserAccount getCurrentUser() {

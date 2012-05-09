@@ -2,6 +2,7 @@ package viewController;
 
 
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -12,7 +13,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPasswordField;
 
 public class ChangeEmail extends PanelView {
-	private JPasswordField txtNewEmailAddress;
+	private JTextField txtNewEmailAddress;
 	private JButton btnChangeEmail;
 	private JButton btnCancel;
 
