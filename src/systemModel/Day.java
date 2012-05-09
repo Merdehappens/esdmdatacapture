@@ -21,6 +21,7 @@ public class Day implements SimpleKey {
     private Room room;
     private List<Session> sessions;
     private boolean template;
+    private List<Mark> marks;
     
     public Day()
     {
@@ -31,12 +32,14 @@ public class Day implements SimpleKey {
         this.date = date;
         this.id = id;
         this.sessions = sessions;
+        marks = new ArrayList<Mark>();
     }
         
     public Day(Date date, String id)
     {
         this.date = date;
         this.id = id;
+        marks = new ArrayList<Mark>();
         children = new ArrayList<Child>();
         sessions = new ArrayList<Session>();
     }
@@ -45,8 +48,19 @@ public class Day implements SimpleKey {
     {
     	this.date = date;
     	this.room = room;
+    	marks = new ArrayList<Mark>();
     	children = new ArrayList<Child>();
     	sessions = new ArrayList<Session>();
+    }
+    
+    public void addMark(Mark mark)
+    {
+    	marks.add(mark);
+    }
+    
+    public List<Mark> getMarks()
+    {
+    	return marks;
     }
     
     public void setRoom(Room room)

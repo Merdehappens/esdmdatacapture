@@ -5,6 +5,8 @@ import javax.swing.JButton;
 import systemModel.Child;
 import systemModel.Day;
 import systemModel.ESDMModel;
+import systemModel.Mark;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -12,20 +14,19 @@ import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+
 import javax.swing.JToggleButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class ReviewSession extends PanelView {
-	
-	//test
-	
-	private JTextField txtName;
 	private String childId;
 	private Child child;
-	private JToggleButton tglbtnToggleEditable;
-	private JDateChooser dateJoinedChooser;
-	private JDateChooser dobChooser;
-	private JLabel txtId;
 	private Day day;
+	private JTable tblReview;
+	private DefaultTableModel tableModel;
 	
 	/**
 	 * Create the panel.
@@ -47,39 +48,10 @@ public class ReviewSession extends PanelView {
 	private void initialise()
 	{
 		
-		JLabel lblTitle = new JLabel("Edit Child");
+		JLabel lblTitle = new JLabel("Review Marks taken");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(10, 11, 430, 21);
+		lblTitle.setBounds(10, 11, 739, 21);
 		add(lblTitle);
-		
-		JLabel lblName = new JLabel("Name:");
-		lblName.setBounds(10, 66, 46, 30);
-		add(lblName);
-		
-		
-		JLabel lblDateOfBirth = new JLabel("Date Of Birth");
-		lblDateOfBirth.setBounds(10, 107, 73, 30);
-		add(lblDateOfBirth);
-		
-		JLabel lblDateJoined = new JLabel("Date Joined");
-		lblDateJoined.setBounds(10, 148, 73, 30);
-		add(lblDateJoined);
-		
-		txtName = new JTextField();
-		txtName.setEnabled(false);
-		txtName.setBounds(66, 63, 205, 30);
-		add(txtName);
-		txtName.setColumns(10);
-		
-		dobChooser = new JDateChooser();
-		dobChooser.setBounds(87, 107, 184, 30);
-		add(dobChooser);
-		dobChooser.setEnabled(false);
-		
-		dateJoinedChooser = new JDateChooser();
-		dateJoinedChooser.setBounds(87, 148, 184, 30);
-		add(dateJoinedChooser);
-		dateJoinedChooser.setEnabled(false);
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
@@ -87,7 +59,7 @@ public class ReviewSession extends PanelView {
 				saveChild();
 			}
 		});
-		btnSave.setBounds(10, 189, 89, 23);
+		btnSave.setBounds(40, 454, 89, 23);
 		add(btnSave);
 		
 		JButton btnReset = new JButton("Reset");
@@ -96,87 +68,73 @@ public class ReviewSession extends PanelView {
 				resetTextFields();
 			}
 		});
-		btnReset.setBounds(109, 189, 105, 21);
+		btnReset.setBounds(139, 454, 105, 21);
 		add(btnReset);
 		
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(224, 189, 94, 21);
+		btnCancel.setBounds(254, 454, 94, 21);
 		add(btnCancel);
 		
-		JLabel lblId = new JLabel("Id:");
-		lblId.setBounds(10, 33, 46, 30);
-		add(lblId);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(25, 123, 724, 320);
+		add(scrollPane);
 		
-		txtId = new JLabel("");
-		txtId.setBounds(40, 33, 216, 30);
-		add(txtId);
 		
-		tglbtnToggleEditable = new JToggleButton("Toggle Editable");
-		tglbtnToggleEditable.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				enableTextFields();
-			}
-		});
-		tglbtnToggleEditable.setBounds(281, 63, 121, 33);
-		add(tglbtnToggleEditable);
+		
+		tableModel = new DefaultTableModel();
+		
+		String[] columnNames = new String[] {"ID", "Therapist", "Session", "Child", "Objective", "Step", "Mark", "Comments"};
+		tableModel.setColumnIdentifiers(columnNames);
+		
+		tblReview = new JTable(tableModel);
+		scrollPane.setViewportView(tblReview);
+		
+		
+	}
+	
+	private void refreshTable()
+	{
+		ArrayList<Mark> marks = (ArrayList<Mark>) day.getMarks();
+		
+		for(int i = 0; i < marks.size(); i++)
+		{
+			Mark tempMark = marks.get(i);
+			
+			Object[] rowData = new Object[8];
+			
+			rowData[0] = tempMark;
+			rowData[1] = tempMark.getTherapist();
+			rowData[2] = tempMark.getSession();
+			rowData[3] = tempMark.getChild();
+			rowData[4] = tempMark.getObjective();
+			rowData[5] = tempMark.getStep();
+			rowData[6] = tempMark.getMark();
+			rowData[7] = tempMark.getComment();
+			
+			tableModel.addRow(rowData);
+			
+		}
+		
 	}
 	
 	private void resetTextFields() {
-		txtName.setText(child.getName());
-		dobChooser.setDate(child.getDob());
-		dateJoinedChooser.setDate(child.getDateJoined());
+
 		
 	}
 
-	private void enableTextFields() {
-		
-		if(tglbtnToggleEditable.isSelected())
-		{
-			txtName.setEnabled(true);
-			dobChooser.setEnabled(true);
-			dateJoinedChooser.setEnabled(true);
-		}
-		else
-		{
-			txtName.setEnabled(false);
-			dobChooser.setEnabled(false);
-			dateJoinedChooser.setEnabled(false);
-		}
-	}
 
 	private void saveChild() {
-		child.setName(txtName.getText());
-		child.setDob(dobChooser.getDate());
-		child.setDateJoined(dateJoinedChooser.getDate());
-	}
 
-	public void setId(String childId)
-	{
-		this.childId = childId;
-		refreshView();
-		
 	}
 	
-	
-	public void setChild(Child child)
-	{
-		this.child = child;
-		childId = child.getId();
-		refreshView();
-	}
 	
 	public void refreshView()
 	{
-		tglbtnToggleEditable.setSelected(false);
-		enableTextFields();
-		dobChooser.setDate(child.getDob());
-		dateJoinedChooser.setDate(child.getDateJoined());
-		txtId.setText(child.getId());
-		txtName.setText(child.getName());
+
 	}
 
 	public void setDay(Day day) {
 		this.day = day;
+		refreshTable();
 	}
-	
 }
