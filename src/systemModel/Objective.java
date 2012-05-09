@@ -16,6 +16,12 @@ public class Objective {
     private List<Step> steps;
     private String name;
     private String description;
+    private int level;
+    
+    public int getLevel()
+    {
+    	return level;
+    }
     
     public Objective()
     {
@@ -53,6 +59,15 @@ public class Objective {
     {
     	return name;
     }
+    
+    public String toString()
+    {
+    	return name + " Level: " + level;
+    }
+
+	public List<Step> getSteps() {
+		return steps;
+	}
     
     
     

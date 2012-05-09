@@ -50,7 +50,7 @@ public class Controller extends JFrame {
 	private FindChild findChild;
 	private SessionView sessionView;
 	private ChildView childView;
-	private ViewSession viewSession;
+	private ViewDay viewDay;
 	private ObjectiveView objectiveView;
 	private AddObjective addObjective;
 	private LogSessionData logSessionData;
@@ -61,6 +61,7 @@ public class Controller extends JFrame {
 	private AccountView accountView;
 	private ChangePassword changePassword;
 	private ChangeEmail changeEmail;
+	private AddObjectiveChild addObjectiveChild;
 	
 	
 	
@@ -166,10 +167,10 @@ public class Controller extends JFrame {
 		addDay = new AddDay(model);
 		sessionPanel.add(addDay, "addDay");
 
-		viewSession = new ViewSession(model);
-		sessionPanel.add(viewSession, "viewSession");
+		viewDay = new ViewDay(model);
+		sessionPanel.add(viewDay, "viewDay");
 
-		logSessionData = new LogSessionData();
+		logSessionData = new LogSessionData(model);
 		sessionPanel.add(logSessionData, "logSessionData");
 
 
@@ -186,6 +187,9 @@ public class Controller extends JFrame {
 
 		findChild = new FindChild(model);
 		childPanel.add(findChild, "findChild");
+		
+		addObjectiveChild = new AddObjectiveChild();
+		childPanel.add(addObjectiveChild, "addObjectiveChild");
 		
 		
 		//Add all the panels (Cards) to the Objectives Tab
@@ -224,9 +228,109 @@ public class Controller extends JFrame {
 	
 	// This function calls the functions from within each view class that retrieve an ActionListener
 	// And determine what should be done in the case of a button press.
+	
+	public void initSessionButtonListeners()
+	{
+		
+		addDay.submitListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				
+				ArrayList<Child> children = addDay.getChildren();
+				Room room = addDay.getRoom();
+				ArrayList<Session> sessions = addDay.getSessions();
+				Date date = addDay.getDate();
+				
+				logSessionData.setDay(model.addDay(date, children, room, sessions));
+				show(sessionPanel, "logSessionData");
+				
+			}
+		});
+		
+		addDay.cancelListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(sessionPanel, "Session");
+			}
+		});
+		
+		logSessionData.commitMarkListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				logSessionData.addMark();
+				show(sessionPanel, "Session");
+			}
+		});
+		
+		
+		
+	}
+	
+	public void initChildButtonListeners()
+	{
+		
+		addChild.submitListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				addChildSubmit(evt);
+			}
+		});
+		
+		findChild.submitListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				findChildSubmit(evt);
+			}
+		});
 
+		findChild.cancelListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				findChildCancel(evt);
+			}
+		});
+		
+	}
+	
+	public void initAccountButtonListeners()
+	{
+		
+		changePassword.changePassword(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				changePassword();
+			}
+		});
+		
+		changePassword.cancel(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(accountPanel, "Account");
+			}
+		});
+		
+		changeEmail.changeEmail(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				model.setEmail(changeEmail.getEmail());
+			}
+		});
+		
+	}
+	
+	public void initObjectiveButtonListeners()
+	{
+		addObjective.submitListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				addObjective();
+			}
+		});
+		
+		addObjective.cancelListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(objectivePanel, "Objective");
+			}
+		});
+	}
+	
+	
 	public void initButtonListeners()
 	{
+		initSessionButtonListeners();
+		initChildButtonListeners();
+		initObjectiveButtonListeners();
+		initAccountButtonListeners();
 		
 		sessionView.newDay(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -236,7 +340,7 @@ public class Controller extends JFrame {
 
 		sessionView.viewDay(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(sessionPanel, "viewSession");
+				show(sessionPanel, "viewDay");
 			}
 		});
 
@@ -256,27 +360,12 @@ public class Controller extends JFrame {
 
 		childView.addObjectiveChildListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				addObjectiveChild(evt);
+				show(childPanel, "addObjectiveChild");
+				addObjectiveChild.setLists(model.getChildList(), model.getObjectiveList());
 			}
 		});
 		
-		addChild.submitListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				addChildSubmit(evt);
-			}
-		});
-		
-		findChild.submitListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				findChildSubmit(evt);
-			}
-		});
 
-		findChild.cancelListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				findChildCancel(evt);
-			}
-		});
 		
 		
 		objectiveView.viewObjectives(new java.awt.event.ActionListener() {
@@ -297,17 +386,7 @@ public class Controller extends JFrame {
 			}
 		});
 		
-		addObjective.submitListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				addObjective();
-			}
-		});
-		
-		addObjective.cancelListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(objectivePanel, "Objective");
-			}
-		});
+
 	
 		
 		accountView.changeEmailAddress(new java.awt.event.ActionListener() {
@@ -322,47 +401,7 @@ public class Controller extends JFrame {
 			}
 		});
 		
-		changePassword.changePassword(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				changePassword();
-			}
-		});
-		
-		changePassword.cancel(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(accountPanel, "Account");
-			}
-		});
-		
-		changeEmail.changeEmail(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				model.setEmail(changeEmail.getEmail());
-			}
-		});
-		
-		
-		addDay.submitListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				
-				
-				ArrayList<Child> children = addDay.getChildren();
-				Room room = addDay.getRoom();
-				ArrayList<Session> sessions = addDay.getSessions();
-				Date date = addDay.getDate();
-				
-				model.addDay(date, children, room, sessions);
-			}
-		});
-		
-		addDay.cancelListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(sessionPanel, "Session");
-			}
-		});
-		
-		
-
-		
+	
 		
 		
 		tabbedPane.addChangeListener(new ChangeListener() {
@@ -391,25 +430,15 @@ public class Controller extends JFrame {
 	}
 
 	protected void changePassword() {
-		if(changePassword.newPasswordMatch())
-		{
-			UserAccount temp = model.getCurrentUser();
+		try{
+			String[] arr = changePassword.getNewPassword();
 			
-			if(BCrypt.BCrypt.checkpw(changePassword.getOldPassword(), temp.getPassword()))
-			{
-				model.setPassword(changePassword.getNewPassword());
-				System.out.println("Password Was Changed");
-			}
-			else
-			{
-				JOptionPane.showMessageDialog(null, "Entered Incorrect password");
-			}
-			
+			model.changePassword(changePassword.getOldPassword(), arr[0], arr[1]);
 		}
-		else
-		{
-			JOptionPane.showMessageDialog(null, "The two passwords did not match");
+		catch(Exception e){
+			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
+		
 	}
 
 	// Takes in one of the tabbed panes panels and a string of card name and shows that panel
@@ -443,7 +472,6 @@ public class Controller extends JFrame {
 
 	private void addChildSubmit(ActionEvent evt)
 	{
-		
 		editChild.setChild(addChild.addChild());
 		show(childPanel, "editChild");
 		addChild.resetTextField();

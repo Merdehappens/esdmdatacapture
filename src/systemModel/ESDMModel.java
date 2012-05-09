@@ -24,7 +24,7 @@ public class ESDMModel {
     private Set<Session> sessionList;
     private List<Guardian> guardianList;
     private List<Therapist> therapistList;
-    private Set<Objective> objectiveList;
+    private List<Objective> objectiveList;
     private Set<Mark> markList;
     private List<Day> dayList;
     private List<Room> roomList;
@@ -36,7 +36,7 @@ public class ESDMModel {
         settingList = new HashSet<Setting>();
         sessionList = new HashSet<Session>();
         therapistList = new ArrayList<Therapist>();
-        objectiveList = new HashSet<Objective>();
+        objectiveList = new ArrayList<Objective>();
         guardianList = new ArrayList<Guardian>();
         markList = new HashSet<Mark>();
         roomList = new ArrayList<Room>();
@@ -62,7 +62,7 @@ public class ESDMModel {
     	return sessionList;
     }
     
-    public Collection<Objective> getObjectiveList() {
+    public List<Objective> getObjectiveList() {
     	return objectiveList;
     }
     
@@ -83,6 +83,32 @@ public class ESDMModel {
         child.setDob(new Date(2004, 5, 22));
         child.setPictureLink(new URL("http://www.hanselman.com/blog/content/binary/WindowsLiveWriter/CleanupyourTempFiles_8F63/TempFiles%5B7%5D.jpg"));
         childList.add(child);
+        
+        Objective objective = new Objective("Expressive", "Objective Description");
+        Step step = new Step("1", "Code1", "DOES THIS STUFF");
+        objective.addSteps(step);
+        step = new Step("2", "Code2", "DOES THIS STUFF2");
+        objective.addSteps(step);
+        step = new Step("3", "Code3", "DOES THIS STUF3F");
+        objective.addSteps(step);
+        step = new Step("4", "Code4", "DOES THIS STUFF4");
+        objective.addSteps(step);
+        
+        objectiveList.add(objective);
+        child.addObjective(objective);
+        
+        objective = new Objective("Responsive", "Objective Description");
+        step = new Step("1", "Code1", "DOES THISadsadsFF");
+        objective.addSteps(step);
+        step = new Step("2", "Code2", "DOES THISadsads2");
+        objective.addSteps(step);
+        step = new Step("3", "Code3", "DOES THISdas");
+        objective.addSteps(step);
+        step = new Step("4", "Code4", "DOES THasdadsUFF4");
+        objective.addSteps(step);        
+        
+        objectiveList.add(objective);
+        child.addObjective(objective);
         
         roomList.add(new Room("Room 1"));
         roomList.add(new Room("Room 2"));
@@ -189,7 +215,7 @@ public class ESDMModel {
 	
 	
 	
-	public void addDay(Date date, ArrayList<Child> children, Room room, ArrayList<Session> sessions)
+	public Day addDay(Date date, ArrayList<Child> children, Room room, ArrayList<Session> sessions)
 	{
 
 		//make new constructor for these parameters//
@@ -205,9 +231,7 @@ public class ESDMModel {
 		dayList.add(day);
 		
 		
-		
-		System.out.println(day);
-		
+		return day;
 	}
 	
 	
@@ -233,6 +257,8 @@ public class ESDMModel {
 			Step step = new Step(no, steps[i][0], steps[i][1]);//retrieves info from 2D array and makes a new step
 			o.addSteps(step);
 		}
+		
+		objectiveList.add(o);
 	}
 
 	public UserAccount getCurrentUser() {
@@ -253,6 +279,31 @@ public class ESDMModel {
 
 	public List<Day> getDayList() {
 		return dayList;
+	}
+
+	public void changePassword(String oldPassword, String newPassword1, String newPassword2) throws Exception {
+
+			if(newPassword1.equals(newPassword2))
+			{
+				if(BCrypt.checkpw(oldPassword, currentUser.getPassword()))
+				{
+					currentUser.setPassword(newPassword2);
+				}
+				else
+				{
+					throw new Exception("Incorrect Password");
+				}
+			}
+			else
+			{
+				throw new Exception("Both Passwords do not match");
+			}
+	}
+	
+	public void addMark(Session session, Child child, Objective objective, Step step, int mark)
+	{
+		Mark tempMark = new Mark(session, child, objective, step, mark, (Therapist)currentUser);
+		markList.add(tempMark);
 	}
 	
 	

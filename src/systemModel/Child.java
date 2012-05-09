@@ -5,8 +5,10 @@
 package systemModel;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.swing.ImageIcon;
 
@@ -19,21 +21,21 @@ public class Child implements SimpleKey {
     String name;
     Date dateJoined;
     Date dob;
-    Set<Guardian> guardians;
-    Set<Objective> objectives;
+    List<Guardian> guardians;
+    List<Objective> objectives;
     ImageIcon picture;
     URL pictureLink;
     
     public Child()
     {
-        guardians = new HashSet<Guardian>();
-        objectives = new HashSet<Objective>();
+        guardians = new ArrayList<Guardian>();
+        objectives = new ArrayList<Objective>();
     }
     
     public Child(String name, Date dob, Date dateJoined)
     {
-        guardians = new HashSet<Guardian>();
-        objectives = new HashSet<Objective>();
+        guardians = new ArrayList<Guardian>();
+        objectives = new ArrayList<Objective>();
         this.name = name;
         this.dob = dob;
         this.dateJoined = dateJoined;
@@ -55,11 +57,11 @@ public class Child implements SimpleKey {
         this.dob = dob;
     }
 
-    public Set<Guardian> getGuardians() {
+    public List<Guardian> getGuardians() {
         return guardians;
     }
 
-    public void setGuardians(Set<Guardian> guardians) {
+    public void setGuardians(ArrayList<Guardian> guardians) {
         this.guardians = guardians;
     }
     
@@ -108,6 +110,10 @@ public class Child implements SimpleKey {
     {
         return name;
     }
+
+	public List<Objective> getObjectives() {
+		return objectives;
+	}
     
     
 }

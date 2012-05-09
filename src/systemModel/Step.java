@@ -62,5 +62,10 @@ public class Step {
     	return no;
     }
     
+    public String toString()
+    {
+    	return no + " " + code + " " + description;
+    }
+    
     
 }
