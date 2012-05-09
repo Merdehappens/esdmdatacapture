@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPasswordField;
 
 public class ChangeEmail extends PanelView {
+
 	private JTextField txtNewEmailAddress;
 	private JButton btnChangeEmail;
 	private JButton btnCancel;
@@ -44,7 +45,7 @@ public class ChangeEmail extends PanelView {
 		lblOldPassword.setBounds(10, 77, 114, 30);
 		add(lblOldPassword);
 		
-		txtNewEmailAddress = new JPasswordField();
+		txtNewEmailAddress = new JTextField();
 		txtNewEmailAddress.setBounds(134, 77, 209, 30);
 		add(txtNewEmailAddress);
 		

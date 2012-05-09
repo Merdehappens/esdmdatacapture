@@ -27,7 +27,7 @@ public class AddObjective extends PanelView {
 	 * Create the panel.
 	 */
 	public AddObjective() {
-		setLayout(null);
+		
 		
 
 		initialise();
@@ -42,6 +42,7 @@ public class AddObjective extends PanelView {
 	
 	private void initialise()
 	{
+		setLayout(null);
 		
 		JLabel lblTitle = new JLabel("Add New Objective");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
