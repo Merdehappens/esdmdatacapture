@@ -215,8 +215,12 @@ public class ESDMModel {
 	
 	
 	
-	public Day addDay(Date date, ArrayList<Child> children, Room room, ArrayList<Session> sessions)
+	public Day addDay(Date date, ArrayList<Child> children, Room room, ArrayList<Session> sessions) throws Exception
 	{
+		if(date == null)
+		{
+			throw new Exception("Date must be entered");
+		}
 
 		//make new constructor for these parameters//
 		Day day = new Day(date, room);

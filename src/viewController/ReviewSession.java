@@ -14,7 +14,9 @@ import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.JToggleButton;
 import javax.swing.JScrollPane;
@@ -86,7 +88,7 @@ public class ReviewSession extends PanelView {
 		
 		tableModel = new DefaultTableModel();
 		
-		String[] columnNames = new String[] {"ID", "Therapist", "Session", "Child", "Objective", "Step", "Mark", "Comments"};
+		String[] columnNames = new String[] {"ID", "Therapist", "Session", "Child", "Objective", "Step", "Mark", "Time", "Comments"};
 		tableModel.setColumnIdentifiers(columnNames);
 		
 		tblReview = new JTable(tableModel);
@@ -132,11 +134,13 @@ public class ReviewSession extends PanelView {
 		
 		ArrayList<Mark> marks = (ArrayList<Mark>) day.getMarks();
 		
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("h:mm:ss a");
+		
 		for(int i = 0; i < marks.size(); i++)
 		{
 			Mark tempMark = marks.get(i);
 			
-			Object[] rowData = new Object[8];
+			Object[] rowData = new Object[9];
 			
 			rowData[0] = tempMark;
 			rowData[1] = tempMark.getTherapist();
@@ -145,7 +149,8 @@ public class ReviewSession extends PanelView {
 			rowData[4] = tempMark.getObjective();
 			rowData[5] = tempMark.getStep();
 			rowData[6] = tempMark.getMark();
-			rowData[7] = tempMark.getComment();
+			rowData[7] = dateFormatter.format(tempMark.getTime().getTime());
+			rowData[8] = tempMark.getComment();
 			
 			tableModel.addRow(rowData);
 			
