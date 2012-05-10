@@ -27,6 +27,9 @@ public class ReviewSession extends PanelView {
 	private Day day;
 	private JTable tblReview;
 	private DefaultTableModel tableModel;
+	private JLabel lblDate;
+	private JLabel lblId;
+	private JLabel lblRoomName;
 	
 	/**
 	 * Create the panel.
@@ -89,11 +92,44 @@ public class ReviewSession extends PanelView {
 		tblReview = new JTable(tableModel);
 		scrollPane.setViewportView(tblReview);
 		
+		JLabel lblSessionId = new JLabel("Session ID:");
+		lblSessionId.setBounds(10, 43, 92, 14);
+		add(lblSessionId);
+		
+		JLabel lblSessionDate = new JLabel("Date");
+		lblSessionDate.setBounds(10, 68, 92, 14);
+		add(lblSessionDate);
+		
+		JLabel lblRoom = new JLabel("Room:");
+		lblRoom.setBounds(10, 93, 94, 14);
+		add(lblRoom);
+		
+		lblId = new JLabel("");
+		lblId.setBounds(83, 43, 78, 14);
+		add(lblId);
+		
+		lblDate = new JLabel("");
+		lblDate.setBounds(83, 68, 78, 14);
+		add(lblDate);
+		
+		lblRoomName = new JLabel("");
+		lblRoomName.setBounds(83, 93, 78, 14);
+		add(lblRoomName);
+		
 		
 	}
 	
 	private void refreshTable()
 	{
+		lblId.setText(day.getId());
+		lblDate.setText(day.getDate().getDate() + "/" + day.getDate().getMonth() + "/" + (day.getDate().getYear() + 1900));
+		lblRoomName.setText(day.getRoom().getRoomName());
+		
+		while(tableModel.getRowCount() > 0)
+		{
+			tableModel.removeRow(0);
+		}
+		
 		ArrayList<Mark> marks = (ArrayList<Mark>) day.getMarks();
 		
 		for(int i = 0; i < marks.size(); i++)
