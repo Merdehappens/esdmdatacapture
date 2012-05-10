@@ -244,8 +244,12 @@ public class Controller extends JFrame {
 				ArrayList<Session> sessions = addDay.getSessions();
 				Date date = addDay.getDate();
 				
-				logSessionData.setDay(model.addDay(date, children, room, sessions));
-				show(sessionPanel, "logSessionData");
+				try {
+					logSessionData.setDay(model.addDay(date, children, room, sessions));
+					show(sessionPanel, "logSessionData");
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
 				
 			}
 		});
