@@ -6,7 +6,7 @@ package systemModel;
 
 /**
  *
- * @author DAMIAN// trsdtitjsitj
+ * @author DAMIAN
  */
 public class Step {
     
