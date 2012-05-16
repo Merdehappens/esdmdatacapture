@@ -63,6 +63,7 @@ public class Controller extends JFrame {
 	private ChangeEmail changeEmail;
 	private AddObjectiveChild addObjectiveChild;
 	private ReviewSession reviewSession;
+	private ViewReport viewReport;
 	
 	
 	
@@ -209,6 +210,9 @@ public class Controller extends JFrame {
 
 		reportingView = new ReportingView();
 		reportingPanel.add(reportingView, "Reporting");
+		
+		viewReport = new ViewReport();
+		reportingPanel.add(viewReport, "viewReport");
 
 		//Add all the panels (Cards) to the Accounts Tab
 		
@@ -352,6 +356,16 @@ public class Controller extends JFrame {
 		});
 	}
 	
+	public void initReportingButtonListeners()
+	{
+		reportingView.viewReportListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(reportingPanel, "viewReport");
+			}
+		});
+		
+	}
+	
 	
 	public void initButtonListeners()
 	{
@@ -359,6 +373,7 @@ public class Controller extends JFrame {
 		initChildButtonListeners();
 		initObjectiveButtonListeners();
 		initAccountButtonListeners();
+		initReportingButtonListeners();
 		
 		sessionView.newDay(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
