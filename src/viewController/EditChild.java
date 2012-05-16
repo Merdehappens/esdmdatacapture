@@ -18,7 +18,6 @@ public class EditChild extends PanelView {
 	//test
 	
 	private JTextField txtName;
-	private String childId;
 	private Child child;
 	private JToggleButton tglbtnToggleEditable;
 	private JDateChooser dateJoinedChooser;
@@ -150,16 +149,13 @@ public class EditChild extends PanelView {
 
 	public void setId(String childId)
 	{
-		this.childId = childId;
-		refreshView();
-		
+		setChild(this.getModel().getChild(childId));
 	}
 	
 	
 	public void setChild(Child child)
 	{
 		this.child = child;
-		childId = child.getId();
 		refreshView();
 	}
 	

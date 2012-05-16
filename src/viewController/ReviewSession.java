@@ -24,8 +24,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class ReviewSession extends PanelView {
-	private String childId;
-	private Child child;
+
 	private Day day;
 	private JTable tblReview;
 	private DefaultTableModel tableModel;

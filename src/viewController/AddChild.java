@@ -6,6 +6,7 @@ import systemModel.Child;
 import systemModel.ESDMModel;
 import systemModel.Guardian;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,6 +22,7 @@ import java.util.Date;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JPanel;
 
 public class AddChild extends PanelView {
 	private JTextField txtName;
@@ -33,6 +35,7 @@ public class AddChild extends PanelView {
 	private JTable tblGuardian;
 	private DefaultTableModel tblGuardianModel;
 	private File picture;
+	private JLabel lblPicture;
 	
 	/**
 	 * Create the panel.
@@ -162,26 +165,26 @@ public class AddChild extends PanelView {
 		btnSelectPictureTo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-
-				
 				JLabel typeLabel = new JLabel("Choose a picture to upload (.JPG, .JPEG, .PNG or .GIF");
 				JFileChooser fileChooser = new JFileChooser();
-
-
+				
 				Object[] array = { typeLabel,
 						fileChooser };
 
-				int res = JOptionPane.showConfirmDialog(null, array, "Select File to Add", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-				
-				if(res == 1)
-				{
-					picture = fileChooser.getSelectedFile();
-				}
+				JOptionPane.showConfirmDialog(null, array, "Select File to Add", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
+				picture = fileChooser.getSelectedFile();
+
+				ImageIcon temp = new ImageIcon(picture.getAbsolutePath());
+				lblPicture.setIcon(temp);
 			}
 		});
 		btnSelectPictureTo.setBounds(364, 43, 144, 27);
 		add(btnSelectPictureTo);
+		
+		lblPicture = new JLabel("");
+		lblPicture.setBounds(355, 78, 153, 114);
+		add(lblPicture);
 		
 		
 		
@@ -227,5 +230,6 @@ public class AddChild extends PanelView {
 		dateJoinedChooser.setDate(tempDate);
 		dobChooser.setDate(tempDate);
 		tblGuardianModel.setRowCount(0);
+		lblPicture.setIcon(null);
 	}
 }
