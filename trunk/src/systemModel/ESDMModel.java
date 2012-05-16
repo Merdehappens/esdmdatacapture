@@ -310,6 +310,12 @@ public class ESDMModel {
 		day.addMark(tempMark);
 		markList.add(tempMark);
 	}
+
+	//searches through child list and returns child with the ID specified
+	
+	public Child getChild(String childId) {
+		return Helper.search(childList, childId);
+	}
 	
 	
 	
