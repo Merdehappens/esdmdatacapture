@@ -2,8 +2,9 @@ package viewController;
 
 import javax.swing.JButton;
 
-import systemModel.Day;
-import systemModel.ESDMModel;
+import system.model.ESDMModel;
+import system.sessions.Day;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import com.toedter.calendar.JDateChooser;

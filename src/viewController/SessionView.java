@@ -2,7 +2,8 @@ package viewController;
 
 import javax.swing.JButton;
 
-import systemModel.ESDMModel;
+import system.model.ESDMModel;
+
 import java.awt.event.ActionListener;
 
 public class SessionView extends PanelView {
