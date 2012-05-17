@@ -4,9 +4,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import systemModel.Child;
-import systemModel.ESDMModel;
-import systemModel.Objective;
+import system.individuals.Child;
+import system.marking.Objective;
+import system.model.ESDMModel;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -19,6 +19,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ListModel;
+
 
 public class AddObjectiveChild extends PanelView {
 

@@ -2,10 +2,10 @@ package viewController;
 
 import javax.swing.JButton;
 
-import systemModel.Child;
-import systemModel.ESDMModel;
-import systemModel.Room;
-import systemModel.Session;
+import system.individuals.Child;
+import system.model.ESDMModel;
+import system.model.Room;
+import system.sessions.Session;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;

@@ -2,9 +2,9 @@ package viewController;
 
 import javax.swing.JButton;
 
-import systemModel.Child;
-import systemModel.ESDMModel;
-import systemModel.Guardian;
+import system.individuals.Child;
+import system.individuals.Guardian;
+import system.model.ESDMModel;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
