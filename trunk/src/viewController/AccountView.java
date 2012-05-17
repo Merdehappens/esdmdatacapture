@@ -6,7 +6,7 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JButton;
 
-import systemModel.ESDMModel;
+import system.model.ESDMModel;
 
 import java.awt.event.ActionListener;
 
