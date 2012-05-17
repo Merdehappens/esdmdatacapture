@@ -18,11 +18,11 @@ import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
-import systemModel.Child;
-import systemModel.ESDMModel;
-import systemModel.Room;
-import systemModel.Session;
-import systemModel.UserAccount;
+import system.individuals.Child;
+import system.individuals.UserAccount;
+import system.model.ESDMModel;
+import system.model.Room;
+import system.sessions.Session;
 
 
 import java.net.MalformedURLException;
