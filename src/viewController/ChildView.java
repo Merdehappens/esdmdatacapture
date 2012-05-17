@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import systemModel.ESDMModel;
+import system.model.ESDMModel;
 
 public class ChildView extends PanelView {
 

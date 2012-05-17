@@ -2,10 +2,10 @@ package viewController;
 
 import javax.swing.JButton;
 
-import systemModel.Child;
-import systemModel.Day;
-import systemModel.ESDMModel;
-import systemModel.Mark;
+import system.individuals.Child;
+import system.marking.Mark;
+import system.model.ESDMModel;
+import system.sessions.Day;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -22,6 +22,7 @@ import javax.swing.JToggleButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 
 public class ReviewSession extends PanelView {
 

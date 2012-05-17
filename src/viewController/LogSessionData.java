@@ -3,13 +3,13 @@ package viewController;
 
 import javax.swing.JButton;
 
-import systemModel.Child;
-import systemModel.Day;
-import systemModel.ESDMModel;
-import systemModel.Mark;
-import systemModel.Objective;
-import systemModel.Session;
-import systemModel.Step;
+import system.individuals.Child;
+import system.marking.Mark;
+import system.marking.Objective;
+import system.marking.Step;
+import system.model.ESDMModel;
+import system.sessions.Day;
+import system.sessions.Session;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+
 
 public class LogSessionData extends PanelView {
 	private JButton btnSubmit;

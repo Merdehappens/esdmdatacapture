@@ -4,7 +4,7 @@ package viewController;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import systemModel.ESDMModel;
+import system.model.ESDMModel;
 
 public class HomeView extends PanelView {
 
