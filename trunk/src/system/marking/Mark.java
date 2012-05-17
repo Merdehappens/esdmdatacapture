@@ -13,6 +13,9 @@ import system.individuals.Therapist;
 import system.sessions.Day;
 import system.sessions.Session;
 
+
+
+
 /**
  *
  * @author DAMIAN
@@ -67,7 +70,7 @@ public class Mark implements SimpleKey {
 
 
 
-    public Mark(String id, Child child, int Mark, Session session, Step step, Therapist therapist, Calendar time) {
+    public Mark(String id, Child child, int mark, Session session, Step step, Therapist therapist, Calendar time) {
         this.id = id;
         this.child = child;
         this.mark = mark;
