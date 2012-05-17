@@ -2,8 +2,9 @@ package viewController;
 
 import javax.swing.JButton;
 
-import systemModel.Child;
-import systemModel.ESDMModel;
+import system.individuals.Child;
+import system.model.ESDMModel;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;

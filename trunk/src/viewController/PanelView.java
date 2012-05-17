@@ -2,7 +2,7 @@ package viewController;
 
 import javax.swing.JPanel;
 
-import systemModel.ESDMModel;
+import system.model.ESDMModel;
 
 public class PanelView extends JPanel {
 

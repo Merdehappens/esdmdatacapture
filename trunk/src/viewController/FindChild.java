@@ -4,8 +4,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import systemModel.Child;
-import systemModel.ESDMModel;
+import system.individuals.Child;
+import system.model.ESDMModel;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
