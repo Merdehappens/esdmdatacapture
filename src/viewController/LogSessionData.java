@@ -13,6 +13,7 @@ import system.sessions.Session;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import javax.swing.JList;
@@ -362,13 +363,18 @@ public class LogSessionData extends PanelView {
 	}
 
 	public void addMark() {
+		try {
 		Session session = sessionModel.get(lstSession.getSelectedIndex());
 		Child child = childModel.get(lstChild.getSelectedIndex());
 		Objective objective = objectiveModel.get(lstObjective.getSelectedIndex());
 		Step step = stepModel.get(lstStep.getSelectedIndex());
 		int mark = markModel.get(lstMark.getSelectedIndex());
 		
-		this.getModel().addMark(session, child, objective, step, mark, day);
+
+			this.getModel().addMark(session, child, objective, step, mark, day);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Error: One or more items aren't selected, Mark was not saved");
+		}
 	}
 
 	public Day getDay() {
