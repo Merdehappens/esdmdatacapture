@@ -213,9 +213,14 @@ public class ESDMModel {
     
 
     
-	public Child viewChild(String childId)
+	public Child viewChild(String childId) throws Exception
     {
         Child child = (Child)Helper.search((Collection<Child>)childList, childId);
+        
+        if(child == null)
+        {
+        	throw new Exception("Child Id not found");
+        }
         
         return child;
     }
@@ -311,8 +316,33 @@ public class ESDMModel {
 			}
 	}
 	
-	public void addMark(Session session, Child child, Objective objective, Step step, int mark, Day day)
+	public void addMark(Session session, Child child, Objective objective, Step step, int mark, Day day) throws Exception
 	{
+		if(session == null)
+		{
+			throw new Exception("Session not Selected");
+		}
+		
+		if(child == null)
+		{
+			throw new Exception("Child not Selected");
+		}
+		
+		if(objective == null)
+		{
+			throw new Exception("Objective not Selected");
+		}
+		
+		if(step == null)
+		{
+			throw new Exception("Step not Selected");
+		}
+		
+		if(mark > 1 || mark < -1)
+		{
+			throw new Exception("Mark not selected");
+		}
+		
 		Mark tempMark = new Mark(session, child, objective, step, mark, (Therapist)currentUser, day);
 		day.addMark(tempMark);
 		markList.add(tempMark);
