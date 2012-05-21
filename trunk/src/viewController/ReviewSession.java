@@ -86,7 +86,7 @@ public class ReviewSession extends PanelView {
 		
 		tableModel = new DefaultTableModel();
 		
-		String[] columnNames = new String[] {"ID", "Therapist", "Session", "Child", "Objective", "Step", "Mark", "Time", "Comments"};
+		String[] columnNames = new String[] {"Therapist", "Session", "Child", "Objective", "Step", "Mark", "Time", "Comments"};
 		tableModel.setColumnIdentifiers(columnNames);
 		
 		tblReview = new JTable(tableModel);
@@ -133,22 +133,21 @@ public class ReviewSession extends PanelView {
 		ArrayList<Mark> marks = (ArrayList<Mark>) day.getMarks();
 		
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("h:mm:ss a");
-		
+
 		for(int i = 0; i < marks.size(); i++)
 		{
 			Mark tempMark = marks.get(i);
 			
-			Object[] rowData = new Object[9];
+			Object[] rowData = new Object[8];
 			
-			rowData[0] = tempMark;
-			rowData[1] = tempMark.getTherapist();
-			rowData[2] = tempMark.getSession();
-			rowData[3] = tempMark.getChild();
-			rowData[4] = tempMark.getObjective();
-			rowData[5] = tempMark.getStep();
-			rowData[6] = tempMark.getMark();
-			rowData[7] = dateFormatter.format(tempMark.getTime().getTime());
-			rowData[8] = tempMark.getComment();
+			rowData[0] = tempMark.getTherapist();
+			rowData[1] = tempMark.getSession();
+			rowData[2] = tempMark.getChild();
+			rowData[3] = tempMark.getObjective();
+			rowData[4] = tempMark.getStep();
+			rowData[5] = tempMark;
+			rowData[6] = dateFormatter.format(tempMark.getTime().getTime());
+			rowData[7] = tempMark.getComment();
 			
 			tableModel.addRow(rowData);
 			
