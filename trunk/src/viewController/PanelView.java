@@ -2,6 +2,7 @@ package viewController;
 
 import javax.swing.JPanel;
 
+import system.individuals.Child;
 import system.model.ESDMModel;
 
 public class PanelView extends JPanel {
@@ -20,6 +21,10 @@ public class PanelView extends JPanel {
 	public ESDMModel getModel()
 	{
 		return model;
+	}
+	
+	public void setChild(Child c)
+	{
 	}
 
 }
