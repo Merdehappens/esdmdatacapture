@@ -29,6 +29,7 @@ public class FindChild extends PanelView {
 	private JList<Child> childList;
 	private DefaultListModel<Child> childListModel;
 	private ArrayList<Child> children;
+	private PanelView destination;
 
 	public FindChild() {
 
@@ -145,6 +146,14 @@ public class FindChild extends PanelView {
 			}
 		}
 		
+	}
+
+	public PanelView getDestination() {
+		return destination;
+	}
+
+	public void setDestination(PanelView p) {
+		destination = p;
 	}
 
 	
