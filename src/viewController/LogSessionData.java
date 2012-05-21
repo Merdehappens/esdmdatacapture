@@ -14,6 +14,7 @@ import system.sessions.Session;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.ListModel;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import javax.swing.JList;
@@ -37,7 +38,7 @@ public class LogSessionData extends PanelView {
 	private JList<Child> lstChild;
 	private JList<Objective> lstObjective;
 	private JList<Step> lstStep;
-	private JList<Integer> lstMark;
+	private JList<Mark> lstMark;
 	private Day day;
 	private JButton btnChildPrevious;
 	private JButton btnChildNext;
@@ -52,7 +53,7 @@ public class LogSessionData extends PanelView {
 	private DefaultListModel<Child> childModel;
 	private DefaultListModel<Objective> objectiveModel;
 	private DefaultListModel<Step> stepModel;
-	private DefaultListModel<Integer> markModel;
+	private DefaultListModel<Mark> markModel;
 	
 	/**
 	 * Create the panel.
@@ -144,14 +145,14 @@ public class LogSessionData extends PanelView {
 		lstStep.setBounds(466, 94, 206, 174);
 		add(lstStep);
 		
-		markModel = new DefaultListModel<Integer>();
-		lstMark = new JList<Integer>(markModel);
+		markModel = new DefaultListModel<Mark>();
+		lstMark = new JList<Mark>(markModel);
 		lstMark.setBounds(682, 94, 85, 174);
 		add(lstMark);
 		
-		markModel.addElement(-1);
-		markModel.addElement(0);
-		markModel.addElement(1);
+		markModel.addElement(new Mark(-1));
+		markModel.addElement(new Mark(0));
+		markModel.addElement(new Mark(1));
 		
 		lstMark.setSelectedIndex(1);
 		
@@ -368,7 +369,7 @@ public class LogSessionData extends PanelView {
 		Child child = childModel.get(lstChild.getSelectedIndex());
 		Objective objective = objectiveModel.get(lstObjective.getSelectedIndex());
 		Step step = stepModel.get(lstStep.getSelectedIndex());
-		int mark = markModel.get(lstMark.getSelectedIndex());
+		int mark = markModel.get(lstMark.getSelectedIndex()).getMark();
 		
 
 			this.getModel().addMark(session, child, objective, step, mark, day);
