@@ -120,15 +120,22 @@ public class ESDMModel {
         roomList.add(new Room("Room 1"));
         roomList.add(new Room("Room 2"));
         
-        sessionList.add(new Session("S01", "Session 1"));
-        sessionList.add(new Session("S01", "Session 2"));
-        sessionList.add(new Session("S01", "Session 3"));
-        sessionList.add(new Session("S01", "Session 4"));
-        sessionList.add(new Session("S01", "Session 5"));
+        sessionList.add(new Session("S01", "Group"));
+        sessionList.add(new Session("S02", "Centers"));
+        sessionList.add(new Session("S03", "Meals"));
+        sessionList.add(new Session("S04", "Enrichment"));
+        sessionList.add(new Session("S05", "One/One"));
+        sessionList.add(new Session("S06", "Informal"));
+        sessionList.add(new Session("S07", "Toilet"));
         
         Therapist user = new Therapist();
         user.setPassword("Temporary");
         user.setUsername("Temporary");
+        therapistList.add(user);
+        
+        user = new Therapist();		
+        user.setUsername("dbisignano");
+        user.setPassword("temp");
         therapistList.add(user);
         
         user = new Therapist();
@@ -345,6 +352,7 @@ public class ESDMModel {
 		
 		Mark tempMark = new Mark(session, child, objective, step, mark, (Therapist)currentUser, day);
 		day.addMark(tempMark);
+		child.addMark(tempMark);
 		markList.add(tempMark);
 	}
 
