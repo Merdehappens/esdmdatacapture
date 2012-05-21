@@ -48,6 +48,7 @@ public class Controller extends JFrame {
 	private JTabbedPane tabbedPane;
 	private EditChild editChild;
 	private FindChild findChild;
+	private FindChild findChildReport;
 	private SessionView sessionView;
 	private ChildView childView;
 	private ViewDay viewDay;
@@ -211,6 +212,9 @@ public class Controller extends JFrame {
 		reportingView = new ReportingView();
 		reportingPanel.add(reportingView, "Reporting");
 		
+		findChildReport = new FindChild(model);
+		reportingPanel.add(findChildReport, "findChildReport");
+		
 		viewReport = new ViewReport();
 		reportingPanel.add(viewReport, "viewReport");
 
@@ -360,13 +364,27 @@ public class Controller extends JFrame {
 	{
 		reportingView.viewReportListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(reportingPanel, "viewReport");
+				show(reportingPanel, "findChildReport");
+				findChildReport.setDestination(viewReport);
+				findChildReport.setChildren(model.getChildList());
+			}
+		});
+		
+		findChildReport.submitListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				findChildReportSubmit(evt);
+			}
+		});
+
+		findChildReport.cancelListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				findChildReportCancel(evt);
 			}
 		});
 		
 	}
 	
-	
+
 	public void initButtonListeners()
 	{
 		initSessionButtonListeners();
@@ -397,6 +415,7 @@ public class Controller extends JFrame {
 		childView.retrieveChildListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				show(childPanel, "findChild");
+				findChild.setDestination(editChild);
 				findChild.setChildren(model.getChildList());
 			}
 		});
@@ -501,14 +520,27 @@ public class Controller extends JFrame {
 	{
 		show(childPanel, "Child");
 	}
+	
+	private void findChildReportCancel(ActionEvent evt)
+	{
+		show(reportingPanel, "Reporting");
+	}
 
 	
 	//Sets the child in the edit child panel and then shows the edit child panel
 	
 	private void findChildSubmit(ActionEvent evt)
 	{
-		editChild.setChild(findChild.getSelectedChild());
+		EditChild p = (EditChild)findChild.getDestination();
+		p.setChild(findChild.getSelectedChild());
 		show(childPanel, "editChild");
+	}
+	
+	private void findChildReportSubmit(ActionEvent evt)
+	{
+		ViewReport p = (ViewReport)findChildReport.getDestination();
+		p.setChild(findChildReport.getSelectedChild());
+		show(reportingPanel, "viewReport");
 	}
 	
 	//Adds a child to the model then shows the EditChild panel with all those details listed 
