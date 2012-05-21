@@ -68,7 +68,10 @@ public class Mark implements SimpleKey {
 		return comment;
 	}
 
-
+	public Mark(int i)
+	{
+		mark = i;
+	}
 
     public Mark(String id, Child child, int mark, Session session, Step step, Therapist therapist, Calendar time) {
         this.id = id;
@@ -100,7 +103,18 @@ public class Mark implements SimpleKey {
 	
 	public String toString()
 	{
-		return id;
+		if(mark == 0)
+		{
+			return "/";
+		}
+		else if(mark > 0)
+		{
+			return "+";
+		}
+		else
+		{
+			return "-";
+		}
 	}
 	
 	public void setComments(String comment)
