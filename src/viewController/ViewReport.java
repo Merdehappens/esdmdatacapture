@@ -54,7 +54,7 @@ public class ViewReport extends PanelView {
 		
 		tblSession = new JTable();
 		scrollPane.setViewportView(tblSession);
-		String[] columnNames = new String[] {"Date", "Objective", "Step", "Setting", "Mark"};
+		String[] columnNames = new String[] {"Date", "Objective", "Step", "Setting", "Mark", "Comments"};
 		
 		
 		tableModel = new DefaultTableModel();
@@ -93,13 +93,14 @@ public class ViewReport extends PanelView {
 		{
 			Mark mark = marks.get(i);
 			
-			Object[] rowData = new Object[5];
+			Object[] rowData = new Object[6];
 			
 			rowData[0] = dateFormatter.format(mark.getTime().getTime());
 			rowData[1] = mark.getObjective().getName();
 			rowData[2] = mark.getStep().getNo();
 			rowData[3] = mark.getSession();
 			rowData[4] = mark;
+			rowData[5] = mark.getComment();
 			
 			tableModel.addRow(rowData);
 			

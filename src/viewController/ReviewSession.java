@@ -122,7 +122,11 @@ public class ReviewSession extends PanelView {
 	private void refreshTable()
 	{
 		lblId.setText(day.getId());
-		lblDate.setText(day.getDate().getDate() + "/" + day.getDate().getMonth() + "/" + (day.getDate().getYear() + 1900));
+		
+		
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/mm/yyyy");
+		
+		lblDate.setText("" + day.getDate().getTime());
 		lblRoomName.setText(day.getRoom().getRoomName());
 		
 		while(tableModel.getRowCount() > 0)
@@ -132,7 +136,7 @@ public class ReviewSession extends PanelView {
 		
 		ArrayList<Mark> marks = (ArrayList<Mark>) day.getMarks();
 		
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("h:mm:ss a");
+		dateFormatter = new SimpleDateFormat("h:mm:ss a");
 
 		for(int i = 0; i < marks.size(); i++)
 		{
