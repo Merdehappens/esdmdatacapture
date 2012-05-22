@@ -27,6 +27,7 @@ import system.sessions.Session;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 //testing
@@ -250,7 +251,7 @@ public class Controller extends JFrame {
 				ArrayList<Child> children = addDay.getChildren();
 				Room room = addDay.getRoom();
 				ArrayList<Session> sessions = addDay.getSessions();
-				Date date = addDay.getDate();
+				Calendar date = addDay.getDate();
 				
 				try {
 					logSessionData.setDay(model.addDay(date, children, room, sessions));

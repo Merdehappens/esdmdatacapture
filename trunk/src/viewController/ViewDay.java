@@ -10,12 +10,15 @@ import javax.swing.SwingConstants;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class ViewDay extends PanelView {
 
@@ -36,6 +39,7 @@ public class ViewDay extends PanelView {
 	 */
 	public ViewDay() {
 
+
 		initialise();
 	
 	}
@@ -49,6 +53,13 @@ public class ViewDay extends PanelView {
 	private void initialise()
 	{
 		setLayout(null);
+		
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent arg0) {
+				refreshTable();
+			}
+		});
 		
 		
 		JLabel lblTitle = new JLabel("View Session");
@@ -165,12 +176,14 @@ public class ViewDay extends PanelView {
 	
 	private void refreshTable()
 	{
-		ArrayList<Day> dayList = (ArrayList<Day>)this.getModel().getDayList();
+		ArrayList<Day> dayList = new ArrayList<Day>(this.getModel().getDays(dateChooserFrom.getDate(), dateChooserTo.getDate()));
 
 		while(tblSession.getRowCount() > 0)
 		{
 			tableModel.removeRow(0);
 		}
+
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/YY");
 		
 		for(int i = 0; i < dayList.size(); i++)
 		{
@@ -179,7 +192,7 @@ public class ViewDay extends PanelView {
 			
 			row[0] = temp;
 			row[1] = temp.getRoom().getRoomName();
-			row[2] = temp.getDate().toString();
+			row[2] = dateFormatter.format(temp.getDate().getTime());
 			
 			tableModel.addRow(row);
 		}

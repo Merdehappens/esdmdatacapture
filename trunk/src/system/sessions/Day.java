@@ -6,6 +6,7 @@ package system.sessions;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +24,7 @@ import system.model.Room;
 public class Day implements SimpleKey {
     
     private List<Child> children;
-    private Date date;
+    private Calendar date;
     private String id;
     private Room room;
     private List<Session> sessions;
@@ -34,7 +35,7 @@ public class Day implements SimpleKey {
     {
     }
 
-    public Day(ArrayList<Child> children, Date date, String id, ArrayList<Session> sessions) {
+    public Day(ArrayList<Child> children, Calendar date, String id, ArrayList<Session> sessions) {
         this.children = children;
         this.date = date;
         this.id = id;
@@ -42,7 +43,7 @@ public class Day implements SimpleKey {
         marks = new ArrayList<Mark>();
     }
         
-    public Day(Date date, String id)
+    public Day(Calendar date, String id)
     {
         this.date = date;
         this.id = id;
@@ -51,7 +52,7 @@ public class Day implements SimpleKey {
         sessions = new ArrayList<Session>();
     }
     
-    public Day(Date date, Room room)
+    public Day(Calendar date, Room room)
     {
     	this.date = date;
     	this.room = room;
@@ -108,7 +109,7 @@ public class Day implements SimpleKey {
 		return id;
 	}
 	
-	public Date getDate()
+	public Calendar getDate()
 	{
 		return date;
 	}

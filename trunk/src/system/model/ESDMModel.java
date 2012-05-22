@@ -29,6 +29,7 @@ import BCrypt.BCrypt;
  *
  * @author DAMIAN
  */
+
 public class ESDMModel {
     
     private List<Child> childList;
@@ -53,7 +54,6 @@ public class ESDMModel {
         dayList = new ArrayList<Day>();
         currentUser = null;
         loadFromDatabase();
-        
     }
 
     public List<Child> getChildList() {
@@ -117,7 +117,9 @@ public class ESDMModel {
         objectiveList.add(objective);
         child.addObjective(objective);
         
-        roomList.add(new Room("Room 1"));
+        Room room = new Room("Room 1");
+        
+        roomList.add(room);
         roomList.add(new Room("Room 2"));
         
         sessionList.add(new Session("S01", "Group"));
@@ -156,6 +158,31 @@ public class ESDMModel {
         guardian.setPhoneNo("Phone No 2");
         
         guardianList.add(guardian);
+        
+        Calendar c = Calendar.getInstance();
+        c.set(2012, 4, 10);
+        Day day = new Day(c, "T01");
+        day.setRoom(room);
+        dayList.add(day);
+        
+
+        c = Calendar.getInstance();
+        c.set(2012, 4, 22);
+        day = new Day(c, "T02");
+        day.setRoom(room);
+        dayList.add(day);
+
+        c = Calendar.getInstance();
+        c.set(2012, 4, 24);
+        day = new Day(c, "T03");
+        day.setRoom(room);
+        dayList.add(day);
+
+        c = Calendar.getInstance();
+        c.set(2012, 4, 27);
+        day = new Day(c, "T04");
+        day.setRoom(room);
+        dayList.add(day);
     }
     
 
@@ -234,7 +261,7 @@ public class ESDMModel {
 	
 	
 	
-	public Day addDay(Date date, ArrayList<Child> children, Room room, ArrayList<Session> sessions) throws Exception
+	public Day addDay(Calendar date, ArrayList<Child> children, Room room, ArrayList<Session> sessions) throws Exception
 	{
 		if(date == null)
 		{
@@ -305,9 +332,12 @@ public class ESDMModel {
 	}
 
 	public void changePassword(String oldPassword, String newPassword1, String newPassword2) throws Exception {
-
-			if(newPassword1.equals(newPassword2))
-			{
+		if(oldPassword.equals("") || newPassword1.equals("") || newPassword2.equals(""))
+		{
+			throw new Exception("One or more of the passwords was left empty");
+		}
+		else if(newPassword1.equals(newPassword2))
+		{
 				if(BCrypt.checkpw(oldPassword, currentUser.getPassword()))
 				{
 					currentUser.setPassword(newPassword2);
@@ -362,6 +392,63 @@ public class ESDMModel {
 		return Helper.search(childList, childId);
 	}
 	
+	public List<Day> getDays(Date from, Date to)
+	{
+		ArrayList<Day> days = new ArrayList<Day>();
+		
+		if(from == null && to == null)
+		{
+			return dayList;
+		}
+/*		else
+		{
+
+			
+			if(from == null)
+			{
+				for(int i = 0; i < dayList.size(); i++)
+				{
+					if(dayList.get(i).getDate().compareTo(to) > 0)
+					{
+						days.add(dayList.get(i));
+					}
+					
+				}
+			}
+			else if(to == null)
+			{
+			
+				for(int i = 0; i < dayList.size(); i++)
+				{
+					if(dayList.get(i).getDate().compareTo(from) > 0)
+					{
+						days.add(dayList.get(i));
+					}
+					
+				}
+				
+			}
+			else
+			{
+				for(int i = 0; i < dayList.size(); i++)
+				{
+					Day temp = dayList.get(i);
+					if(temp.getDate().compareTo(from) < 0 && temp.getDate().compareTo(to) > 0)
+					{
+						days.add(temp);
+					}
+				}
+				
+			}
+			
+			return days;
+		}*/
+		
+		return dayList;
+		
+		
+		
+	}
 	
 	
 }
