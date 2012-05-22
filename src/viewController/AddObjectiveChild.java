@@ -18,13 +18,15 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ListModel;
 
 
 public class AddObjectiveChild extends PanelView {
 
 
-	private ESDMModel model;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7230820180339202570L;
 	private JTextField txtChildName;
 	private JButton btnSubmit;
 	private JButton btnReset;
@@ -44,7 +46,7 @@ public class AddObjectiveChild extends PanelView {
 	
 	public AddObjectiveChild(ESDMModel model)
 	{
-		this.model = model;
+		super(model);
 		
 		initialise();
 	}

@@ -9,6 +9,10 @@ import system.model.ESDMModel;
 public class ReportingView extends PanelView {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -970035637832481957L;
+	/**
 	 * Create the panel.
 	 */
 	JButton btnViewReport;

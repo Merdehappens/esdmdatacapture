@@ -10,6 +10,10 @@ public class ChildView extends PanelView {
 
 	//testing
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4321169254400022059L;
 	JButton btnAddChild;
 	JButton btnRetrieveChild;
 	JButton btnAddObjectiveChild;

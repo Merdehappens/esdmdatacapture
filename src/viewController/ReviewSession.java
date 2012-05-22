@@ -2,21 +2,16 @@ package viewController;
 
 import javax.swing.JButton;
 
-import system.individuals.Child;
 import system.marking.Mark;
 import system.model.ESDMModel;
 import system.sessions.Day;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-
-import javax.swing.JToggleButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -24,6 +19,10 @@ import javax.swing.table.DefaultTableModel;
 
 public class ReviewSession extends PanelView {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -271506336391846049L;
 	private Day day;
 	private JTable tblReview;
 	private DefaultTableModel tableModel;

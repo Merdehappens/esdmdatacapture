@@ -18,6 +18,10 @@ public class EditChild extends PanelView {
 	
 	//test
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3129950176718443795L;
 	private JTextField txtName;
 	private Child child;
 	private JToggleButton tglbtnToggleEditable;

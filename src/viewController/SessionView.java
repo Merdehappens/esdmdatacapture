@@ -9,6 +9,10 @@ import java.awt.event.ActionListener;
 public class SessionView extends PanelView {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6468072713908533918L;
 	JButton btnStartNewDay;
 	JButton btnViewDay;
 	

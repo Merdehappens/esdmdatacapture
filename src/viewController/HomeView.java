@@ -9,6 +9,12 @@ import system.model.ESDMModel;
 public class HomeView extends PanelView {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4031028574687279686L;
+
+
 	public HomeView() {
 		initialise();
 

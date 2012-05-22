@@ -14,6 +14,10 @@ import javax.swing.JPasswordField;
 //testing
 
 public class ChangePassword extends PanelView {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2762847607634692026L;
 	private JPasswordField txtOld;
 	private JPasswordField txtNew;
 	private JPasswordField txtConfirm;
@@ -87,11 +91,13 @@ public class ChangePassword extends PanelView {
 		btnCancel.addActionListener(al);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public boolean newPasswordMatch()
 	{
 		return txtNew.getText().equals(txtConfirm.getText());
 	}
 	
+	@SuppressWarnings("deprecation")
 	public String[] getNewPassword()
 	{
 		String[] temp = new String[2];
@@ -101,6 +107,7 @@ public class ChangePassword extends PanelView {
 		return temp;
 	}
 
+	@SuppressWarnings("deprecation")
 	public String getOldPassword() {
 		return txtOld.getText();
 	}

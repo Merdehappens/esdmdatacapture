@@ -7,7 +7,6 @@ package system.individuals;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;

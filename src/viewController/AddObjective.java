@@ -16,6 +16,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 
 public class AddObjective extends PanelView {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7613043122443669408L;
 	private JTextField txtObjectiveName;
 	private JButton btnSubmit;
 	private JButton btnReset;
