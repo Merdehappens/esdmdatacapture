@@ -19,7 +19,6 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
 import system.individuals.Child;
-import system.individuals.UserAccount;
 import system.model.ESDMModel;
 import system.model.Room;
 import system.sessions.Session;
@@ -28,7 +27,6 @@ import system.sessions.Session;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 //testing
 /**
@@ -36,6 +34,11 @@ import java.util.Date;
  *
  */
 public class Controller extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6281745567153858417L;
 
 	private ESDMModel model;
 	
@@ -589,7 +592,8 @@ public class Controller extends JFrame {
 	 * 
 	 ***********************************************************************************/
 	
-    public void showLogin()
+    @SuppressWarnings("deprecation")
+	public void showLogin()
     {
         JLabel label_loginname = new JLabel("Enter your login name:");
         JTextField loginname;

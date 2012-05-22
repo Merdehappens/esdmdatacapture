@@ -5,23 +5,19 @@ import javax.swing.JButton;
 import system.individuals.Child;
 import system.marking.Mark;
 import system.model.ESDMModel;
-import system.sessions.Day;
-
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 
 public class ViewReport extends PanelView {
-	private DefaultTableModel tblDayModel; 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7874110638597279843L;
 	private JScrollPane scrollPane;
 	private JTable tblSession;
 	private DefaultTableModel tableModel;

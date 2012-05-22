@@ -10,10 +10,13 @@ import javax.swing.JButton;
 import system.model.ESDMModel;
 
 import java.awt.event.ActionListener;
-import javax.swing.JPasswordField;
 
 public class ChangeEmail extends PanelView {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9133299148971810165L;
 	private JTextField txtNewEmailAddress;
 	private JButton btnChangeEmail;
 	private JButton btnCancel;

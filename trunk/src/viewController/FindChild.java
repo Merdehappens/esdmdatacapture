@@ -21,7 +21,10 @@ import java.util.List;
 public class FindChild extends PanelView {
 
 
-	private ESDMModel model;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8214827932958587060L;
 	private JTextField txtChildName;
 	private JButton btnSubmit;
 	private JButton btnReset;
@@ -39,7 +42,7 @@ public class FindChild extends PanelView {
 	
 	public FindChild(ESDMModel model)
 	{
-		this.model = model;
+		super(model);
 		
 		initialise();
 	}

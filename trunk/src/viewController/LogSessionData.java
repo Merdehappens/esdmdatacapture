@@ -14,7 +14,6 @@ import system.sessions.Session;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.ListModel;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import javax.swing.JList;
@@ -26,6 +25,10 @@ import javax.swing.event.ListSelectionEvent;
 
 
 public class LogSessionData extends PanelView {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5029048398607740463L;
 	private JButton btnSubmit;
 	private JLabel lblSetting;
 	private JLabel lblChild;

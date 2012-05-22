@@ -22,9 +22,12 @@ import java.util.Date;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JPanel;
 
 public class AddChild extends PanelView {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5863857435197571726L;
 	private JTextField txtName;
 	private JButton btnSubmit;
 	private JButton btnReset;
@@ -116,7 +119,12 @@ public class AddChild extends PanelView {
 		
 		
 		
-		tblGuardian = new JTable(){ public boolean isCellEditable(int rowIndex, int colIndex) 
+		tblGuardian = new JTable(){ /**
+			 * 
+			 */
+			private static final long serialVersionUID = -6097806136687511132L;
+
+		public boolean isCellEditable(int rowIndex, int colIndex) 
 			{ if(colIndex == 0)
 				{
 					return false;

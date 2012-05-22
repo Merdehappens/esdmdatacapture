@@ -8,6 +8,10 @@ import java.awt.event.ActionListener;
 
 public class ObjectiveView extends PanelView {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3263162072078805101L;
 	private JButton btnAddNewObjective;
 	private JButton btnViewObjectives;
 	private JButton btnAddObjectiveTo;

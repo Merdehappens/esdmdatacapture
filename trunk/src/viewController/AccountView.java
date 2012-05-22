@@ -14,6 +14,10 @@ public class AccountView extends PanelView {
 
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7002494511986322397L;
 	private JButton btnChangePassword;
 	private JButton btnChangeEmailAddress;
 

@@ -22,10 +22,13 @@ import java.awt.event.ComponentEvent;
 
 public class ViewDay extends PanelView {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4174778855073882231L;
 	private JButton btnSubmit;
 	private JButton btnReset;
 	private JButton btnCancel;
-	private DefaultTableModel tblDayModel; 
 	private JDateChooser dateChooserFrom;
 	private JDateChooser dateChooserTo;
 	private JCheckBox chkbxActiveSessions;

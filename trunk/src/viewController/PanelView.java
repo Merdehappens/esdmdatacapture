@@ -7,6 +7,10 @@ import system.model.ESDMModel;
 
 public class PanelView extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2035849306687852560L;
 	private ESDMModel model;
 
 	public PanelView() {

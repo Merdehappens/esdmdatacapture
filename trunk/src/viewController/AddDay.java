@@ -19,7 +19,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.ComboBoxModel;
@@ -37,6 +36,10 @@ import java.awt.event.ComponentEvent;
 
 public class AddDay extends PanelView {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3352767716977743660L;
 	private JButton btnSubmit;
 	private JButton btnReset;
 	private JButton btnCancel;
