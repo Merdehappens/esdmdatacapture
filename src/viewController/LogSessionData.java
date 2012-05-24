@@ -188,6 +188,10 @@ public class LogSessionData extends PanelView {
 		add(btnCommitMark);
 		
 		btnAddTimestamp = new JButton("Add Timestamp");
+		btnAddTimestamp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnAddTimestamp.setBounds(398, 346, 115, 47);
 		add(btnAddTimestamp);
 		
@@ -196,7 +200,7 @@ public class LogSessionData extends PanelView {
 		
 		btnSettingNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				lstSession.setSelectedIndex(lstSession.getSelectedIndex() + 1);
+				setIndex(lstSession, sessionModel, 1);
 			}
 		});
 		btnSettingNext.setBounds(90, 270, 40, 40);
@@ -206,7 +210,7 @@ public class LogSessionData extends PanelView {
 		btnSettingPrevious.setMnemonic(KeyEvent.VK_Z);
 		btnSettingPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lstSession.setSelectedIndex(lstSession.getSelectedIndex() - 1);
+				setIndex(lstSession, sessionModel, -1);
 			}
 			
 			
@@ -221,7 +225,7 @@ public class LogSessionData extends PanelView {
 		
 		btnChildPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lstChild.setSelectedIndex(lstChild.getSelectedIndex() - 1);
+				setIndex(lstChild, childModel, -1);
 			}
 		});
 		
@@ -234,7 +238,7 @@ public class LogSessionData extends PanelView {
 		
 		btnChildNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lstChild.setSelectedIndex(lstChild.getSelectedIndex() + 1);
+				setIndex(lstChild, childModel, 1);
 			}
 		});
 		
@@ -245,7 +249,7 @@ public class LogSessionData extends PanelView {
 		btnObjectivePrevious.setMnemonic(KeyEvent.VK_Q);
 		btnObjectivePrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lstObjective.setSelectedIndex(lstObjective.getSelectedIndex() - 1);
+				setIndex(lstObjective, objectiveModel, -1);
 			}
 		});
 		
@@ -256,7 +260,8 @@ public class LogSessionData extends PanelView {
 		btnObjectiveNext.setMnemonic(KeyEvent.VK_W);
 		btnObjectiveNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lstObjective.setSelectedIndex(lstObjective.getSelectedIndex() + 1);
+				setIndex(lstObjective, objectiveModel, 1);
+				
 			}
 		});
 		
@@ -267,7 +272,8 @@ public class LogSessionData extends PanelView {
 		btnStepPrevious.setMnemonic(KeyEvent.VK_C);
 		btnStepPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lstStep.setSelectedIndex(lstStep.getSelectedIndex() - 1);
+				setIndex(lstStep, stepModel, -1);
+				
 			}
 		});
 		btnStepPrevious.setBounds(524, 270, 40, 40);
@@ -277,7 +283,8 @@ public class LogSessionData extends PanelView {
 		btnStepNext.setMnemonic(KeyEvent.VK_V);
 		btnStepNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lstStep.setSelectedIndex(lstStep.getSelectedIndex() + 1);
+				setIndex(lstStep, stepModel, 1);
+				
 			}
 		});
 		btnStepNext.setBounds(574, 270, 40, 40);
@@ -287,7 +294,7 @@ public class LogSessionData extends PanelView {
 		btnMarkPrevious.setMnemonic(KeyEvent.VK_D);
 		btnMarkPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lstMark.setSelectedIndex(lstMark.getSelectedIndex() - 1);
+				setIndex(lstMark, markModel, -1);
 			}
 		});
 		btnMarkPrevious.setBounds(682, 270, 40, 40);
@@ -297,7 +304,7 @@ public class LogSessionData extends PanelView {
 		btnMarkNext.setMnemonic(KeyEvent.VK_F);
 		btnMarkNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lstMark.setSelectedIndex(lstMark.getSelectedIndex() + 1);
+				setIndex(lstMark, markModel, 1);
 			}
 
 		});
@@ -307,6 +314,22 @@ public class LogSessionData extends PanelView {
 		
 	}
 	
+	protected void setIndex(JList lst, DefaultListModel model, int i) {
+		int temp = lst.getSelectedIndex() + i;
+		if(temp >= model.getSize())
+		{
+			lst.setSelectedIndex(0);
+		}
+		else if(temp < 0)
+		{
+			lst.setSelectedIndex(model.getSize() - 1);
+		}
+		else
+		{
+			lst.setSelectedIndex(temp);
+		}
+	}
+
 	protected void populateObjectiveList() {
 		
 		objectiveModel.clear();
@@ -415,8 +438,6 @@ public class LogSessionData extends PanelView {
 		Objective objective = objectiveModel.get(lstObjective.getSelectedIndex());
 		Step step = stepModel.get(lstStep.getSelectedIndex());
 		int mark = markModel.get(lstMark.getSelectedIndex()).getMark();
-		
-
 			this.getModel().addMark(session, child, objective, step, mark, day);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Error: One or more items aren't selected, Mark was not saved");
