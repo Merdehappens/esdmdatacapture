@@ -203,7 +203,7 @@ public class LogSessionData extends PanelView {
 		add(btnSettingNext);
 		
 		JButton btnSettingPrevious = new JButton("<");
-		btnSettingPrevious.setMnemonic(KeyEvent.VK_PAGE_UP);
+		btnSettingPrevious.setMnemonic(KeyEvent.VK_Z);
 		btnSettingPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lstSession.setSelectedIndex(lstSession.getSelectedIndex() - 1);
