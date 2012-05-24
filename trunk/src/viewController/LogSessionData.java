@@ -1,7 +1,21 @@
 package viewController;
 
 
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import system.individuals.Child;
 import system.marking.Mark;
@@ -10,18 +24,6 @@ import system.marking.Step;
 import system.model.ESDMModel;
 import system.sessions.Day;
 import system.sessions.Session;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
-import javax.swing.JList;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
 
 
 public class LogSessionData extends PanelView {
@@ -62,6 +64,7 @@ public class LogSessionData extends PanelView {
 	 * Create the panel.
 	 */
 	public LogSessionData() {
+
 		initialise();
 	
 	}
@@ -80,6 +83,22 @@ public class LogSessionData extends PanelView {
 	
 	private void initialise()
 	{
+		addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				System.out.println("Key Pressed");
+			}
+			@Override
+			public void keyReleased(KeyEvent e) {
+				System.out.println("Key released");
+			}
+			@Override
+			public void keyTyped(KeyEvent e) {
+				System.out.println("Key Typed");
+			}
+		});
+		
+		
 		setLayout(null);
 		JLabel lblTitle = new JLabel("Log Session Data");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -125,9 +144,12 @@ public class LogSessionData extends PanelView {
 		childModel = new DefaultListModel<Child>();
 		lstChild = new JList<Child>(childModel);
 		lstChild.addListSelectionListener(new ListSelectionListener() {
+			
 			public void valueChanged(ListSelectionEvent arg0) {
 				populateObjectiveList();
 			}
+
+			
 		});
 		lstChild.setBounds(174, 94, 126, 174);
 		add(lstChild);
@@ -135,9 +157,11 @@ public class LogSessionData extends PanelView {
 		objectiveModel = new DefaultListModel<Objective>();
 		lstObjective = new JList<Objective>(objectiveModel);
 		lstObjective.addListSelectionListener(new ListSelectionListener() {
+			
 			public void valueChanged(ListSelectionEvent e) {
 					populateStepList();
 			}
+			
 		});
 		
 		lstObjective.setBounds(310, 94, 146, 174);
@@ -168,6 +192,8 @@ public class LogSessionData extends PanelView {
 		add(btnAddTimestamp);
 		
 		JButton btnSettingNext = new JButton(">");
+		btnSettingNext.setMnemonic(KeyEvent.VK_B);
+		
 		btnSettingNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lstSession.setSelectedIndex(lstSession.getSelectedIndex() + 1);
@@ -177,6 +203,7 @@ public class LogSessionData extends PanelView {
 		add(btnSettingNext);
 		
 		JButton btnSettingPrevious = new JButton("<");
+		btnSettingPrevious.setMnemonic(KeyEvent.VK_PAGE_UP);
 		btnSettingPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lstSession.setSelectedIndex(lstSession.getSelectedIndex() - 1);
@@ -189,6 +216,9 @@ public class LogSessionData extends PanelView {
 		add(btnSettingPrevious);
 		
 		btnChildPrevious = new JButton("<");
+
+		btnChildPrevious.setMnemonic(KeyEvent.VK_A);
+		
 		btnChildPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lstChild.setSelectedIndex(lstChild.getSelectedIndex() - 1);
@@ -199,6 +229,9 @@ public class LogSessionData extends PanelView {
 		add(btnChildPrevious);
 		
 		btnChildNext = new JButton(">");
+		
+		btnChildNext.setMnemonic(KeyEvent.VK_S);
+		
 		btnChildNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lstChild.setSelectedIndex(lstChild.getSelectedIndex() + 1);
@@ -209,6 +242,7 @@ public class LogSessionData extends PanelView {
 		add(btnChildNext);
 		
 		btnObjectivePrevious = new JButton("<");
+		btnObjectivePrevious.setMnemonic(KeyEvent.VK_Q);
 		btnObjectivePrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lstObjective.setSelectedIndex(lstObjective.getSelectedIndex() - 1);
@@ -219,6 +253,7 @@ public class LogSessionData extends PanelView {
 		add(btnObjectivePrevious);
 		
 		btnObjectiveNext = new JButton(">");
+		btnObjectiveNext.setMnemonic(KeyEvent.VK_W);
 		btnObjectiveNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lstObjective.setSelectedIndex(lstObjective.getSelectedIndex() + 1);
@@ -229,6 +264,7 @@ public class LogSessionData extends PanelView {
 		add(btnObjectiveNext);
 		
 		btnStepPrevious = new JButton("<");
+		btnStepPrevious.setMnemonic(KeyEvent.VK_C);
 		btnStepPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lstStep.setSelectedIndex(lstStep.getSelectedIndex() - 1);
@@ -238,6 +274,7 @@ public class LogSessionData extends PanelView {
 		add(btnStepPrevious);
 		
 		btnStepNext = new JButton(">");
+		btnStepNext.setMnemonic(KeyEvent.VK_V);
 		btnStepNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lstStep.setSelectedIndex(lstStep.getSelectedIndex() + 1);
@@ -247,6 +284,7 @@ public class LogSessionData extends PanelView {
 		add(btnStepNext);
 		
 		btnMarkPrevious = new JButton("<");
+		btnMarkPrevious.setMnemonic(KeyEvent.VK_D);
 		btnMarkPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lstMark.setSelectedIndex(lstMark.getSelectedIndex() - 1);
@@ -256,13 +294,17 @@ public class LogSessionData extends PanelView {
 		add(btnMarkPrevious);
 		
 		btnMarkNext = new JButton(">");
+		btnMarkNext.setMnemonic(KeyEvent.VK_F);
 		btnMarkNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lstMark.setSelectedIndex(lstMark.getSelectedIndex() + 1);
 			}
+
 		});
 		btnMarkNext.setBounds(729, 270, 40, 40);
 		add(btnMarkNext);
+
+		
 	}
 	
 	protected void populateObjectiveList() {
