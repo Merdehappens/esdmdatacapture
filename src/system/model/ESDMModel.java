@@ -222,6 +222,9 @@ public class ESDMModel {
      *                                                  *
      * **************************************************/
     
+  
+    
+    
     public boolean loggedIn()
     {
         if(currentUser == null)
@@ -259,7 +262,9 @@ public class ESDMModel {
         return child;
     }
 	
-	
+	/* Creates a new Day object, takes a list of Children and Session
+	 * objects and adds them to that Day
+	 */
 	
 	public Day addDay(Calendar date, ArrayList<Child> children, Room room, ArrayList<Session> sessions) throws Exception
 	{
