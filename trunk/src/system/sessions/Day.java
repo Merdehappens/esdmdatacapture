@@ -37,14 +37,24 @@ public class Day implements SimpleKey {
     public Day(ArrayList<Child> children, Calendar date, String id, ArrayList<Session> sessions) {
         this.children = children;
         this.date = date;
+        setDateTime();
         this.id = id;
         this.sessions = sessions;
         marks = new ArrayList<Mark>();
+    }
+    
+    private void setDateTime()
+    {
+        date.set(Calendar.HOUR_OF_DAY, 0);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
+        date.set(Calendar.MILLISECOND, 0);
     }
         
     public Day(Calendar date, String id)
     {
         this.date = date;
+        setDateTime();
         this.id = id;
         marks = new ArrayList<Mark>();
         children = new ArrayList<Child>();
@@ -54,6 +64,7 @@ public class Day implements SimpleKey {
     public Day(Calendar date, Room room)
     {
     	this.date = date;
+    	setDateTime();
     	this.room = room;
     	marks = new ArrayList<Mark>();
     	children = new ArrayList<Child>();

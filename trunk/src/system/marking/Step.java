@@ -64,7 +64,7 @@ public class Step {
     
     public String toString()
     {
-    	return no + " " + code + " " + description;
+    	return no + " " + description;
     }
     
     
