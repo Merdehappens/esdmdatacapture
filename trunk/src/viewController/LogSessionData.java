@@ -184,6 +184,7 @@ public class LogSessionData extends PanelView {
 		lstMark.setSelectedIndex(1);
 		
 		btnCommitMark = new JButton("Commit Mark");
+		btnCommitMark.setMnemonic(KeyEvent.VK_J);
 		btnCommitMark.setBounds(10, 346, 154, 47);
 		add(btnCommitMark);
 		
