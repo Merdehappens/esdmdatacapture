@@ -27,6 +27,7 @@ import system.sessions.Session;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.awt.Font;
 
 //testing
 /**
@@ -123,6 +124,7 @@ public class Controller extends JFrame {
 		//Set the main layout of the project (tabbed pane)
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tabbedPane.setBorder(null);
 		
 		tabbedPane.setBounds(0, 0, 963, 613);

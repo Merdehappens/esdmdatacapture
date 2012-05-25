@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 
 public class ReviewSession extends PanelView {
@@ -78,7 +79,7 @@ public class ReviewSession extends PanelView {
 		add(btnCancel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(25, 123, 724, 320);
+		scrollPane.setBounds(25, 123, 866, 320);
 		add(scrollPane);
 		
 		
@@ -114,6 +115,15 @@ public class ReviewSession extends PanelView {
 		lblRoomName = new JLabel("");
 		lblRoomName.setBounds(83, 93, 78, 14);
 		add(lblRoomName);
+		
+		tblReview.getColumnModel().getColumn(0).setPreferredWidth(40);
+		tblReview.getColumnModel().getColumn(1).setPreferredWidth(40);
+		tblReview.getColumnModel().getColumn(2).setPreferredWidth(40);
+		tblReview.getColumnModel().getColumn(3).setPreferredWidth(40);
+		tblReview.getColumnModel().getColumn(4).setPreferredWidth(20);
+		tblReview.getColumnModel().getColumn(5).setPreferredWidth(5);
+		tblReview.getColumnModel().getColumn(6).setPreferredWidth(30);
+		tblReview.getColumnModel().getColumn(7).setPreferredWidth(300);
 		
 		
 	}
