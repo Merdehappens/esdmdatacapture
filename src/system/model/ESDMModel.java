@@ -8,6 +8,7 @@ package system.model;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import system.helper.Helper;
@@ -78,27 +79,26 @@ public class ESDMModel {
     private void loadFromDatabase() throws MalformedURLException
     {
         Child child = new Child();
-        child.setId("Temp1"); 
-        child.setName("Temp1");
+        child.setId("C001"); 
+        child.setName("John Doe");
         child.setDob(new Date(2001, 4, 21));
         child.setPictureLink(new URL("http://www.hanselman.com/blog/content/binary/WindowsLiveWriter/CleanupyourTempFiles_8F63/TempFiles%5B7%5D.jpg"));
         childList.add(child);
         
         child = new Child();
-        child.setId("Temp2");
-        child.setName("Temp2");
+        child.setId("C002");
+        child.setName("Sally Smith");
         child.setDob(new Date(2004, 5, 22));
         child.setPictureLink(new URL("http://www.hanselman.com/blog/content/binary/WindowsLiveWriter/CleanupyourTempFiles_8F63/TempFiles%5B7%5D.jpg"));
         childList.add(child);
         
-        Objective objective = new Objective("Expressive", "Objective Description");
-        Step step = new Step("1", "Code1", "DOES THIS STUFF");
+        Objective objective = new Objective("Looks at indicated pictures as adult points to picture in book", 
+        		"In activities with books and puzzles, when an adult points (touching or proximal point 6” or less) to a picture child will visually orient and/or grasp or tap pictures or objects that the adult is pointing to 80% of opportunities for 4 of 5 consecutive days across 3 or more adults and settings.");
+        Step step = new Step("1", "MC", "Orients and grasp/tap w/ partial physical prompt 50% opp");
         objective.addSteps(step);
-        step = new Step("2", "Code2", "DOES THIS STUFF2");
+        step = new Step("2", "MC", "Orients and/or grasp/tap 50% of opp");
         objective.addSteps(step);
-        step = new Step("3", "Code3", "DOES THIS STUF3F");
-        objective.addSteps(step);
-        step = new Step("4", "Code4", "DOES THIS STUFF4");
+        step = new Step("3", "MC", "Orients and/or grasp/tap 80% of opp");
         objective.addSteps(step);
         
         objectiveList.add(objective);
@@ -203,8 +203,7 @@ public class ESDMModel {
         		{
         			return false;
         		}
-        	}
-        		        		
+        	}     		
         }
       
         return false;
@@ -378,11 +377,11 @@ public class ESDMModel {
 				{
 					throw new Exception("Incorrect Password");
 				}
-			}
-			else
-			{
-				throw new Exception("Both Passwords do not match");
-			}
+		}
+		else
+		{
+			throw new Exception("Both Passwords do not match");
+		}
 	}
 	
 	public void addMark(Session session, Child child, Objective objective, Step step, int mark, Day day) throws Exception
@@ -418,29 +417,29 @@ public class ESDMModel {
 		markList.add(tempMark);
 	}
 
-	//searches through child list and returns child with the ID specified
 	
-	public Child getChild(String childId) {
-		return Helper.search(childList, childId);
-	}
-	
-	public List<Day> getDays(Date from, Date to)
+	public List<Day> getDays(Calendar from, Calendar to)
 	{
+
+
+	    
+		
 		ArrayList<Day> days = new ArrayList<Day>();
 		
 		if(from == null && to == null)
 		{
 			return dayList;
 		}
-/*		else
+		else
 		{
 
-			
 			if(from == null)
 			{
+				to = Helper.setCalendarTimeNull(to);
+				
 				for(int i = 0; i < dayList.size(); i++)
 				{
-					if(dayList.get(i).getDate().compareTo(to) > 0)
+					if(dayList.get(i).getDate().compareTo(to) <= 0)
 					{
 						days.add(dayList.get(i));
 					}
@@ -449,23 +448,25 @@ public class ESDMModel {
 			}
 			else if(to == null)
 			{
-			
+				from = Helper.setCalendarTimeNull(from);
 				for(int i = 0; i < dayList.size(); i++)
 				{
-					if(dayList.get(i).getDate().compareTo(from) > 0)
+					if(dayList.get(i).getDate().compareTo(from) >= 0)
 					{
 						days.add(dayList.get(i));
 					}
 					
 				}
-				
 			}
 			else
 			{
+				to = Helper.setCalendarTimeNull(to);
+				from = Helper.setCalendarTimeNull(from);
+				
 				for(int i = 0; i < dayList.size(); i++)
 				{
 					Day temp = dayList.get(i);
-					if(temp.getDate().compareTo(from) < 0 && temp.getDate().compareTo(to) > 0)
+					if(temp.getDate().compareTo(from) >= 0 && temp.getDate().compareTo(to) <= 0)
 					{
 						days.add(temp);
 					}
@@ -474,9 +475,7 @@ public class ESDMModel {
 			}
 			
 			return days;
-		}*/
-		
-		return dayList;
+		}
 		
 		
 		

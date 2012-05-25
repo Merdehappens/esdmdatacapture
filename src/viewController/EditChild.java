@@ -6,6 +6,7 @@ import system.individuals.Child;
 import system.model.ESDMModel;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 
@@ -154,7 +155,11 @@ public class EditChild extends PanelView {
 
 	public void setId(String childId)
 	{
-		setChild(this.getModel().getChild(childId));
+		try {
+			setChild(this.getModel().viewChild(childId));
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
 	}
 	
 	

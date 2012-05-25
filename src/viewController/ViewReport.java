@@ -12,13 +12,10 @@ import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 public class ViewReport extends PanelView {
-	/**
-	 * 
-	 */
+
+	
 	private static final long serialVersionUID = 7874110638597279843L;
 	private JScrollPane scrollPane;
 	private JTable tblSession;

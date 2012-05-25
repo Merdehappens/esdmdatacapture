@@ -107,7 +107,7 @@ public class LogSessionData extends PanelView {
 		add(lblTitle);
 		
 		btnSubmit = new JButton("Complete Data Logging");
-		btnSubmit.setBounds(10, 404, 154, 23);
+		btnSubmit.setBounds(322, 346, 154, 47);
 		add(btnSubmit);
 		
 		lblSetting = new JLabel("Setting");
@@ -122,27 +122,29 @@ public class LogSessionData extends PanelView {
 		
 		lblObjectives = new JLabel("Objectives");
 		lblObjectives.setHorizontalAlignment(SwingConstants.CENTER);
-		lblObjectives.setBounds(310, 65, 146, 14);
+		lblObjectives.setBounds(310, 65, 306, 14);
 		add(lblObjectives);
 		
 		lblStep = new JLabel("Step");
 		lblStep.setHorizontalAlignment(SwingConstants.CENTER);
-		lblStep.setBounds(466, 65, 206, 14);
+		lblStep.setBounds(626, 65, 206, 14);
 		add(lblStep);
 		
 		lblMark = new JLabel("Mark");
 		lblMark.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMark.setBounds(682, 65, 85, 14);
+		lblMark.setBounds(842, 65, 83, 14);
 		add(lblMark);
 
 		
 		sessionModel = new DefaultListModel<Session>();
 		lstSession = new JList<Session>(sessionModel);
+		lstSession.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lstSession.setBounds(10, 94, 154, 174);
 		add(lstSession);
 		
 		childModel = new DefaultListModel<Child>();
 		lstChild = new JList<Child>(childModel);
+		lstChild.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lstChild.addListSelectionListener(new ListSelectionListener() {
 			
 			public void valueChanged(ListSelectionEvent arg0) {
@@ -156,6 +158,7 @@ public class LogSessionData extends PanelView {
 		
 		objectiveModel = new DefaultListModel<Objective>();
 		lstObjective = new JList<Objective>(objectiveModel);
+		lstObjective.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lstObjective.addListSelectionListener(new ListSelectionListener() {
 			
 			public void valueChanged(ListSelectionEvent e) {
@@ -164,17 +167,19 @@ public class LogSessionData extends PanelView {
 			
 		});
 		
-		lstObjective.setBounds(310, 94, 146, 174);
+		lstObjective.setBounds(310, 94, 306, 174);
 		add(lstObjective);
 		
 		stepModel = new DefaultListModel<Step>();
 		lstStep = new JList<Step>(stepModel);
-		lstStep.setBounds(466, 94, 206, 174);
+		lstStep.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lstStep.setBounds(626, 94, 206, 174);
 		add(lstStep);
 		
 		markModel = new DefaultListModel<Mark>();
 		lstMark = new JList<Mark>(markModel);
-		lstMark.setBounds(682, 94, 85, 174);
+		lstMark.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lstMark.setBounds(842, 94, 83, 174);
 		add(lstMark);
 		
 		markModel.addElement(new Mark(-1));
@@ -193,7 +198,7 @@ public class LogSessionData extends PanelView {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnAddTimestamp.setBounds(398, 346, 115, 47);
+		btnAddTimestamp.setBounds(10, 404, 154, 47);
 		add(btnAddTimestamp);
 		
 		JButton btnSettingNext = new JButton(">");
@@ -254,7 +259,7 @@ public class LogSessionData extends PanelView {
 			}
 		});
 		
-		btnObjectivePrevious.setBounds(336, 270, 40, 40);
+		btnObjectivePrevious.setBounds(423, 270, 40, 40);
 		add(btnObjectivePrevious);
 		
 		btnObjectiveNext = new JButton(">");
@@ -266,7 +271,7 @@ public class LogSessionData extends PanelView {
 			}
 		});
 		
-		btnObjectiveNext.setBounds(386, 270, 40, 40);
+		btnObjectiveNext.setBounds(473, 270, 40, 40);
 		add(btnObjectiveNext);
 		
 		btnStepPrevious = new JButton("<");
@@ -277,7 +282,7 @@ public class LogSessionData extends PanelView {
 				
 			}
 		});
-		btnStepPrevious.setBounds(524, 270, 40, 40);
+		btnStepPrevious.setBounds(684, 270, 40, 40);
 		add(btnStepPrevious);
 		
 		btnStepNext = new JButton(">");
@@ -288,17 +293,18 @@ public class LogSessionData extends PanelView {
 				
 			}
 		});
-		btnStepNext.setBounds(574, 270, 40, 40);
+		btnStepNext.setBounds(734, 270, 40, 40);
 		add(btnStepNext);
 		
 		btnMarkPrevious = new JButton("<");
+		btnMarkPrevious.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnMarkPrevious.setMnemonic(KeyEvent.VK_D);
 		btnMarkPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setIndex(lstMark, markModel, -1);
 			}
 		});
-		btnMarkPrevious.setBounds(682, 270, 40, 40);
+		btnMarkPrevious.setBounds(842, 270, 40, 40);
 		add(btnMarkPrevious);
 		
 		btnMarkNext = new JButton(">");
@@ -309,7 +315,7 @@ public class LogSessionData extends PanelView {
 			}
 
 		});
-		btnMarkNext.setBounds(729, 270, 40, 40);
+		btnMarkNext.setBounds(885, 270, 40, 40);
 		add(btnMarkNext);
 
 		

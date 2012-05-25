@@ -179,7 +179,7 @@ public class ViewDay extends PanelView {
 	
 	private void refreshTable()
 	{
-		ArrayList<Day> dayList = new ArrayList<Day>(this.getModel().getDays(dateChooserFrom.getDate(), dateChooserTo.getDate()));
+		ArrayList<Day> dayList = new ArrayList<Day>(this.getModel().getDays(dateChooserFrom.getCalendar(), dateChooserTo.getCalendar()));
 
 		while(tblSession.getRowCount() > 0)
 		{
