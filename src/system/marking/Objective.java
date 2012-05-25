@@ -18,12 +18,22 @@ public class Objective {
     private String name;
     private String description;
     private int level;
+	private String id;
     
     public int getLevel()
     {
     	return level;
     }
     
+	public String getId()
+	{
+		return id;
+	}
+	public void setId(String id)
+	{
+		this.id = id;
+	}
+	
     public Objective()
     {
         steps = new ArrayList<Step>();
