@@ -299,15 +299,24 @@ public class ESDMModel {
 	 *        steps[1][0] is the code of the second step, step [1][1] is the description of the second step. and so on.
 	 */
 	
-	public void addObjective(String Name, String description, String[][] steps)
+	public void addObjective(String Name, String description, String[][] steps) throws Exception
 	{
 	
 		//iterate through string//
 		//create step for each pair//
 		//create objective with these steps//
+		if(steps.length == 0)
+		{
+			throw new Exception("No steps have been added");
+		}
+		
 		Objective o = new Objective(Name, description);
 		for (int i = 0; i < steps.length; i++)
 		{
+			if(steps[i][0].equals("") || steps[i][1].equals(""))
+			{
+				throw new Exception("one of the steps isn't completely filled");
+			}
 			String no = (i + 1) + "";
 			Step step = new Step(no, steps[i][0], steps[i][1]);//retrieves info from 2D array and makes a new step
 			o.addSteps(step);
