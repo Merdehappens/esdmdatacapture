@@ -1,9 +1,12 @@
 package viewController;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 import system.model.ESDMModel;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 
 public class ObjectiveView extends PanelView {
@@ -33,16 +36,22 @@ public class ObjectiveView extends PanelView {
 	{
 		setLayout(null);
 		
+		JLabel lblTitle = new JLabel("Objective");
+		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setBounds(10, 11, 504, 34);
+		add(lblTitle);
+		
 		btnAddNewObjective = new JButton("Add New Objective");
-		btnAddNewObjective.setBounds(10, 11, 152, 30);
+		btnAddNewObjective.setBounds(20, 70, 200, 40);
 		add(btnAddNewObjective);
 		
 		btnViewObjectives = new JButton("View Objectives");
-		btnViewObjectives.setBounds(10, 52, 152, 30);
+		btnViewObjectives.setBounds(20, 120, 200, 40);
 		add(btnViewObjectives);
 		
 		btnAddObjectiveTo = new JButton("Add Objective to Child");
-		btnAddObjectiveTo.setBounds(10, 92, 152, 30);
+		btnAddObjectiveTo.setBounds(20, 170, 200, 40);
 		add(btnAddObjectiveTo);
 	
 	}

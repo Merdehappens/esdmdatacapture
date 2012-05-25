@@ -1,8 +1,11 @@
 package viewController;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 import system.model.ESDMModel;
 
@@ -33,16 +36,22 @@ public class ChildView extends PanelView {
 	{
 		setLayout(null);
 		
+		JLabel lblTitle = new JLabel("Child");
+		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setBounds(10, 11, 504, 34);
+		add(lblTitle);
+		
 		btnAddChild = new JButton("Add New Child");
-		btnAddChild.setBounds(10, 11, 200, 30);
+		btnAddChild.setBounds(20, 70, 200, 40);
 		add(btnAddChild);
 		
-		btnRetrieveChild = new JButton("Retrieve Childs Details");
-		btnRetrieveChild.setBounds(10, 45, 200, 30);
+		btnRetrieveChild = new JButton("Retrieve Child's Details");
+		btnRetrieveChild.setBounds(20, 120, 200, 40);
 		add(btnRetrieveChild);
 		
 		btnAddObjectiveChild = new JButton("Add Objective To Child");
-		btnAddObjectiveChild.setBounds(10, 79, 200, 30);
+		btnAddObjectiveChild.setBounds(20, 170, 200, 40);
 		add(btnAddObjectiveChild);
 	
 	}
