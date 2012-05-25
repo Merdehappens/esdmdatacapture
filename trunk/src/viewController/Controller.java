@@ -491,16 +491,19 @@ public class Controller extends JFrame {
 		String name = addObjective.getObjectiveName();
 		String description = addObjective.getObjectiveDescription();
 		String[][] steps = addObjective.getSteps();
-		
+		try{
 		model.addObjective(name, description, steps);
-		
 		show(objectivePanel, "Objective");
+		}
+		catch(Exception e)
+		{
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
 	}
 
 	protected void changePassword() {
 		try{
 			String[] arr = changePassword.getNewPassword();
-			
 			model.changePassword(changePassword.getOldPassword(), arr[0], arr[1]);
 		}
 		catch(Exception e){
@@ -546,6 +549,7 @@ public class Controller extends JFrame {
 	{
 		ViewReport p = (ViewReport)findChildReport.getDestination();
 		p.setChild(findChildReport.getSelectedChild());
+		p.refreshTable();
 		show(reportingPanel, "viewReport");
 	}
 	

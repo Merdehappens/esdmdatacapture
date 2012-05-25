@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class ViewReport extends PanelView {
 	/**
@@ -28,7 +30,6 @@ public class ViewReport extends PanelView {
 	 * Create the panel.
 	 */
 	public ViewReport() {
-
 		initialise();
 	
 	}
