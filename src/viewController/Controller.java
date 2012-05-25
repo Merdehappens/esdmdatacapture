@@ -19,6 +19,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
 import system.individuals.Child;
+import system.individuals.Guardian;
 import system.model.ESDMModel;
 import system.model.Room;
 import system.sessions.Session;
@@ -27,6 +28,7 @@ import system.sessions.Session;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.awt.Font;
 
 //testing
@@ -557,9 +559,20 @@ public class Controller extends JFrame {
 
 	private void addChildSubmit(ActionEvent evt)
 	{
-		editChild.setChild(addChild.addChild());
-		show(childPanel, "editChild");
-		addChild.resetTextField();
+		String name = addChild.getChildName();
+		Date dob = addChild.getDob();
+		Date dateJoined = addChild.getDateJoined();
+		ArrayList<Guardian> guardians = addChild.getGuardians();
+		Child c;
+		try {
+			c = model.addChild(name, dob, dateJoined, guardians);
+			editChild.setChild(c);
+			show(childPanel, "editChild");
+			addChild.resetTextField();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
 	}
 
 	private void addObjectiveChild(ActionEvent evt)

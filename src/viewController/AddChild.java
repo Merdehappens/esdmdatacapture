@@ -198,8 +198,12 @@ public class AddChild extends PanelView {
 		
 	}
 	
-
-	public Child addChild()
+	public String getChildName()
+	{
+		return txtName.getText();
+	}
+	
+	public ArrayList<Guardian> getGuardians()
 	{
 		guardians = new ArrayList<Guardian>();
 		
@@ -215,9 +219,18 @@ public class AddChild extends PanelView {
 			guardians.add(guardian);
 		}
 		
-		return super.getModel().addChild(txtName.getText(), dobChooser.getDate(), dateJoinedChooser.getDate(), guardians);
+		return guardians;
 	}
 	
+	public Date getDob()
+	{
+		return dobChooser.getDate();
+	}
+	
+	public Date getDateJoined()
+	{
+		return dateJoinedChooser.getDate();
+	}	
 	
 	public void submitListener(ActionListener al)
 	{
