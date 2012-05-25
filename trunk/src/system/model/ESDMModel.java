@@ -234,8 +234,19 @@ public class ESDMModel {
         return true;
     }
     
-    public Child addChild(String name, Date dob, Date dateJoined, ArrayList<Guardian> guardians)
+    public Child addChild(String name, Date dob, Date dateJoined, ArrayList<Guardian> guardians) throws Exception
     {
+    	
+    	if(name.equals(""))
+    	{
+    		throw new Exception("Name is a required field");
+    	}
+    	
+    	if(dob == null)
+    	{
+    		throw new Exception("Date Of Birth is a required field");
+    	}
+    	
         Child child = new Child(name, dob, dateJoined);
 
         for(int i = 0; i < guardians.size(); i++)
@@ -272,8 +283,15 @@ public class ESDMModel {
 		{
 			throw new Exception("Date must be entered");
 		}
+		if(children == null || children.size() == 0)
+		{
+			throw new Exception("No children were added to the day");
+		}
+		if(sessions == null || sessions.size() == 0)
+		{
+			throw new Exception("No sessions were added to the day");
+		}
 
-		//make new constructor for these parameters//
 		Day day = new Day(date, room);
 		for (int i = 0; i < children.size(); i++)
 		{
@@ -348,7 +366,7 @@ public class ESDMModel {
 	public void changePassword(String oldPassword, String newPassword1, String newPassword2) throws Exception {
 		if(oldPassword.equals("") || newPassword1.equals("") || newPassword2.equals(""))
 		{
-			throw new Exception("One or more of the passwords was left empty");
+			throw new Exception("One or more of the password fields was left empty");
 		}
 		else if(newPassword1.equals(newPassword2))
 		{
