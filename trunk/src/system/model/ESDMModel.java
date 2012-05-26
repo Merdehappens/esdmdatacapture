@@ -61,6 +61,22 @@ public class ESDMModel {
         return childList;
     }
     
+    public List<Child> getChildList(String filter)
+    {
+    	ArrayList<Child> newChildList = new ArrayList<Child>();
+    	
+    	for(int i = 0; i < childList.size(); i++)
+    	{
+    		Child c = childList.get(i);
+    		if(c.getName().contains(filter))
+    		{
+    			newChildList.add(c);
+    		}
+    	}
+    	
+    	return newChildList;
+    }
+    
     public Collection<Room> getRoomList() {
     	return roomList;
     }
