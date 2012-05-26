@@ -61,6 +61,7 @@ public class FindChild extends PanelView {
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtChildName.setText("");
+				searchList(txtChildName.getText());
 			}
 		});
 
@@ -140,6 +141,10 @@ public class FindChild extends PanelView {
 		
 		childListModel.clear();
 		children = new ArrayList<Child>(this.getModel().getChildList(text));
+		for(int i = 0; i < children.size(); i++)
+		{
+			childListModel.addElement(children.get(i));
+		}
 		
 	}
 
