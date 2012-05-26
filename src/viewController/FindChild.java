@@ -17,6 +17,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class FindChild extends PanelView {
 
@@ -138,16 +139,7 @@ public class FindChild extends PanelView {
 	private void searchList(String text) {
 		
 		childListModel.clear();
-		
-		for(int i = 0; i < children.size(); i++)
-		{
-			Child temp = children.get(i);
-			
-			if(temp.toString().contains(text))
-			{
-				childListModel.addElement(temp);
-			}
-		}
+		children = new ArrayList<Child>(this.getModel().getChildList(text));
 		
 	}
 
