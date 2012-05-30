@@ -17,7 +17,17 @@ public class UserAccount implements SimpleKey {
     private String password;
     private String username;
     private String phoneNo;
-
+    private boolean access;
+    
+    public boolean getAccess()
+    {
+    	return access;
+    }
+    
+    public void setAccess(boolean access)
+    {
+    	this.access = access;
+    }
 
     public String getPhoneNo() {
         return phoneNo;
@@ -36,8 +46,15 @@ public class UserAccount implements SimpleKey {
     public UserAccount()
     {
     }
+    
 
-    public String getId() {
+    public UserAccount(String name, String username, String emailAddress) {
+		this.name = name;
+		this.username = username;
+		this.emailAddress = emailAddress;
+	}
+
+	public String getId() {
     	return username;
     }
 
