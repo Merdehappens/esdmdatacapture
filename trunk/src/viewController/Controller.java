@@ -15,6 +15,8 @@ import javax.swing.JTabbedPane;
 import java.awt.CardLayout;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
@@ -72,6 +74,7 @@ public class Controller extends JFrame {
 	private AddObjectiveChild addObjectiveChild;
 	private ReviewSession reviewSession;
 	private ViewReport viewReport;
+	private NewUserAccount newUserAccount;
 	
 	
 	
@@ -236,6 +239,9 @@ public class Controller extends JFrame {
 		
 		changePassword = new ChangePassword();
 		accountPanel.add(changePassword, "changePassword");
+		
+		newUserAccount = new NewUserAccount();
+		accountPanel.add(newUserAccount, "newUserAccount");
 
 		
 		// Show the login screen
@@ -351,6 +357,20 @@ public class Controller extends JFrame {
 			}
 		});
 		
+		newUserAccount.submit(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				String name = newUserAccount.getUsersName();
+				String username = newUserAccount.getUsername();
+				String emailAddress = newUserAccount.getEmailAddress();
+				String phoneNo = newUserAccount.getPhoneNo();
+				String pass = model.addUser(name, username, emailAddress, phoneNo);
+				
+				
+				JOptionPane.showMessageDialog(null, "The password has been set to: " + pass
+											+ "\nPlease note this down and inform the user");
+			}
+		});
+		
 	}
 	
 	public void initObjectiveButtonListeners()
@@ -459,18 +479,11 @@ public class Controller extends JFrame {
 
 	
 		
-		accountView.changeEmailAddress(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				
-			}
-		});
+		accountView.changeEmailAddress(ActionListenerShow(accountPanel, "changeEmailAddress"));
 		
-		accountView.changePassword(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(accountPanel, "changePassword");
-			}
-		});
+		accountView.changePassword(ActionListenerShow(accountPanel, "changePassword"));
 		
+		accountView.newUserAccount(ActionListenerShow(accountPanel, "newUserAccount"));
 	
 		
 		
@@ -522,6 +535,20 @@ public class Controller extends JFrame {
 	{
 		CardLayout temp = (CardLayout)panel.getLayout();
 		temp.show(panel, card);
+	}
+	
+	private ActionListener ActionListenerShow(JPanel panel, String card)
+	{
+		final JPanel j = panel;
+		final String c = card;
+		ActionListener al = new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(j, c);
+			}
+		};
+		
+		return al;
+		
 	}
 
 
@@ -582,7 +609,6 @@ public class Controller extends JFrame {
 
 	private void viewObjectives(ActionEvent evt)
 	{
-
 
 	}
 
@@ -656,6 +682,6 @@ public class Controller extends JFrame {
          }
          
     }
-
+    
 
 }
