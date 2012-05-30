@@ -6,6 +6,7 @@ package system.helper;
 
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Random;
 
 /**
  *
@@ -25,6 +26,25 @@ public class Helper {
       return null;
    }
    
+   public static String generateRandomString(int length)
+   {
+	   String chars = "123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	   int charLength = chars.length();
+	   Random r = new Random();
+	   
+	   StringBuilder sb = new StringBuilder( length );
+	   
+	   for(int i = 0; i < length; i++)
+	   {
+		   char c = chars.charAt(r.nextInt(charLength));
+		   sb.append(c);
+	   }
+	   
+	   
+	   return sb.toString();
+	   
+   }
+   
    public static Calendar setCalendarTimeNull(Calendar c)
    {
 	    c.set(Calendar.HOUR_OF_DAY, 0);
@@ -34,6 +54,6 @@ public class Helper {
 	
 	    return c;
    }
-
+   
     
 }
