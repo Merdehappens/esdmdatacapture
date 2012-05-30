@@ -221,13 +221,23 @@ public class ESDMModel {
         		}
         	}     		
         }
-      
         return false;
     }
     
     public void setPassword(String temp)
     {
     	currentUser.setPassword(temp);
+    }
+    
+    public String addUser(String name, String username, String emailAddress, String phoneNo)
+    {
+    	
+    	UserAccount user = new UserAccount(name, username, emailAddress);
+    	
+    	String password = Helper.generateRandomString(8);
+    	user.setPassword(password);
+
+    	return password;
     }
     
     
@@ -433,6 +443,12 @@ public class ESDMModel {
 		markList.add(tempMark);
 	}
 
+	//searches through child list and returns child with the ID specified
+	
+	public Child getChild(String childId) {
+		return Helper.search(childList, childId);
+	}
+	
 	
 	public List<Day> getDays(Calendar from, Calendar to)
 	{
