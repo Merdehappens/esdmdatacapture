@@ -206,6 +206,7 @@ public class AddChild extends PanelView {
 	public ArrayList<Guardian> getGuardians()
 	{
 		guardians = new ArrayList<Guardian>();
+
 		
 		for(int i = 0; i < tblGuardian.getRowCount(); i++)
 		{
@@ -240,7 +241,7 @@ public class AddChild extends PanelView {
 	
 	public void cancelListener(ActionListener al)
 	{
-		btnCancel.addActionListener(al);	
+		btnCancel.addActionListener(al);
 	}
 	
 	public void resetTextField()

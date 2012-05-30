@@ -322,6 +322,12 @@ public class Controller extends JFrame {
 			}
 		});
 		
+		addChild.cancelListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(childPanel, "Child");
+			}
+		});
+		
 		findChild.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				findChildSubmit(evt);
@@ -331,6 +337,12 @@ public class Controller extends JFrame {
 		findChild.cancelListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				findChildCancel(evt);
+			}
+		});
+		
+		addObjectiveChild.cancelListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(childPanel, "Child");
 			}
 		});
 		
@@ -520,6 +532,7 @@ public class Controller extends JFrame {
 		try{
 			String[] arr = changePassword.getNewPassword();
 			model.changePassword(changePassword.getOldPassword(), arr[0], arr[1]);
+			JOptionPane.showMessageDialog(null, "Password Successfully Changed");
 		}
 		catch(Exception e){
 			JOptionPane.showMessageDialog(null, e.getMessage());

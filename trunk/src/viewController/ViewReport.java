@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JLabel;
 
 public class ViewReport extends PanelView {
 
@@ -22,6 +24,7 @@ public class ViewReport extends PanelView {
 	private DefaultTableModel tableModel;
 	private Child child;
 	private JButton btnSave;
+	private JLabel lblChildName;
 	
 	/**
 	 * Create the panel.
@@ -65,6 +68,30 @@ public class ViewReport extends PanelView {
 		btnSave.setBounds(44, 436, 89, 23);
 		add(btnSave);
 		
+		JDateChooser dateChooserTo = new JDateChooser();
+		dateChooserTo.setBounds(257, 80, 157, 35);
+		add(dateChooserTo);
+		
+		JLabel lblTo = new JLabel("To Date:");
+		lblTo.setBounds(189, 79, 74, 36);
+		add(lblTo);
+		
+		JLabel lblFrom = new JLabel("From Date:");
+		lblFrom.setBounds(189, 33, 74, 35);
+		add(lblFrom);
+		
+		JDateChooser dateChooserFrom = new JDateChooser();
+		dateChooserFrom.setBounds(257, 33, 157, 35);
+		add(dateChooserFrom);
+		
+		JLabel lblChild = new JLabel("Child: ");
+		lblChild.setBounds(10, 43, 30, 14);
+		add(lblChild);
+		
+		lblChildName = new JLabel("");
+		lblChildName.setBounds(44, 43, 115, 14);
+		add(lblChildName);
+		
 	}
 	
 	public void saveListener(ActionListener al)
@@ -74,6 +101,7 @@ public class ViewReport extends PanelView {
 	
 	public void refreshTable()
 	{
+		lblChildName.setText(child.getName());
 		ArrayList<Mark> marks = (ArrayList<Mark>)child.getMarks();
 
 		while(tableModel.getRowCount() > 0)
@@ -97,7 +125,6 @@ public class ViewReport extends PanelView {
 			rowData[5] = mark.getComment();
 			
 			tableModel.addRow(rowData);
-			
 			
 		}
 	}

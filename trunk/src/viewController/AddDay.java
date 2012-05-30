@@ -233,6 +233,8 @@ public class AddDay extends PanelView {
 			tempButton.setBounds(10 + (100 * i) - s, x, 100, 100);
 			tglbtn[i][0] = tempButton;
 			childPanel.add(tempButton);
+			tempButton.requestFocusInWindow();
+			
 			
 		}
 
@@ -244,7 +246,9 @@ public class AddDay extends PanelView {
 		Vector<Room> v = new Vector<Room>(this.getModel().getRoomList());
 		ComboBoxModel<Room> cmbModel = new DefaultComboBoxModel<Room>(v);
 		cmbRoom.setModel(cmbModel);
-	
+		
+		this.requestFocusInWindow();
+		
 	}
 	
 	private void swapButton(int i) 
