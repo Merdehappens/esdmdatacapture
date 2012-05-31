@@ -51,11 +51,11 @@ public class AccountView extends PanelView {
 		btnChangeEmailAddress = new JButton("Change Email Address");
 		btnChangeEmailAddress.setBounds(20, 120, 200, 40);
 		add(btnChangeEmailAddress);
-		
+		/*
 		btnNewUserAccount = new JButton("Add New User Account");
 		btnNewUserAccount.setBounds(20, 170, 200, 40);
 		add(btnNewUserAccount);
-
+		*/
 	}
 	
 	public void changePassword(ActionListener al)
@@ -67,11 +67,11 @@ public class AccountView extends PanelView {
 	{
 		btnChangeEmailAddress.addActionListener(al);
 	}
-	
+	/*
 	public void newUserAccount(ActionListener al)
 	{
 		btnNewUserAccount.addActionListener(al);
-	}
+	}*/
 	
 	
 

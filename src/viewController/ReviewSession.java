@@ -32,6 +32,7 @@ public class ReviewSession extends PanelView {
 	private JLabel lblDate;
 	private JLabel lblId;
 	private JLabel lblRoomName;
+	private JButton btnLogMarks;
 	
 	/**
 	 * Create the panel.
@@ -124,6 +125,10 @@ public class ReviewSession extends PanelView {
 		lblRoomName.setBounds(83, 93, 78, 14);
 		add(lblRoomName);
 		
+		btnLogMarks = new JButton("Log more marks \nfor this session");
+		btnLogMarks.setBounds(489, 454, 260, 21);
+		add(btnLogMarks);
+		
 		tblReview.getColumnModel().getColumn(0).setPreferredWidth(40);
 		tblReview.getColumnModel().getColumn(1).setPreferredWidth(40);
 		tblReview.getColumnModel().getColumn(2).setPreferredWidth(40);
@@ -186,8 +191,17 @@ public class ReviewSession extends PanelView {
 
 	}
 	
+	public void logMarksListener(ActionListener al)
+	{
+		btnLogMarks.addActionListener(al);
+	}
+	
 	
 	public void setDay(Day day) {
 		this.day = day;
+	}
+
+	public Day getDay() {
+		return day;
 	}
 }

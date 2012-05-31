@@ -22,6 +22,10 @@ import java.util.Date;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class AddChild extends PanelView {
 	/**
@@ -130,6 +134,16 @@ public class AddChild extends PanelView {
 					return false;
 				}
 				return true; } };
+		tblGuardian.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+
+					TableCellEditor editor = tblGuardian.getCellEditor();
+					if (editor != null) {
+						editor.stopCellEditing();
+					}
+			}
+		});
 		
 		scrollPane.setViewportView(tblGuardian);
 		String[] columnNames = new String[] {"Guardian", "Name", "Phone Number"};
@@ -163,7 +177,10 @@ public class AddChild extends PanelView {
 		JButton btnDeleteGuardian = new JButton("Remove Guardian");
 		btnDeleteGuardian.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tblGuardianModel.removeRow(tblGuardian.getSelectedRow());
+				if(tblGuardian.getSelectedRow() >= 0)
+				{
+					tblGuardianModel.removeRow(tblGuardian.getSelectedRow());
+				}
 			}
 		});
 		btnDeleteGuardian.setBounds(364, 281, 120, 23);
@@ -189,6 +206,15 @@ public class AddChild extends PanelView {
 		});
 		btnSelectPictureTo.setBounds(364, 43, 144, 27);
 		add(btnSelectPictureTo);
+		
+		JButton btnTest = new JButton("test");
+		btnTest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tblGuardian.getSelectionModel().clearSelection();
+			}
+		});
+		btnTest.setBounds(364, 328, 89, 23);
+		add(btnTest);
 		
 		lblPicture = new JLabel("");
 		lblPicture.setBounds(355, 78, 153, 114);
