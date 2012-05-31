@@ -118,11 +118,11 @@ public class ReviewSession extends PanelView {
 		add(lblId);
 		
 		lblDate = new JLabel("");
-		lblDate.setBounds(83, 68, 78, 14);
+		lblDate.setBounds(83, 68, 139, 14);
 		add(lblDate);
 		
 		lblRoomName = new JLabel("");
-		lblRoomName.setBounds(83, 93, 78, 14);
+		lblRoomName.setBounds(83, 93, 105, 14);
 		add(lblRoomName);
 		
 		btnLogMarks = new JButton("Log more marks \nfor this session");

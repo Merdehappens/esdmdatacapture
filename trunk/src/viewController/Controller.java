@@ -496,6 +496,11 @@ public class Controller extends JFrame {
 			}
 		});
 		
+		editChild.cancelListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(childPanel, "Child");
+			}
+		});
 
 	
 		
