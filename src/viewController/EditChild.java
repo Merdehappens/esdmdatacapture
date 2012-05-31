@@ -29,6 +29,7 @@ public class EditChild extends PanelView {
 	private JDateChooser dateJoinedChooser;
 	private JDateChooser dobChooser;
 	private JLabel txtId;
+	private JButton btnCancel;
 	
 	/**
 	 * Create the panel.
@@ -102,7 +103,7 @@ public class EditChild extends PanelView {
 		btnReset.setBounds(109, 189, 105, 21);
 		add(btnReset);
 		
-		JButton btnCancel = new JButton("Cancel");
+		btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(224, 189, 94, 21);
 		add(btnCancel);
 		
@@ -151,6 +152,11 @@ public class EditChild extends PanelView {
 		child.setName(txtName.getText());
 		child.setDob(dobChooser.getDate());
 		child.setDateJoined(dateJoinedChooser.getDate());
+	}
+	
+	public void cancelListener(ActionListener al)
+	{
+		btnCancel.addActionListener(al);
 	}
 
 	public void setId(String childId)
