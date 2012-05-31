@@ -147,7 +147,17 @@ public class ViewDay extends PanelView {
 		add(scrollPane);
 		
 		
-		tblSession = new JTable();
+		tblSession = new JTable() {
+			
+			public boolean isCellEditable(int row, int column){
+				return false;
+			}
+			
+		
+		};
+		
+		
+		
 		scrollPane.setViewportView(tblSession);
 		String[] columnNames = new String[] {"ID", "Room Name", "Date"};
 		
@@ -201,6 +211,7 @@ public class ViewDay extends PanelView {
 		}
 		
 		tblSession.setModel(tableModel);
+		
 		
 	}
 

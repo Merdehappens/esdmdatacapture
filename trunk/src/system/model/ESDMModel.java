@@ -108,6 +108,12 @@ public class ESDMModel {
         child.setPictureLink(new URL("http://www.hanselman.com/blog/content/binary/WindowsLiveWriter/CleanupyourTempFiles_8F63/TempFiles%5B7%5D.jpg"));
         childList.add(child);
         
+        child = new Child();
+        child.setId("C003");
+        child.setName("Billy May");
+        child.setDob(new Date(2003, 4, 2));
+        childList.add(child);
+        
         Objective objective = new Objective("Looks at indicated pictures as adult points to picture in book", 
         		"In activities with books and puzzles, when an adult points (touching or proximal point 6” or less) to a picture child will visually orient and/or grasp or tap pictures or objects that the adult is pointing to 80% of opportunities for 4 of 5 consecutive days across 3 or more adults and settings.");
         Step step = new Step("1", "MC", "Orients and grasp/tap w/ partial physical prompt 50% opp");
@@ -117,21 +123,53 @@ public class ESDMModel {
         step = new Step("3", "MC", "Orients and/or grasp/tap 80% of opp");
         objective.addSteps(step);
         
+        for(int i = 0; i < 2; i++)
+        {
+        	childList.get(i).addObjective(objective);
+        }
+        objectiveList.add(objective);
+        
+        objective = new Objective("Combines functionally related actions on a play theme", 
+        		"During pretend play with an adult, when provided with the materials for a play sequence (eg. bathing, cooking, eating), child will spontaneously link functionally related actions on a play sequence for 3 different play themes over 4 consecutive days");
+        
+        step = new Step("1", "MC", "Combines 2 related actions after adult model & ver P 50%");
+        objective.addSteps(step);
+        step = new Step("2", "MC", "Combines 2 related actions after adult model & ver P 80%");
+        objective.addSteps(step);
+        step = new Step("3", "MC", "Combines 2 related actions 1 theme, verbal prompting");
+        objective.addSteps(step);
+        step = new Step("4", "MC", "Combines 2 related actions 1 theme");
+        objective.addSteps(step);
+        step = new Step("5", "MC", "Combines 2 related actions 2 themes");
+        objective.addSteps(step);
+        step = new Step("6", "MC", "Combines 2 related actions 3 themes, 4 days");
+        objective.addSteps(step);
+  
+        
         objectiveList.add(objective);
         child.addObjective(objective);
         
-        objective = new Objective("Responsive", "Objective Description");
-        step = new Step("1", "Code1", "DOES THISadsadsFF");
-        objective.addSteps(step);
-        step = new Step("2", "Code2", "DOES THISadsads2");
-        objective.addSteps(step);
-        step = new Step("3", "Code3", "DOES THISdas");
-        objective.addSteps(step);
-        step = new Step("4", "Code4", "DOES THasdadsUFF4");
-        objective.addSteps(step);        
         
+        objective = new Objective("Uses a spoon", 
+        		"During mealtimes, when child is eating a meal that requires the use of a spoon, after an adult models using the spoon correctly, child will be able to use the spoon to eat 5+ spoonfuls of her meal, on 80% of opportunities over 3 consecutive days with 2+ people.");
+        
+        step = new Step("1", "MC", "Uses spoon when adult loads spoon 50%");
+        objective.addSteps(step);
+        step = new Step("2", "MC", "Uses spoon when adult loads spoon 80%");
+        objective.addSteps(step);
+        step = new Step("3", "MC", "Loads spoon with PPP, brings spoon to mouth independently, 80%");
+        objective.addSteps(step);
+        step = new Step("4", "MC", "Loads spoon & brings to mouth independently, verP, 80%");
+        objective.addSteps(step);
+        step = new Step("5", "MC", "Loads spoon & brings to mouth independently, 3 times in a row");
+        objective.addSteps(step);
+        step = new Step("6", "MC", "6.Loads spoon &  brings to mouth independently 5+ times in a row");
+        objective.addSteps(step);
+        
+        childList.get(1).addObjective(objective);
+        childList.get(2).addObjective(objective);
         objectiveList.add(objective);
-        child.addObjective(objective);
+        
         
         Room room = new Room("Room 1");
         

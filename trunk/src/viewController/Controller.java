@@ -309,6 +309,14 @@ public class Controller extends JFrame {
 			}
 		});
 		
+		reviewSession.logMarksListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				logSessionData.setDay(reviewSession.getDay());
+				show(sessionPanel, "logSessionData");
+			}
+		});
+		
+		
 		
 		
 	}
@@ -495,8 +503,9 @@ public class Controller extends JFrame {
 		
 		accountView.changePassword(ActionListenerShow(accountPanel, "changePassword"));
 		
+		/*
 		accountView.newUserAccount(ActionListenerShow(accountPanel, "newUserAccount"));
-	
+		*/
 		
 		
 		tabbedPane.addChangeListener(new ChangeListener() {
@@ -606,6 +615,7 @@ public class Controller extends JFrame {
 		Child c;
 		try {
 			c = model.addChild(name, dob, dateJoined, guardians);
+			JOptionPane.showMessageDialog(null, "Child has been successfully added to the system");
 			editChild.setChild(c);
 			show(childPanel, "editChild");
 			addChild.resetTextField();
