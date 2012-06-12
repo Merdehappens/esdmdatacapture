@@ -33,6 +33,7 @@ public class ReviewSession extends PanelView {
 	private JLabel lblId;
 	private JLabel lblRoomName;
 	private JButton btnLogMarks;
+	private JButton btnSave;
 	
 	/**
 	 * Create the panel.
@@ -65,7 +66,7 @@ public class ReviewSession extends PanelView {
 		lblTitle.setBounds(10, 11, 739, 21);
 		add(lblTitle);
 		
-		JButton btnSave = new JButton("Save");
+		btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				saveChild();
@@ -189,6 +190,11 @@ public class ReviewSession extends PanelView {
 
 	private void saveChild() {
 
+	}
+	
+	public void saveListener(ActionListener al)
+	{
+		btnSave.addActionListener(al);
 	}
 	
 	public void logMarksListener(ActionListener al)
