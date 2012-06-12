@@ -32,6 +32,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 //testing
 /**
@@ -295,6 +297,14 @@ public class Controller extends JFrame {
 			}
 		});
 		
+		reviewSession.saveListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				
+				JOptionPane.showMessageDialog(null, "Marks successfully saved to the system");
+				show(sessionPanel, "Session");
+			}
+		});
+		
 		
 		viewDay.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -441,24 +451,11 @@ public class Controller extends JFrame {
 		initAccountButtonListeners();
 		initReportingButtonListeners();
 		
-		sessionView.newDay(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(sessionPanel, "addDay");
-			}
-		});
+		sessionView.newDay(ActionListenerShow(sessionPanel, "addDay"));
 
-		sessionView.viewDay(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(sessionPanel, "viewDay");
-			}
-		});
-
+		sessionView.viewDay(ActionListenerShow(sessionPanel, "viewDay"));
 		
-		childView.addChildListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(childPanel, "addChild");
-			}
-		});
+		childView.addChildListener(ActionListenerShow(childPanel, "addChild"));
 
 		childView.retrieveChildListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -476,8 +473,6 @@ public class Controller extends JFrame {
 		});
 		
 
-		
-		
 		objectiveView.viewObjectives(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				viewObjectives(evt);
@@ -490,27 +485,19 @@ public class Controller extends JFrame {
 			}
 		});
 
-		objectiveView.addNewObjective(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(objectivePanel, "addObjective");
-			}
-		});
 		
-		editChild.cancelListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(childPanel, "Child");
-			}
-		});
-
-	
+		
+		
+		objectiveView.addNewObjective(ActionListenerShow(objectivePanel, "addObjective"));
+		
+		editChild.cancelListener(ActionListenerShow(childPanel, "Child"));
 		
 		accountView.changeEmailAddress(ActionListenerShow(accountPanel, "changeEmailAddress"));
 		
 		accountView.changePassword(ActionListenerShow(accountPanel, "changePassword"));
 		
-		/*
 		accountView.newUserAccount(ActionListenerShow(accountPanel, "newUserAccount"));
-		*/
+		
 		
 		
 		tabbedPane.addChangeListener(new ChangeListener() {
@@ -521,8 +508,10 @@ public class Controller extends JFrame {
 				show(objectivePanel, "Objective");
 				show(reportingPanel, "Reporting");
 				show(accountPanel, "Account");
+				System.out.println("Test");
 			}
 		});
+		
 
 	}
 	
