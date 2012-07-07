@@ -48,6 +48,7 @@ public class AddChild extends PanelView {
 	 * Create the panel.
 	 */
 	public AddChild() {
+		super();
 		initialise();
 		
 	}
@@ -189,17 +190,12 @@ public class AddChild extends PanelView {
 		JButton btnSelectPictureTo = new JButton("Select Picture to Add");
 		btnSelectPictureTo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				JLabel typeLabel = new JLabel("Choose a picture to upload (.JPG, .JPEG, .PNG or .GIF");
-				JFileChooser fileChooser = new JFileChooser();
 				
-				Object[] array = { typeLabel,
-						fileChooser };
-
-				JOptionPane.showConfirmDialog(null, array, "Select File to Add", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.showOpenDialog(null);
+				
 				picture = fileChooser.getSelectedFile();
-
+				
 				ImageIcon temp = new ImageIcon(picture.getAbsolutePath());
 				lblPicture.setIcon(temp);
 			}
@@ -207,15 +203,7 @@ public class AddChild extends PanelView {
 		btnSelectPictureTo.setBounds(364, 43, 144, 27);
 		add(btnSelectPictureTo);
 		
-		JButton btnTest = new JButton("test");
-		btnTest.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				tblGuardian.getSelectionModel().clearSelection();
-			}
-		});
-		btnTest.setBounds(364, 328, 89, 23);
-		add(btnTest);
-		
+
 		lblPicture = new JLabel("");
 		lblPicture.setBounds(355, 78, 153, 114);
 		add(lblPicture);
@@ -279,5 +267,10 @@ public class AddChild extends PanelView {
 		dobChooser.setDate(tempDate);
 		tblGuardianModel.setRowCount(0);
 		lblPicture.setIcon(null);
+	}
+	
+	public void refreshView()
+	{
+		resetTextField();
 	}
 }

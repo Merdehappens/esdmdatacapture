@@ -14,9 +14,7 @@ import javax.swing.JPasswordField;
 //testing
 
 public class ChangePassword extends PanelView {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -2762847607634692026L;
 	private JPasswordField txtOld;
 	private JPasswordField txtNew;
@@ -26,8 +24,8 @@ public class ChangePassword extends PanelView {
 
 
 	public ChangePassword() {
+		super();
 		initialise();
-
 	}
 
 	public ChangePassword(ESDMModel model)
@@ -110,6 +108,16 @@ public class ChangePassword extends PanelView {
 	@SuppressWarnings("deprecation")
 	public String getOldPassword() {
 		return txtOld.getText();
+	}
+
+	public void resetText() {
+		txtNew.setText("");
+		txtOld.setText("");
+		txtConfirm.setText("");
+	}
+	
+	public void refreshView() {
+		resetText();
 	}
 	
 }

@@ -21,6 +21,7 @@ public class ReportingView extends PanelView {
 	JButton btnViewReport;
 	
 	public ReportingView() {
+		super();
 		initialise();
 	
 	}
@@ -50,6 +51,11 @@ public class ReportingView extends PanelView {
 	public void viewReportListener(ActionListener al)
 	{
 		btnViewReport.addActionListener(al);
+	}
+
+	@Override
+	public void refreshView() {
+	
 	}
 
 }

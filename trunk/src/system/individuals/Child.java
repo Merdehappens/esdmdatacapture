@@ -30,12 +30,14 @@ public class Child implements SimpleKey {
     List<Mark> marks;
     ImageIcon picture;
     URL pictureLink;
+    boolean active;
     
     public Child()
     {
         guardians = new ArrayList<Guardian>();
         objectives = new ArrayList<Objective>();
         marks = new ArrayList<Mark>();
+        active = true;
     }
     
     public Child(String name, Date dob, Date dateJoined)
@@ -46,6 +48,7 @@ public class Child implements SimpleKey {
         this.name = name;
         this.dob = dob;
         this.dateJoined = dateJoined;
+        active = true;
     }
 
     public Date getDateJoined() {
@@ -120,7 +123,7 @@ public class Child implements SimpleKey {
     
     public String toString()
     {
-        return name;
+        return id;
     }
 
 	public List<Objective> getObjectives() {
@@ -129,6 +132,20 @@ public class Child implements SimpleKey {
 
 	public List<Mark> getMarks() {
 		return marks;
+	}
+	
+	public void setInactive()
+	{
+		active = false;
+	}
+	
+	public void setActive()
+	{
+		active = true;
+	}
+
+	public boolean getActive() {
+		return active;
 	}
     
     

@@ -36,7 +36,7 @@ public class FindChild extends PanelView {
 	private PanelView destination;
 
 	public FindChild() {
-
+		super();
 		initialise();
 	
 	}
@@ -44,7 +44,6 @@ public class FindChild extends PanelView {
 	public FindChild(ESDMModel model)
 	{
 		super(model);
-		
 		initialise();
 	}
 	
@@ -154,6 +153,12 @@ public class FindChild extends PanelView {
 
 	public void setDestination(PanelView p) {
 		destination = p;
+	}
+
+	
+	public void refreshView() {
+		txtChildName.setText("");
+		searchList(txtChildName.getText());
 	}
 
 	

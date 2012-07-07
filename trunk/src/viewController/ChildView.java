@@ -17,11 +17,13 @@ public class ChildView extends PanelView {
 	 * 
 	 */
 	private static final long serialVersionUID = -4321169254400022059L;
-	JButton btnAddChild;
-	JButton btnRetrieveChild;
-	JButton btnAddObjectiveChild;
+	private JButton btnAddChild;
+	private JButton btnRetrieveChild;
+	private JButton btnAddObjectiveChild;
+	private JButton btnTest;
 	
 	public ChildView() {
+		super();
 		initialise();
 	
 	}
@@ -53,7 +55,16 @@ public class ChildView extends PanelView {
 		btnAddObjectiveChild = new JButton("Add Objective To Child");
 		btnAddObjectiveChild.setBounds(20, 170, 200, 40);
 		add(btnAddObjectiveChild);
+		
+		btnTest = new JButton("test");
+		btnTest.setBounds(48, 231, 89, 23);
+		add(btnTest);
 	
+	}
+	
+	public void childGridListener(ActionListener al)
+	{
+		btnTest.addActionListener(al);
 	}
 	
 	public void addChildListener(ActionListener al)
@@ -71,6 +82,9 @@ public class ChildView extends PanelView {
 		btnAddObjectiveChild.addActionListener(al);
 	}
 
-	
-
+	@Override
+	public void refreshView() {
+		// TODO Auto-generated method stub
+		
+	}
 }

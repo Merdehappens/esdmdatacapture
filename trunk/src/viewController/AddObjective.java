@@ -32,9 +32,7 @@ public class AddObjective extends PanelView {
 	 * Create the panel.
 	 */
 	public AddObjective() {
-		
-		
-
+		super();
 		initialise();
 	
 	}
@@ -205,6 +203,11 @@ public class AddObjective extends PanelView {
 		}
 		
 		return temp;
+	}
+	
+	public void refreshView()
+	{
+		resetForm();
 	}
 	
 }

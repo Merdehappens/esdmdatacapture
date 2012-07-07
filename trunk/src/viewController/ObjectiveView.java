@@ -22,8 +22,8 @@ public class ObjectiveView extends PanelView {
 	
 	
 	public ObjectiveView() {
+		super();
 		initialise();
-	
 	}
 	
 	public ObjectiveView(ESDMModel model)
@@ -71,6 +71,11 @@ public class ObjectiveView extends PanelView {
 	public void addObjectiveToChild(ActionListener al)
 	{
 		btnAddObjectiveTo.addActionListener(al);
+	}
+
+	@Override
+	public void refreshView() {
+
 	}
 	
 

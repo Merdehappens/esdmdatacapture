@@ -61,6 +61,25 @@ public class ESDMModel {
         return childList;
     }
     
+    public List<Child> getChildList(boolean active){
+    	ArrayList<Child> tempChildList = new ArrayList<Child>();
+    	
+    	Child child;
+    	
+    	for(int i = 0; i < childList.size(); i++)
+    	{
+    		child = childList.get(i);
+    		
+    		if(child.getActive() == active)
+    		{
+    			tempChildList.add(child);
+    		}
+    	}
+    	
+    	return tempChildList;
+    	
+    }
+    
     public List<Child> getChildList(String filter)
     {
     	ArrayList<Child> newChildList = new ArrayList<Child>();
@@ -549,6 +568,11 @@ public class ESDMModel {
 		
 		
 		
+	}
+
+	public void removeChild(Child child) {
+		child.setInactive();
+		System.out.println(child.getActive());
 	}
 	
 	

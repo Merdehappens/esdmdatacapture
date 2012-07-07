@@ -77,6 +77,7 @@ public class Controller extends JFrame {
 	private ReviewSession reviewSession;
 	private ViewReport viewReport;
 	private NewUserAccount newUserAccount;
+	private ChildViewGrid childViewGrid;
 	
 	
 	
@@ -197,6 +198,9 @@ public class Controller extends JFrame {
 
 		childView = new ChildView();
 		childPanel.add(childView, "Child");
+		
+		childViewGrid = new ChildViewGrid(model);
+		childPanel.add(childViewGrid, "ChildViewGrid");
 
 		addChild = new AddChild(model);
 		childPanel.add(addChild, "addChild");
@@ -364,8 +368,29 @@ public class Controller extends JFrame {
 			}
 		});
 		
+		
+		childViewGrid.removeChildListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				
+				Child child = childViewGrid.getSelectedChild();
+				
+				String temp = "Are you sure you wish to delete Child: " + child.getName() + "\nWith ID: " + child;
+				
+				int res = JOptionPane.showConfirmDialog(null, temp, "Delete Child", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				System.out.println(res);
+				
+				
+				
+				if(res == 0 )
+				{
+					model.removeChild(child);
+					JOptionPane.showMessageDialog(null, child.getName() + " Was removed from the system");
+				}
+			}
+		});
+		
 	}
-	
+
 	public void initAccountButtonListeners()
 	{
 		
@@ -454,6 +479,8 @@ public class Controller extends JFrame {
 		sessionView.newDay(ActionListenerShow(sessionPanel, "addDay"));
 
 		sessionView.viewDay(ActionListenerShow(sessionPanel, "viewDay"));
+		
+		childView.childGridListener(ActionListenerShow(childPanel, "ChildViewGrid"));
 		
 		childView.addChildListener(ActionListenerShow(childPanel, "addChild"));
 
@@ -699,6 +726,7 @@ public class Controller extends JFrame {
          }
          
     }
+
     
 
 }

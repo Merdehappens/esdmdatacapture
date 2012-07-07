@@ -39,7 +39,7 @@ public class AddObjectiveChild extends PanelView {
 	private JTextField txtObjective;
 
 	public AddObjectiveChild() {
-
+		super();
 		initialise();
 	
 	}
@@ -177,6 +177,11 @@ public class AddObjectiveChild extends PanelView {
 				childListModel.addElement(temp);
 			}
 		}
+		
+	}
+
+	@Override
+	public void refreshView() {
 		
 	}
 }
