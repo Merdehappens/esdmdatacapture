@@ -60,4 +60,10 @@ public class SessionView extends PanelView {
 		btnViewDay.addActionListener(al);
 	}
 
+	@Override
+	public void refreshView() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

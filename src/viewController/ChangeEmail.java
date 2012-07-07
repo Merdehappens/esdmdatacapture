@@ -76,6 +76,10 @@ public class ChangeEmail extends PanelView {
 		return txtNewEmailAddress.getText();
 	}
 	
+	public void refreshView(){
+		txtNewEmailAddress.setText("");
+	}
+	
 
 	
 }

@@ -382,18 +382,12 @@ public class LogSessionData extends PanelView {
 		}
 	}
 
-	public void refresh()
+	public void clearLists()
 	{
 		sessionModel.clear();
 		childModel.clear();
 		objectiveModel.clear();
 		stepModel.clear();
-		markModel.clear();
-		
-		day.getChildren();
-		day.getSessions();
-		
-		
 	}
 	
 	public void submitListener(ActionListener al)
@@ -434,6 +428,7 @@ public class LogSessionData extends PanelView {
 	
 	public void refreshView()
 	{
+		clearLists();
 		setDayView();
 		
 	}

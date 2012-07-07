@@ -125,4 +125,15 @@ public class NewUserAccount extends PanelView {
 		return txtPhone.getText();
 	}
 	
+	public void resetTextFields(){
+		txtName.setText("");
+		txtUsername.setText("");
+		txtEmail.setText("");
+		txtPhone.setText("");
+	}
+
+	public void refreshView() {
+		resetTextFields();
+	}
+	
 }

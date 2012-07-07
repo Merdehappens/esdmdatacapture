@@ -62,6 +62,7 @@ public class ViewReport extends PanelView {
 		btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				refreshTable();
 			}
 		});
@@ -134,5 +135,10 @@ public class ViewReport extends PanelView {
 	public void setChild(Child c)
 	{
 		child = c;
+	}
+
+	@Override
+	public void refreshView() {
+		refreshTable();
 	}
 }

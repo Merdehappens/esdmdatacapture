@@ -77,7 +77,7 @@ public class ViewDay extends PanelView {
 		btnReset = new JButton("Reset Search Criteria");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				refreshForm();
+				resetForm();
 			}
 		});
 		btnReset.setBounds(170, 465, 166, 21);
@@ -180,7 +180,7 @@ public class ViewDay extends PanelView {
 		btnCancel.addActionListener(al);	
 	}
 
-	private void refreshForm() {
+	private void resetForm() {
 		dateChooserFrom.setDate(null);
 		dateChooserTo.setDate(null);
 		chkbxActiveSessions.setSelected(false);
@@ -217,5 +217,11 @@ public class ViewDay extends PanelView {
 
 	public Day getDay() {
 		return (Day)tableModel.getValueAt(tblSession.getSelectedRow(), 0);
+	}
+
+	@Override
+	public void refreshView() {
+		resetForm();
+		refreshTable();
 	}
 }

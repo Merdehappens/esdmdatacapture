@@ -38,4 +38,9 @@ public class HomeView extends PanelView {
 	
 	}
 
+	@Override
+	public void refreshView() {
+		
+	}
+
 }

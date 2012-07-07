@@ -23,6 +23,7 @@ public class AccountView extends PanelView {
 	private JButton btnNewUserAccount;
 
 	public AccountView() {
+		super();
 		initialise();
 
 	}
@@ -71,6 +72,10 @@ public class AccountView extends PanelView {
 	public void newUserAccount(ActionListener al)
 	{
 		btnNewUserAccount.addActionListener(al);
+	}
+	
+	public void refreshView()
+	{
 	}
 	
 	

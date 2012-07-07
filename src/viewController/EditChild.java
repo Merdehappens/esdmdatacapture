@@ -35,9 +35,7 @@ public class EditChild extends PanelView {
 	 * Create the panel.
 	 */
 	public EditChild() {
-		setLayout(null);
-		
-
+		super();
 		initialise();
 	
 	}
@@ -50,6 +48,7 @@ public class EditChild extends PanelView {
 	
 	private void initialise()
 	{
+		setLayout(null);
 		
 		JLabel lblTitle = new JLabel("Edit Child");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);

@@ -54,13 +54,6 @@ public class ReviewSession extends PanelView {
 		setLayout(null);
 
 		
-		addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentShown(ComponentEvent arg0) {
-				refreshView();
-			}
-		});
-		
 		JLabel lblTitle = new JLabel("Review Marks taken");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setBounds(10, 11, 739, 21);
@@ -138,11 +131,10 @@ public class ReviewSession extends PanelView {
 		tblReview.getColumnModel().getColumn(5).setPreferredWidth(5);
 		tblReview.getColumnModel().getColumn(6).setPreferredWidth(30);
 		tblReview.getColumnModel().getColumn(7).setPreferredWidth(300);
-		
-		
+
 	}
 	
-	private void refreshView()
+	private void refreshTable()
 	{
 		lblId.setText(day.getId());
 		
@@ -209,5 +201,11 @@ public class ReviewSession extends PanelView {
 
 	public Day getDay() {
 		return day;
+	}
+
+	@Override
+	public void refreshView() {
+		resetTextFields();
+		refreshTable();
 	}
 }
