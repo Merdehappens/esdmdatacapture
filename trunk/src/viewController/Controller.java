@@ -30,10 +30,13 @@ import system.sessions.Session;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 //testing
 /**
@@ -132,6 +135,8 @@ public class Controller extends JFrame {
 		//Set the main layout of the project (tabbed pane)
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+
+
 		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tabbedPane.setBorder(null);
 		
@@ -276,17 +281,14 @@ public class Controller extends JFrame {
 					logSessionData.setDay(model.addDay(date, children, room, sessions));
 					show(sessionPanel, "logSessionData");
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, e.getMessage());
+					showMessage(e.getMessage());
 				}
 				
 			}
 		});
 		
-		addDay.cancelListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(sessionPanel, "Session");
-			}
-		});
+		
+		addDay.cancelListener(ActionListenerShow(sessionPanel, "Session"));
 		
 		logSessionData.commitMarkListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -303,8 +305,6 @@ public class Controller extends JFrame {
 		
 		reviewSession.saveListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				
-				JOptionPane.showMessageDialog(null, "Marks successfully saved to the system");
 				show(sessionPanel, "Session");
 			}
 		});
@@ -317,11 +317,7 @@ public class Controller extends JFrame {
 			}
 		});
 		
-		viewDay.cancelListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(sessionPanel, "Session");
-			}
-		});
+		viewDay.cancelListener(ActionListenerShow(sessionPanel, "Session"));
 		
 		reviewSession.logMarksListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -329,8 +325,6 @@ public class Controller extends JFrame {
 				show(sessionPanel, "logSessionData");
 			}
 		});
-		
-		
 		
 		
 	}
@@ -344,11 +338,7 @@ public class Controller extends JFrame {
 			}
 		});
 		
-		addChild.cancelListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(childPanel, "Child");
-			}
-		});
+		addChild.cancelListener(ActionListenerShow(childPanel, "Child"));
 		
 		findChild.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -356,15 +346,20 @@ public class Controller extends JFrame {
 			}
 		});
 
-		findChild.cancelListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				findChildCancel(evt);
-			}
-		});
+		findChild.cancelListener(ActionListenerShow(childPanel, "Child"));
+		addObjectiveChild.cancelListener(ActionListenerShow(childPanel, "Child"));
 		
-		addObjectiveChild.cancelListener(new java.awt.event.ActionListener() {
+		childViewGrid.editChildListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(childPanel, "Child");
+				
+				try{
+					editChild.setChild(childViewGrid.getSelectedChild());
+					show(childPanel, "editChild");
+				}
+				catch(Exception e)
+				{
+					showMessage(e.getMessage());
+				}
 			}
 		});
 		
@@ -372,20 +367,27 @@ public class Controller extends JFrame {
 		childViewGrid.removeChildListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				
-				Child child = childViewGrid.getSelectedChild();
-				
-				String temp = "Are you sure you wish to delete Child: " + child.getName() + "\nWith ID: " + child;
-				
-				int res = JOptionPane.showConfirmDialog(null, temp, "Delete Child", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-				System.out.println(res);
-				
-				
-				
-				if(res == 0 )
-				{
-					model.removeChild(child);
-					JOptionPane.showMessageDialog(null, child.getName() + " Was removed from the system");
+				Child child;
+				try {
+					child = childViewGrid.getSelectedChild();
+					
+					String temp = "Are you sure you wish to delete Child: " + child.getName();
+					
+					int res = JOptionPane.showConfirmDialog(null, temp, "Delete Child", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);				
+					
+					if(res == 0 )
+					{
+						model.removeChild(child);
+						showMessage(child.getName() + " Was removed from the system");
+					}
+					
+				} catch (Exception e) {
+					showMessage(e.getMessage());
 				}
+				
+
+				childViewGrid.refreshView();
+				
 			}
 		});
 		
@@ -400,11 +402,7 @@ public class Controller extends JFrame {
 			}
 		});
 		
-		changePassword.cancel(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(accountPanel, "Account");
-			}
-		});
+		changePassword.cancel(ActionListenerShow(accountPanel, "Account"));
 		
 		changeEmail.changeEmail(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -420,9 +418,7 @@ public class Controller extends JFrame {
 				String phoneNo = newUserAccount.getPhoneNo();
 				String pass = model.addUser(name, username, emailAddress, phoneNo);
 				
-				
-				JOptionPane.showMessageDialog(null, "The password has been set to: " + pass
-											+ "\nPlease note this down and inform the user");
+				showMessage("The password has been set to: " + pass	+ "\nPlease note this down and inform the user");
 			}
 		});
 		
@@ -436,11 +432,7 @@ public class Controller extends JFrame {
 			}
 		});
 		
-		addObjective.cancelListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(objectivePanel, "Objective");
-			}
-		});
+		addObjective.cancelListener(ActionListenerShow(objectivePanel, "Objective"));
 	}
 	
 	public void initReportingButtonListeners()
@@ -459,11 +451,7 @@ public class Controller extends JFrame {
 			}
 		});
 
-		findChildReport.cancelListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				findChildReportCancel(evt);
-			}
-		});
+		findChildReport.cancelListener(ActionListenerShow(reportingPanel, "Reporting"));
 		
 	}
 	
@@ -519,6 +507,35 @@ public class Controller extends JFrame {
 		
 		editChild.cancelListener(ActionListenerShow(childPanel, "Child"));
 		
+		editChild.saveChildListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				Object[] childDetails = editChild.getInformation();
+				Child child = editChild.getChild();
+				String name = (String) childDetails[0];
+				Calendar dob = (Calendar) childDetails[1];
+				Calendar dateJoined = (Calendar) childDetails[2];
+				
+				
+				String temp = "Are you sure you wish to save details for child: " + child.getName() + "\nWith ID: " + child;
+				
+				int res = JOptionPane.showConfirmDialog(null, temp, "Save Details", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				if(res == 0)
+				{
+					try {
+						model.updateChild(child, name, dob, dateJoined);
+						showMessage("Successfully Saved");
+					} catch (Exception e) {
+						showMessage(e.getMessage());
+					}
+				}
+				else
+				{
+					
+				}
+				editChild.refreshView();
+			}
+		});
+		
 		accountView.changeEmailAddress(ActionListenerShow(accountPanel, "changeEmailAddress"));
 		
 		accountView.changePassword(ActionListenerShow(accountPanel, "changePassword"));
@@ -535,10 +552,10 @@ public class Controller extends JFrame {
 				show(objectivePanel, "Objective");
 				show(reportingPanel, "Reporting");
 				show(accountPanel, "Account");
-				System.out.println("Test");
 			}
 		});
 		
+
 
 	}
 	
@@ -554,7 +571,7 @@ public class Controller extends JFrame {
 		}
 		catch(Exception e)
 		{
-			JOptionPane.showMessageDialog(null, e.getMessage());
+			showMessage(e.getMessage());
 		}
 	}
 
@@ -562,10 +579,10 @@ public class Controller extends JFrame {
 		try{
 			String[] arr = changePassword.getNewPassword();
 			model.changePassword(changePassword.getOldPassword(), arr[0], arr[1]);
-			JOptionPane.showMessageDialog(null, "Password Successfully Changed");
+			showMessage("Password Successfully Changed");
 		}
 		catch(Exception e){
-			JOptionPane.showMessageDialog(null, e.getMessage());
+			showMessage(e.getMessage());
 		}
 		
 	}
@@ -595,17 +612,7 @@ public class Controller extends JFrame {
 	}
 
 
-	//Shows main child panel 
-	
-	private void findChildCancel(ActionEvent evt)
-	{
-		show(childPanel, "Child");
-	}
-	
-	private void findChildReportCancel(ActionEvent evt)
-	{
-		show(reportingPanel, "Reporting");
-	}
+
 
 	
 	//Sets the child in the edit child panel and then shows the edit child panel
@@ -630,13 +637,13 @@ public class Controller extends JFrame {
 	private void addChildSubmit(ActionEvent evt)
 	{
 		String name = addChild.getChildName();
-		Date dob = addChild.getDob();
-		Date dateJoined = addChild.getDateJoined();
+		Calendar dob = addChild.getDob();
+		Calendar dateJoined = addChild.getDateJoined();
 		ArrayList<Guardian> guardians = addChild.getGuardians();
 		Child c;
 		try {
 			c = model.addChild(name, dob, dateJoined, guardians);
-			JOptionPane.showMessageDialog(null, "Child has been successfully added to the system");
+			showMessage("Child has been successfully added to the system");
 			editChild.setChild(c);
 			show(childPanel, "editChild");
 			addChild.resetTextField();
@@ -655,7 +662,7 @@ public class Controller extends JFrame {
 	{
 
 	}
-
+	
 
 	//Sets the look and feel of the user interface.
 	
@@ -720,13 +727,17 @@ public class Controller extends JFrame {
          }
          else
          {
-        	 JOptionPane.showMessageDialog(null, "Unable to log on to server. Closing program");
+        	 showMessage("Unable to log on to server. Closing program");
         	 
         	 System.exit(1);
          }
          
     }
 
+    private void showMessage(String message)
+    {
+    	JOptionPane.showMessageDialog(null, message);
+    }
     
 
 }

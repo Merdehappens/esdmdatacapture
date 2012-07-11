@@ -7,16 +7,14 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import system.helper.Helper;
 import system.individuals.Child;
 import system.model.ESDMModel;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class ChildViewGrid extends PanelView {
 
@@ -97,6 +95,7 @@ public class ChildViewGrid extends PanelView {
 	public void refreshView()
 	{
 		populateTable();
+		
 	}
 	
 	private void populateTable()
@@ -116,10 +115,10 @@ public class ChildViewGrid extends PanelView {
 				
 				Object[] rowData = new Object[4];
 				
-				rowData[0] = tempChild;
-				rowData[1] = tempChild.getName();
-				rowData[2] = tempChild.getDob();
-				rowData[3] = tempChild.getDateJoined();
+				rowData[0] = tempChild.getId();
+				rowData[1] = tempChild;
+				rowData[2] = Helper.simpleDateFormat(tempChild.getDob());
+				rowData[3] = Helper.simpleDateFormat(tempChild.getDateJoined());
 				
 				childTableModel.addRow(rowData);
 				
@@ -135,19 +134,29 @@ public class ChildViewGrid extends PanelView {
 	{
 		btnRemoveChild.addActionListener(al);
 	}
-	
-	public void retrieveChildListener(ActionListener al)
-	{
-		btnEditChild.addActionListener(al);
-	}
+
 	
 	public void addObjectiveChildListener(ActionListener al)
 	{
 		btnAddObjectiveChild.addActionListener(al);
 	}
 	
-	public Child getSelectedChild()
+	public Child getSelectedChild() throws Exception
 	{
-		return (Child)childTableModel.getValueAt(table.getSelectedRow(), 0);
+		Child child;
+		try{
+		child = (Child)childTableModel.getValueAt(table.getSelectedRow(), 1);
+		}
+		catch(Exception e)
+		{
+			throw new Exception("You must select a child first.");
+		}
+		
+		return child;
+	}
+
+	public void editChildListener(ActionListener al) 
+	{
+		btnEditChild.addActionListener(al);
 	}
 }

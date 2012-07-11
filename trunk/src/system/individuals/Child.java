@@ -7,7 +7,7 @@ package system.individuals;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.ImageIcon;
 
@@ -23,8 +23,8 @@ import system.marking.Objective;
 public class Child implements SimpleKey {
     String id;
     String name;
-    Date dateJoined;
-    Date dob;
+    Calendar dateJoined;
+    Calendar dob;
     List<Guardian> guardians;
     List<Objective> objectives;
     List<Mark> marks;
@@ -40,7 +40,7 @@ public class Child implements SimpleKey {
         active = true;
     }
     
-    public Child(String name, Date dob, Date dateJoined)
+    public Child(String name, Calendar dob, Calendar dateJoined)
     {
         guardians = new ArrayList<Guardian>();
         objectives = new ArrayList<Objective>();
@@ -51,19 +51,19 @@ public class Child implements SimpleKey {
         active = true;
     }
 
-    public Date getDateJoined() {
+    public Calendar getDateJoined() {
         return dateJoined;
     }
 
-    public void setDateJoined(Date dateJoined) {
+    public void setDateJoined(Calendar dateJoined) {
         this.dateJoined = dateJoined;
     }
 
-    public Date getDob() {
+    public Calendar getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(Calendar dob) {
         this.dob = dob;
     }
 
@@ -97,8 +97,12 @@ public class Child implements SimpleKey {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String name) throws Exception {
+        if(name.equals(""))
+        {
+        	throw(new Exception("Childs name cannot be empty"));
+        }
+    	this.name = name;
     }
     
     public void addObjective(Objective o)
@@ -123,7 +127,7 @@ public class Child implements SimpleKey {
     
     public String toString()
     {
-        return id;
+        return name;
     }
 
 	public List<Objective> getObjectives() {
