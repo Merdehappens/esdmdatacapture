@@ -9,12 +9,7 @@ import javax.swing.JButton;
 import system.model.ESDMModel;
 
 import java.awt.event.ActionListener;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 //testing
 

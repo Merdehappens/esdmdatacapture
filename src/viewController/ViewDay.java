@@ -53,6 +53,7 @@ public class ViewDay extends PanelView {
 		initialise();
 	}
 	
+	@SuppressWarnings("serial")
 	private void initialise()
 	{
 		setLayout(null);

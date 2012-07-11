@@ -6,6 +6,7 @@ package system.helper;
 
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.GregorianCalendar;
 import java.util.Random;
 
 /**
@@ -54,6 +55,14 @@ public class Helper {
 	
 	    return c;
    }
-   
+
+public static String simpleDateFormat(Calendar c) {
+	if(c != null)
+	{
+		return c.get(GregorianCalendar.DATE) + "/" + (c.get(GregorianCalendar.MONTH) + 1) + "/" + c.get(GregorianCalendar.YEAR);
+	}
+	return null;
+}
+
     
 }

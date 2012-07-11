@@ -25,11 +25,11 @@ public class EditChild extends PanelView {
 	private static final long serialVersionUID = -3129950176718443795L;
 	private JTextField txtName;
 	private Child child;
-	private JToggleButton tglbtnToggleEditable;
 	private JDateChooser dateJoinedChooser;
 	private JDateChooser dobChooser;
 	private JLabel txtId;
 	private JButton btnCancel;
+	private JButton btnSave;
 	
 	/**
 	 * Create the panel.
@@ -69,7 +69,6 @@ public class EditChild extends PanelView {
 		add(lblDateJoined);
 		
 		txtName = new JTextField();
-		txtName.setEnabled(false);
 		txtName.setBounds(66, 63, 205, 30);
 		add(txtName);
 		txtName.setColumns(10);
@@ -77,26 +76,20 @@ public class EditChild extends PanelView {
 		dobChooser = new JDateChooser();
 		dobChooser.setBounds(87, 107, 184, 30);
 		add(dobChooser);
-		dobChooser.setEnabled(false);
 		
 		dateJoinedChooser = new JDateChooser();
 		dateJoinedChooser.setBounds(87, 148, 184, 30);
 		add(dateJoinedChooser);
-		dateJoinedChooser.setEnabled(false);
 		
-		JButton btnSave = new JButton("Save");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				saveChild();
-			}
-		});
+		btnSave = new JButton("Save");
+
 		btnSave.setBounds(10, 189, 89, 23);
 		add(btnSave);
 		
 		JButton btnReset = new JButton("Reset");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				resetTextFields();
+				refreshView();
 			}
 		});
 		btnReset.setBounds(109, 189, 105, 21);
@@ -114,43 +107,11 @@ public class EditChild extends PanelView {
 		txtId.setBounds(40, 33, 216, 30);
 		add(txtId);
 		
-		tglbtnToggleEditable = new JToggleButton("Toggle Editable");
-		tglbtnToggleEditable.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				enableTextFields();
-			}
-		});
-		tglbtnToggleEditable.setBounds(281, 63, 121, 33);
-		add(tglbtnToggleEditable);
 	}
 	
-	private void resetTextFields() {
-		txtName.setText(child.getName());
-		dobChooser.setDate(child.getDob());
-		dateJoinedChooser.setDate(child.getDateJoined());
-		
-	}
-
-	private void enableTextFields() {
-		
-		if(tglbtnToggleEditable.isSelected())
-		{
-			txtName.setEnabled(true);
-			dobChooser.setEnabled(true);
-			dateJoinedChooser.setEnabled(true);
-		}
-		else
-		{
-			txtName.setEnabled(false);
-			dobChooser.setEnabled(false);
-			dateJoinedChooser.setEnabled(false);
-		}
-	}
-
-	private void saveChild() {
-		child.setName(txtName.getText());
-		child.setDob(dobChooser.getDate());
-		child.setDateJoined(dateJoinedChooser.getDate());
+	public void saveChildListener(ActionListener al)
+	{
+		btnSave.addActionListener(al);
 	}
 	
 	public void cancelListener(ActionListener al)
@@ -167,6 +128,11 @@ public class EditChild extends PanelView {
 		}
 	}
 	
+	public Child getChild()
+	{
+		return child;
+	}
+	
 	
 	public void setChild(Child child)
 	{
@@ -174,12 +140,20 @@ public class EditChild extends PanelView {
 		refreshView();
 	}
 	
+	public Object[] getInformation()
+	{
+		Object[] temp = new Object[3];
+		temp[0] = txtName.getText();
+		temp[1] = dobChooser.getCalendar();
+		temp[2] = dateJoinedChooser.getCalendar();
+		
+		return temp;
+	}
+	
 	public void refreshView()
 	{
-		tglbtnToggleEditable.setSelected(false);
-		enableTextFields();
-		dobChooser.setDate(child.getDob());
-		dateJoinedChooser.setDate(child.getDateJoined());
+		dobChooser.setCalendar(child.getDob());
+		dateJoinedChooser.setCalendar(child.getDateJoined());
 		txtId.setText(child.getId());
 		txtName.setText(child.getName());
 	}

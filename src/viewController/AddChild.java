@@ -2,14 +2,12 @@ package viewController;
 
 import javax.swing.JButton;
 
-import system.individuals.Child;
 import system.individuals.Guardian;
 import system.model.ESDMModel;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 
@@ -18,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -237,14 +236,14 @@ public class AddChild extends PanelView {
 		return guardians;
 	}
 	
-	public Date getDob()
+	public Calendar getDob()
 	{
-		return dobChooser.getDate();
+		return dobChooser.getCalendar();
 	}
 	
-	public Date getDateJoined()
+	public Calendar getDateJoined()
 	{
-		return dateJoinedChooser.getDate();
+		return dateJoinedChooser.getCalendar();
 	}	
 	
 	public void submitListener(ActionListener al)

@@ -15,9 +15,6 @@ import java.util.ArrayList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 
 public class ReviewSession extends PanelView {

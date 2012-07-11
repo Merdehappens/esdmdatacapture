@@ -8,7 +8,6 @@ package system.model;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import system.helper.Helper;
@@ -54,7 +53,11 @@ public class ESDMModel {
         roomList = new ArrayList<Room>();
         dayList = new ArrayList<Day>();
         currentUser = null;
-        loadFromDatabase();
+        try {
+			loadFromDatabase();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 
     public List<Child> getChildList() {
@@ -111,26 +114,32 @@ public class ESDMModel {
     
     
     
-    private void loadFromDatabase() throws MalformedURLException
+    private void loadFromDatabase() throws Exception
     {
         Child child = new Child();
         child.setId("C001"); 
         child.setName("John Doe");
-        child.setDob(new Date(2001, 4, 21));
+        Calendar c = Calendar.getInstance();
+        c.set(1991, 07, 21);
+        child.setDob(c);
         child.setPictureLink(new URL("http://www.hanselman.com/blog/content/binary/WindowsLiveWriter/CleanupyourTempFiles_8F63/TempFiles%5B7%5D.jpg"));
         childList.add(child);
         
         child = new Child();
         child.setId("C002");
         child.setName("Sally Smith");
-        child.setDob(new Date(2004, 5, 22));
+        c = Calendar.getInstance();
+        c.set(1992, 11, 01);
+        child.setDob(c);
         child.setPictureLink(new URL("http://www.hanselman.com/blog/content/binary/WindowsLiveWriter/CleanupyourTempFiles_8F63/TempFiles%5B7%5D.jpg"));
         childList.add(child);
         
         child = new Child();
         child.setId("C003");
         child.setName("Billy May");
-        child.setDob(new Date(2003, 4, 2));
+        c = Calendar.getInstance();
+        c.set(1995, 0, 04);
+        child.setDob(c);
         childList.add(child);
         
         Objective objective = new Objective("Looks at indicated pictures as adult points to picture in book", 
@@ -232,7 +241,7 @@ public class ESDMModel {
         
         guardianList.add(guardian);
         
-        Calendar c = Calendar.getInstance();
+        c = Calendar.getInstance();
         c.set(2012, 4, 10);
         Day day = new Day(c, "T01");
         day.setRoom(room);
@@ -316,7 +325,7 @@ public class ESDMModel {
         return true;
     }
     
-    public Child addChild(String name, Date dob, Date dateJoined, ArrayList<Guardian> guardians) throws Exception
+    public Child addChild(String name, Calendar dob, Calendar dateJoined, ArrayList<Guardian> guardians) throws Exception
     {
     	
     	if(name.equals(""))
@@ -573,6 +582,12 @@ public class ESDMModel {
 	public void removeChild(Child child) {
 		child.setInactive();
 		System.out.println(child.getActive());
+	}
+
+	public void updateChild(Child child, String name, Calendar dob, Calendar dateJoined) throws Exception {
+		child.setName(name);
+		child.setDob(dob);
+		child.setDateJoined(dateJoined);
 	}
 	
 	
