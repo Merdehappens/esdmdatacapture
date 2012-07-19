@@ -137,13 +137,7 @@ public class FindChild extends PanelView {
 	
 	private void searchList(String text) {
 		
-		childListModel.clear();
-		children = new ArrayList<Child>(this.getModel().getChildList(text));
-		for(int i = 0; i < children.size(); i++)
-		{
-			childListModel.addElement(children.get(i));
-		}
-		
+
 	}
 
 	public PanelView getDestination() {

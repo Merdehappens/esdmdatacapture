@@ -31,12 +31,6 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 //testing
 /**
@@ -64,7 +58,6 @@ public class Controller extends JFrame {
 	private FindChild findChild;
 	private FindChild findChildReport;
 	private SessionView sessionView;
-	private ChildView childView;
 	private ViewDay viewDay;
 	private ObjectiveView objectiveView;
 	private AddObjective addObjective;
@@ -200,12 +193,9 @@ public class Controller extends JFrame {
 
 
 		//Add all the panels (Cards) to the Child Tab
-
-		childView = new ChildView();
-		childPanel.add(childView, "Child");
 		
 		childViewGrid = new ChildViewGrid(model);
-		childPanel.add(childViewGrid, "ChildViewGrid");
+		childPanel.add(childViewGrid, "Child");
 
 		addChild = new AddChild(model);
 		childPanel.add(addChild, "addChild");
@@ -222,7 +212,7 @@ public class Controller extends JFrame {
 		
 		//Add all the panels (Cards) to the Objectives Tab
 
-		objectiveView = new ObjectiveView();
+		objectiveView = new ObjectiveView(model);
 		objectivePanel.add(objectiveView, "Objective");
 
 		addObjective = new AddObjective();
@@ -312,8 +302,15 @@ public class Controller extends JFrame {
 		
 		viewDay.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				reviewSession.setDay(viewDay.getDay());
-				show(sessionPanel, "reviewSession");
+				try{
+
+					reviewSession.setDay(viewDay.getDay());
+					show(sessionPanel, "reviewSession");
+				}
+				catch(Exception e)
+				{
+					showMessage(e.getMessage());
+				}
 			}
 		});
 		
@@ -325,7 +322,6 @@ public class Controller extends JFrame {
 				show(sessionPanel, "logSessionData");
 			}
 		});
-		
 		
 	}
 	
@@ -348,6 +344,9 @@ public class Controller extends JFrame {
 
 		findChild.cancelListener(ActionListenerShow(childPanel, "Child"));
 		addObjectiveChild.cancelListener(ActionListenerShow(childPanel, "Child"));
+		
+		childViewGrid.addChildListener(ActionListenerShow(childPanel, "addChild"));
+
 		
 		childViewGrid.editChildListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -410,6 +409,8 @@ public class Controller extends JFrame {
 			}
 		});
 		
+		changeEmail.cancel(ActionListenerShow(accountPanel, "Account"));
+		
 		newUserAccount.submit(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				String name = newUserAccount.getUsersName();
@@ -421,6 +422,8 @@ public class Controller extends JFrame {
 				showMessage("The password has been set to: " + pass	+ "\nPlease note this down and inform the user");
 			}
 		});
+		
+		newUserAccount.cancel(ActionListenerShow(accountPanel, "Account"));
 		
 	}
 	
@@ -467,25 +470,7 @@ public class Controller extends JFrame {
 		sessionView.newDay(ActionListenerShow(sessionPanel, "addDay"));
 
 		sessionView.viewDay(ActionListenerShow(sessionPanel, "viewDay"));
-		
-		childView.childGridListener(ActionListenerShow(childPanel, "ChildViewGrid"));
-		
-		childView.addChildListener(ActionListenerShow(childPanel, "addChild"));
-
-		childView.retrieveChildListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(childPanel, "findChild");
-				findChild.setDestination(editChild);
-				findChild.setChildren(model.getChildList());
-			}
-		});
-
-		childView.addObjectiveChildListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(childPanel, "addObjectiveChild");
-				addObjectiveChild.setLists(model.getChildList(), model.getObjectiveList());
-			}
-		});
+	
 		
 
 		objectiveView.viewObjectives(new java.awt.event.ActionListener() {
