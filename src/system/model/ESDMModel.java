@@ -265,7 +265,9 @@ public class ESDMModel {
         day = new Day(c, "T04");
         day.setRoom(room);
         dayList.add(day);
+    
     }
+    
     
 
     public boolean login(String username, String password)
@@ -588,6 +590,25 @@ public class ESDMModel {
 		child.setName(name);
 		child.setDob(dob);
 		child.setDateJoined(dateJoined);
+	}
+
+	public Collection<Child> getChildListContains(String text) {
+		
+		ArrayList<Child> tempChildList = new ArrayList<Child>();
+		
+		for(int i = 0; i < childList.size(); i++)
+		{
+			Child tempChild = childList.get(i);
+			String name = tempChild.getName().toLowerCase();
+			if(name.contains(text))
+			{
+				
+				tempChildList.add(tempChild);
+			}
+			
+		}
+		
+		return tempChildList;
 	}
 	
 	

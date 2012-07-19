@@ -2,9 +2,16 @@ package viewController;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import system.helper.Helper;
@@ -15,6 +22,10 @@ import java.util.ArrayList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ChildViewGrid extends PanelView {
 
@@ -26,11 +37,10 @@ public class ChildViewGrid extends PanelView {
 	private static final long serialVersionUID = -4321169254400022059L;
 	private JButton btnAddChild;
 	private JButton btnEditChild;
-	private JButton btnAddObjectiveChild;
 	private JButton btnRemoveChild;
 	private JTable table;
 	private DefaultTableModel childTableModel;
-	
+	private ArrayList<Child> childList;
 	
 	public ChildViewGrid() {
 		super();
@@ -53,7 +63,7 @@ public class ChildViewGrid extends PanelView {
 		JLabel lblTitle = new JLabel("Child");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(10, 11, 504, 34);
+		lblTitle.setBounds(10, 11, 612, 34);
 		add(lblTitle);
 		
 		btnAddChild = new JButton("Add New Child");
@@ -68,12 +78,8 @@ public class ChildViewGrid extends PanelView {
 		btnEditChild.setBounds(156, 70, 126, 34);
 		add(btnEditChild);
 		
-		btnAddObjectiveChild = new JButton("Add Objective To Child");
-		btnAddObjectiveChild.setBounds(289, 70, 146, 34);
-		add(btnAddObjectiveChild);
-		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(34, 127, 518, 273);
+		scrollPane.setBounds(26, 132, 692, 273);
 		add(scrollPane);
 		
 		childTableModel = new DefaultTableModel();
@@ -87,27 +93,45 @@ public class ChildViewGrid extends PanelView {
 		table.setModel(childTableModel);
 		
 		btnRemoveChild = new JButton("Remove Child");
-		btnRemoveChild.setBounds(445, 70, 97, 34);
+		btnRemoveChild.setBounds(292, 70, 137, 34);
 		add(btnRemoveChild);
+		
+		JButton btnRefineSearch = new JButton("Refine Search");
+		btnRefineSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				showRefineSearch();
+			}
+		});
+		btnRefineSearch.setBounds(481, 70, 126, 34);
+		add(btnRefineSearch);
+		
+		JButton btnResetSearch = new JButton("Reset Search");
+		btnResetSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				populateTable(childList);
+			}
+		});
+		btnResetSearch.setBounds(617, 70, 101, 34);
+		add(btnResetSearch);
+		
+
+		refreshView();
 		
 	}
 	
 	public void refreshView()
 	{
-		populateTable();
-		
+		childList = (ArrayList<Child>)this.getModel().getChildList();
+		populateTable(childList);
 	}
 	
-	private void populateTable()
+	private void populateTable(ArrayList<Child> childs)
 	{
 		
 			while(childTableModel.getRowCount() > 0)
 			{
 				childTableModel.removeRow(0);
 			}
-			
-			ArrayList<Child> childs = (ArrayList<Child>) this.getModel().getChildList(true);
-	
 
 			for(int i = 0; i < childs.size(); i++)
 			{
@@ -134,12 +158,6 @@ public class ChildViewGrid extends PanelView {
 	{
 		btnRemoveChild.addActionListener(al);
 	}
-
-	
-	public void addObjectiveChildListener(ActionListener al)
-	{
-		btnAddObjectiveChild.addActionListener(al);
-	}
 	
 	public Child getSelectedChild() throws Exception
 	{
@@ -159,4 +177,54 @@ public class ChildViewGrid extends PanelView {
 	{
 		btnEditChild.addActionListener(al);
 	}
+	
+	public void showRefineSearch()
+	{
+        JLabel lblName = new JLabel("Name:");
+		JTextField txtName = new JTextField();
+		JLabel lblActive = new JLabel("Active:");
+		String[] active = {"Active", "Inactive", "Both" };
+		JComboBox cmbActive = new JComboBox(active);
+		
+		Object[] arr = { lblName, txtName, lblActive, cmbActive };
+		
+		JOptionPane.showConfirmDialog(null, arr, "Refine Search", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+		
+		
+		ArrayList<Child> fullChildList = new ArrayList<Child>(this.getModel().getChildList());
+		ArrayList<Child> showChildList = new ArrayList<Child>();
+		
+		for(int i = 0; i < fullChildList.size(); i++)
+		{
+			Child tempChild = fullChildList.get(i);
+			String name = tempChild.getName();
+			if(name.toLowerCase().contains(txtName.getText().toLowerCase()))
+			{
+				int index = cmbActive.getSelectedIndex();
+				if(index == 2)
+				{
+					showChildList.add(tempChild);
+				}
+				else if(index == 1)
+				{
+					if(tempChild.getActive() == false)
+					{
+						showChildList.add(tempChild);
+					}
+				}
+				else
+				{
+					if(tempChild.getActive() == true)
+					{
+						showChildList.add(tempChild);
+					}					
+				}
+			}
+			
+		}
+		
+		
+		populateTable(showChildList);
+	}
+
 }

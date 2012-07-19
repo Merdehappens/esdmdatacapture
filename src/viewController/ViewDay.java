@@ -6,6 +6,7 @@ import system.model.ESDMModel;
 import system.sessions.Day;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
@@ -26,16 +27,15 @@ public class ViewDay extends PanelView {
 	 * 
 	 */
 	private static final long serialVersionUID = 4174778855073882231L;
-	private JButton btnSubmit;
+	private JButton btnViewDay;
 	private JButton btnReset;
 	private JButton btnCancel;
 	private JDateChooser dateChooserFrom;
 	private JDateChooser dateChooserTo;
-	private JCheckBox chkbxActiveSessions;
-	private JCheckBox chkbxCompletedSessions;
 	private JScrollPane scrollPane;
 	private JTable tblSession;
 	private DefaultTableModel tableModel;
+	private JButton btnNewDay;
 	
 	/**
 	 * Create the panel.
@@ -58,12 +58,6 @@ public class ViewDay extends PanelView {
 	{
 		setLayout(null);
 		
-		addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentShown(ComponentEvent arg0) {
-				refreshTable();
-			}
-		});
 		
 		
 		JLabel lblTitle = new JLabel("View Session");
@@ -71,75 +65,35 @@ public class ViewDay extends PanelView {
 		lblTitle.setBounds(10, 11, 661, 21);
 		add(lblTitle);
 		
-		btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(71, 465, 89, 23);
-		add(btnSubmit);
+		btnViewDay = new JButton("View Day");
+		btnViewDay.setBounds(219, 86, 108, 30);
+		add(btnViewDay);
 		
 		btnReset = new JButton("Reset Search Criteria");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				resetForm();
+				refreshView();
 			}
 		});
-		btnReset.setBounds(170, 465, 166, 21);
+		btnReset.setBounds(521, 86, 151, 30);
 		add(btnReset);
 		
 		btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(346, 466, 94, 21);
 		add(btnCancel);
 		
-		JLabel lblRefineSearch = new JLabel("Refine Search:");
-		lblRefineSearch.setBounds(10, 58, 99, 14);
-		add(lblRefineSearch);
 		
-		chkbxActiveSessions = new JCheckBox("Only Active Sessions");
-		chkbxActiveSessions.setBounds(10, 89, 157, 21);
-		add(chkbxActiveSessions);
 		
-		chkbxCompletedSessions = new JCheckBox("Only Completed Sessions");
-		chkbxCompletedSessions.setBounds(10, 118, 157, 21);
-		add(chkbxCompletedSessions);
 		
-		JLabel lblFromDate = new JLabel("From Date:");
-		lblFromDate.setBounds(215, 43, 74, 35);
-		add(lblFromDate);
 		
-		JButton btnTodaysDate = new JButton("Todays Date");
-		btnTodaysDate.addActionListener(new ActionListener() {
+		JButton btnRefineSearch = new JButton("Refine Search");
+		btnRefineSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				Calendar cal = Calendar.getInstance();
-				dateChooserFrom.setCalendar(cal);
-				dateChooserTo.setCalendar(cal);
-				
+				showRefineSearch();
 			}
 		});
-		btnTodaysDate.setBounds(504, 43, 112, 51);
-		add(btnTodaysDate);
-		
-		JLabel lblToDate = new JLabel("To Date:");
-		lblToDate.setBounds(215, 89, 74, 36);
-		add(lblToDate);
-		
-		dateChooserFrom = new JDateChooser();
-		dateChooserFrom.setBounds(283, 43, 157, 35);
-		add(dateChooserFrom);
-		
-		dateChooserTo = new JDateChooser();
-		dateChooserTo.setBounds(283, 90, 157, 35);
-		add(dateChooserTo);
-		
-		
-		
-		
-		JButton btnSearch = new JButton("Search");
-		btnSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				refreshTable();
-			}
-		});
-		btnSearch.setBounds(498, 105, 118, 21);
-		add(btnSearch);
+		btnRefineSearch.setBounds(378, 86, 133, 30);
+		add(btnRefineSearch);
 		
 		
 		
@@ -168,11 +122,15 @@ public class ViewDay extends PanelView {
 		
 		tblSession.setModel(tableModel);
 		
+		btnNewDay = new JButton("New Day");
+		btnNewDay.setBounds(88, 86, 120, 30);
+		add(btnNewDay);
+		
 	}
 	
 	public void submitListener(ActionListener al)
 	{
-		btnSubmit.addActionListener(al);
+		btnViewDay.addActionListener(al);
 	}
 
 	
@@ -180,17 +138,11 @@ public class ViewDay extends PanelView {
 	{
 		btnCancel.addActionListener(al);	
 	}
-
-	private void resetForm() {
-		dateChooserFrom.setDate(null);
-		dateChooserTo.setDate(null);
-		chkbxActiveSessions.setSelected(false);
-		chkbxCompletedSessions.setSelected(false);
-	}
 	
-	private void refreshTable()
+	private void refreshTable(ArrayList<Day> dayList)
 	{
-		ArrayList<Day> dayList = new ArrayList<Day>(this.getModel().getDays(dateChooserFrom.getCalendar(), dateChooserTo.getCalendar()));
+		
+		
 
 		while(tblSession.getRowCount() > 0)
 		{
@@ -216,13 +168,52 @@ public class ViewDay extends PanelView {
 		
 	}
 
-	public Day getDay() {
+	public Day getDay() throws Exception {
+		if(tblSession.getSelectedRow() == -1)
+		{
+			throw new Exception("No Day was selected");
+		}
 		return (Day)tableModel.getValueAt(tblSession.getSelectedRow(), 0);
 	}
 
 	@Override
-	public void refreshView() {
-		resetForm();
-		refreshTable();
+	public void refreshView() {		
+		refreshTable((ArrayList<Day>)this.getModel().getDayList());
 	}
+	
+	public void showRefineSearch()
+	{
+        JLabel lblDateFrom = new JLabel("Date From:");
+		dateChooserFrom = new JDateChooser();
+		JLabel lblDateTo = new JLabel("Date To:");
+		dateChooserTo = new JDateChooser();
+		JButton btnTodaysDate = new JButton("Todays Date");
+		btnTodaysDate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Calendar cal = Calendar.getInstance();
+				dateChooserFrom.setCalendar(cal);
+				dateChooserTo.setCalendar(cal);
+				
+			}
+		});
+		
+				
+		Object[] arr = { lblDateFrom, dateChooserFrom, lblDateTo, dateChooserTo, btnTodaysDate };
+		
+		int res = JOptionPane.showConfirmDialog(null, arr, "Refine Search", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+		
+		
+		
+		if(res == 0)
+		{
+			ArrayList<Day> dayList = new ArrayList<Day>(this.getModel().getDays(dateChooserFrom.getCalendar(), dateChooserTo.getCalendar()));
+			refreshTable(dayList);
+		}
+
+		
+		
+	}
+	
+	
 }
