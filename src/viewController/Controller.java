@@ -1,13 +1,21 @@
 package viewController;
 
+import java.awt.BorderLayout;
+import java.awt.Dialog.ModalExclusionType;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
+import javax.swing.BorderFactory;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JProgressBar;
 import javax.swing.JTextField;
+import javax.swing.ProgressMonitor;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
@@ -46,6 +54,8 @@ public class Controller extends JFrame {
 
 	private ESDMModel model;
 	
+	
+	private static JFrame loadingFrame;
 	private JPanel contentPane;
 	private JPanel homePanel;
 	private JPanel sessionPanel;
@@ -85,27 +95,70 @@ public class Controller extends JFrame {
 	}
 	
 	public Controller(ESDMModel model) throws MalformedURLException {
+		
 		setLookAndFeel();
 		this.model = model;
 		initComponents();
 		initButtonListeners();
 	}
-
+	
+	
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+		
+
+		loadingFrame = new JFrame("Loading");
+		
+		final Thread t1 = new Thread(new Runnable() {
 			public void run() {
-				try {
-					Controller frame = new Controller();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+
+				try{
+				Controller frame = new Controller();
+				frame.setVisible(true);
+				
 				}
-			}
-		});
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+				
+		}
+	});
+		
+
+		
+		final Thread t2 = new Thread(new Runnable() {
+			public void run() {
+
+				try{
+					JPanel contentPane = new JPanel();
+					JLabel loading = new JLabel("Loading....");
+					loading.setFont(new Font("Monotype Corsiva", 1, 25));
+					loading.setPreferredSize(new Dimension(300, 150));
+					contentPane.add(loading);
+					loadingFrame.setContentPane(contentPane);
+					loadingFrame.pack();
+					loadingFrame.setVisible(true);
+					System.out.println("Test");
+					
+				}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+				
+		}
+	});
+		t2.run();
+		t1.run();
+		
+		
+		
+		
+	//	EventQueue.invokeLater
+		
+		
 	}
 
 
@@ -135,6 +188,9 @@ public class Controller extends JFrame {
 		
 		tabbedPane.setBounds(0, 0, 963, 613);
 		contentPane.add(tabbedPane);
+		
+
+
 		
 		
 		
@@ -247,9 +303,8 @@ public class Controller extends JFrame {
 		
 		// Show the login screen
 		
+
 		showLogin();
-
-
 	}
 	
 	
@@ -676,6 +731,9 @@ public class Controller extends JFrame {
     @SuppressWarnings("deprecation")
 	public void showLogin()
     {
+
+		loadingFrame.setVisible(false);
+    	
         JLabel label_loginname = new JLabel("Enter your login name:");
         JTextField loginname;
         
