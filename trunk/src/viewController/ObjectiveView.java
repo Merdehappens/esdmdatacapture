@@ -24,6 +24,7 @@ public class ObjectiveView extends PanelView {
 	private JButton btnAddNewObjective;
 	private JButton btnViewObjectives;
 	private JButton btnAddObjectiveTo;
+	private ArrayList<Objective> objectives;
 	private JTable table;
 	private DefaultTableModel tableModel;
 	
@@ -99,6 +100,21 @@ public class ObjectiveView extends PanelView {
 	public void refreshView() {
 		populateTable();
 	}
+	
+	public Objective getSelectedObjective() throws Exception {
+
+			Objective objective;
+			try{
+			objective = (Objective)objectives.get(table.getSelectedRow());
+			}
+			catch(Exception e)
+			{
+				throw new Exception("You must select an objective first.");
+			}
+			
+			return objective;
+		
+	}
 
 	private void populateTable() {
 		
@@ -107,8 +123,9 @@ public class ObjectiveView extends PanelView {
 			tableModel.removeRow(0);
 		}
 		
-		ArrayList<Objective> objectives = new ArrayList<Objective>(this.getModel().getObjectiveList());
+		objectives = new ArrayList<Objective>(this.getModel().getObjectiveList());
 
+		
 
 		for(int i = 0; i < objectives.size(); i++)
 		{

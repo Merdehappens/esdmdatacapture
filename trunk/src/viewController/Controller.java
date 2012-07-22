@@ -58,7 +58,6 @@ public class Controller extends JFrame {
 	private FindChild findChild;
 	private FindChild findChildReport;
 	private SessionView sessionView;
-	private ViewDay viewDay;
 	private ObjectiveView objectiveView;
 	private AddObjective addObjective;
 	private LogSessionData logSessionData;
@@ -74,6 +73,7 @@ public class Controller extends JFrame {
 	private ViewReport viewReport;
 	private NewUserAccount newUserAccount;
 	private ChildViewGrid childViewGrid;
+	private ViewObjective viewObjective;
 	
 	
 	
@@ -176,14 +176,11 @@ public class Controller extends JFrame {
 		
 		//Add all the panels (Cards) to the Session Tab
 		
-		sessionView = new SessionView();
-		sessionPanel.add(sessionView, "Session");
-
 		addDay = new AddDay(model);
 		sessionPanel.add(addDay, "addDay");
 
-		viewDay = new ViewDay(model);
-		sessionPanel.add(viewDay, "viewDay");
+		sessionView = new SessionView(model);
+		sessionPanel.add(sessionView, "Session");
 		
 		reviewSession = new ReviewSession();
 		sessionPanel.add(reviewSession, "reviewSession");
@@ -215,6 +212,9 @@ public class Controller extends JFrame {
 		objectiveView = new ObjectiveView(model);
 		objectivePanel.add(objectiveView, "Objective");
 
+		viewObjective = new ViewObjective(model);
+		objectivePanel.add(viewObjective, "viewObjective");
+		
 		addObjective = new AddObjective();
 		objectivePanel.add(addObjective, "addObjective");
 		
@@ -300,11 +300,11 @@ public class Controller extends JFrame {
 		});
 		
 		
-		viewDay.submitListener(new java.awt.event.ActionListener() {
+		sessionView.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try{
 
-					reviewSession.setDay(viewDay.getDay());
+					reviewSession.setDay(sessionView.getDay());
 					show(sessionPanel, "reviewSession");
 				}
 				catch(Exception e)
@@ -314,7 +314,6 @@ public class Controller extends JFrame {
 			}
 		});
 		
-		viewDay.cancelListener(ActionListenerShow(sessionPanel, "Session"));
 		
 		reviewSession.logMarksListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -469,13 +468,18 @@ public class Controller extends JFrame {
 		
 		sessionView.newDay(ActionListenerShow(sessionPanel, "addDay"));
 
-		sessionView.viewDay(ActionListenerShow(sessionPanel, "viewDay"));
 	
 		
 
 		objectiveView.viewObjectives(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				viewObjectives(evt);
+				
+				try {
+					viewObjective.setObjective(objectiveView.getSelectedObjective());
+				} catch (Exception e) {
+					showMessage(e.getMessage());
+				}
+				show(objectivePanel, "viewObjective");
 			}
 		});
 
@@ -643,11 +647,7 @@ public class Controller extends JFrame {
 
 	}
 
-	private void viewObjectives(ActionEvent evt)
-	{
 
-	}
-	
 
 	//Sets the look and feel of the user interface.
 	
