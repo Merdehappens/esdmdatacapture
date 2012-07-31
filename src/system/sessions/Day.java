@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package system.sessions;
 
 
@@ -16,10 +13,7 @@ import system.marking.Mark;
 import system.model.Room;
 
 
-/**
- *
- * @author DAMIAN
- */
+
 public class Day implements SimpleKey {
     
     private List<Child> children;

@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package system.sessions;
 
 
@@ -12,10 +9,6 @@ import system.helper.SimpleKey;
 import system.marking.Objective;
 
 
-/**
- *
- * @author DAMIAN
- */
 public class Session implements SimpleKey {
     
     String id;
