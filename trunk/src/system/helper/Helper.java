@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package system.helper;
 
 import java.util.Calendar;
@@ -9,12 +5,15 @@ import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.Random;
 
-/**
- *
- * @author Steven
- */
+
 public class Helper {
 
+	/**
+	 * Parse in Collection and a Key to search that collection with.
+	 * Searchs through collection and Returns the first item with that specific key.
+	 * 
+	 */
+	
    public static <E extends SimpleKey> E search(Collection<E> collection, String key)
    {
       for(E e: collection)
@@ -26,6 +25,11 @@ public class Helper {
       }
       return null;
    }
+   
+   
+   /**
+    * Takes in an int and creates a random AlphaNumerical string of the length specified in the length int.
+    */
    
    public static String generateRandomString(int length)
    {
@@ -46,6 +50,10 @@ public class Helper {
 	   
    }
    
+   /*
+    * Parses in a calendar Object. sets time to null and then returns Calendar object
+    */
+   
    public static Calendar setCalendarTimeNull(Calendar c)
    {
 	    c.set(Calendar.HOUR_OF_DAY, 0);
@@ -56,6 +64,10 @@ public class Helper {
 	    return c;
    }
 
+   /*
+    * Returns a string representation of a calendar object in DD/MM/YY format
+    */
+   
 public static String simpleDateFormat(Calendar c) {
 	if(c != null)
 	{
