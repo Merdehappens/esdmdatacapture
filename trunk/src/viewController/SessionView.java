@@ -14,12 +14,9 @@ import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class SessionView extends PanelView {
 
