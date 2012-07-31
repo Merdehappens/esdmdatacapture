@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package system.marking;
 
 
@@ -14,23 +11,17 @@ import system.sessions.Day;
 import system.sessions.Session;
 
 
-
-
-/**
- *
- * @author DAMIAN
- */
 public class Mark implements SimpleKey {
-    String id;
-    Child child;
-    int mark;
-    Day day;
-    Session session;
-    Objective objective;
-    Step step;
-    Therapist therapist;
-    Calendar time;
-	String comment;
+    private String id;
+    private Child child;
+    private int mark;
+    private Day day;
+    private Session session;
+    private Objective objective;
+    private Step step;
+    private Therapist therapist;
+    private Calendar time;
+    private String comment;
     
     public Child getChild() {
 		return child;
@@ -72,8 +63,13 @@ public class Mark implements SimpleKey {
 	{
 		mark = i;
 	}
+	
+	/*
+	 * Creates a new mark object with the time that is parsed through
+	 */
 
-    public Mark(String id, Child child, int mark, Session session, Step step, Therapist therapist, Calendar time) {
+    public Mark(String id, Child child, Objective objective, int mark, Session session, 
+    					Step step, Therapist therapist, Calendar time) {
         this.id = id;
         this.child = child;
         this.mark = mark;
@@ -83,7 +79,10 @@ public class Mark implements SimpleKey {
         this.time = time;
     }
     
-
+	/*
+	 * Creates a new mark object with the time set to current system time
+	 */
+    
 	public Mark(Session session, Child child, Objective objective,
 			Step step, int mark, Therapist therapist, Day day) {
 		this.session = session;
@@ -100,6 +99,7 @@ public class Mark implements SimpleKey {
     {
         return id;
     }
+	
 	
 	public String toString()
 	{

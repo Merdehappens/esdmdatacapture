@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package system.marking;
 
 import java.util.ArrayList;
@@ -9,10 +6,6 @@ import java.util.Collection;
 import java.util.List;
 
 
-/**
- *
- * @author DAMIAN
- */
 public class Objective {
     private List<Step> steps;
     private String name;
