@@ -1,16 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package system.individuals;
 
 import system.helper.SimpleKey;
 import BCrypt.BCrypt;
 
-/**
- *
- * @author DAMIAN
- */
+
 public class UserAccount implements SimpleKey {
     private String name;
     private String emailAddress;
@@ -18,6 +12,16 @@ public class UserAccount implements SimpleKey {
     private String username;
     private String phoneNo;
     private boolean access;
+    
+    public UserAccount()
+    {
+    }
+    
+    public UserAccount(String name, String username, String emailAddress) {
+		this.name = name;
+		this.username = username;
+		this.emailAddress = emailAddress;
+	}
     
     public boolean getAccess()
     {
@@ -41,18 +45,7 @@ public class UserAccount implements SimpleKey {
     {
     	return username;
     }
-    
-    
-    public UserAccount()
-    {
-    }
-    
 
-    public UserAccount(String name, String username, String emailAddress) {
-		this.name = name;
-		this.username = username;
-		this.emailAddress = emailAddress;
-	}
 
 	public String getId() {
     	return username;
@@ -78,6 +71,11 @@ public class UserAccount implements SimpleKey {
     public String getPassword() {
         return password;
     }
+    
+    /*
+     * a plain-text String that is the password is parsed in and then the password gets hashed and stored in the 
+     * password attribute
+     */
 
     public void setPassword(String password) {
     	this.password = BCrypt.hashpw(password, BCrypt.gensalt());
