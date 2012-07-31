@@ -36,9 +36,7 @@ import java.awt.event.ComponentEvent;
 
 public class AddDay extends PanelView {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 3352767716977743660L;
 	private JButton btnSubmit;
 	private JButton btnReset;
