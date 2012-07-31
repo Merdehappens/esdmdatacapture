@@ -1,13 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package system.helper;
 
-/**
- *
- * @author Steven
- */
+
+// Any class that implements SimpleKey must implement getId. this is required for the Search method in Helper class 
+
 public interface SimpleKey
 {
 	public abstract String getId();
