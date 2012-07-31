@@ -1,17 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package system.individuals;
 
 import java.util.HashSet;
 import java.util.Set;
 
 
-/**
- *
- * @author DAMIAN
- */
 public class Guardian extends UserAccount {
     Set<Child> children;
     
@@ -27,6 +20,10 @@ public class Guardian extends UserAccount {
         super.setPhoneNo(phone);
         children = new HashSet<Child>();
     }
+    
+    /*
+     * Adds a child object to the hashSet inside the guardian object
+     */
     
     public void addChild(Child child)
     {

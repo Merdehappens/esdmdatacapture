@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package system.individuals;
 
 
@@ -16,10 +13,6 @@ import system.marking.Mark;
 import system.marking.Objective;
 
 
-/**
- *
- * @author DAMIAN
- */
 public class Child implements SimpleKey {
     String id;
     String name;
@@ -109,6 +102,10 @@ public class Child implements SimpleKey {
     {
         objectives.add(o);
     }
+    
+    /* This method takes in a URL. and sets the URL in the child object to that URL and sets the childs picture to be the
+     * picture that the URL points to
+     */
     
     public void setPictureLink(URL pictureLink) {
         this.pictureLink = pictureLink;
