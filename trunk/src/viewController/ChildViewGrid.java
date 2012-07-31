@@ -2,15 +2,10 @@ package viewController;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -22,18 +17,10 @@ import java.util.ArrayList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JPopupMenu;
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class ChildViewGrid extends PanelView {
 
-	//testing
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4321169254400022059L;
 	private JButton btnAddChild;
 	private JButton btnEditChild;
