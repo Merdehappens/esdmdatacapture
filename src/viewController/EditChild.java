@@ -13,7 +13,6 @@ import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JToggleButton;
 
 public class EditChild extends PanelView {
 	

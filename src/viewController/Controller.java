@@ -1,21 +1,12 @@
 package viewController;
 
-import java.awt.BorderLayout;
-import java.awt.Dialog.ModalExclusionType;
 import java.awt.Dimension;
-import java.awt.EventQueue;
-
-import javax.swing.BorderFactory;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JProgressBar;
 import javax.swing.JTextField;
-import javax.swing.ProgressMonitor;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
