@@ -25,7 +25,7 @@ import javax.swing.table.TableCellEditor;
 
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-//test
+
 public class AddChild extends PanelView {
 	/**
 	 * 
@@ -59,6 +59,10 @@ public class AddChild extends PanelView {
 		
 	}
 	
+	/*
+	 * Initialises all the graphical components on the page.
+	 */
+	
 	private void initialise()
 	{
 		picture = null;
@@ -75,7 +79,6 @@ public class AddChild extends PanelView {
 		lblName.setBounds(10, 40, 46, 30);
 		add(lblName);
 		
-		
 		JLabel lblDateOfBirth = new JLabel("Date Of Birth");
 		lblDateOfBirth.setBounds(10, 81, 73, 30);
 		add(lblDateOfBirth);
@@ -89,7 +92,6 @@ public class AddChild extends PanelView {
 		add(txtName);
 		txtName.setColumns(10);
 		
-		
 		dobChooser = new JDateChooser();
 		dobChooser.setBounds(87, 81, 250, 30);
 		add(dobChooser);
@@ -101,6 +103,8 @@ public class AddChild extends PanelView {
 		btnSubmit = new JButton("Submit");
 		btnSubmit.setBounds(10, 343, 89, 23);
 		add(btnSubmit);
+		
+		// Creates a reset button and adds an action listener to it.
 		
 		btnReset = new JButton("Reset");
 		btnReset.addActionListener(new ActionListener() {
@@ -115,17 +119,12 @@ public class AddChild extends PanelView {
 		btnCancel.setBounds(224, 344, 94, 21);
 		add(btnCancel);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 237, 342, 95);
-		add(scrollPane);
+
 		
+		// Creates a new JTable where the first column is not editable 		
 		
-		
-		
-		
-		tblGuardian = new JTable(){ /**
-			 * 
-			 */
+		tblGuardian = new JTable()
+		{ 
 			private static final long serialVersionUID = -6097806136687511132L;
 
 		public boolean isCellEditable(int rowIndex, int colIndex) 
@@ -134,6 +133,14 @@ public class AddChild extends PanelView {
 					return false;
 				}
 				return true; } };
+				
+		/*
+		 * Adds a listener so that if the table loses focus it stops editing on that cell.
+		 * 
+		 * This is so that when add is clicked when a cell is still being edited the information in the cell
+		 * is saved and not lost.		
+		 */
+				
 		tblGuardian.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
@@ -144,6 +151,12 @@ public class AddChild extends PanelView {
 					}
 			}
 		});
+		
+		// Sets up the tables columns and model
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 237, 342, 95);
+		add(scrollPane);
 		
 		scrollPane.setViewportView(tblGuardian);
 		String[] columnNames = new String[] {"Guardian", "Name", "Phone Number"};
@@ -159,7 +172,12 @@ public class AddChild extends PanelView {
 		lblChildsGuardians.setBounds(10, 212, 342, 14);
 		add(lblChildsGuardians);
 		
+		
+		// Creates a new Button and adds a new action listener to the button so that when button is pressed
+		// it adds a new row to the table.
+		
 		JButton btnAddGuardian = new JButton("Add Guardian");
+		
 		btnAddGuardian.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -174,6 +192,10 @@ public class AddChild extends PanelView {
 		btnAddGuardian.setBounds(364, 249, 120, 23);
 		add(btnAddGuardian);
 		
+		
+		//Creates a new button and adds a new action listener to the button so when it is pressed 
+		// it removes the selected row from the table.
+		
 		JButton btnDeleteGuardian = new JButton("Remove Guardian");
 		btnDeleteGuardian.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -185,6 +207,10 @@ public class AddChild extends PanelView {
 		});
 		btnDeleteGuardian.setBounds(364, 281, 120, 23);
 		add(btnDeleteGuardian);
+		
+		//Adds a new button that when pressed makes a new File Chooser dialog open So that the user can choose
+		// a picture to upload for this child.
+	
 
 		JButton btnSelectPictureTo = new JButton("Select Picture to Add");
 		btnSelectPictureTo.addActionListener(new ActionListener() {
@@ -202,7 +228,8 @@ public class AddChild extends PanelView {
 		btnSelectPictureTo.setBounds(364, 43, 144, 27);
 		add(btnSelectPictureTo);
 		
-
+		//Adds a new Label that will hold the picture chosen for the child.
+		
 		lblPicture = new JLabel("");
 		lblPicture.setBounds(355, 78, 153, 114);
 		add(lblPicture);
@@ -215,6 +242,12 @@ public class AddChild extends PanelView {
 	{
 		return txtName.getText();
 	}
+	
+	/*
+	 *  Returns the guardian objects that are in the table. if there is no object for the specified row it
+	 *  will create an object and add it to the list to be returned.
+	 */
+	
 	
 	public ArrayList<Guardian> getGuardians()
 	{
@@ -246,16 +279,28 @@ public class AddChild extends PanelView {
 		return dateJoinedChooser.getCalendar();
 	}	
 	
+	/*
+	 * Takes in an ActionListener and adds it to the submit button
+	 */
+	
 	public void submitListener(ActionListener al)
 	{
 		btnSubmit.addActionListener(al);	
 	}
 
 	
+	/*
+	 * Takes in an ActionListener and adds it to the cancel button
+	 */
+	
 	public void cancelListener(ActionListener al)
 	{
 		btnCancel.addActionListener(al);
 	}
+	
+	/*
+	 * Resets all the text fields to default
+	 */
 	
 	public void resetTextField()
 	{
