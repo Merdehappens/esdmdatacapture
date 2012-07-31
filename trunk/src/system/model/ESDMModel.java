@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package system.model;
 
 
@@ -25,10 +22,6 @@ import system.sessions.Session;
 
 import BCrypt.BCrypt;
 
-/**
- *
- * @author DAMIAN
- */
 
 public class ESDMModel {
     
@@ -59,10 +52,18 @@ public class ESDMModel {
 			e.printStackTrace();
 		}
     }
+    
+    /*
+     * Returns the list of all children in the system
+     */
 
     public List<Child> getChildList() {
         return childList;
     }
+    
+    /*
+     * Returns a list of all children in the system where the boolean parsed in is equal to the childs active attribute
+     */
     
     public List<Child> getChildList(boolean active){
     	ArrayList<Child> tempChildList = new ArrayList<Child>();
@@ -82,6 +83,10 @@ public class ESDMModel {
     	return tempChildList;
     	
     }
+    
+    /*
+     * Returns all children in the list whose name contain the String parsed through.
+     */
     
     public List<Child> getChildList(String filter)
     {
@@ -112,7 +117,9 @@ public class ESDMModel {
     	return objectiveList;
     }
     
-    
+    /* 
+     * Dummy database load until database is implemented
+     */
     
     private void loadFromDatabase() throws Exception
     {
@@ -268,7 +275,10 @@ public class ESDMModel {
     
     }
     
-    
+    /*
+     * Checks the parsed through username and password and returns true if the password is correct for that user.
+     * Returns false otherwise.
+     */
 
     public boolean login(String username, String password)
     {
@@ -292,10 +302,25 @@ public class ESDMModel {
         return false;
     }
     
-    public void setPassword(String temp)
+    /*
+     * Sets the password of the user that is currently logged in to the system.
+     */
+    
+    public void setPassword(String temp) throws Exception
     {
-    	currentUser.setPassword(temp);
+    	if(currentUser != null)
+    	{
+    		currentUser.setPassword(temp);
+    	}
+    	else
+    	{
+    		throw new Exception("No User is currently logged in");
+    	}
     }
+    
+    /*
+     * Adds a new user account to the system.
+     */
     
     public String addUser(String name, String username, String emailAddress, String phoneNo)
     {
@@ -309,13 +334,13 @@ public class ESDMModel {
     }
     
     
+    
+    
     /****************************************************
      *  Returns true if a user is currently logged in   *
      *  False otherwise                                 *
      *                                                  *
      * **************************************************/
-    
-  
     
     
     public boolean loggedIn()
@@ -326,6 +351,11 @@ public class ESDMModel {
         }
         return true;
     }
+    
+    /* 
+     * Creates a new child object and Adds it to the system with the specified name,
+     * dob, date joined and list of guardians
+     */
     
     public Child addChild(String name, Calendar dob, Calendar dateJoined, ArrayList<Guardian> guardians) throws Exception
     {
@@ -352,7 +382,9 @@ public class ESDMModel {
         return child;
     }
     
-
+    /* 
+     * Returns child with the childID Specified
+     */
     
 	public Child viewChild(String childId) throws Exception
     {
@@ -436,14 +468,26 @@ public class ESDMModel {
 		objectiveList.add(o);
 	}
 
+	/*
+	 * Returns the user that is currently logged in to the system
+	 */
+	
 	public UserAccount getCurrentUser() {
 		return currentUser;
 	}
 
+	/*
+	 * Sets the email of the user that is currently logged into the system to the String parsed through
+	 */
+	
 	public void setEmail(String email) {
 		currentUser.setEmailAddress(email);
 	}
 
+	/*
+	 * Adds a new guardian to the system
+	 */
+	
 	public void addGuardian(Guardian temp) {
 		guardianList.add(temp);
 	}
@@ -455,7 +499,11 @@ public class ESDMModel {
 	public List<Day> getDayList() {
 		return dayList;
 	}
-
+	
+	/*
+	 * Changes the password of the user that is currently logged in to the system to the new password parsed through
+	 */
+	
 	public void changePassword(String oldPassword, String newPassword1, String newPassword2) throws Exception {
 		if(oldPassword.equals("") || newPassword1.equals("") || newPassword2.equals(""))
 		{
@@ -477,6 +525,10 @@ public class ESDMModel {
 			throw new Exception("Both Passwords do not match");
 		}
 	}
+	
+	/*
+	 * Adds a new mark to the system.
+	 */
 	
 	public void addMark(Session session, Child child, Objective objective, Step step, int mark, Day day) throws Exception
 	{
@@ -517,6 +569,10 @@ public class ESDMModel {
 		return Helper.search(childList, childId);
 	}
 	
+	
+	/*
+	 * Returns a list of all days that are between (inclusive) the 2 dates parsed through.
+	 */
 	
 	public List<Day> getDays(Calendar from, Calendar to)
 	{
@@ -580,35 +636,21 @@ public class ESDMModel {
 		
 		
 	}
+	
+	/*
+	 * Sets the child object active attribute to false.
+	 */
 
 	public void removeChild(Child child) {
 		child.setInactive();
-		System.out.println(child.getActive());
 	}
 
+	
+	
 	public void updateChild(Child child, String name, Calendar dob, Calendar dateJoined) throws Exception {
 		child.setName(name);
 		child.setDob(dob);
 		child.setDateJoined(dateJoined);
-	}
-
-	public Collection<Child> getChildListContains(String text) {
-		
-		ArrayList<Child> tempChildList = new ArrayList<Child>();
-		
-		for(int i = 0; i < childList.size(); i++)
-		{
-			Child tempChild = childList.get(i);
-			String name = tempChild.getName().toLowerCase();
-			if(name.contains(text))
-			{
-				
-				tempChildList.add(tempChild);
-			}
-			
-		}
-		
-		return tempChildList;
 	}
 	
 	
