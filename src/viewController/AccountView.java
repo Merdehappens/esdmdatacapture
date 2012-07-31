@@ -33,12 +33,20 @@ public class AccountView extends PanelView {
 		super(model);
 		initialise();
 	}
+	
+	/*
+	 * Initialises all the items on the screen.
+	 */
 
 
 	public void initialise()
 	{
 		setLayout(null);
 
+		/*
+		 * Adds the title to the top of the screen. then adds 3 buttons
+		 */
+		
 		JLabel lblTitle = new JLabel("Account Management");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -59,20 +67,37 @@ public class AccountView extends PanelView {
 		
 	}
 	
+	/*
+	 * Takes in an ActionListener and adds it to the change password button
+	 */
+	
 	public void changePassword(ActionListener al)
 	{
 		btnChangePassword.addActionListener(al);
 	}
+
+	/*
+	 * Takes in an ActionListener and adds it to the change email address button
+	 */
 	
 	public void changeEmailAddress(ActionListener al)
 	{
 		btnChangeEmailAddress.addActionListener(al);
 	}
 	
+	/*
+	 * Takes in an ActionListener and adds it to the new user button
+	 */
+	
 	public void newUserAccount(ActionListener al)
 	{
 		btnNewUserAccount.addActionListener(al);
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see viewController.PanelView#refreshView()
+	 */
 	
 	public void refreshView()
 	{
