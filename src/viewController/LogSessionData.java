@@ -90,7 +90,7 @@ public class LogSessionData extends PanelView {
 			}
 			@Override
 			public void keyReleased(KeyEvent e) {
-				System.out.println("Key released");
+				System.out.println("Key Released");
 			}
 			@Override
 			public void keyTyped(KeyEvent e) {
