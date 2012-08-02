@@ -54,6 +54,7 @@ public class ViewReport extends PanelView {
 		scrollPane.setViewportView(tblSession);
 		String[] columnNames = new String[] {"Date", "Objective", "Step", "Setting", "Mark", "Comments"};
 		
+		//Bleh
 		
 		tableModel = new DefaultTableModel();
 		tableModel.setColumnIdentifiers(columnNames);
