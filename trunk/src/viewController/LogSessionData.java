@@ -28,7 +28,7 @@ import system.sessions.Session;
 
 public class LogSessionData extends PanelView {
 	/**
-	 * Test
+	 * 
 	 */
 	private static final long serialVersionUID = -5029048398607740463L;
 	private JButton btnSubmit;
