@@ -70,7 +70,7 @@ public class ObjectiveView extends PanelView {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
-		String[] columnNames = new String[] {"ID", "Name", "Description", "Level", "No of steps"};
+		String[] columnNames = new String[] {"ID", "Name", "Description", "Level", "Number of steps"};
 
 		tableModel.setColumnIdentifiers(columnNames);
 		

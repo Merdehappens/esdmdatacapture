@@ -74,7 +74,7 @@ public class NewUserAccount extends PanelView {
 		add(txtUsername);
 		txtUsername.setColumns(10);
 		
-		JLabel lblEmailAddress = new JLabel("Email Address");
+		JLabel lblEmailAddress = new JLabel("Email Address:");
 		lblEmailAddress.setBounds(10, 150, 76, 30);
 		add(lblEmailAddress);
 		

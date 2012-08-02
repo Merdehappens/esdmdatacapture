@@ -51,7 +51,7 @@ public class ReviewSession extends PanelView {
 		setLayout(null);
 
 		
-		JLabel lblTitle = new JLabel("Review Marks taken");
+		JLabel lblTitle = new JLabel("Review Marks Taken");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setBounds(10, 11, 739, 21);
 		add(lblTitle);

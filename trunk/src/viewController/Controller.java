@@ -415,14 +415,14 @@ public class Controller extends JFrame {
 				try {
 					child = childViewGrid.getSelectedChild();
 					
-					String temp = "Are you sure you wish to delete Child: " + child.getName();
+					String temp = "Are you sure you wish to delete " + child.getName() + "?";
 					
 					int res = JOptionPane.showConfirmDialog(null, temp, "Delete Child", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);				
 					
 					if(res == 0 )
 					{
 						model.removeChild(child);
-						showMessage(child.getName() + " Was removed from the system");
+						showMessage(child.getName() + " was removed from the system");
 					}
 					
 				} catch (Exception e) {
@@ -464,7 +464,7 @@ public class Controller extends JFrame {
 				String phoneNo = newUserAccount.getPhoneNo();
 				String pass = model.addUser(name, username, emailAddress, phoneNo);
 				
-				showMessage("The password has been set to: " + pass	+ "\nPlease note this down and inform the user");
+				showMessage("The password has been set to: " + pass	+ "." + "\nPlease note this down and inform the user");
 			}
 		});
 		
@@ -551,7 +551,7 @@ public class Controller extends JFrame {
 				Calendar dateJoined = (Calendar) childDetails[2];
 				
 				
-				String temp = "Are you sure you wish to save details for child: " + child.getName() + "\nWith ID: " + child;
+				String temp = "Are you sure you wish to save details for " + child.getName() + "\nWith ID: " + child;
 				
 				int res = JOptionPane.showConfirmDialog(null, temp, "Save Details", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 				if(res == 0)
@@ -678,7 +678,7 @@ public class Controller extends JFrame {
 		Child c;
 		try {
 			c = model.addChild(name, dob, dateJoined, guardians);
-			showMessage("Child has been successfully added to the system");
+			showMessage(name + " has been successfully added to the system.");
 			editChild.setChild(c);
 			show(childPanel, "editChild");
 			addChild.resetTextField();
@@ -761,7 +761,7 @@ public class Controller extends JFrame {
          }
          else
          {
-        	 showMessage("Unable to log on to server. Closing program");
+        	 showMessage("Unable to log on to server. Closing program.");
         	 
         	 System.exit(1);
          }
