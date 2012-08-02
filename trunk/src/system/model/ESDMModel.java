@@ -314,7 +314,7 @@ public class ESDMModel {
     	}
     	else
     	{
-    		throw new Exception("No User is currently logged in");
+    		throw new Exception("No user is currently logged in.");
     	}
     }
     
