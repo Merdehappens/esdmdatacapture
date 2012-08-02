@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import system.helper.SimpleKey;
 
-public class Objective {
+
+public class Objective implements SimpleKey  {
     private List<Step> steps;
     private String name;
     private String description;
