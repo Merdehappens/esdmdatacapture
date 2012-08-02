@@ -553,13 +553,15 @@ public class Controller extends JFrame {
 				try {
 					model.addObjectiveChild(child, objective);
 					showMessage("Objective successfully added to child");
+					show(objectivePanel, "Objective");
 				} catch (Exception e) {
 					showMessage(e.getMessage());
 				}
+				
 			}
 		});
 		
-		addObjectiveChild.cancelListener(ActionListenerShow(objectivePanel, "objectiveView"));
+		addObjectiveChild.cancelListener(ActionListenerShow(objectivePanel, "Objective"));
 		
 		
 		
@@ -705,8 +707,7 @@ public class Controller extends JFrame {
 			c = model.addChild(name, dob, dateJoined, guardians);
 			showMessage(name + " has been successfully added to the system.");
 			editChild.setChild(c);
-			show(childPanel, "editChild");
-			addChild.resetTextField();
+			show(childPanel, "Child");
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
