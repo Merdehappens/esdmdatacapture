@@ -33,10 +33,8 @@ public class AddObjectiveChild extends PanelView {
 	private JButton btnCancel;
 	private JList<Child> childList;
 	private DefaultListModel<Child> childListModel;
-	private DefaultListModel<Objective> objectiveListModel;
 	private ArrayList<Child> children;
-	private ArrayList<Objective> objective;
-	private JTextField txtObjective;
+	private Objective objective;
 
 	public AddObjectiveChild() {
 		super();
@@ -56,7 +54,7 @@ public class AddObjectiveChild extends PanelView {
 		setLayout(null);
 		
 		btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(157, 353, 89, 23);
+		btnSubmit.setBounds(27, 333, 89, 23);
 		add(btnSubmit);
 		
 		btnReset = new JButton("Reset");
@@ -69,11 +67,11 @@ public class AddObjectiveChild extends PanelView {
 
 
 		
-		btnReset.setBounds(256, 353, 89, 23);
+		btnReset.setBounds(126, 333, 89, 23);
 		add(btnReset);
 		
 		btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(355, 353, 89, 23);
+		btnCancel.setBounds(225, 333, 89, 23);
 		add(btnCancel);
 		
 		childListModel = new DefaultListModel<Child>();
@@ -108,25 +106,11 @@ public class AddObjectiveChild extends PanelView {
 		add(txtChildName);
 		txtChildName.setColumns(10);
 		
-		objectiveListModel = new DefaultListModel<Objective>();
-		
-		JList<Objective> objectiveList = new JList<Objective>(objectiveListModel);
-		objectiveList.setBounds(334, 118, 259, 172);
-		add(objectiveList);
-		
-		txtObjective = new JTextField();
-		txtObjective.setColumns(10);
-		txtObjective.setBounds(431, 31, 162, 30);
-		add(txtObjective);
-		
-		JLabel lblSearchObjective = new JLabel("Search Objective");
-		lblSearchObjective.setBounds(337, 31, 107, 30);
-		add(lblSearchObjective);
 
 	}
 	
 
-	public void setLists(List<Child> childList, List<Objective> objectiveList)
+	public void setList(List<Child> childList)
 	{
 		children = (ArrayList<Child>)childList;
 		childListModel.clear();
@@ -135,15 +119,6 @@ public class AddObjectiveChild extends PanelView {
 		for(int i = 0; i < children.size(); i++)
 		{
 			childListModel.addElement(children.get(i));
-		}
-		
-		objective = (ArrayList<Objective>)objectiveList;
-		objectiveListModel.clear();
-		txtObjective.setText("");
-		
-		for(int i = 0; i < objective.size(); i++)
-		{
-			objectiveListModel.addElement(objective.get(i));
 		}
 		
 	}
@@ -182,6 +157,14 @@ public class AddObjectiveChild extends PanelView {
 
 	@Override
 	public void refreshView() {
-		
+		setList(this.getModel().getChildList(true));
+	}
+
+	public Objective getObjective() {
+		return objective;
+	}
+
+	public void setObjective(Objective objective) {
+		this.objective = objective;
 	}
 }

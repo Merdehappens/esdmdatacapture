@@ -5,6 +5,8 @@ import javax.swing.JButton;
 import system.individuals.Guardian;
 import system.model.ESDMModel;
 
+import javax.swing.AbstractCellEditor;
+import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -25,6 +27,8 @@ import javax.swing.table.TableCellEditor;
 
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class AddChild extends PanelView {
 	/**
@@ -133,6 +137,7 @@ public class AddChild extends PanelView {
 					return false;
 				}
 				return true; } };
+
 				
 		/*
 		 * Adds a listener so that if the table loses focus it stops editing on that cell.
@@ -149,6 +154,8 @@ public class AddChild extends PanelView {
 					if (editor != null) {
 						editor.stopCellEditing();
 					}
+					
+					
 			}
 		});
 		
@@ -238,6 +245,7 @@ public class AddChild extends PanelView {
 		
 	}
 	
+
 	public String getChildName()
 	{
 		return txtName.getText();

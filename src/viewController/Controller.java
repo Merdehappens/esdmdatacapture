@@ -21,6 +21,7 @@ import javax.swing.event.ChangeEvent;
 
 import system.individuals.Child;
 import system.individuals.Guardian;
+import system.marking.Objective;
 import system.model.ESDMModel;
 import system.model.Room;
 import system.sessions.Session;
@@ -250,8 +251,6 @@ public class Controller extends JFrame {
 		findChild = new FindChild(model);
 		childPanel.add(findChild, "findChild");
 		
-		addObjectiveChild = new AddObjectiveChild();
-		childPanel.add(addObjectiveChild, "addObjectiveChild");
 		
 		
 		//Add all the panels (Cards) to the Objectives Tab
@@ -259,6 +258,9 @@ public class Controller extends JFrame {
 		objectiveView = new ObjectiveView(model);
 		objectivePanel.add(objectiveView, "Objective");
 
+		addObjectiveChild = new AddObjectiveChild(model);
+		objectivePanel.add(addObjectiveChild, "addObjectiveChild");
+		
 		viewObjective = new ViewObjective(model);
 		objectivePanel.add(viewObjective, "viewObjective");
 		
@@ -531,10 +533,33 @@ public class Controller extends JFrame {
 
 		objectiveView.addObjectiveToChild(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				addObjectiveChild(evt);
+				try {
+					addObjectiveChild.setObjective(objectiveView.getSelectedObjective());
+					show(objectivePanel, "addObjectiveChild");
+				} catch (Exception e) {
+					showMessage(e.getMessage());
+				}
+				
+				
 			}
 		});
 
+		addObjectiveChild.submitListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				
+				Child child = addObjectiveChild.getSelectedChild();
+				Objective objective = addObjectiveChild.getObjective();
+				
+				try {
+					model.addObjectiveChild(child, objective);
+					showMessage("Objective successfully added to child");
+				} catch (Exception e) {
+					showMessage(e.getMessage());
+				}
+			}
+		});
+		
+		addObjectiveChild.cancelListener(ActionListenerShow(objectivePanel, "objectiveView"));
 		
 		
 		
@@ -688,10 +713,6 @@ public class Controller extends JFrame {
 		
 	}
 
-	private void addObjectiveChild(ActionEvent evt)
-	{
-
-	}
 
 
 

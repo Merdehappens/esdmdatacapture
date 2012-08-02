@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.*;
 
 import system.helper.Helper;
+import system.helper.SimpleKey;
 import system.individuals.Child;
 import system.individuals.Guardian;
 import system.individuals.Therapist;
@@ -150,7 +151,7 @@ public class ESDMModel {
         childList.add(child);
         
         Objective objective = new Objective("Looks at indicated pictures as adult points to picture in book", 
-        		"In activities with books and puzzles, when an adult points (touching or proximal point 6” or less) to a picture child will visually orient and/or grasp or tap pictures or objects that the adult is pointing to 80% of opportunities for 4 of 5 consecutive days across 3 or more adults and settings.");
+        		"In activities with books and puzzles, when an adult points (touching or proximal point 6? or less) to a picture child will visually orient and/or grasp or tap pictures or objects that the adult is pointing to 80% of opportunities for 4 of 5 consecutive days across 3 or more adults and settings.");
         Step step = new Step("1", "MC", "Orients and grasp/tap w/ partial physical prompt 50% opp");
         objective.addSteps(step);
         step = new Step("2", "MC", "Orients and/or grasp/tap 50% of opp");
@@ -272,6 +273,11 @@ public class ESDMModel {
         day = new Day(c, "T04");
         day.setRoom(room);
         dayList.add(day);
+        
+        for(int i = 0; i < objectiveList.size(); i++)
+        {
+        	objectiveList.get(i).setId("O000" + i);
+        }
     
     }
     
@@ -651,6 +657,37 @@ public class ESDMModel {
 		child.setName(name);
 		child.setDob(dob);
 		child.setDateJoined(dateJoined);
+	}
+
+	public void addObjectiveChild(Child child, Objective objective) throws Exception {
+		if(child == null || objective == null)	
+		{
+			throw new Exception("Objective or Child does not exist");
+		}
+		else
+		{
+			ArrayList<Objective> objList = new ArrayList<Objective>(child.getObjectives());
+			Objective obj = null;
+			
+			for(int i = 0; i < objList.size(); i++)
+			{
+				if(objList.get(i).getId() == objective.getId())
+				{
+					obj = objList.get(i);
+					break;
+				}
+			}
+			
+			
+			if(obj != null)
+			{
+				throw new Exception("Objective already exists in this child");
+			}
+			else
+			{
+				child.addObjective(objective);
+			}
+		}
 	}
 	
 	
