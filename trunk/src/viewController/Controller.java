@@ -125,7 +125,7 @@ public class Controller extends JFrame {
 
 				try{
 					JPanel contentPane = new JPanel();
-					JLabel loading = new JLabel("Loading....");
+					JLabel loading = new JLabel("Loading...Please Wait.");
 					loading.setFont(new Font("Monotype Corsiva", 1, 25));
 					loading.setPreferredSize(new Dimension(300, 150));
 					contentPane.add(loading);
@@ -422,7 +422,7 @@ public class Controller extends JFrame {
 					if(res == 0 )
 					{
 						model.removeChild(child);
-						showMessage(child.getName() + " was removed from the system");
+						showMessage(child.getName() + " was removed from the system.");
 					}
 					
 				} catch (Exception e) {
@@ -464,7 +464,7 @@ public class Controller extends JFrame {
 				String phoneNo = newUserAccount.getPhoneNo();
 				String pass = model.addUser(name, username, emailAddress, phoneNo);
 				
-				showMessage("The password has been set to: " + pass	+ "." + "\nPlease note this down and inform the user");
+				showMessage("The password has been set to: " + pass	+ "." + "\nPlease note this down and inform the user.");
 			}
 		});
 		

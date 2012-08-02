@@ -84,7 +84,7 @@ public class AddObjectiveChild extends PanelView {
 		
 
 		
-		JLabel lblSelectChild = new JLabel("Select Child that you wish to add Objective to");
+		JLabel lblSelectChild = new JLabel("Select the child that you wish to add the objective to.");
 		lblSelectChild.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSelectChild.setBounds(24, 93, 241, 14);
 		add(lblSelectChild);

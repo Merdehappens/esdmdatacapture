@@ -177,7 +177,7 @@ public class AddDay extends PanelView {
 		button_1.setBounds(546, 246, 43, 29);
 		add(button_1);
 		
-		JButton btnUp = new JButton("up");
+		JButton btnUp = new JButton("Up");
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				swapButton(-1);
@@ -186,7 +186,7 @@ public class AddDay extends PanelView {
 		btnUp.setBounds(744, 210, 60, 29);
 		add(btnUp);
 		
-		JButton btnDown = new JButton("down");
+		JButton btnDown = new JButton("Down");
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				swapButton(1);
