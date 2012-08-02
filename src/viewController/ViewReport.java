@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 
 public class ViewReport extends PanelView {
 
+	//s
 	
 	private static final long serialVersionUID = 7874110638597279843L;
 	private JScrollPane scrollPane;
