@@ -442,7 +442,7 @@ public class LogSessionData extends PanelView {
 		int mark = markModel.get(lstMark.getSelectedIndex()).getMark();
 			this.getModel().addMark(session, child, objective, step, mark, day);
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error: One or more items aren't selected, Mark was not saved");
+			JOptionPane.showMessageDialog(null, "Error: One or more items are not selected. This mark was not saved.");
 		}
 	}
 
