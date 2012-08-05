@@ -36,11 +36,7 @@ public class ReportingView extends PanelView {
 	{
 		setLayout(null);
 		
-		JLabel lblTitle = new JLabel("Reporting");
-		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(10, 11, 504, 34);
-		add(lblTitle);
+		super.setTitle("Reporting");
 		
 		btnViewReport = new JButton("View Report");
 		btnViewReport.setBounds(20, 70, 200, 40);

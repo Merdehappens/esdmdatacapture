@@ -1,5 +1,6 @@
 package viewController;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -49,6 +50,8 @@ public class FindChild extends PanelView {
 	private void initialise()
 	{
 		setLayout(null);
+		
+		super.setTitle("Select Child");
 		
 		btnSubmit = new JButton("Submit");
 		btnSubmit.setBounds(10, 316, 89, 23);

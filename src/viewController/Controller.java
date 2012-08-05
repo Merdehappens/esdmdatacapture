@@ -43,10 +43,12 @@ public class Controller extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = -6281745567153858417L;
-
+	private static final int xRes = 1024;
+	private static final int yRes = 600;
+	
 	private ESDMModel model;
 	
-	
+	private int[] resolution;
 	private static JFrame loadingFrame;
 	private JPanel contentPane;
 	private JPanel homePanel;
@@ -159,12 +161,11 @@ public class Controller extends JFrame {
 	
 	public void initComponents()
 	{
-		
 		//Sets the main frame Title, and bounds.
 
 		setTitle("ESDM Data Capture");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 979, 683);
+		setBounds(100, 100, xRes, yRes);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -178,7 +179,7 @@ public class Controller extends JFrame {
 		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tabbedPane.setBorder(null);
 		
-		tabbedPane.setBounds(0, 0, 963, 613);
+		tabbedPane.setBounds(0, 0, 1008, 564);
 		contentPane.add(tabbedPane);
 		
 
@@ -331,6 +332,12 @@ public class Controller extends JFrame {
 		logSessionData.commitMarkListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				logSessionData.addMark();
+			}
+		});
+		
+		logSessionData.addTimestampListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				logSessionData.addTimestamp();
 			}
 		});
 		
@@ -516,7 +523,7 @@ public class Controller extends JFrame {
 		
 		sessionView.newDay(ActionListenerShow(sessionPanel, "addDay"));
 
-	
+		viewObjective.cancelListener(ActionListenerShow(objectivePanel, "Objective"));
 		
 
 		objectiveView.viewObjectives(new java.awt.event.ActionListener() {
@@ -524,10 +531,10 @@ public class Controller extends JFrame {
 				
 				try {
 					viewObjective.setObjective(objectiveView.getSelectedObjective());
+					show(objectivePanel, "viewObjective");
 				} catch (Exception e) {
 					showMessage(e.getMessage());
 				}
-				show(objectivePanel, "viewObjective");
 			}
 		});
 
@@ -768,8 +775,8 @@ public class Controller extends JFrame {
                        password };
          
          int res = JOptionPane.showConfirmDialog(null, array, "Login", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-         
-         if(res == 2)
+
+         if(res != 0)
          {
         	 System.exit(1);
          }

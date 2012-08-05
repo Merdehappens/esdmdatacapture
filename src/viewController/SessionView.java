@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import com.toedter.calendar.JDateChooser;
+
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
@@ -54,12 +56,7 @@ public class SessionView extends PanelView {
 	{
 		setLayout(null);
 		
-		
-		
-		JLabel lblTitle = new JLabel("View Session");
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(10, 11, 661, 21);
-		add(lblTitle);
+		super.setTitle("Session");
 		
 		btnViewDay = new JButton("View Day");
 		btnViewDay.setBounds(219, 86, 108, 30);
@@ -102,7 +99,6 @@ public class SessionView extends PanelView {
 			
 		
 		};
-		
 		
 		
 		scrollPane.setViewportView(tblSession);

@@ -11,6 +11,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
+
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -49,10 +51,7 @@ public class EditChild extends PanelView {
 	{
 		setLayout(null);
 		
-		JLabel lblTitle = new JLabel("Edit Child");
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(10, 11, 430, 21);
-		add(lblTitle);
+		super.setTitle("Edit Child");
 		
 		JLabel lblName = new JLabel("Name:");
 		lblName.setBounds(10, 66, 46, 30);

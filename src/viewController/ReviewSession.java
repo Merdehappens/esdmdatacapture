@@ -2,12 +2,15 @@ package viewController;
 
 import javax.swing.JButton;
 
+import system.helper.Helper;
 import system.marking.Mark;
 import system.model.ESDMModel;
 import system.sessions.Day;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
@@ -50,11 +53,7 @@ public class ReviewSession extends PanelView {
 	{
 		setLayout(null);
 
-		
-		JLabel lblTitle = new JLabel("Review Marks Taken");
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(10, 11, 739, 21);
-		add(lblTitle);
+		super.setTitle("Review Marks");
 		
 		btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
@@ -136,9 +135,7 @@ public class ReviewSession extends PanelView {
 		lblId.setText(day.getId());
 		
 		
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("DD/MM/YYYY");
-		
-		lblDate.setText("" + day.getDate().getTime());
+		lblDate.setText(Helper.simpleDateFormat(day.getDate()));
 		lblRoomName.setText(day.getRoom().getRoomName());
 		
 		while(tableModel.getRowCount() > 0)
@@ -148,7 +145,7 @@ public class ReviewSession extends PanelView {
 		
 		ArrayList<Mark> marks = (ArrayList<Mark>) day.getMarks();
 		
-		dateFormatter = new SimpleDateFormat("HH:MM:SS a");
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("h:mm:ss a");
 
 		for(int i = 0; i < marks.size(); i++)
 		{

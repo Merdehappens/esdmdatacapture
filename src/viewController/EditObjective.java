@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
@@ -47,10 +48,7 @@ public class EditObjective extends PanelView {
 	{
 		setLayout(null);
 		
-		JLabel lblTitle = new JLabel("Add New Objective");
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(10, 11, 430, 21);
-		add(lblTitle);
+		super.setTitle("Edit Objective");
 		
 		JLabel lblName = new JLabel("Objective Name");
 		lblName.setBounds(10, 43, 130, 35);

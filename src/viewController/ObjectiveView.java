@@ -25,7 +25,7 @@ public class ObjectiveView extends PanelView {
 	private JButton btnViewObjectives;
 	private JButton btnAddObjectiveTo;
 	private ArrayList<Objective> objectives;
-	private JTable table;
+	private JTable objectiveTable;
 	private DefaultTableModel tableModel;
 	
 	
@@ -44,11 +44,7 @@ public class ObjectiveView extends PanelView {
 	{
 		setLayout(null);
 		
-		JLabel lblTitle = new JLabel("Objective");
-		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(10, 11, 679, 34);
-		add(lblTitle);
+		super.setTitle("Objective");
 		
 		btnAddNewObjective = new JButton("Add New Objective");
 		btnAddNewObjective.setBounds(20, 70, 200, 40);
@@ -67,14 +63,18 @@ public class ObjectiveView extends PanelView {
 		add(scrollPane);
 		
 		tableModel = new DefaultTableModel();
-		table = new JTable();
-		scrollPane.setViewportView(table);
+		objectiveTable = new JTable() {
+			public boolean isCellEditable(int row, int column){
+				return false;
+			}
+		};
+		scrollPane.setViewportView(objectiveTable);
 		
 		String[] columnNames = new String[] {"ID", "Name", "Description", "Level", "Number of Steps"};
 
 		tableModel.setColumnIdentifiers(columnNames);
 		
-		table.setModel(tableModel);
+		objectiveTable.setModel(tableModel);
 		refreshView();
 	
 	}
@@ -105,7 +105,7 @@ public class ObjectiveView extends PanelView {
 
 			Objective objective;
 			try{
-			objective = (Objective)objectives.get(table.getSelectedRow());
+			objective = (Objective)objectives.get(objectiveTable.getSelectedRow());
 			}
 			catch(Exception e)
 			{
