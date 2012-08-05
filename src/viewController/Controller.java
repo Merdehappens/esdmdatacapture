@@ -209,7 +209,7 @@ public class Controller extends JFrame {
 		reportingPanel.setLayout(new CardLayout(0, 0));
 		
 		accountPanel = new JPanel();
-		tabbedPane.addTab("Account Managment", null, accountPanel, null);
+		tabbedPane.addTab("Account Management", null, accountPanel, null);
 		accountPanel.setLayout(new CardLayout(0, 0));
 		
 
@@ -552,7 +552,7 @@ public class Controller extends JFrame {
 				
 				try {
 					model.addObjectiveChild(child, objective);
-					showMessage("Objective successfully added to child");
+					showMessage("Objective successfully added to" + child.getName());
 					show(objectivePanel, "Objective");
 				} catch (Exception e) {
 					showMessage(e.getMessage());

@@ -368,12 +368,12 @@ public class ESDMModel {
     	
     	if(name.equals(""))
     	{
-    		throw new Exception("Name is a required field");
+    		throw new Exception("Name is a required field.");
     	}
     	
     	if(dob == null)
     	{
-    		throw new Exception("Date Of Birth is a required field");
+    		throw new Exception("Date Of Birth is a required field.");
     	}
     	
         Child child = new Child(name, dob, dateJoined);
@@ -398,7 +398,7 @@ public class ESDMModel {
         
         if(child == null)
         {
-        	throw new Exception("Child Id not found");
+        	throw new Exception("Child Id not found.");
         }
         
         return child;
@@ -412,15 +412,15 @@ public class ESDMModel {
 	{
 		if(date == null)
 		{
-			throw new Exception("Date must be entered");
+			throw new Exception("Date must be entered.");
 		}
 		if(children == null || children.size() == 0)
 		{
-			throw new Exception("No children were added to the day");
+			throw new Exception("No children have been selected for this day.");
 		}
 		if(sessions == null || sessions.size() == 0)
 		{
-			throw new Exception("No sessions were added to the day");
+			throw new Exception("No sessions have been selected for this day.");
 		}
 
 		Day day = new Day(date, room);
@@ -456,7 +456,7 @@ public class ESDMModel {
 		//create objective with these steps//
 		if(steps.length == 0)
 		{
-			throw new Exception("No steps have been added");
+			throw new Exception("No steps have been added.");
 		}
 		
 		Objective o = new Objective(Name, description);
@@ -464,7 +464,7 @@ public class ESDMModel {
 		{
 			if(steps[i][0].equals("") || steps[i][1].equals(""))
 			{
-				throw new Exception("one of the steps isn't completely filled");
+				throw new Exception("One of the steps isn't completely filled.");
 			}
 			String no = (i + 1) + "";
 			Step step = new Step(no, steps[i][0], steps[i][1]);//retrieves info from 2D array and makes a new step
@@ -513,7 +513,7 @@ public class ESDMModel {
 	public void changePassword(String oldPassword, String newPassword1, String newPassword2) throws Exception {
 		if(oldPassword.equals("") || newPassword1.equals("") || newPassword2.equals(""))
 		{
-			throw new Exception("One or more of the password fields was left empty");
+			throw new Exception("One or more of the password fields was left empty.");
 		}
 		else if(newPassword1.equals(newPassword2))
 		{
@@ -523,12 +523,12 @@ public class ESDMModel {
 				}
 				else
 				{
-					throw new Exception("Incorrect Password");
+					throw new Exception("Incorrect Password.");
 				}
 		}
 		else
 		{
-			throw new Exception("Both Passwords do not match");
+			throw new Exception("Both Passwords do not match.");
 		}
 	}
 	
@@ -540,27 +540,27 @@ public class ESDMModel {
 	{
 		if(session == null)
 		{
-			throw new Exception("Session not Selected");
+			throw new Exception("Session not Selected.");
 		}
 		
 		if(child == null)
 		{
-			throw new Exception("Child not Selected");
+			throw new Exception("Child not Selected.");
 		}
 		
 		if(objective == null)
 		{
-			throw new Exception("Objective not Selected");
+			throw new Exception("Objective not Selected.");
 		}
 		
 		if(step == null)
 		{
-			throw new Exception("Step not Selected");
+			throw new Exception("Step not Selected.");
 		}
 		
 		if(mark > 1 || mark < -1)
 		{
-			throw new Exception("Mark not selected");
+			throw new Exception("Mark not selected.");
 		}
 		
 		Mark tempMark = new Mark(session, child, objective, step, mark, (Therapist)currentUser, day);
@@ -662,7 +662,7 @@ public class ESDMModel {
 	public void addObjectiveChild(Child child, Objective objective) throws Exception {
 		if(child == null || objective == null)	
 		{
-			throw new Exception("Objective or Child does not exist");
+			throw new Exception("Objective or Child does not exist.");
 		}
 		else
 		{
@@ -681,7 +681,7 @@ public class ESDMModel {
 			
 			if(obj != null)
 			{
-				throw new Exception("Objective already exists in this child");
+				throw new Exception("This objective already exists in this child.");
 			}
 			else
 			{
