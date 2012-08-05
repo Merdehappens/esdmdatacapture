@@ -102,7 +102,7 @@ public class SessionView extends PanelView {
 		
 		
 		scrollPane.setViewportView(tblSession);
-		String[] columnNames = new String[] {"ID", "Room Name", "Date"};
+		String[] columnNames = new String[] {"SessionID", "Room Name", "Date"};
 		
 		
 		tableModel = new DefaultTableModel();

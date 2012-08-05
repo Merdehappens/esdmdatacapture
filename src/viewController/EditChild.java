@@ -58,7 +58,7 @@ public class EditChild extends PanelView {
 		add(lblName);
 		
 		
-		JLabel lblDateOfBirth = new JLabel("Date Of Birth:");
+		JLabel lblDateOfBirth = new JLabel("Date of Birth:");
 		lblDateOfBirth.setBounds(10, 107, 73, 30);
 		add(lblDateOfBirth);
 		
