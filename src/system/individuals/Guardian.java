@@ -6,7 +6,7 @@ import java.util.Set;
 
 
 public class Guardian extends UserAccount {
-    Set<Child> children;
+	private Set<Child> children;
     
     public Guardian()
     {

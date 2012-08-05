@@ -14,16 +14,16 @@ import system.marking.Objective;
 
 
 public class Child implements SimpleKey {
-    String id;
-    String name;
-    Calendar dateJoined;
-    Calendar dob;
-    List<Guardian> guardians;
-    List<Objective> objectives;
-    List<Mark> marks;
-    ImageIcon picture;
-    URL pictureLink;
-    boolean active;
+    private String id;
+    private String name;
+    private Calendar dateJoined;
+    private Calendar dob;
+    private List<Guardian> guardians;
+    private List<Objective> objectives;
+    private List<Mark> marks;
+    private ImageIcon picture;
+    private URL pictureLink;
+    private boolean active;
     
     public Child()
     {
