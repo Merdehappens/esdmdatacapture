@@ -95,7 +95,7 @@ public class ReviewSession extends PanelView {
 		lblSessionId.setBounds(10, 43, 92, 14);
 		add(lblSessionId);
 		
-		JLabel lblSessionDate = new JLabel("Date");
+		JLabel lblSessionDate = new JLabel("Date:");
 		lblSessionDate.setBounds(10, 68, 92, 14);
 		add(lblSessionDate);
 		

@@ -83,12 +83,12 @@ public class FindChild extends PanelView {
 		
 
 		
-		JLabel lblSelectChild = new JLabel("Select the Child that you wish to view details of");
+		JLabel lblSelectChild = new JLabel("Select the Child that you wish to view details of:");
 		lblSelectChild.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSelectChild.setBounds(24, 93, 241, 14);
 		add(lblSelectChild);
 		
-		JLabel lblSearchChild = new JLabel("Search Child");
+		JLabel lblSearchChild = new JLabel("Search Child:");
 		lblSearchChild.setBounds(27, 31, 77, 30);
 		add(lblSearchChild);
 		
