@@ -84,7 +84,7 @@ public class AddDay extends PanelView {
 		add(lblTitle);
 		
 		
-		JLabel lblDate = new JLabel("Date");
+		JLabel lblDate = new JLabel("Date:");
 		lblDate.setBounds(10, 43, 73, 14);
 		add(lblDate);
 		
