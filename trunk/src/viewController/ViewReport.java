@@ -1,10 +1,13 @@
 package viewController;
 
 import javax.swing.JButton;
+import javax.swing.SwingConstants;
 
 import system.individuals.Child;
 import system.marking.Mark;
 import system.model.ESDMModel;
+
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
@@ -16,8 +19,6 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.JLabel;
 
 public class ViewReport extends PanelView {
-
-	//s
 	
 	private static final long serialVersionUID = 7874110638597279843L;
 	private JScrollPane scrollPane;
@@ -32,7 +33,6 @@ public class ViewReport extends PanelView {
 	 */
 	public ViewReport() {
 		initialise();
-	
 	}
 	
 	public ViewReport(ESDMModel model)
@@ -44,30 +44,26 @@ public class ViewReport extends PanelView {
 	private void initialise()
 	{
 		setLayout(null);
+		super.setTitle("View Report");
+
+		// Creates table, sets column name and adds the model to the table
+		
+		tblSession = new JTable();
+		String[] columnNames = new String[] {"Date", "Objective", "Step", "Setting", "Mark", "Comments"};
 
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(66, 154, 592, 244);
 		add(scrollPane);
-		
-		
-		tblSession = new JTable();
 		scrollPane.setViewportView(tblSession);
-		String[] columnNames = new String[] {"Date", "Objective", "Step", "Setting", "Mark", "Comments"};
-		
-		//Bleh
 		
 		tableModel = new DefaultTableModel();
 		tableModel.setColumnIdentifiers(columnNames);
 		
 		tblSession.setModel(tableModel);
 		
+		// Adds the Save button to the page.
+		
 		btnSave = new JButton("Save");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-				refreshTable();
-			}
-		});
 		btnSave.setBounds(44, 436, 89, 23);
 		add(btnSave);
 		

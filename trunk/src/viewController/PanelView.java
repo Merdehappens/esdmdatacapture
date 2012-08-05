@@ -1,9 +1,12 @@
 package viewController;
 
+import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import system.individuals.Child;
 import system.model.ESDMModel;
@@ -46,5 +49,14 @@ public abstract class PanelView extends JPanel {
 	}
 	
 	public abstract void refreshView();
+
+	public void setTitle(String string) {
+
+		JLabel lblTitle = new JLabel(string);
+		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setBounds(0, 10, 1008, 40);
+		add(lblTitle);
+	}
 
 }

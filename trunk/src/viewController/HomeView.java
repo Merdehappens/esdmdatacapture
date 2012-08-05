@@ -1,6 +1,8 @@
 package viewController;
 
 
+import java.awt.Font;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
@@ -31,10 +33,7 @@ public class HomeView extends PanelView {
 	{
 		setLayout(null);
 		
-		JLabel lblTitle = new JLabel("Home Page/Dashboard");
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(10, 11, 430, 23);
-		add(lblTitle);
+		super.setTitle("Homepage/Dashboard");
 	
 	}
 

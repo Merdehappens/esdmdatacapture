@@ -25,7 +25,7 @@ public class ChildViewGrid extends PanelView {
 	private JButton btnAddChild;
 	private JButton btnEditChild;
 	private JButton btnRemoveChild;
-	private JTable table;
+	private JTable childTable;
 	private DefaultTableModel childTableModel;
 	private ArrayList<Child> childList;
 	
@@ -47,11 +47,8 @@ public class ChildViewGrid extends PanelView {
 		
 		setLayout(null);
 		
-		JLabel lblTitle = new JLabel("Child");
-		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(10, 11, 612, 34);
-		add(lblTitle);
+		super.setTitle("Child");
+		
 		
 		btnAddChild = new JButton("Add New Child");
 		btnAddChild.setBounds(20, 70, 126, 34);
@@ -70,14 +67,21 @@ public class ChildViewGrid extends PanelView {
 		add(scrollPane);
 		
 		childTableModel = new DefaultTableModel();
-		table = new JTable();
-		scrollPane.setViewportView(table);
+		childTable = new JTable() {
+			
+			public boolean isCellEditable(int row, int column){
+				return false;
+			}
+			
 		
-		String[] columnNames = new String[] {"ID", "Name", "Date of Birth", "Date Joined"};
+		};
+		scrollPane.setViewportView(childTable);
+		
+		String[] columnNames = new String[] {"ID", "Name", "Date of Birth", "Date Joined", "Active?"};
 
 		childTableModel.setColumnIdentifiers(columnNames);
 		
-		table.setModel(childTableModel);
+		childTable.setModel(childTableModel);
 		
 		btnRemoveChild = new JButton("Remove Child");
 		btnRemoveChild.setBounds(292, 70, 137, 34);
@@ -108,7 +112,7 @@ public class ChildViewGrid extends PanelView {
 	
 	public void refreshView()
 	{
-		childList = (ArrayList<Child>)this.getModel().getChildList();
+		childList = (ArrayList<Child>)this.getModel().getChildList(true);
 		populateTable(childList);
 	}
 	
@@ -124,12 +128,13 @@ public class ChildViewGrid extends PanelView {
 			{
 				Child tempChild = childs.get(i);
 				
-				Object[] rowData = new Object[4];
+				Object[] rowData = new Object[5];
 				
 				rowData[0] = tempChild.getId();
 				rowData[1] = tempChild;
 				rowData[2] = Helper.simpleDateFormat(tempChild.getDob());
 				rowData[3] = Helper.simpleDateFormat(tempChild.getDateJoined());
+				rowData[4] = tempChild.getActive();
 				
 				childTableModel.addRow(rowData);
 				
@@ -150,7 +155,7 @@ public class ChildViewGrid extends PanelView {
 	{
 		Child child;
 		try{
-		child = (Child)childTableModel.getValueAt(table.getSelectedRow(), 1);
+		child = (Child)childTableModel.getValueAt(childTable.getSelectedRow(), 1);
 		}
 		catch(Exception e)
 		{
@@ -171,7 +176,7 @@ public class ChildViewGrid extends PanelView {
 		JTextField txtName = new JTextField();
 		JLabel lblActive = new JLabel("Search Level:");
 		String[] active = {"Active", "Inactive", "Both" };
-		JComboBox cmbActive = new JComboBox(active);
+		JComboBox<String> cmbActive = new JComboBox<String>(active);
 		
 		Object[] arr = { lblName, txtName, lblActive, cmbActive };
 		

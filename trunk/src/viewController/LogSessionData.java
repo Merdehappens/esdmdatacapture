@@ -100,12 +100,10 @@ public class LogSessionData extends PanelView {
 		
 		
 		setLayout(null);
-		JLabel lblTitle = new JLabel("Log Session Data");
-		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(10, 11, 757, 40);
-		add(lblTitle);
-		
+
+
+		super.setTitle("Log Data");
+			
 		btnSubmit = new JButton("Complete Data Logging");
 		btnSubmit.setBounds(322, 346, 154, 47);
 		add(btnSubmit);
@@ -194,10 +192,6 @@ public class LogSessionData extends PanelView {
 		add(btnCommitMark);
 		
 		btnAddTimestamp = new JButton("Add Timestamp");
-		btnAddTimestamp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		btnAddTimestamp.setBounds(10, 404, 154, 47);
 		add(btnAddTimestamp);
 		
@@ -394,6 +388,7 @@ public class LogSessionData extends PanelView {
 	{
 		btnSubmit.addActionListener(al);	
 	}
+	
 
 	
 	public void commitMarkListener(ActionListener al)
@@ -445,6 +440,28 @@ public class LogSessionData extends PanelView {
 			JOptionPane.showMessageDialog(null, "Error: One or more items are not selected. This mark was not saved.");
 		}
 	}
+	
+	public void addTimestamp(){
+		Session session = null;
+		Child child = null;
+		Objective objective = null;
+		Step step = null;
+		int mark = 0;
+		
+			
+			if(lstSession.getSelectedIndex() != -1)
+			{
+				session = sessionModel.get(lstSession.getSelectedIndex());
+			}
+			
+			try {
+				child = childModel.get(lstChild.getSelectedIndex());
+				this.getModel().addTimestamp(session, child, objective, step, mark, day);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	}	
+	
 
 	public Day getDay() {
 		return day;
