@@ -45,15 +45,15 @@ public class ChangePassword extends PanelView {
 		lblTitle.setBounds(10, 25, 504, 34);
 		add(lblTitle);
 		
-		JLabel lblOldPassword = new JLabel("Old Password");
+		JLabel lblOldPassword = new JLabel("Old Password:");
 		lblOldPassword.setBounds(10, 77, 114, 30);
 		add(lblOldPassword);
 		
-		JLabel lblNewPassword = new JLabel("New Password");
+		JLabel lblNewPassword = new JLabel("New Password:");
 		lblNewPassword.setBounds(10, 118, 114, 30);
 		add(lblNewPassword);
 		
-		JLabel lblConfirmNewPassword = new JLabel("Confirm New Password");
+		JLabel lblConfirmNewPassword = new JLabel("Confirm New Password:");
 		lblConfirmNewPassword.setBounds(10, 159, 114, 30);
 		add(lblConfirmNewPassword);
 		

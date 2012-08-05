@@ -73,7 +73,7 @@ public class ChildViewGrid extends PanelView {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
-		String[] columnNames = new String[] {"ID", "Name", "DOB", "Date Joined"};
+		String[] columnNames = new String[] {"ID", "Name", "Date of Birth", "Date Joined"};
 
 		childTableModel.setColumnIdentifiers(columnNames);
 		
@@ -169,7 +169,7 @@ public class ChildViewGrid extends PanelView {
 	{
         JLabel lblName = new JLabel("Name:");
 		JTextField txtName = new JTextField();
-		JLabel lblActive = new JLabel("Active:");
+		JLabel lblActive = new JLabel("Search Level:");
 		String[] active = {"Active", "Inactive", "Both" };
 		JComboBox cmbActive = new JComboBox(active);
 		

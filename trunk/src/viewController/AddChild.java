@@ -166,7 +166,7 @@ public class AddChild extends PanelView {
 		add(scrollPane);
 		
 		scrollPane.setViewportView(tblGuardian);
-		String[] columnNames = new String[] {"Guardian", "Name", "Phone Number"};
+		String[] columnNames = new String[] {"GuardianID", "Name", "Phone Number"};
 		
 		tblGuardianModel = new DefaultTableModel();
 
@@ -174,7 +174,7 @@ public class AddChild extends PanelView {
 		
 		tblGuardian.setModel(tblGuardianModel);
 		
-		JLabel lblChildsGuardians = new JLabel("Childs Guardians");
+		JLabel lblChildsGuardians = new JLabel("Child's Guardians");
 		lblChildsGuardians.setHorizontalAlignment(SwingConstants.CENTER);
 		lblChildsGuardians.setBounds(10, 212, 342, 14);
 		add(lblChildsGuardians);
@@ -183,7 +183,7 @@ public class AddChild extends PanelView {
 		// Creates a new Button and adds a new action listener to the button so that when button is pressed
 		// it adds a new row to the table.
 		
-		JButton btnAddGuardian = new JButton("Add Guardian");
+		JButton btnAddGuardian = new JButton("Add a Guardian");
 		
 		btnAddGuardian.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -203,7 +203,7 @@ public class AddChild extends PanelView {
 		//Creates a new button and adds a new action listener to the button so when it is pressed 
 		// it removes the selected row from the table.
 		
-		JButton btnDeleteGuardian = new JButton("Remove Guardian");
+		JButton btnDeleteGuardian = new JButton("Remove Selected Guardian");
 		btnDeleteGuardian.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(tblGuardian.getSelectedRow() >= 0)

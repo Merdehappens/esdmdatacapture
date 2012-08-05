@@ -52,7 +52,7 @@ public class AddObjective extends PanelView {
 		lblTitle.setBounds(10, 11, 430, 21);
 		add(lblTitle);
 		
-		JLabel lblName = new JLabel("Objective Name");
+		JLabel lblName = new JLabel("Objective Name:");
 		lblName.setBounds(10, 43, 130, 35);
 		add(lblName);
 		

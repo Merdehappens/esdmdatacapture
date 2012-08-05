@@ -93,7 +93,7 @@ public class Child implements SimpleKey {
     public void setName(String name) throws Exception {
         if(name.equals(""))
         {
-        	throw(new Exception("Childs name cannot be empty"));
+        	throw(new Exception("The Child's name cannot be empty."));
         }
     	this.name = name;
     }

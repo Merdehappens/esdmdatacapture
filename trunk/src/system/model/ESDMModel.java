@@ -398,7 +398,7 @@ public class ESDMModel {
         
         if(child == null)
         {
-        	throw new Exception("Child Id not found.");
+        	throw new Exception("Child ID not found.");
         }
         
         return child;
@@ -513,7 +513,7 @@ public class ESDMModel {
 	public void changePassword(String oldPassword, String newPassword1, String newPassword2) throws Exception {
 		if(oldPassword.equals("") || newPassword1.equals("") || newPassword2.equals(""))
 		{
-			throw new Exception("One or more of the password fields was left empty.");
+			throw new Exception("One or more of the password fields were left empty.");
 		}
 		else if(newPassword1.equals(newPassword2))
 		{
@@ -662,7 +662,7 @@ public class ESDMModel {
 	public void addObjectiveChild(Child child, Objective objective) throws Exception {
 		if(child == null || objective == null)	
 		{
-			throw new Exception("Objective or Child does not exist.");
+			throw new Exception("Child not selected.");
 		}
 		else
 		{
@@ -681,7 +681,7 @@ public class ESDMModel {
 			
 			if(obj != null)
 			{
-				throw new Exception("This objective already exists in this child.");
+				throw new Exception("This objective already exists for this child.");
 			}
 			else
 			{

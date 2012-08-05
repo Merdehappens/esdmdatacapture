@@ -417,7 +417,7 @@ public class Controller extends JFrame {
 				try {
 					child = childViewGrid.getSelectedChild();
 					
-					String temp = "Are you sure you wish to delete " + child.getName() + "?";
+					String temp = "Are you sure you wish to delete " + child.getName() + " ?";
 					
 					int res = JOptionPane.showConfirmDialog(null, temp, "Delete Child", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);				
 					
@@ -552,7 +552,7 @@ public class Controller extends JFrame {
 				
 				try {
 					model.addObjectiveChild(child, objective);
-					showMessage("Objective successfully added to" + child.getName());
+					showMessage("Objective successfully added to " + child.getName() + " .");
 					show(objectivePanel, "Objective");
 				} catch (Exception e) {
 					showMessage(e.getMessage());
@@ -578,14 +578,14 @@ public class Controller extends JFrame {
 				Calendar dateJoined = (Calendar) childDetails[2];
 				
 				
-				String temp = "Are you sure you wish to save details for " + child.getName() + "\nWith ID: " + child;
+				String temp = "Are you sure you wish to save details for " + child.getName() + "\nWith ID: " + child + "?";
 				
 				int res = JOptionPane.showConfirmDialog(null, temp, "Save Details", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 				if(res == 0)
 				{
 					try {
 						model.updateChild(child, name, dob, dateJoined);
-						showMessage("Successfully Saved");
+						showMessage("Details successfully saved.");
 					} catch (Exception e) {
 						showMessage(e.getMessage());
 					}
@@ -641,7 +641,7 @@ public class Controller extends JFrame {
 		try{
 			String[] arr = changePassword.getNewPassword();
 			model.changePassword(changePassword.getOldPassword(), arr[0], arr[1]);
-			showMessage("Password Successfully Changed");
+			showMessage("Password Successfully Changed.");
 		}
 		catch(Exception e){
 			showMessage(e.getMessage());
@@ -747,10 +747,10 @@ public class Controller extends JFrame {
 
 		loadingFrame.setVisible(false);
     	
-        JLabel label_loginname = new JLabel("Enter your login name:");
+        JLabel label_loginname = new JLabel("Please enter your login name:");
         JTextField loginname;
         
-        JLabel label_password = new JLabel("Enter your password:");
+        JLabel label_password = new JLabel("Please enter your password:");
         JPasswordField password;
         
         int tries = 0;
@@ -783,7 +783,7 @@ public class Controller extends JFrame {
          }
          else
          {
-        	 showMessage("Unable to log on to server. Closing program.");
+        	 showMessage("Unable to log on to server. Exiting program.");
         	 
         	 System.exit(1);
          }
