@@ -59,11 +59,11 @@ public class EditChild extends PanelView {
 		add(lblName);
 		
 		
-		JLabel lblDateOfBirth = new JLabel("Date Of Birth");
+		JLabel lblDateOfBirth = new JLabel("Date Of Birth:");
 		lblDateOfBirth.setBounds(10, 107, 73, 30);
 		add(lblDateOfBirth);
 		
-		JLabel lblDateJoined = new JLabel("Date Joined");
+		JLabel lblDateJoined = new JLabel("Date Joined:");
 		lblDateJoined.setBounds(10, 148, 73, 30);
 		add(lblDateJoined);
 		

@@ -148,7 +148,7 @@ public class ReviewSession extends PanelView {
 		
 		ArrayList<Mark> marks = (ArrayList<Mark>) day.getMarks();
 		
-		dateFormatter = new SimpleDateFormat("H:MM:SS a");
+		dateFormatter = new SimpleDateFormat("HH:MM:SS a");
 
 		for(int i = 0; i < marks.size(); i++)
 		{
