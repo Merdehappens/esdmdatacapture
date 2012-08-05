@@ -11,9 +11,9 @@ import system.marking.Objective;
 
 public class Session implements SimpleKey {
     
-    String id;
-    String description;
-    List<Objective> objectives;
+	private String id;
+	private String description;
+	private List<Objective> objectives;
     
     public Session()
     {    
@@ -34,5 +34,10 @@ public class Session implements SimpleKey {
     public String toString()
     {
     	return description;
+    }
+    
+    public List<Objective> getObjectives()
+    {
+    	return objectives;
     }
 }
