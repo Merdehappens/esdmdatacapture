@@ -8,11 +8,16 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+
 import javax.swing.JTextArea;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
 import javax.swing.JScrollPane;
 
 public class AddObjective extends PanelView {
@@ -47,10 +52,7 @@ public class AddObjective extends PanelView {
 	{
 		setLayout(null);
 		
-		JLabel lblTitle = new JLabel("Add New Objective");
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(10, 11, 430, 21);
-		add(lblTitle);
+		super.setTitle("Add New Objective");
 		
 		JLabel lblName = new JLabel("Objective Name:");
 		lblName.setBounds(10, 43, 130, 35);
@@ -154,6 +156,20 @@ public class AddObjective extends PanelView {
 		
 		tblStep.getColumnModel().getColumn(0).setPreferredWidth(40);
 		tblStep.getColumnModel().getColumn(1).setPreferredWidth(320);
+		
+		
+		
+		
+		tblStep.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+
+					TableCellEditor editor = tblStep.getCellEditor();
+					if (editor != null) {
+						editor.stopCellEditing();
+					}
+			}
+		});
 		
 	}
 

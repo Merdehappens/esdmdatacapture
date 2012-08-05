@@ -47,11 +47,7 @@ public class AccountView extends PanelView {
 		 * Adds the title to the top of the screen. then adds 3 buttons
 		 */
 		
-		JLabel lblTitle = new JLabel("Account Management");
-		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(10, 11, 504, 34);
-		add(lblTitle);
+		super.setTitle("Account Management");
 
 		btnChangePassword = new JButton("Change Password");
 		btnChangePassword.setBounds(20, 70, 200, 40);
