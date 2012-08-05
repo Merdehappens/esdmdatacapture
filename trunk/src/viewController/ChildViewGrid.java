@@ -77,7 +77,7 @@ public class ChildViewGrid extends PanelView {
 		};
 		scrollPane.setViewportView(childTable);
 		
-		String[] columnNames = new String[] {"ID", "Name", "Date of Birth", "Date Joined", "Active?"};
+		String[] columnNames = new String[] {"ChildID", "Name", "Date of Birth", "Date Joined", "Active?"};
 
 		childTableModel.setColumnIdentifiers(columnNames);
 		
