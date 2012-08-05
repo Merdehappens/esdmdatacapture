@@ -1,5 +1,6 @@
 package viewController;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -53,6 +54,8 @@ public class AddObjectiveChild extends PanelView {
 	{
 		setLayout(null);
 		
+		super.setTitle("Add Objective to Child");
+
 		btnSubmit = new JButton("Submit");
 		btnSubmit.setBounds(27, 333, 89, 23);
 		add(btnSubmit);

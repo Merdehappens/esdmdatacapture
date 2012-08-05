@@ -15,6 +15,7 @@ import com.toedter.calendar.JDateChooser;
 
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -67,21 +68,10 @@ public class AddDay extends PanelView {
 	}
 	
 	private void initialise()
-	{
-		
-		addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentShown(ComponentEvent arg0) {
-				refreshView();
-			}
-		});
-		
+	{	
 		setLayout(null);
 		
-		JLabel lblTitle = new JLabel("Start New Day");
-		lblTitle.setBounds(10, 11, 430, 21);
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblTitle);
+		super.setTitle("Add Day");
 		
 		
 		JLabel lblDate = new JLabel("Date:");

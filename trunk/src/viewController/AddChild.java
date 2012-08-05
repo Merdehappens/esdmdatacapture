@@ -5,8 +5,6 @@ import javax.swing.JButton;
 import system.individuals.Guardian;
 import system.model.ESDMModel;
 
-import javax.swing.AbstractCellEditor;
-import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -14,6 +12,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
+
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -27,8 +27,6 @@ import javax.swing.table.TableCellEditor;
 
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class AddChild extends PanelView {
 	/**
@@ -74,10 +72,7 @@ public class AddChild extends PanelView {
 		
 		setLayout(null);
 		
-		JLabel lblTitle = new JLabel("Add New Child");
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(10, 11, 430, 21);
-		add(lblTitle);
+		super.setTitle("Add New Child");
 		
 		JLabel lblName = new JLabel("Name:");
 		lblName.setBounds(10, 40, 46, 30);

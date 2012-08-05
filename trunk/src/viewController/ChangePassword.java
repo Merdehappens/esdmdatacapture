@@ -39,11 +39,7 @@ public class ChangePassword extends PanelView {
 	{
 		setLayout(null);
 
-		JLabel lblTitle = new JLabel("Change Password");
-		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(10, 25, 504, 34);
-		add(lblTitle);
+		super.setTitle("Change Password");
 		
 		JLabel lblOldPassword = new JLabel("Old Password:");
 		lblOldPassword.setBounds(10, 77, 114, 30);
