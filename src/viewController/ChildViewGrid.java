@@ -134,7 +134,16 @@ public class ChildViewGrid extends PanelView {
 				rowData[1] = tempChild;
 				rowData[2] = Helper.simpleDateFormat(tempChild.getDob());
 				rowData[3] = Helper.simpleDateFormat(tempChild.getDateJoined());
-				rowData[4] = tempChild.getActive();
+				
+				if(tempChild.getActive() == true)
+				{
+					rowData[4] = "Active";					
+				}
+				else
+				{
+					rowData[4] = "Inactive";
+				}
+				
 				
 				childTableModel.addRow(rowData);
 				
