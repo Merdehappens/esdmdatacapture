@@ -131,7 +131,7 @@ public class SessionView extends PanelView {
 			tableModel.removeRow(0);
 		}
 
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("DD/MM/YY");
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/YY");
 		
 		for(int i = 0; i < dayList.size(); i++)
 		{
