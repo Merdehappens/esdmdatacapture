@@ -117,9 +117,18 @@ public class ViewReport extends PanelView {
 			Object[] rowData = new Object[6];
 			
 			rowData[0] = dateFormatter.format(mark.getTime().getTime());
-			rowData[1] = mark.getObjective().getName();
+			if(mark.getObjective() != null)
+			{
+				rowData[1] = mark.getObjective().getName();
+			}
+			if(mark.getStep() != null)
+			{
 			rowData[2] = mark.getStep().getNo();
+			}
+			if(mark.getSession() != null)
+			{
 			rowData[3] = mark.getSession();
+			}
 			rowData[4] = mark;
 			rowData[5] = mark.getComment();
 			

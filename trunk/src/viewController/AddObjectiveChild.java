@@ -65,6 +65,7 @@ public class AddObjectiveChild extends PanelView {
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtChildName.setText("");
+				searchList("");
 			}
 		});
 

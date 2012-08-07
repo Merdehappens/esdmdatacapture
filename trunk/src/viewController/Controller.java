@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
@@ -15,6 +16,8 @@ import java.awt.CardLayout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -31,6 +34,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
 
 //testing
 /**
@@ -81,6 +85,16 @@ public class Controller extends JFrame {
 	
 	
 	public Controller() throws MalformedURLException {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+		        int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?", "Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		        if (answer == JOptionPane.YES_OPTION) {
+		            System.exit(0);
+		        }
+	
+			}
+		});
 		setLookAndFeel();
 		model = new ESDMModel();
 		initComponents();
@@ -111,6 +125,9 @@ public class Controller extends JFrame {
 				try{
 				Controller frame = new Controller();
 				frame.setVisible(true);
+				frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+
 				
 				}
 		catch (Exception e) {
@@ -134,7 +151,13 @@ public class Controller extends JFrame {
 					loadingFrame.setContentPane(contentPane);
 					loadingFrame.pack();
 					loadingFrame.setVisible(true);
-					System.out.println("Test");
+					
+					loadingFrame.addWindowListener(new WindowAdapter() {
+						@Override
+						public void windowClosing(WindowEvent arg0) {
+								System.exit(0);
+					        }
+					});
 					
 				}
 		catch (Exception e) {
@@ -629,12 +652,12 @@ public class Controller extends JFrame {
 	
 	
 	private void addObjective() {
-
 		String name = addObjective.getObjectiveName();
 		String description = addObjective.getObjectiveDescription();
 		String[][] steps = addObjective.getSteps();
 		try{
 		model.addObjective(name, description, steps);
+		showMessage("Objective successfully added to system.");
 		show(objectivePanel, "Objective");
 		}
 		catch(Exception e)
@@ -758,17 +781,22 @@ public class Controller extends JFrame {
         
         JLabel label_password = new JLabel("Please enter your password:");
         JPasswordField password;
+    	
+        JLabel label_tries;
         
         int tries = 0;
         
         do
         {
+            label_tries = new JLabel("Attempt " + (tries + 1) + " out of 3.");
+        	
             loginname = new JTextField(15);
             password = new JPasswordField();
         
 
         
-         Object[] array = { label_loginname, 
+         Object[] array = { label_tries,
+        		 		label_loginname, 
                        loginname,
                        label_password,
                        password };
