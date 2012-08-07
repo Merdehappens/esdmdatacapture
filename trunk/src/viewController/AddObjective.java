@@ -224,6 +224,17 @@ public class AddObjective extends PanelView {
 	public void refreshView()
 	{
 		resetForm();
+		resetTable();
+	}
+
+	private void resetTable() {
+		while(tblStep.getRowCount() > 0)
+		{
+			tableModel.removeRow(0);
+		}
+		
+		String[] row = new String[] {"", ""};
+		tableModel.addRow(row);
 	}
 	
 }

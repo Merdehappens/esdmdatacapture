@@ -48,7 +48,6 @@ public class Controller extends JFrame {
 	
 	private ESDMModel model;
 	
-	private int[] resolution;
 	private static JFrame loadingFrame;
 	private JPanel contentPane;
 	private JPanel homePanel;
