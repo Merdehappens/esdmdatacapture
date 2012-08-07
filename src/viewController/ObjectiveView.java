@@ -47,15 +47,15 @@ public class ObjectiveView extends PanelView {
 		super.setTitle("Objective");
 		
 		btnAddNewObjective = new JButton("Add New Objective");
-		btnAddNewObjective.setBounds(20, 70, 200, 40);
+		btnAddNewObjective.setBounds(50, 109, 200, 30);
 		add(btnAddNewObjective);
 		
 		btnViewObjectives = new JButton("View Objectives");
-		btnViewObjectives.setBounds(228, 70, 200, 40);
+		btnViewObjectives.setBounds(260, 109, 200, 30);
 		add(btnViewObjectives);
 		
 		btnAddObjectiveTo = new JButton("Add Objective to Child");
-		btnAddObjectiveTo.setBounds(438, 70, 200, 40);
+		btnAddObjectiveTo.setBounds(470, 109, 200, 30);
 		add(btnAddObjectiveTo);
 		
 		JScrollPane scrollPane = new JScrollPane();
