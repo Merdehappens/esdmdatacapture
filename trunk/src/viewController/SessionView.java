@@ -59,7 +59,7 @@ public class SessionView extends PanelView {
 		super.setTitle("Session");
 		
 		btnViewDay = new JButton("View Day");
-		btnViewDay.setBounds(219, 86, 108, 30);
+		btnViewDay.setBounds(180, 109, 108, 30);
 		add(btnViewDay);
 		
 		btnReset = new JButton("Reset Search Criteria");
@@ -68,7 +68,7 @@ public class SessionView extends PanelView {
 				refreshView();
 			}
 		});
-		btnReset.setBounds(521, 86, 151, 30);
+		btnReset.setBounds(799, 109, 151, 30);
 		add(btnReset);
 		
 		
@@ -81,7 +81,7 @@ public class SessionView extends PanelView {
 				showRefineSearch();
 			}
 		});
-		btnRefineSearch.setBounds(378, 86, 133, 30);
+		btnRefineSearch.setBounds(656, 109, 133, 30);
 		add(btnRefineSearch);
 		
 		
@@ -111,7 +111,7 @@ public class SessionView extends PanelView {
 		tblSession.setModel(tableModel);
 		
 		btnNewDay = new JButton("New Day");
-		btnNewDay.setBounds(88, 86, 120, 30);
+		btnNewDay.setBounds(50, 109, 120, 30);
 		add(btnNewDay);
 		
 	}

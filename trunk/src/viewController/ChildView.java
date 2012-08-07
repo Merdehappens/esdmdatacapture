@@ -18,7 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class ChildViewGrid extends PanelView {
+public class ChildView extends PanelView {
 
 	
 	private static final long serialVersionUID = -4321169254400022059L;
@@ -30,13 +30,13 @@ public class ChildViewGrid extends PanelView {
 	private ArrayList<Child> childList;
 	private JScrollPane scrollPane;
 	
-	public ChildViewGrid() {
+	public ChildView() {
 		super();
 		initialise();
 	
 	}
 	
-	public ChildViewGrid(ESDMModel model)
+	public ChildView(ESDMModel model)
 	{
 		super(model);
 		initialise();
@@ -52,7 +52,7 @@ public class ChildViewGrid extends PanelView {
 		
 		
 		btnAddChild = new JButton("Add New Child");
-		btnAddChild.setBounds(20, 70, 126, 34);
+		btnAddChild.setBounds(50, 109, 126, 30);
 		add(btnAddChild);
 		
 		btnEditChild = new JButton("Edit Child");
@@ -60,7 +60,7 @@ public class ChildViewGrid extends PanelView {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnEditChild.setBounds(156, 70, 126, 34);
+		btnEditChild.setBounds(186, 109, 126, 30);
 		add(btnEditChild);
 		
 		scrollPane = new JScrollPane();
@@ -85,7 +85,7 @@ public class ChildViewGrid extends PanelView {
 		childTable.setModel(childTableModel);
 		
 		btnRemoveChild = new JButton("Remove Child");
-		btnRemoveChild.setBounds(292, 70, 137, 34);
+		btnRemoveChild.setBounds(322, 109, 137, 30);
 		add(btnRemoveChild);
 		
 		JButton btnRefineSearch = new JButton("Refine Search");
@@ -94,7 +94,7 @@ public class ChildViewGrid extends PanelView {
 				showRefineSearch();
 			}
 		});
-		btnRefineSearch.setBounds(481, 70, 126, 34);
+		btnRefineSearch.setBounds(634, 109, 160, 30);
 		add(btnRefineSearch);
 		
 		JButton btnResetSearch = new JButton("Reset Search");
@@ -103,7 +103,7 @@ public class ChildViewGrid extends PanelView {
 				populateTable(childList);
 			}
 		});
-		btnResetSearch.setBounds(617, 70, 101, 34);
+		btnResetSearch.setBounds(804, 109, 146, 30);
 		add(btnResetSearch);
 		
 

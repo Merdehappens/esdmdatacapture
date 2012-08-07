@@ -79,7 +79,7 @@ public class Controller extends JFrame {
 	private ReviewSession reviewSession;
 	private ViewReport viewReport;
 	private NewUserAccount newUserAccount;
-	private ChildViewGrid childViewGrid;
+	private ChildView childViewGrid;
 	private ViewObjective viewObjective;
 	
 	
@@ -262,7 +262,7 @@ public class Controller extends JFrame {
 
 		//Add all the panels (Cards) to the Child Tab
 		
-		childViewGrid = new ChildViewGrid(model);
+		childViewGrid = new ChildView(model);
 		childPanel.add(childViewGrid, "Child");
 
 		addChild = new AddChild(model);
