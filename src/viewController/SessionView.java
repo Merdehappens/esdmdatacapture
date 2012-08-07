@@ -87,7 +87,7 @@ public class SessionView extends PanelView {
 		
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(88, 160, 592, 244);
+		scrollPane.setBounds(50, 150, 900, 300);
 		add(scrollPane);
 		
 		

@@ -68,6 +68,7 @@ public class ReviewSession extends PanelView {
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				resetTextFields();
+				refreshTable();
 			}
 		});
 		btnReset.setBounds(139, 454, 105, 21);

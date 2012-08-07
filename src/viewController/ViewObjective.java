@@ -91,6 +91,7 @@ public class ViewObjective extends PanelView {
 		txtObjectiveDescription.setBounds(10, 114, 345, 178);
 		add(txtObjectiveDescription);
 		txtObjectiveDescription.setLineWrap(true);
+		txtObjectiveDescription.setWrapStyleWord(true);
 		
 		JLabel lblCurrentSteps = new JLabel("Current Steps (In Order)");
 		lblCurrentSteps.setHorizontalAlignment(SwingConstants.CENTER);

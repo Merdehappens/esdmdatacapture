@@ -28,6 +28,7 @@ public class ChildViewGrid extends PanelView {
 	private JTable childTable;
 	private DefaultTableModel childTableModel;
 	private ArrayList<Child> childList;
+	private JScrollPane scrollPane;
 	
 	public ChildViewGrid() {
 		super();
@@ -62,8 +63,8 @@ public class ChildViewGrid extends PanelView {
 		btnEditChild.setBounds(156, 70, 126, 34);
 		add(btnEditChild);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(26, 132, 692, 273);
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(50, 150, 900, 300);
 		add(scrollPane);
 		
 		childTableModel = new DefaultTableModel();

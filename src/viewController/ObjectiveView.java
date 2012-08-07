@@ -59,7 +59,7 @@ public class ObjectiveView extends PanelView {
 		add(btnAddObjectiveTo);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(22, 140, 677, 248);
+		scrollPane.setBounds(50, 150, 900, 300);
 		add(scrollPane);
 		
 		tableModel = new DefaultTableModel();
