@@ -108,7 +108,7 @@ public class ViewReport extends PanelView {
 			tableModel.removeRow(0);
 		}
 		
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("DD/MM/YY hh:mm:ss a");
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/YY hh:mm:ss a");
 		
 		for(int i = 0; i < marks.size(); i++)
 		{

@@ -572,7 +572,7 @@ public class ESDMModel {
 	public void addTimestamp(Session session, Child child, Objective objective, Step step, int mark, Day day) throws Exception
 	{
 		Mark tempMark = new Mark(session, child, objective, step, mark, (Therapist)currentUser, day);
-		tempMark.setComments("Timestamp Logged");
+		tempMark.setComments("Timestamp Logged.");
 		day.addMark(tempMark);
 		child.addMark(tempMark);
 		markList.add(tempMark);
