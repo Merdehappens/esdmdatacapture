@@ -648,7 +648,7 @@ public class Controller extends JFrame {
 		try{
 			String[] arr = changePassword.getNewPassword();
 			model.changePassword(changePassword.getOldPassword(), arr[0], arr[1]);
-			showMessage("Password Successfully Changed.");
+			showMessage("Your password has been successfully changed.");
 		}
 		catch(Exception e){
 			showMessage(e.getMessage());

@@ -50,7 +50,7 @@ public class EditObjective extends PanelView {
 		
 		super.setTitle("Edit Objective");
 		
-		JLabel lblName = new JLabel("Objective Name");
+		JLabel lblName = new JLabel("Objective Name:");
 		lblName.setBounds(10, 43, 130, 35);
 		add(lblName);
 		
