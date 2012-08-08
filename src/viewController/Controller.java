@@ -479,6 +479,7 @@ public class Controller extends JFrame {
 		changeEmail.changeEmail(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				model.setEmail(changeEmail.getEmail());
+				showMessage("Email successfully changed.");
 			}
 		});
 		
@@ -624,7 +625,7 @@ public class Controller extends JFrame {
 			}
 		});
 		
-		accountView.changeEmailAddress(ActionListenerShow(accountPanel, "changeEmailAddress"));
+		accountView.changeEmailAddress(ActionListenerShow(accountPanel, "changeEmail"));
 		
 		accountView.changePassword(ActionListenerShow(accountPanel, "changePassword"));
 		
