@@ -785,7 +785,10 @@ public class Controller extends JFrame {
         
         do
         {
-            label_tries = new JLabel("Attempt " + (tries + 1) + " out of 3.");
+        	if(tries > 0)
+            label_tries = new JLabel("You have entered an incorrect username or password.");
+        	else
+        	label_tries = new JLabel("");
         	
             loginname = new JTextField(15);
             password = new JPasswordField();
@@ -814,7 +817,7 @@ public class Controller extends JFrame {
          }
          else
          {
-        	 showMessage("Unable to log on to server. Exiting program.");
+        	 showMessage("Three incorrect attempts. Exiting program.");
         	 
         	 System.exit(1);
          }
