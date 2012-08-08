@@ -55,7 +55,7 @@ public class ReviewSession extends PanelView {
 		btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				saveChild();
+				saveMarks();
 			}
 		});
 		btnSave.setBounds(40, 454, 89, 23);
@@ -70,10 +70,6 @@ public class ReviewSession extends PanelView {
 		});
 		btnReset.setBounds(139, 454, 105, 21);
 		add(btnReset);
-		
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(254, 454, 94, 21);
-		add(btnCancel);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(25, 123, 866, 320);
@@ -172,8 +168,15 @@ public class ReviewSession extends PanelView {
 	}
 
 
-	private void saveChild() {
-
+	private void saveMarks() {
+		
+		for(int i = 0; i < tableModel.getRowCount(); i++)
+		{
+			Mark m = (Mark)tableModel.getValueAt(i, 5);
+			m.setComments((String)tableModel.getValueAt(i, 7));
+			
+		}
+		
 	}
 	
 	public void saveListener(ActionListener al)
