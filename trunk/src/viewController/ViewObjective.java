@@ -65,18 +65,24 @@ public class ViewObjective extends PanelView {
 		add(lblDateOfBirth);
 		
 		txtObjectiveName = new JTextField();
-		txtObjectiveName.setBounds(114, 43, 241, 30);
+		txtObjectiveName.setBounds(114, 43, 689, 30);
 		add(txtObjectiveName);
 		txtObjectiveName.setColumns(10);
 		
-		btnSave = new JButton("Save Changes");
+		btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				objective.setDescription(txtObjectiveDescription.getText());
+				objective.setName(txtObjectiveName.getText());
+			}
+		});
 		btnSave.setBounds(21, 324, 89, 23);
 		add(btnSave);
 		
 		btnReset = new JButton("Reset");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				resetForm();
+				refreshView();
 			}
 		});
 		btnReset.setBounds(120, 324, 105, 21);
@@ -94,11 +100,11 @@ public class ViewObjective extends PanelView {
 		
 		JLabel lblCurrentSteps = new JLabel("Current Steps (In Order)");
 		lblCurrentSteps.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCurrentSteps.setBounds(394, 43, 467, 14);
+		lblCurrentSteps.setBounds(394, 102, 467, 14);
 		add(lblCurrentSteps);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(394, 68, 478, 244);
+		scrollPane.setBounds(394, 127, 478, 244);
 		add(scrollPane);
 		
 		
@@ -122,7 +128,7 @@ public class ViewObjective extends PanelView {
 				tableModel.removeRow(tblStep.getSelectedRow());
 			}
 		});
-		btnDeleteSelectedStep.setBounds(503, 324, 150, 23);
+		btnDeleteSelectedStep.setBounds(503, 383, 150, 23);
 		add(btnDeleteSelectedStep);
 		
 		JButton btnAddStep = new JButton("Add Step");
@@ -132,7 +138,7 @@ public class ViewObjective extends PanelView {
 				tableModel.addRow(tempRow);
 			}
 		});
-		btnAddStep.setBounds(404, 324, 89, 23);
+		btnAddStep.setBounds(404, 383, 89, 23);
 		add(btnAddStep);
 		
 		JButton btnUp = new JButton("Up");
@@ -189,6 +195,7 @@ public class ViewObjective extends PanelView {
 		if(start + i >= 0 && start + i < tblStep.getRowCount())
 		{
 			tableModel.moveRow(start, start, start + i);
+			tblStep.changeSelection(start + i, 0, false, false);
 		}
 	}
 
