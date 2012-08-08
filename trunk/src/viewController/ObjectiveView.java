@@ -1,13 +1,9 @@
 package viewController;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
 import system.marking.Objective;
 import system.model.ESDMModel;
 
-import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 

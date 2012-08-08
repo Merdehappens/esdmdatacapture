@@ -7,10 +7,8 @@ import system.sessions.Day;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
 import com.toedter.calendar.JDateChooser;
 
-import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;

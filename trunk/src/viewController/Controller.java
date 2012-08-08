@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
@@ -17,8 +16,6 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
@@ -802,7 +799,7 @@ public class Controller extends JFrame {
                        password };
          
          int res = JOptionPane.showConfirmDialog(null, array, "Login", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
+         
          if(res != 0)
          {
         	 System.exit(1);

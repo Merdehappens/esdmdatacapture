@@ -15,7 +15,6 @@ import com.toedter.calendar.JDateChooser;
 
 
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -32,8 +31,6 @@ import javax.swing.JPanel;
 import javax.swing.ScrollPaneConstants;
 
 import javax.swing.JToggleButton;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class AddDay extends PanelView {
 
