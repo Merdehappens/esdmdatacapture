@@ -48,7 +48,7 @@ public class ViewReport extends PanelView {
 		String[] columnNames = new String[] {"Date", "Objective", "Step", "Setting", "Mark", "Comments"};
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(66, 154, 592, 244);
+		scrollPane.setBounds(66, 154, 835, 303);
 		add(scrollPane);
 		scrollPane.setViewportView(tblSession);
 		
