@@ -8,7 +8,6 @@ import java.net.URL;
 import java.util.*;
 
 import system.helper.Helper;
-import system.helper.SimpleKey;
 import system.individuals.Child;
 import system.individuals.Guardian;
 import system.individuals.Therapist;
@@ -511,6 +510,10 @@ public class ESDMModel {
 	 */
 	
 	public void changePassword(String oldPassword, String newPassword1, String newPassword2) throws Exception {
+		if(oldPassword.equals(newPassword1))
+		{
+			throw new Exception("The new and old password are the same.");
+		}
 		if(oldPassword.equals("") || newPassword1.equals("") || newPassword2.equals(""))
 		{
 			throw new Exception("One or more of the password fields were left empty.");

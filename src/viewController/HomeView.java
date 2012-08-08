@@ -1,11 +1,6 @@
 package viewController;
 
 
-import java.awt.Font;
-
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
 import system.model.ESDMModel;
 
 public class HomeView extends PanelView {

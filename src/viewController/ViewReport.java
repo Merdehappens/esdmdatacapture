@@ -1,15 +1,11 @@
 package viewController;
 
 import javax.swing.JButton;
-import javax.swing.SwingConstants;
-
 import system.individuals.Child;
 import system.marking.Mark;
 import system.model.ESDMModel;
 
-import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JTable;
