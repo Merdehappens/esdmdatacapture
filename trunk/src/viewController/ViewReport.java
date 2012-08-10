@@ -105,8 +105,9 @@ public class ViewReport extends PanelView {
 		}
 		
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/YY hh:mm:ss a");
-		
-		for(int i = 0; i < marks.size(); i++)
+
+		int size = marks.size();
+		for(int i = 0; i < size; i++)
 		{
 			Mark mark = marks.get(i);
 			

@@ -70,7 +70,8 @@ public class ESDMModel {
     	
     	Child child;
     	
-    	for(int i = 0; i < childList.size(); i++)
+    	int size = childList.size();
+    	for(int i = 0; i < size; i++)
     	{
     		child = childList.get(i);
     		
@@ -92,7 +93,8 @@ public class ESDMModel {
     {
     	ArrayList<Child> newChildList = new ArrayList<Child>();
     	
-    	for(int i = 0; i < childList.size(); i++)
+    	int size = childList.size();
+    	for(int i = 0; i < size; i++)
     	{
     		Child c = childList.get(i);
     		if(c.getName().contains(filter))
@@ -273,6 +275,7 @@ public class ESDMModel {
         day.setRoom(room);
         dayList.add(day);
         
+        
         for(int i = 0; i < objectiveList.size(); i++)
         {
         	objectiveList.get(i).setId("O000" + i);
@@ -287,7 +290,8 @@ public class ESDMModel {
 
     public boolean login(String username, String password)
     {
-        for(int i = 0; i < therapistList.size(); i++)
+    	int size = therapistList.size();
+        for(int i = 0; i < size; i++)
         {
         	UserAccount temp = therapistList.get(i);
         	
@@ -365,7 +369,7 @@ public class ESDMModel {
     public Child addChild(String name, Calendar dob, Calendar dateJoined, ArrayList<Guardian> guardians) throws Exception
     {
     	
-    	if(name.equals(""))
+    	if(name.length() == 0)
     	{
     		throw new Exception("Name is a required field.");
     	}
@@ -377,7 +381,8 @@ public class ESDMModel {
     	
         Child child = new Child(name, dob, dateJoined);
 
-        for(int i = 0; i < guardians.size(); i++)
+        int size = guardians.size();
+        for(int i = 0; i < size; i++)
         {
         	child.addGuardian(guardians.get(i));
         }
@@ -423,11 +428,13 @@ public class ESDMModel {
 		}
 
 		Day day = new Day(date, room);
-		for (int i = 0; i < children.size(); i++)
+		int size = children.size();
+		for (int i = 0; i < size; i++)
 		{
 			day.addChildren(children.get(i)); //adds selected children to this day
 		}
-		for (int x = 0; x < sessions.size(); x++)
+		size = sessions.size();
+		for (int x = 0; x < size; x++)
 		{
 			day.addSession(sessions.get(x));
 		}
@@ -461,7 +468,7 @@ public class ESDMModel {
 		Objective o = new Objective(Name, description);
 		for (int i = 0; i < steps.length; i++)
 		{
-			if(steps[i][0].equals("") || steps[i][1].equals(""))
+			if(steps[i][0].length() == 0 || steps[i][1].length() == 0)
 			{
 				throw new Exception("One of the steps isn't completely filled.");
 			}
@@ -514,7 +521,7 @@ public class ESDMModel {
 		{
 			throw new Exception("The new and old password are the same.");
 		}
-		if(oldPassword.equals("") || newPassword1.equals("") || newPassword2.equals(""))
+		if(oldPassword.length() == 0 || newPassword1.length() == 0 || newPassword2.length() == 0)
 		{
 			throw new Exception("One or more of the password fields were left empty.");
 		}
@@ -607,12 +614,13 @@ public class ESDMModel {
 		}
 		else
 		{
+			int size = dayList.size();
 
 			if(from == null)
 			{
 				to = Helper.setCalendarTimeNull(to);
-				
-				for(int i = 0; i < dayList.size(); i++)
+			
+				for(int i = 0; i < size; i++)
 				{
 					if(dayList.get(i).getDate().compareTo(to) <= 0)
 					{
@@ -624,7 +632,7 @@ public class ESDMModel {
 			else if(to == null)
 			{
 				from = Helper.setCalendarTimeNull(from);
-				for(int i = 0; i < dayList.size(); i++)
+				for(int i = 0; i < size; i++)
 				{
 					if(dayList.get(i).getDate().compareTo(from) >= 0)
 					{
@@ -681,8 +689,8 @@ public class ESDMModel {
 		{
 			ArrayList<Objective> objList = new ArrayList<Objective>(child.getObjectives());
 			Objective obj = null;
-			
-			for(int i = 0; i < objList.size(); i++)
+			int size = objList.size();
+			for(int i = 0; i < size; i++)
 			{
 				if(objList.get(i).getId() == objective.getId())
 				{

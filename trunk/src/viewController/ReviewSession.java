@@ -141,7 +141,8 @@ public class ReviewSession extends PanelView {
 		
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("h:mm:ss a");
 
-		for(int i = 0; i < marks.size(); i++)
+		int size = marks.size();
+		for(int i = 0; i < size; i++)
 		{
 			Mark tempMark = marks.get(i);
 			

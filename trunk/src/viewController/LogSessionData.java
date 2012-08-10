@@ -340,7 +340,8 @@ public class LogSessionData extends PanelView {
 		
 		ArrayList<Objective> temp = (ArrayList<Objective>)child.getObjectives();
 		
-		for(int i = 0; i < temp.size(); i++)
+		int size = temp.size();
+		for(int i = 0; i < size; i++)
 		{
 			objectiveModel.addElement(temp.get(i));
 		}
@@ -365,8 +366,8 @@ public class LogSessionData extends PanelView {
 		if(steps != null)
 		{
 			
-		
-		for(int i = 0; i < steps.size(); i++)
+		int size = steps.size();
+		for(int i = 0; i < size; i++)
 		{
 			stepModel.addElement(steps.get(i));
 		}
@@ -409,12 +410,14 @@ public class LogSessionData extends PanelView {
 		ArrayList<Session> settings = (ArrayList<Session>)day.getSessions();
 		ArrayList<Child> children = (ArrayList<Child>)day.getChildren();
 		
-		for(int i = 0; i < settings.size(); i++)
+		int size = settings.size();
+		for(int i = 0; i < size; i++)
 		{
 			sessionModel.addElement(settings.get(i));
 		}
 		
-		for(int i = 0; i < children.size(); i++)
+		size = children.size();
+		for(int i = 0; i < size; i++)
 		{
 			childModel.addElement(children.get(i));
 		}

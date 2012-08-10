@@ -115,7 +115,8 @@ public class FindChild extends PanelView {
 		childListModel.clear();
 		txtChildName.setText("");
 		
-		for(int i = 0; i < children.size(); i++)
+		int size = children.size();
+		for(int i = 0; i < size; i++)
 		{
 			childListModel.addElement(children.get(i));
 		}

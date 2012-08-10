@@ -201,7 +201,8 @@ public class AddDay extends PanelView {
 		int x = -90;
 		int s = -300;
 		
-		for(int i = 0; i < temp.size(); i++)
+		int size = temp.size();
+		for(int i = 0; i < size; i++)
 		{
 			if(i % 3 == 0)
 			{
@@ -281,7 +282,6 @@ public class AddDay extends PanelView {
 				childList.add((Child)tglbtn[i][1]);
 			}
 		}
-		System.out.println(childList.size());
 		return childList;
 	}
 
@@ -293,8 +293,8 @@ public class AddDay extends PanelView {
 	public ArrayList<Session> getSessions() {
 		ArrayList<Session> session = new ArrayList<Session>();
 		
-		
-		for(int i = 0; i < listModel.size(); i++)
+		int size = listModel.getSize();;
+		for(int i = 0; i < size; i++)
 		{
 			session.add(listModel.get(i));
 		}

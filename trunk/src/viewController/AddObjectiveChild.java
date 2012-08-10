@@ -119,7 +119,8 @@ public class AddObjectiveChild extends PanelView {
 		childListModel.clear();
 		txtChildName.setText("");
 		
-		for(int i = 0; i < children.size(); i++)
+		int size = children.size();
+		for(int i = 0; i < size; i++)
 		{
 			childListModel.addElement(children.get(i));
 		}
@@ -145,8 +146,8 @@ public class AddObjectiveChild extends PanelView {
 	private void searchList(String text) {
 		
 		childListModel.clear();
-		
-		for(int i = 0; i < children.size(); i++)
+		int size = children.size();
+		for(int i = 0; i < size; i++)
 		{
 			Child temp = children.get(i);
 			
