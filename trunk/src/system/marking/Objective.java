@@ -15,12 +15,12 @@ public class Objective implements SimpleKey  {
     private int level;
 	private String id;
     
-    public int getLevel()
+    public final int getLevel()
     {
     	return level;
     }
     
-	public String getId()
+	public final String getId()
 	{
 		return id;
 	}
@@ -57,12 +57,12 @@ public class Objective implements SimpleKey  {
         steps = new ArrayList<Step>(step);
     }
     
-    public String getDescription()
+    public final String getDescription()
     {   
         return description;
     }
     
-    public String getName()
+    public final String getName()
     {
     	return name;
     }
@@ -72,7 +72,7 @@ public class Objective implements SimpleKey  {
     	return name + " Level: " + level;
     }
 
-	public List<Step> getSteps() {
+	public final List<Step> getSteps() {
 		return steps;
 	}
 	
