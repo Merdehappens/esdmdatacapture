@@ -130,8 +130,8 @@ public class SessionView extends PanelView {
 		}
 
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/YY");
-		
-		for(int i = 0; i < dayList.size(); i++)
+		int size = dayList.size();
+		for(int i = 0; i < size; i++)
 		{
 			Object[] row = new Object[3];
 			Day temp = dayList.get(i);

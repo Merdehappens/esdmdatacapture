@@ -60,6 +60,9 @@ public class ObjectiveView extends PanelView {
 		
 		tableModel = new DefaultTableModel();
 		objectiveTable = new JTable() {
+
+			private static final long serialVersionUID = 8081316035031635743L;
+
 			public boolean isCellEditable(int row, int column){
 				return false;
 			}
@@ -122,8 +125,8 @@ public class ObjectiveView extends PanelView {
 		objectives = new ArrayList<Objective>(this.getModel().getObjectiveList());
 
 		
-
-		for(int i = 0; i < objectives.size(); i++)
+		int size = objectives.size();
+		for(int i = 0; i < size; i++)
 		{
 			Objective objective = objectives.get(i);
 			

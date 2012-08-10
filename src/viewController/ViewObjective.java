@@ -237,7 +237,8 @@ public class ViewObjective extends PanelView {
 		
 		ArrayList<Step> steps = new ArrayList<Step>(o.getSteps());
 		
-		for(int i = 0; i < steps.size(); i++)
+		int size = steps.size();
+		for(int i = 0; i < size; i++)
 		{
 			Step s = steps.get(i);
 			String[] row = new String[] {s.getCode(), s.getDescription()};

@@ -44,7 +44,7 @@ public class Child implements SimpleKey {
         active = true;
     }
 
-    public Calendar getDateJoined() {
+    public final Calendar getDateJoined() {
         return dateJoined;
     }
 
@@ -52,7 +52,7 @@ public class Child implements SimpleKey {
         this.dateJoined = dateJoined;
     }
 
-    public Calendar getDob() {
+    public final Calendar getDob() {
         return dob;
     }
 
@@ -60,7 +60,7 @@ public class Child implements SimpleKey {
         this.dob = dob;
     }
 
-    public List<Guardian> getGuardians() {
+    public final List<Guardian> getGuardians() {
         return guardians;
     }
 
@@ -78,7 +78,7 @@ public class Child implements SimpleKey {
     	marks.add(mark);
     }
 
-    public String getId() {
+    public final String getId() {
         return id;
     }
 
@@ -86,7 +86,7 @@ public class Child implements SimpleKey {
         this.id = id;
     }
 
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
@@ -112,12 +112,12 @@ public class Child implements SimpleKey {
         picture = new ImageIcon(pictureLink);
     }
     
-    public URL getPictureLink()
+    public final URL getPictureLink()
     {
         return pictureLink;
     }
     
-    public ImageIcon getPicture()
+    public final ImageIcon getPicture()
     {
         return picture;
     }
@@ -127,11 +127,11 @@ public class Child implements SimpleKey {
         return name;
     }
 
-	public List<Objective> getObjectives() {
+	public final List<Objective> getObjectives() {
 		return objectives;
 	}
 
-	public List<Mark> getMarks() {
+	public final List<Mark> getMarks() {
 		return marks;
 	}
 	
@@ -145,7 +145,7 @@ public class Child implements SimpleKey {
 		active = true;
 	}
 
-	public boolean getActive() {
+	public final boolean getActive() {
 		return active;
 	}
     

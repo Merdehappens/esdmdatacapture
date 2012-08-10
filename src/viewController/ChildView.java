@@ -67,6 +67,8 @@ public class ChildView extends PanelView {
 		childTableModel = new DefaultTableModel();
 		childTable = new JTable() {
 			
+			private static final long serialVersionUID = 6404756832838176556L;
+
 			public boolean isCellEditable(int row, int column){
 				return false;
 			}
@@ -122,7 +124,8 @@ public class ChildView extends PanelView {
 				childTableModel.removeRow(0);
 			}
 
-			for(int i = 0; i < childs.size(); i++)
+			int size = childs.size();
+			for(int i = 0; i < size; i++)
 			{
 				Child tempChild = childs.get(i);
 				
@@ -193,10 +196,12 @@ public class ChildView extends PanelView {
 		ArrayList<Child> fullChildList = new ArrayList<Child>(this.getModel().getChildList());
 		ArrayList<Child> showChildList = new ArrayList<Child>();
 		
-		for(int i = 0; i < fullChildList.size(); i++)
+		int size = fullChildList.size();
+		for(int i = 0; i < size; i++)
 		{
 			Child tempChild = fullChildList.get(i);
 			String name = tempChild.getName();
+			
 			if(name.toLowerCase().contains(txtName.getText().toLowerCase()))
 			{
 				int index = cmbActive.getSelectedIndex();
