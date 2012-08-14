@@ -63,6 +63,8 @@ public class ViewReport extends PanelView {
 		btnSave.setBounds(44, 436, 89, 23);
 		add(btnSave);
 		
+		// Adds the date chooser to the page
+		
 		JDateChooser dateChooserTo = new JDateChooser();
 		dateChooserTo.setBounds(257, 80, 157, 35);
 		add(dateChooserTo);
@@ -74,6 +76,8 @@ public class ViewReport extends PanelView {
 		JLabel lblFrom = new JLabel("From Date:");
 		lblFrom.setBounds(189, 33, 74, 35);
 		add(lblFrom);
+
+		// Adds the second date chooser to the page
 		
 		JDateChooser dateChooserFrom = new JDateChooser();
 		dateChooserFrom.setBounds(257, 33, 157, 35);
@@ -93,6 +97,8 @@ public class ViewReport extends PanelView {
 	{
 		btnSave.addActionListener(al);
 	}
+	
+	// Refreshes the table to be the same as the object 
 	
 	public void refreshTable()
 	{
@@ -134,7 +140,7 @@ public class ViewReport extends PanelView {
 		}
 	}
 
-
+	// Sets the child on this screen to the one parsed through
 	
 	public void setChild(Child c)
 	{
