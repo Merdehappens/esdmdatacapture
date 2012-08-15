@@ -16,7 +16,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-
 public class ReviewSession extends PanelView {
 
 	/**
@@ -31,27 +30,26 @@ public class ReviewSession extends PanelView {
 	private JLabel lblRoomName;
 	private JButton btnLogMarks;
 	private JButton btnSave;
-	
+
 	/**
 	 * Create the panel.
 	 */
 	public ReviewSession() {
 		initialise();
-	
+
 	}
-	
-	public ReviewSession(ESDMModel model)
-	{
+
+	public ReviewSession(ESDMModel model) {
 		super(model);
 		initialise();
 	}
-	
-	private void initialise()
-	{
+
+	// Initialises all the graphical components on the page.
+	private void initialise() {
 		setLayout(null);
 
 		super.setTitle("Review Marks");
-		
+
 		btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -60,7 +58,7 @@ public class ReviewSession extends PanelView {
 		});
 		btnSave.setBounds(40, 454, 89, 23);
 		add(btnSave);
-		
+
 		JButton btnReset = new JButton("Reset");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -70,49 +68,48 @@ public class ReviewSession extends PanelView {
 		});
 		btnReset.setBounds(139, 454, 105, 21);
 		add(btnReset);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(25, 123, 866, 320);
 		add(scrollPane);
-		
-		
-		
+
 		tableModel = new DefaultTableModel();
-		
-		String[] columnNames = new String[] {"Therapist", "Session", "Child", "Objective", "Step", "Mark", "Time", "Comments"};
+
+		String[] columnNames = new String[] { "Therapist", "Session", "Child",
+				"Objective", "Step", "Mark", "Time", "Comments" };
 		tableModel.setColumnIdentifiers(columnNames);
-		
+
 		tblReview = new JTable(tableModel);
 		scrollPane.setViewportView(tblReview);
-		
+
 		JLabel lblSessionId = new JLabel("Session ID:");
 		lblSessionId.setBounds(10, 43, 92, 14);
 		add(lblSessionId);
-		
+
 		JLabel lblSessionDate = new JLabel("Date:");
 		lblSessionDate.setBounds(10, 68, 92, 14);
 		add(lblSessionDate);
-		
+
 		JLabel lblRoom = new JLabel("Room:");
 		lblRoom.setBounds(10, 93, 94, 14);
 		add(lblRoom);
-		
+
 		lblId = new JLabel("");
 		lblId.setBounds(83, 43, 78, 14);
 		add(lblId);
-		
+
 		lblDate = new JLabel("");
 		lblDate.setBounds(83, 68, 139, 14);
 		add(lblDate);
-		
+
 		lblRoomName = new JLabel("");
 		lblRoomName.setBounds(83, 93, 105, 14);
 		add(lblRoomName);
-		
+
 		btnLogMarks = new JButton("Log more marks \nfor this session");
 		btnLogMarks.setBounds(489, 454, 260, 21);
 		add(btnLogMarks);
-		
+
 		tblReview.getColumnModel().getColumn(0).setPreferredWidth(40);
 		tblReview.getColumnModel().getColumn(1).setPreferredWidth(40);
 		tblReview.getColumnModel().getColumn(2).setPreferredWidth(40);
@@ -123,31 +120,27 @@ public class ReviewSession extends PanelView {
 		tblReview.getColumnModel().getColumn(7).setPreferredWidth(300);
 
 	}
-	
-	private void refreshTable()
-	{
+
+	private void refreshTable() {
 		lblId.setText(day.getId());
-		
-		
+
 		lblDate.setText(Helper.simpleDateFormat(day.getDate()));
 		lblRoomName.setText(day.getRoom().getRoomName());
-		
-		while(tableModel.getRowCount() > 0)
-		{
+
+		while (tableModel.getRowCount() > 0) {
 			tableModel.removeRow(0);
 		}
-		
+
 		ArrayList<Mark> marks = (ArrayList<Mark>) day.getMarks();
-		
+
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("h:mm:ss a");
 
 		int size = marks.size();
-		for(int i = 0; i < size; i++)
-		{
+		for (int i = 0; i < size; i++) {
 			Mark tempMark = marks.get(i);
-			
+
 			Object[] rowData = new Object[8];
-			
+
 			rowData[0] = tempMark.getTherapist();
 			rowData[1] = tempMark.getSession();
 			rowData[2] = tempMark.getChild();
@@ -156,41 +149,37 @@ public class ReviewSession extends PanelView {
 			rowData[5] = tempMark;
 			rowData[6] = dateFormatter.format(tempMark.getTime().getTime());
 			rowData[7] = tempMark.getComment();
-			
+
 			tableModel.addRow(rowData);
-			
+
 		}
-		
+
 	}
-	
+
 	private void resetTextFields() {
 
-		
 	}
-
 
 	private void saveMarks() {
-		
-		for(int i = 0; i < tableModel.getRowCount(); i++)
-		{
-			Mark m = (Mark)tableModel.getValueAt(i, 5);
-			m.setComments((String)tableModel.getValueAt(i, 7));
-			
+
+		for (int i = 0; i < tableModel.getRowCount(); i++) {
+			Mark m = (Mark) tableModel.getValueAt(i, 5);
+			m.setComments((String) tableModel.getValueAt(i, 7));
+
 		}
-		
+
 	}
-	
-	public void saveListener(ActionListener al)
-	{
+
+	// Takes in an ActionListener and adds it to the save button
+	public void saveListener(ActionListener al) {
 		btnSave.addActionListener(al);
 	}
-	
-	public void logMarksListener(ActionListener al)
-	{
+
+	// Takes in an ActionListener and adds it to the Log Mark button
+	public void logMarksListener(ActionListener al) {
 		btnLogMarks.addActionListener(al);
 	}
-	
-	
+
 	public void setDay(Day day) {
 		this.day = day;
 	}
@@ -199,7 +188,7 @@ public class ReviewSession extends PanelView {
 		return day;
 	}
 
-	@Override
+	// Overrides the refreshView method in PanelView and refreshes the view of this panel
 	public void refreshView() {
 		resetTextFields();
 		refreshTable();

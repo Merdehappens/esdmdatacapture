@@ -1,6 +1,8 @@
 package viewController;
 
 import javax.swing.JButton;
+
+import system.helper.Helper;
 import system.individuals.Child;
 import system.marking.Mark;
 import system.model.ESDMModel;
@@ -13,9 +15,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JLabel;
+import java.awt.event.ActionEvent;
+import java.io.File;
 
 public class ViewReport extends PanelView {
-	
+
 	private static final long serialVersionUID = 7874110638597279843L;
 	private JScrollPane scrollPane;
 	private JTable tblSession;
@@ -23,131 +27,150 @@ public class ViewReport extends PanelView {
 	private Child child;
 	private JButton btnSave;
 	private JLabel lblChildName;
-	
+
 	/**
 	 * Create the panel.
 	 */
 	public ViewReport() {
 		initialise();
 	}
-	
-	public ViewReport(ESDMModel model)
-	{
+
+	public ViewReport(ESDMModel model) {
 		super(model);
 		initialise();
 	}
-	
-	private void initialise()
-	{
+
+	// Initialises all the graphical components on the page.
+	private void initialise() {
 		setLayout(null);
 		super.setTitle("View Report");
 
 		// Creates table, sets column name and adds the model to the table
-		
+
 		tblSession = new JTable();
-		String[] columnNames = new String[] {"Date", "Objective", "Step", "Setting", "Mark", "Comments"};
+		String[] columnNames = new String[] { "Date", "Objective", "Step",
+				"Setting", "Mark", "Comments" };
 
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(66, 154, 835, 303);
 		add(scrollPane);
 		scrollPane.setViewportView(tblSession);
-		
+
 		tableModel = new DefaultTableModel();
 		tableModel.setColumnIdentifiers(columnNames);
-		
+
 		tblSession.setModel(tableModel);
-		
+
 		// Adds the Save button to the page.
-		
+
 		btnSave = new JButton("Save");
-		btnSave.setBounds(44, 436, 89, 23);
+		btnSave.setBounds(44, 471, 89, 23);
 		add(btnSave);
-		
+
 		// Adds the date chooser to the page
-		
+
 		JDateChooser dateChooserTo = new JDateChooser();
 		dateChooserTo.setBounds(257, 80, 157, 35);
 		add(dateChooserTo);
-		
+
 		JLabel lblTo = new JLabel("To Date:");
 		lblTo.setBounds(189, 79, 74, 36);
 		add(lblTo);
-		
+
 		JLabel lblFrom = new JLabel("From Date:");
 		lblFrom.setBounds(189, 33, 74, 35);
 		add(lblFrom);
 
 		// Adds the second date chooser to the page
-		
+
 		JDateChooser dateChooserFrom = new JDateChooser();
 		dateChooserFrom.setBounds(257, 33, 157, 35);
 		add(dateChooserFrom);
-		
+
 		JLabel lblChild = new JLabel("Child: ");
 		lblChild.setBounds(10, 43, 30, 14);
 		add(lblChild);
-		
+
 		lblChildName = new JLabel("");
 		lblChildName.setBounds(44, 43, 115, 14);
 		add(lblChildName);
-		
+
+		JButton btnExport = new JButton("Export to File");
+		btnExport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				saveCSV();
+			}
+		});
+		btnExport.setBounds(396, 468, 139, 26);
+		add(btnExport);
+
 	}
-	
-	public void saveListener(ActionListener al)
-	{
+
+	protected void saveCSV() {
+		File f = Helper.chooseFile();
+		try {
+			Helper.exportCSV(f, tblSession);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	// Adds the action listener that is parsed in on the save button
+
+	public void saveListener(ActionListener al) {
 		btnSave.addActionListener(al);
 	}
-	
-	// Refreshes the table to be the same as the object 
-	
-	public void refreshTable()
-	{
-		lblChildName.setText(child.getName());
-		ArrayList<Mark> marks = (ArrayList<Mark>)child.getMarks();
 
-		while(tableModel.getRowCount() > 0)
-		{
+	// Refreshes the table to be the same as the object
+
+	public void refreshTable() {
+		lblChildName.setText(child.getName());
+		ArrayList<Mark> marks = (ArrayList<Mark>) child.getMarks();
+
+		while (tableModel.getRowCount() > 0) {
 			tableModel.removeRow(0);
 		}
-		
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/YY hh:mm:ss a");
+
+		SimpleDateFormat dateFormatter = new SimpleDateFormat(
+				"dd/MM/YY hh:mm:ss a");
 
 		int size = marks.size();
-		for(int i = 0; i < size; i++)
-		{
+
+		// Iterates through all the marks in teh list (which is retrieved from
+		// the child) then displays them in the table
+
+		for (int i = 0; i < size; i++) {
 			Mark mark = marks.get(i);
-			
+
 			Object[] rowData = new Object[6];
-			
+
 			rowData[0] = dateFormatter.format(mark.getTime().getTime());
-			if(mark.getObjective() != null)
-			{
+			if (mark.getObjective() != null) {
 				rowData[1] = mark.getObjective().getName();
 			}
-			if(mark.getStep() != null)
-			{
-			rowData[2] = mark.getStep().getNo();
+			if (mark.getStep() != null) {
+				rowData[2] = mark.getStep().getNo();
 			}
-			if(mark.getSession() != null)
-			{
-			rowData[3] = mark.getSession();
+			if (mark.getSession() != null) {
+				rowData[3] = mark.getSession();
 			}
-			rowData[4] = mark;
+			rowData[4] = mark.toString();
 			rowData[5] = mark.getComment();
-			
+
 			tableModel.addRow(rowData);
-			
+
 		}
 	}
 
 	// Sets the child on this screen to the one parsed through
-	
-	public void setChild(Child c)
-	{
+
+	public void setChild(Child c) {
 		child = c;
 	}
 
-	@Override
+	// Overrides the refreshView method in PanelView and refreshes the view of this panel
 	public void refreshView() {
 		refreshTable();
 	}

@@ -10,9 +10,7 @@ import system.sessions.Session;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-
 import com.toedter.calendar.JDateChooser;
-
 
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
@@ -31,9 +29,9 @@ import javax.swing.JPanel;
 import javax.swing.ScrollPaneConstants;
 
 import javax.swing.JToggleButton;
+import java.awt.BorderLayout;
 
 public class AddDay extends PanelView {
-
 
 	private static final long serialVersionUID = 3352767716977743660L;
 	private JButton btnSubmit;
@@ -47,42 +45,44 @@ public class AddDay extends PanelView {
 	private Object[][] tglbtn;
 	private JDateChooser dateChooser;
 	private ComboBoxModel<Room> cmbModel;
-	
+
 	private DefaultListModel<Session> listModel;
-	private JButton button_1;
-	
-	
+	private JButton btnRemove;
+
 	public AddDay() {
 		super();
 		initialise();
-	
+
 	}
-	
-	public AddDay(ESDMModel model)
-	{
+
+	public AddDay(ESDMModel model) {
 		super(model);
 		initialise();
 	}
+
+	// Initialises all the graphical components on the panel.
 	
-	private void initialise()
-	{	
+	private void initialise() {
 		setLayout(null);
-		
+
+		// Sets the title of the panel
 		super.setTitle("Add Day");
-		
-		
-		JLabel lblDate = new JLabel("Date:");
-		lblDate.setBounds(10, 43, 73, 14);
-		add(lblDate);
-		
+
+		// Initialises and adds a new date chooser to the panel
 		dateChooser = new JDateChooser();
-		dateChooser.setBounds(48, 43, 184, 29);
+		dateChooser.setBounds(447, 65, 223, 29);
 		add(dateChooser);
-		
+
+		JLabel lblDate = new JLabel("Date:");
+		dateChooser.add(lblDate, BorderLayout.WEST);
+
+		// Initialises and adds a new button to the panel
 		btnSubmit = new JButton("Submit");
 		btnSubmit.setBounds(438, 488, 89, 23);
 		add(btnSubmit);
-		
+
+		// Initialises and adds a reset button to the page and an action listener
+		// that when clicked refresh the view (Reset all fields)
 		btnReset = new JButton("Reset");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -91,79 +91,87 @@ public class AddDay extends PanelView {
 		});
 		btnReset.setBounds(537, 489, 94, 21);
 		add(btnReset);
-		
+
+		// Adds a cancel button to the panel
 		btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(641, 489, 94, 21);
 		add(btnCancel);
-		
-		
-		
-		
+
+		// adds a new Panel to the screen inside the scroll pane that was required
+		// to choose the child
 		childPanel = new JPanel();
 		childPanel.setLayout(null);
 		childPanel.setBounds(0, 0, 10000, 10000);
-		
-		
+
 		childScrollPane = new JScrollPane();
-		childScrollPane.setBounds(35, 104, 358, 456);
-		childScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		childScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		childScrollPane.setBounds(35, 104, 358, 407);
+		childScrollPane
+				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		childScrollPane
+				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		add(childScrollPane);
-		
+
 		childScrollPane.setViewportView(childPanel);
-		
-		
+
 		JLabel lblSessions = new JLabel("Sessions");
 		lblSessions.setBounds(403, 133, 133, 14);
 		lblSessions.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblSessions);
-		
+
 		JLabel lblCurrentSessionsinOrder = new JLabel("Current Sessions(In Order)");
 		lblCurrentSessionsinOrder.setBounds(581, 133, 154, 14);
 		lblCurrentSessionsinOrder.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblCurrentSessionsinOrder);
 		
-		lstSession = new JList<Session>(new Vector<Session>(this.getModel().getSessionList()));
-		lstSession.setBounds(403, 158, 133, 240);
-		add(lstSession);
-		
-		listModel = new DefaultListModel<Session>();
-		
-		lstCurrentSession = new JList<Session>(listModel);
-		lstCurrentSession.setBounds(591, 158, 143, 240);
-		add(lstCurrentSession);
-		
-		JButton button = new JButton(">");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				listModel.addElement((Session)lstSession.getSelectedValue());
-			}
-		});
-		button.setBounds(546, 210, 43, 29);
-		add(button);
-		
 		JLabel lblRoom = new JLabel("Room:");
 		lblRoom.setBounds(403, 430, 46, 14);
 		add(lblRoom);
+
+		// Creates a new list and populates it with all the sessions in the model 
+		lstSession = new JList<Session>(new Vector<Session>(this.getModel()
+				.getSessionList()));
+		lstSession.setBounds(403, 158, 133, 240);
+		add(lstSession);
+
 		
-		cmbRoom = new JComboBox<Room>();
+
+		// Creates a new empty list for the chosen sessions to go in
+		listModel = new DefaultListModel<Session>();
+		lstCurrentSession = new JList<Session>(listModel);
+		lstCurrentSession.setBounds(591, 158, 143, 240);
+		add(lstCurrentSession);
+
+		// Creates the add button which when pressed adds the chosen element in to the current session list
+		JButton btnAdd = new JButton(">");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listModel.addElement((Session) lstSession.getSelectedValue());
+			}
+		});
+		btnAdd.setBounds(546, 210, 43, 29);
+		add(btnAdd);
 		
-		Vector<Room> v = new Vector<Room>(this.getModel().getRoomList());
-		cmbModel = new DefaultComboBoxModel<Room>(v);
-		
-		cmbRoom.setModel(cmbModel);
-		cmbRoom.setBounds(451, 427, 138, 21);
-		add(cmbRoom);
-		
-		button_1 = new JButton("<");
-		button_1.addActionListener(new ActionListener() {
+		// Creates the remove button which when pressed removes the chosen element in the current session list
+		btnRemove = new JButton("<");
+		btnRemove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				listModel.remove(lstCurrentSession.getSelectedIndex());
 			}
 		});
-		button_1.setBounds(546, 246, 43, 29);
-		add(button_1);
-		
+		btnRemove.setBounds(546, 246, 43, 29);
+		add(btnRemove);
+
+
+		// Adds a new combo box to the page which contains the rooms
+
+		cmbRoom = new JComboBox<Room>();
+		Vector<Room> v = new Vector<Room>(this.getModel().getRoomList());
+		cmbModel = new DefaultComboBoxModel<Room>(v);
+		cmbRoom.setModel(cmbModel);
+		cmbRoom.setBounds(451, 427, 138, 21);
+		add(cmbRoom);
+
+		// Moves the selected object in the list up one
 		JButton btnUp = new JButton("Up");
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -172,7 +180,8 @@ public class AddDay extends PanelView {
 		});
 		btnUp.setBounds(744, 210, 60, 29);
 		add(btnUp);
-		
+
+		// Moves the selected object in the list down one
 		JButton btnDown = new JButton("Down");
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -181,105 +190,92 @@ public class AddDay extends PanelView {
 		});
 		btnDown.setBounds(744, 249, 60, 26);
 		add(btnDown);
-		
-		refreshView();
-
 	}
-	
-	
-	public void refreshView()
-	{
+
+	// Overrides the refreshView method in PanelView and refreshes the view of this panel
+	public void refreshView() {
+		
 		childPanel.removeAll();
-		
-		ArrayList<Child> temp = (ArrayList<Child>)this.getModel().getChildList();
-		
-		
+
+		ArrayList<Child> temp = (ArrayList<Child>) this.getModel()
+				.getChildList();
+
 		tglbtn = new Object[temp.size()][2];
-		
+
 		JToggleButton tempButton;
-		
+
 		int x = -90;
 		int s = -300;
-		
+
 		int size = temp.size();
-		for(int i = 0; i < size; i++)
-		{
-			if(i % 3 == 0)
-			{
+		for (int i = 0; i < size; i++) {
+			if (i % 3 == 0) {
 				x = x + 100;
 				s = s + 300;
 			}
-			
-			
+
 			Child child = temp.get(i);
-			
+
 			tglbtn[i][1] = child;
-			
+
 			tempButton = new JToggleButton(child.getName());
 			tempButton.setBounds(10 + (100 * i) - s, x, 100, 100);
 			tglbtn[i][0] = tempButton;
 			childPanel.add(tempButton);
 			tempButton.requestFocusInWindow();
-			
-			
+
 		}
 
 		childPanel.setPreferredSize(new Dimension(350, (tglbtn.length * 40)));
 		revalidate();
-		
+
 		listModel.clear();
-		
+
 		Vector<Room> v = new Vector<Room>(this.getModel().getRoomList());
 		ComboBoxModel<Room> cmbModel = new DefaultComboBoxModel<Room>(v);
 		cmbRoom.setModel(cmbModel);
-		
+
 		this.requestFocusInWindow();
-		
+
 	}
-	
-	private void swapButton(int i) 
-	{
+
+	private void swapButton(int i) {
 		int index = lstCurrentSession.getSelectedIndex();
 		System.out.println(index);
-		if(index >= 0)
-		{
-			Session temp = (Session)listModel.remove(index);
-		
+		if (index >= 0) {
+			Session temp = (Session) listModel.remove(index);
+
 			index = index + i;
-		
-			if(index >= 0 && index <= listModel.size())
-			{
+
+			if (index >= 0 && index <= listModel.size()) {
 				listModel.add(index, temp);
-			}
-			else
-			{
+			} else {
 				index = index - i;
 				listModel.add(index, temp);
 			}
 		}
 	}
-	
-	public void submitListener(ActionListener al)
-	{
-		btnSubmit.addActionListener(al);	
+
+	// Takes in an ActionListener and adds it to the submit button
+
+	public void submitListener(ActionListener al) {
+		btnSubmit.addActionListener(al);
 	}
-	
-	public void cancelListener(ActionListener al)
-	{
+
+	// Takes in an ActionListener and adds it to the cancel button
+
+	public void cancelListener(ActionListener al) {
 		btnCancel.addActionListener(al);
 	}
-	
-	public ArrayList<Child> getChildren()
-	{
+
+	public ArrayList<Child> getChildren() {
 		ArrayList<Child> childList = new ArrayList<Child>();
 
-		for(int i = 0; i < tglbtn.length; i++)
-		{
-			JToggleButton toggleButton = (JToggleButton)tglbtn[i][0];
+		for (int i = 0; i < tglbtn.length; i++) {
+			JToggleButton toggleButton = (JToggleButton) tglbtn[i][0];
 			System.out.println(i);
-			if(toggleButton.isSelected())
-			{
-				childList.add((Child)tglbtn[i][1]);
+			if (toggleButton.isSelected()) {
+				childList.add((Child) tglbtn[i][1]);
 			}
 		}
 		return childList;
@@ -292,18 +288,18 @@ public class AddDay extends PanelView {
 
 	public ArrayList<Session> getSessions() {
 		ArrayList<Session> session = new ArrayList<Session>();
-		
-		int size = listModel.getSize();;
-		for(int i = 0; i < size; i++)
-		{
+
+		int size = listModel.getSize();
+		;
+		for (int i = 0; i < size; i++) {
 			session.add(listModel.get(i));
 		}
-		
+
 		return session;
 	}
 
 	public Calendar getDate() {
 		return dateChooser.getCalendar();
 	}
-	
+
 }

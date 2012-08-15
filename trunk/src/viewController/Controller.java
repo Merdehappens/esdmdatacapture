@@ -33,8 +33,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
-import java.awt.Component;
-import javax.swing.Box;
 
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
@@ -42,7 +40,7 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
 //testing
 /**
  * @author Damian
- *
+ * 
  */
 public class Controller extends JFrame {
 
@@ -52,9 +50,9 @@ public class Controller extends JFrame {
 	private static final long serialVersionUID = -6281745567153858417L;
 	private static final int xRes = 1024;
 	private static final int yRes = 600;
-	
+
 	private ESDMModel model;
-	
+
 	private static JFrame loadingFrame;
 	private JPanel contentPane;
 	private JPanel homePanel;
@@ -85,18 +83,20 @@ public class Controller extends JFrame {
 	private ChildView childViewGrid;
 	private ViewObjective viewObjective;
 	private JLabel lblMessage;
-	
-	
-	
+
 	public Controller() throws MalformedURLException {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-		        int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?", "Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-		        if (answer == JOptionPane.YES_OPTION) {
-		            System.exit(0);
-		        }
-	
+				int answer = JOptionPane
+						.showConfirmDialog(null,
+								"Are you sure you want to quit?", "Quit",
+								JOptionPane.YES_NO_OPTION,
+								JOptionPane.QUESTION_MESSAGE);
+				if (answer == JOptionPane.YES_OPTION) {
+					System.exit(0);
+				}
+
 			}
 		});
 		setLookAndFeel();
@@ -104,22 +104,19 @@ public class Controller extends JFrame {
 		initComponents();
 		initButtonListeners();
 	}
-	
+
 	public Controller(ESDMModel model) throws MalformedURLException {
-		
+
 		setLookAndFeel();
 		this.model = model;
 		initComponents();
 		initButtonListeners();
 	}
-	
-	
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		
 
 		loadingFrame = new JFrame("Loading");
 		
@@ -134,27 +131,22 @@ public class Controller extends JFrame {
 		final Thread t1 = new Thread(new Runnable() {
 			public void run() {
 
-				try{
-				Controller frame = new Controller();
-				frame.setVisible(true);
-				frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+				try {
+					Controller frame = new Controller();
+					frame.setVisible(true);
+					frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
-
-				
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-				
-		}
-	});
-		
 
-		
+			}
+		});
+
 		final Thread t2 = new Thread(new Runnable() {
 			public void run() {
 
-				try{
+				try {
 					JPanel contentPane = new JPanel();
 					JLabel loading = new JLabel("Loading...Please Wait.");
 					loading.setFont(new Font("Monotype Corsiva", 1, 25));
@@ -163,39 +155,31 @@ public class Controller extends JFrame {
 					loadingFrame.setContentPane(contentPane);
 					loadingFrame.pack();
 					loadingFrame.setVisible(true);
-					
+
 					loadingFrame.addWindowListener(new WindowAdapter() {
 						@Override
 						public void windowClosing(WindowEvent arg0) {
-								System.exit(0);
-					        }
+							System.exit(0);
+						}
 					});
-					
+
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-				
-		}
-	});
+
+			}
+		});
 		t2.run();
 		t1.run();
-		
-		
-		
-		
-	//	EventQueue.invokeLater
-		
-		
+
+		// EventQueue.invokeLater
+
 	}
 
-
-
 	// Initialises all of the Graphical information in the class
-	
-	public void initComponents()
-	{
-		//Sets the main frame Title, and bounds.
+
+	public void initComponents() {
+		// Sets the main frame Title, and bounds.
 
 		setTitle("ESDM Data Capture");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -204,29 +188,24 @@ public class Controller extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		//Set the main layout of the project (tabbed pane)
+
+		// Set the main layout of the project (tabbed pane)
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 
-
 		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tabbedPane.setBorder(null);
-		
+
 		tabbedPane.setBounds(0, 0, 1008, 541);
 		contentPane.add(tabbedPane);
-		
 
+		// Add the 6 main panels to the program and then add them to the tabbed
+		// pane.
 
-		
-		
-		
-		//Add the 6 main panels to the program and then add them to the tabbed pane.
-			
 		homePanel = new JPanel();
 		tabbedPane.addTab("Home", null, homePanel, null);
 		homePanel.setLayout(new CardLayout(0, 0));
-		
+
 		sessionPanel = new JPanel();
 		tabbedPane.addTab("Session", null, sessionPanel, null);
 		sessionPanel.setLayout(new CardLayout(0, 0));
@@ -238,42 +217,36 @@ public class Controller extends JFrame {
 		objectivePanel = new JPanel();
 		tabbedPane.addTab("Objectives", null, objectivePanel, null);
 		objectivePanel.setLayout(new CardLayout(0, 0));
-		
+
 		reportingPanel = new JPanel();
 		tabbedPane.addTab("Reporting", null, reportingPanel, null);
 		reportingPanel.setLayout(new CardLayout(0, 0));
-		
+
 		accountPanel = new JPanel();
 		tabbedPane.addTab("Account Management", null, accountPanel, null);
 		accountPanel.setLayout(new CardLayout(0, 0));
-		
 
-		
-		
-		
-		//Add all the panels (Cards) to the Session Tab
+		// Add all the panels (Cards) to the Session Tab
 
 		homeView = new HomeView();
 		homePanel.add(homeView, "Home");
 
-		
-		//Add all the panels (Cards) to the Session Tab
-		
+		// Add all the panels (Cards) to the Session Tab
+
 		addDay = new AddDay(model);
 		sessionPanel.add(addDay, "addDay");
 
 		sessionView = new SessionView(model);
 		sessionPanel.add(sessionView, "Session");
-		
+
 		reviewSession = new ReviewSession();
 		sessionPanel.add(reviewSession, "reviewSession");
 
 		logSessionData = new LogSessionData(model);
 		sessionPanel.add(logSessionData, "logSessionData");
 
+		// Add all the panels (Cards) to the Child Tab
 
-		//Add all the panels (Cards) to the Child Tab
-		
 		childViewGrid = new ChildView(model);
 		childPanel.add(childViewGrid, "Child");
 
@@ -285,149 +258,139 @@ public class Controller extends JFrame {
 
 		findChild = new FindChild(model);
 		childPanel.add(findChild, "findChild");
-		
-		
-		
-		//Add all the panels (Cards) to the Objectives Tab
+
+		// Add all the panels (Cards) to the Objectives Tab
 
 		objectiveView = new ObjectiveView(model);
 		objectivePanel.add(objectiveView, "Objective");
 
 		addObjectiveChild = new AddObjectiveChild(model);
 		objectivePanel.add(addObjectiveChild, "addObjectiveChild");
-		
+
 		viewObjective = new ViewObjective(model);
 		objectivePanel.add(viewObjective, "viewObjective");
-		
+
 		addObjective = new AddObjective();
 		objectivePanel.add(addObjective, "addObjective");
-		
-		
-		//Add all the panels (Cards) to the Reporting Tab
+
+		// Add all the panels (Cards) to the Reporting Tab
 
 		reportingView = new ReportingView();
 		reportingPanel.add(reportingView, "Reporting");
-		
+
 		findChildReport = new FindChild(model);
 		reportingPanel.add(findChildReport, "findChildReport");
-		
+
 		viewReport = new ViewReport();
 		reportingPanel.add(viewReport, "viewReport");
 
-		//Add all the panels (Cards) to the Accounts Tab
-		
+		// Add all the panels (Cards) to the Accounts Tab
+
 		accountView = new AccountView();
 		accountPanel.add(accountView, "Account");
-		
+
 		changeEmail = new ChangeEmail();
 		accountPanel.add(changeEmail, "changeEmail");
-		
+
 		changePassword = new ChangePassword();
 		accountPanel.add(changePassword, "changePassword");
-		
+
 		newUserAccount = new NewUserAccount();
 		accountPanel.add(newUserAccount, "newUserAccount");
-		
+
 		lblMessage = new JLabel("");
 		lblMessage.setBounds(10, 540, 432, 24);
 		contentPane.add(lblMessage);
 
-		
 		// Show the login screen
-		
 
 		showLogin();
 	}
-	
-	
-	// This function calls the functions from within each view class that retrieve an ActionListener
+
+	// This function calls the functions from within each view class that
+	// retrieve an ActionListener
 	// And determine what should be done in the case of a button press.
-	
-	public void initSessionButtonListeners()
-	{
-		
+
+	public void initSessionButtonListeners() {
+
 		addDay.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				
+
 				ArrayList<Child> children = addDay.getChildren();
 				Room room = addDay.getRoom();
 				ArrayList<Session> sessions = addDay.getSessions();
 				Calendar date = addDay.getDate();
-				
+
 				try {
-					logSessionData.setDay(model.addDay(date, children, room, sessions));
+					logSessionData.setDay(model.addDay(date, children, room,
+							sessions));
 					show(sessionPanel, "logSessionData");
 				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
 				}
-				
+
 			}
 		});
-		
-		
+
 		addDay.cancelListener(ActionListenerShow(sessionPanel, "Session"));
-		
+
 		logSessionData.commitMarkListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				logSessionData.addMark();
 			}
 		});
-		
-		logSessionData.addTimestampListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				logSessionData.addTimestamp();
-			}
-		});
-		
+
+		logSessionData
+				.addTimestampListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						logSessionData.addTimestamp();
+					}
+				});
+
 		logSessionData.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				reviewSession.setDay(logSessionData.getDay());
 				show(sessionPanel, "reviewSession");
 			}
 		});
-		
+
 		reviewSession.saveListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				show(sessionPanel, "Session");
 			}
 		});
-		
-		
+
 		sessionView.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				try{
+				try {
 
 					reviewSession.setDay(sessionView.getDay());
 					show(sessionPanel, "reviewSession");
-				}
-				catch(Exception e)
-				{
+				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
 				}
 			}
 		});
-		
-		
+
 		reviewSession.logMarksListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				logSessionData.setDay(reviewSession.getDay());
 				show(sessionPanel, "logSessionData");
 			}
 		});
-		
+
 	}
-	
-	public void initChildButtonListeners()
-	{
-		
+
+	public void initChildButtonListeners() {
+
 		addChild.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				addChildSubmit(evt);
 			}
 		});
-		
+
 		addChild.cancelListener(ActionListenerShow(childPanel, "Child"));
-		
+
 		findChild.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				findChildSubmit(evt);
@@ -435,104 +398,105 @@ public class Controller extends JFrame {
 		});
 
 		findChild.cancelListener(ActionListenerShow(childPanel, "Child"));
-		addObjectiveChild.cancelListener(ActionListenerShow(childPanel, "Child"));
-		
-		childViewGrid.addChildListener(ActionListenerShow(childPanel, "addChild"));
+		addObjectiveChild
+				.cancelListener(ActionListenerShow(childPanel, "Child"));
 
-		
+		childViewGrid.addChildListener(ActionListenerShow(childPanel,
+				"addChild"));
+
 		childViewGrid.editChildListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				
-				try{
+
+				try {
 					editChild.setChild(childViewGrid.getSelectedChild());
 					show(childPanel, "editChild");
-				}
-				catch(Exception e)
-				{
-					showErrorMessage(e.getMessage());
-				}
-			}
-		});
-		
-		
-		childViewGrid.removeChildListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				
-				Child child;
-				try {
-					child = childViewGrid.getSelectedChild();
-					
-					String temp = "Are you sure you wish to delete " + child.getName() + " ?";
-					
-					int res = JOptionPane.showConfirmDialog(null, temp, "Delete Child", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);				
-					
-					if(res == 0 )
-					{
-						model.removeChild(child);
-						showMessage(child.getName() + " was removed from the system.");
-					}
-					
 				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
 				}
-				
-
-				childViewGrid.refreshView();
-				
 			}
 		});
-		
+
+		childViewGrid.removeChildListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+
+				Child child;
+				try {
+					child = childViewGrid.getSelectedChild();
+
+					String temp = "Are you sure you wish to delete "
+							+ child.getName() + " ?";
+
+					int res = JOptionPane.showConfirmDialog(null, temp,
+							"Delete Child", JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.PLAIN_MESSAGE);
+
+					if (res == 0) {
+						model.removeChild(child);
+						showMessage(child.getName()
+								+ " was removed from the system.");
+					}
+
+				} catch (Exception e) {
+					showErrorMessage(e.getMessage());
+				}
+
+				childViewGrid.refreshView();
+
+			}
+		});
+
 	}
 
-	public void initAccountButtonListeners()
-	{
-		
+	public void initAccountButtonListeners() {
+
 		changePassword.changePassword(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				changePassword();
 			}
 		});
-		
+
 		changePassword.cancel(ActionListenerShow(accountPanel, "Account"));
-		
+
 		changeEmail.changeEmail(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				model.setEmail(changeEmail.getEmail());
+				show(accountPanel, "Account");
 				showMessage("Email successfully changed.");
 			}
 		});
-		
+
 		changeEmail.cancel(ActionListenerShow(accountPanel, "Account"));
-		
+
 		newUserAccount.submit(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				String name = newUserAccount.getUsersName();
 				String username = newUserAccount.getUsername();
 				String emailAddress = newUserAccount.getEmailAddress();
 				String phoneNo = newUserAccount.getPhoneNo();
-				String pass = model.addUser(name, username, emailAddress, phoneNo);
-				
-				showMessage("The password has been set to: " + pass	+ "." + "\nPlease note this down and inform the user.");
+				String pass = model.addUser(name, username, emailAddress,
+						phoneNo);
+
+				showMessage("The password has been set to: " + pass + "."
+						+ "\nPlease note this down and inform the user.");
 			}
 		});
-		
+
 		newUserAccount.cancel(ActionListenerShow(accountPanel, "Account"));
-		
+
 	}
-	
-	public void initObjectiveButtonListeners()
-	{
+
+	public void initObjectiveButtonListeners() {
 		addObjective.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				addObjective();
 			}
 		});
-		
-		addObjective.cancelListener(ActionListenerShow(objectivePanel, "Objective"));
+
+		addObjective.cancelListener(ActionListenerShow(objectivePanel,
+				"Objective"));
 	}
-	
-	public void initReportingButtonListeners()
-	{
+
+	public void initReportingButtonListeners() {
 		reportingView.viewReportListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				show(reportingPanel, "findChildReport");
@@ -540,41 +504,42 @@ public class Controller extends JFrame {
 				findChildReport.setChildren(model.getChildList());
 			}
 		});
-		
+
 		findChildReport.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				findChildReportSubmit(evt);
 			}
 		});
 
-		findChildReport.cancelListener(ActionListenerShow(reportingPanel, "Reporting"));
-		
-	}
-	
+		findChildReport.cancelListener(ActionListenerShow(reportingPanel,
+				"Reporting"));
 
-	public void initButtonListeners()
-	{
+	}
+
+	public void initButtonListeners() {
 		initSessionButtonListeners();
 		initChildButtonListeners();
 		initObjectiveButtonListeners();
 		initAccountButtonListeners();
 		initReportingButtonListeners();
-		
+
 		sessionView.newDay(ActionListenerShow(sessionPanel, "addDay"));
 
-		viewObjective.cancelListener(ActionListenerShow(objectivePanel, "Objective"));
-		
+		viewObjective.cancelListener(ActionListenerShow(objectivePanel,
+				"Objective"));
+
 		viewObjective.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				
+
 			}
 		});
 
 		objectiveView.viewObjectives(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				
+
 				try {
-					viewObjective.setObjective(objectiveView.getSelectedObjective());
+					viewObjective.setObjective(objectiveView
+							.getSelectedObjective());
 					show(objectivePanel, "viewObjective");
 				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
@@ -585,41 +550,42 @@ public class Controller extends JFrame {
 		objectiveView.addObjectiveToChild(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
-					addObjectiveChild.setObjective(objectiveView.getSelectedObjective());
+					addObjectiveChild.setObjective(objectiveView
+							.getSelectedObjective());
 					show(objectivePanel, "addObjectiveChild");
 				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
 				}
-				
-				
+
 			}
 		});
 
 		addObjectiveChild.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				
+
 				Child child = addObjectiveChild.getSelectedChild();
 				Objective objective = addObjectiveChild.getObjective();
-				
+
 				try {
 					model.addObjectiveChild(child, objective);
 					show(objectivePanel, "Objective");
-					showMessage("Objective successfully added to " + child.getName() + " .");
+					showMessage("Objective successfully added to "
+							+ child.getName() + " .");
 				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
 				}
-				
+
 			}
 		});
-		
-		addObjectiveChild.cancelListener(ActionListenerShow(objectivePanel, "Objective"));
-		
-		
-		
-		objectiveView.addNewObjective(ActionListenerShow(objectivePanel, "addObjective"));
-		
+
+		addObjectiveChild.cancelListener(ActionListenerShow(objectivePanel,
+				"Objective"));
+
+		objectiveView.addNewObjective(ActionListenerShow(objectivePanel,
+				"addObjective"));
+
 		editChild.cancelListener(ActionListenerShow(childPanel, "Child"));
-		
+
 		editChild.saveChildListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				Object[] childDetails = editChild.getInformation();
@@ -627,36 +593,36 @@ public class Controller extends JFrame {
 				String name = (String) childDetails[0];
 				Calendar dob = (Calendar) childDetails[1];
 				Calendar dateJoined = (Calendar) childDetails[2];
-				
-				
-				String temp = "Are you sure you wish to save details for " + child.getName() + "\nWith ID: " + child + "?";
-				
-				int res = JOptionPane.showConfirmDialog(null, temp, "Save Details", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-				if(res == 0)
-				{
+
+				String temp = "Are you sure you wish to save details for "
+						+ child.getName() + "\nWith ID: " + child + "?";
+
+				int res = JOptionPane.showConfirmDialog(null, temp,
+						"Save Details", JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.PLAIN_MESSAGE);
+				if (res == 0) {
 					try {
 						model.updateChild(child, name, dob, dateJoined);
 						showMessage("Details successfully saved.");
 					} catch (Exception e) {
 						showErrorMessage(e.getMessage());
 					}
-				}
-				else
-				{
-					
+				} else {
+
 				}
 				editChild.refreshView();
 			}
 		});
-		
-		accountView.changeEmailAddress(ActionListenerShow(accountPanel, "changeEmail"));
-		
-		accountView.changePassword(ActionListenerShow(accountPanel, "changePassword"));
-		
-		accountView.newUserAccount(ActionListenerShow(accountPanel, "newUserAccount"));
-		
-		
-		
+
+		accountView.changeEmailAddress(ActionListenerShow(accountPanel,
+				"changeEmail"));
+
+		accountView.changePassword(ActionListenerShow(accountPanel,
+				"changePassword"));
+
+		accountView.newUserAccount(ActionListenerShow(accountPanel,
+				"newUserAccount"));
+
 		tabbedPane.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 				show(childPanel, "Child");
@@ -667,52 +633,49 @@ public class Controller extends JFrame {
 				show(accountPanel, "Account");
 			}
 		});
-		
-
 
 	}
-	
-	
+
 	private void addObjective() {
 		String name = addObjective.getObjectiveName();
 		String description = addObjective.getObjectiveDescription();
 		String[][] steps = addObjective.getSteps();
-		try{
-		model.addObjective(name, description, steps);
-		show(objectivePanel, "Objective");
-		showMessage("Objective successfully added to system.");
-		}
-		catch(Exception e)
-		{
+		try {
+			model.addObjective(name, description, steps);
+			show(objectivePanel, "Objective");
+			showMessage("Objective successfully added to system.");
+		} catch (Exception e) {
 			showErrorMessage(e.getMessage());
 		}
 	}
 
 	protected void changePassword() {
-		try{
+		try {
 			String[] arr = changePassword.getNewPassword();
-			model.changePassword(changePassword.getOldPassword(), arr[0], arr[1]);
+			model.changePassword(changePassword.getOldPassword(), arr[0],
+					arr[1]);
+			show(accountPanel, "Account");
 			showMessage("Your password has been successfully changed.");
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			showErrorMessage(e.getMessage());
 		}
-		
+
 	}
 
-	// Takes in one of the tabbed panes panels and a string of card name and shows that panel
-	// Only panels that are compatible with this method are panels that are CardLayout.
-	// Such as: 	homePanel, sessionPanel, childPanel, objectivePanel, reportingPanel, accountPanel.
+	// Takes in one of the tabbed panes panels and a string of card name and
+	// shows that panel
+	// Only panels that are compatible with this method are panels that are
+	// CardLayout.
+	// Such as: homePanel, sessionPanel, childPanel, objectivePanel,
+	// reportingPanel, accountPanel.
 
-	private void show(JPanel panel, String card)
-	{
-		CardLayout temp = (CardLayout)panel.getLayout();
+	private void show(JPanel panel, String card) {
+		CardLayout temp = (CardLayout) panel.getLayout();
 		temp.show(panel, card);
 		lblMessage.setText("");
 	}
-	
-	private ActionListener ActionListenerShow(JPanel panel, String card)
-	{
+
+	private ActionListener ActionListenerShow(JPanel panel, String card) {
 		final JPanel j = panel;
 		final String c = card;
 		ActionListener al = new java.awt.event.ActionListener() {
@@ -720,36 +683,31 @@ public class Controller extends JFrame {
 				show(j, c);
 			}
 		};
-		
+
 		return al;
-		
+
 	}
 
+	// Sets the child in the edit child panel and then shows the edit child
+	// panel
 
-
-
-	
-	//Sets the child in the edit child panel and then shows the edit child panel
-	
-	private void findChildSubmit(ActionEvent evt)
-	{
-		EditChild p = (EditChild)findChild.getDestination();
+	private void findChildSubmit(ActionEvent evt) {
+		EditChild p = (EditChild) findChild.getDestination();
 		p.setChild(findChild.getSelectedChild());
 		show(childPanel, "editChild");
 	}
-	
-	private void findChildReportSubmit(ActionEvent evt)
-	{
-		ViewReport p = (ViewReport)findChildReport.getDestination();
+
+	private void findChildReportSubmit(ActionEvent evt) {
+		ViewReport p = (ViewReport) findChildReport.getDestination();
 		p.setChild(findChildReport.getSelectedChild());
 		p.refreshTable();
 		show(reportingPanel, "viewReport");
 	}
-	
-	//Adds a child to the model then shows the EditChild panel with all those details listed 
 
-	private void addChildSubmit(ActionEvent evt)
-	{
+	// Adds a child to the model then shows the EditChild panel with all those
+	// details listed
+
+	private void addChildSubmit(ActionEvent evt) {
 		String name = addChild.getChildName();
 		Calendar dob = addChild.getDob();
 		Calendar dateJoined = addChild.getDateJoined();
@@ -763,16 +721,12 @@ public class Controller extends JFrame {
 		} catch (Exception e) {
 			showErrorMessage(e.getMessage());
 		}
-		
+
 	}
 
+	// Sets the look and feel of the user interface.
 
-
-
-	//Sets the look and feel of the user interface.
-	
-	private void setLookAndFeel()
-	{
+	private void setLookAndFeel() {
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
@@ -781,84 +735,74 @@ public class Controller extends JFrame {
 				}
 			}
 		} catch (Exception e) {
-			// If Nimbus is not available, you can set the GUI to another look and feel.
+			// If Nimbus is not available, you can set the GUI to another look
+			// and feel.
 		}
 
 	}
-	
-	
+
 	/***********************************************************************************
 	 * 
 	 * Sets up the login JOptionpane, then calls the model object to log in.
 	 * 
 	 ***********************************************************************************/
-	
-    @SuppressWarnings("deprecation")
-	public void showLogin()
-    {
+
+	@SuppressWarnings("deprecation")
+	public void showLogin() {
 
 		loadingFrame.setVisible(false);
-    	
-        JLabel label_loginname = new JLabel("Please enter your login name:");
-        JTextField loginname;
-        
-        JLabel label_password = new JLabel("Please enter your password:");
-        JPasswordField password;
-    	
-        JLabel label_tries;
-        
-        int tries = 0;
-        
-        do
-        {
-        	if(tries > 0)
-            label_tries = new JLabel("You have entered an incorrect username or password.");
-        	else
-        	label_tries = new JLabel("");
-        	
-            loginname = new JTextField(15);
-            password = new JPasswordField();
-        
 
-        
-         Object[] array = { label_tries,
-        		 		label_loginname, 
-                       loginname,
-                       label_password,
-                       password };
-         
-         int res = JOptionPane.showConfirmDialog(null, array, "Login", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-         
-         if(res != 0)
-         {
-        	 System.exit(1);
-         }
-         tries++;
-         
-        } while( !model.login(loginname.getText(), password.getText()) && tries != 3);
-         
-         if(model.loggedIn())
-         {
-           	
-         }
-         else
-         {
-        	 showErrorMessage("Three incorrect attempts. Exiting program.");
-        	 
-        	 System.exit(1);
-         }
-         
-    }
+		JLabel label_loginname = new JLabel("Please enter your login name:");
+		JTextField loginname;
 
-    private void showMessage(String message)
-    {
-    	lblMessage.setText(message);
-    }
-    
-    private void showErrorMessage(String message)
-    {
-    	showMessage(message);
-    	JOptionPane.showMessageDialog(null, message);
-    }
-    
+		JLabel label_password = new JLabel("Please enter your password:");
+		JPasswordField password;
+
+		JLabel label_tries;
+
+		int tries = 0;
+
+		do {
+			if (tries > 0)
+				label_tries = new JLabel(
+						"You have entered an incorrect username or password.");
+			else
+				label_tries = new JLabel("");
+
+			loginname = new JTextField(15);
+			password = new JPasswordField();
+
+			Object[] array = { label_tries, label_loginname, loginname,
+					label_password, password };
+
+			int res = JOptionPane.showConfirmDialog(null, array, "Login",
+					JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+			if (res != 0) {
+				System.exit(1);
+			}
+			tries++;
+
+		} while (!model.login(loginname.getText(), password.getText())
+				&& tries != 3);
+
+		if (model.loggedIn()) {
+
+		} else {
+			showErrorMessage("Three incorrect attempts. Exiting program.");
+
+			System.exit(1);
+		}
+
+	}
+
+	private void showMessage(String message) {
+		lblMessage.setText(message);
+	}
+
+	private void showErrorMessage(String message) {
+		showMessage(message);
+		JOptionPane.showMessageDialog(null, message);
+	}
+
 }
