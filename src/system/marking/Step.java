@@ -4,12 +4,18 @@
  */
 package system.marking;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  *
  * @author DAMIAN
  */
+
+@Entity
 public class Step {
     
+	@Id
     private String id;
     private String no;
     private String code;

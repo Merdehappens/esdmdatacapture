@@ -22,6 +22,7 @@ import javax.swing.event.ChangeEvent;
 import system.individuals.Child;
 import system.individuals.Guardian;
 import system.marking.Objective;
+import system.marking.Step;
 import system.model.ESDMModel;
 import system.model.Room;
 import system.sessions.Session;
@@ -34,6 +35,9 @@ import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.Component;
 import javax.swing.Box;
+
+import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.tool.hbm2ddl.SchemaExport;
 
 //testing
 /**
@@ -118,6 +122,14 @@ public class Controller extends JFrame {
 		
 
 		loadingFrame = new JFrame("Loading");
+		
+		// Hibernate Database set-up:
+		AnnotationConfiguration config = new AnnotationConfiguration();
+		config.addAnnotatedClass(Step.class);
+		config.configure("hibernate.cfg.xml");
+		
+		new SchemaExport(config).create(true, true);
+		// Hibernate Database set-up complete
 		
 		final Thread t1 = new Thread(new Runnable() {
 			public void run() {
