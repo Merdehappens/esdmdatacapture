@@ -32,6 +32,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
+import java.awt.Component;
+import javax.swing.Box;
 
 //testing
 /**
@@ -78,6 +80,7 @@ public class Controller extends JFrame {
 	private NewUserAccount newUserAccount;
 	private ChildView childViewGrid;
 	private ViewObjective viewObjective;
+	private JLabel lblMessage;
 	
 	
 	
@@ -198,7 +201,7 @@ public class Controller extends JFrame {
 		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tabbedPane.setBorder(null);
 		
-		tabbedPane.setBounds(0, 0, 1008, 564);
+		tabbedPane.setBounds(0, 0, 1008, 541);
 		contentPane.add(tabbedPane);
 		
 
@@ -312,6 +315,10 @@ public class Controller extends JFrame {
 		
 		newUserAccount = new NewUserAccount();
 		accountPanel.add(newUserAccount, "newUserAccount");
+		
+		lblMessage = new JLabel("");
+		lblMessage.setBounds(10, 540, 432, 24);
+		contentPane.add(lblMessage);
 
 		
 		// Show the login screen
@@ -339,7 +346,7 @@ public class Controller extends JFrame {
 					logSessionData.setDay(model.addDay(date, children, room, sessions));
 					show(sessionPanel, "logSessionData");
 				} catch (Exception e) {
-					showMessage(e.getMessage());
+					showErrorMessage(e.getMessage());
 				}
 				
 			}
@@ -383,7 +390,7 @@ public class Controller extends JFrame {
 				}
 				catch(Exception e)
 				{
-					showMessage(e.getMessage());
+					showErrorMessage(e.getMessage());
 				}
 			}
 		});
@@ -430,7 +437,7 @@ public class Controller extends JFrame {
 				}
 				catch(Exception e)
 				{
-					showMessage(e.getMessage());
+					showErrorMessage(e.getMessage());
 				}
 			}
 		});
@@ -454,7 +461,7 @@ public class Controller extends JFrame {
 					}
 					
 				} catch (Exception e) {
-					showMessage(e.getMessage());
+					showErrorMessage(e.getMessage());
 				}
 				
 
@@ -545,6 +552,11 @@ public class Controller extends JFrame {
 
 		viewObjective.cancelListener(ActionListenerShow(objectivePanel, "Objective"));
 		
+		viewObjective.submitListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				
+			}
+		});
 
 		objectiveView.viewObjectives(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -553,7 +565,7 @@ public class Controller extends JFrame {
 					viewObjective.setObjective(objectiveView.getSelectedObjective());
 					show(objectivePanel, "viewObjective");
 				} catch (Exception e) {
-					showMessage(e.getMessage());
+					showErrorMessage(e.getMessage());
 				}
 			}
 		});
@@ -564,7 +576,7 @@ public class Controller extends JFrame {
 					addObjectiveChild.setObjective(objectiveView.getSelectedObjective());
 					show(objectivePanel, "addObjectiveChild");
 				} catch (Exception e) {
-					showMessage(e.getMessage());
+					showErrorMessage(e.getMessage());
 				}
 				
 				
@@ -579,10 +591,10 @@ public class Controller extends JFrame {
 				
 				try {
 					model.addObjectiveChild(child, objective);
-					showMessage("Objective successfully added to " + child.getName() + " .");
 					show(objectivePanel, "Objective");
+					showMessage("Objective successfully added to " + child.getName() + " .");
 				} catch (Exception e) {
-					showMessage(e.getMessage());
+					showErrorMessage(e.getMessage());
 				}
 				
 			}
@@ -614,7 +626,7 @@ public class Controller extends JFrame {
 						model.updateChild(child, name, dob, dateJoined);
 						showMessage("Details successfully saved.");
 					} catch (Exception e) {
-						showMessage(e.getMessage());
+						showErrorMessage(e.getMessage());
 					}
 				}
 				else
@@ -655,12 +667,12 @@ public class Controller extends JFrame {
 		String[][] steps = addObjective.getSteps();
 		try{
 		model.addObjective(name, description, steps);
-		showMessage("Objective successfully added to system.");
 		show(objectivePanel, "Objective");
+		showMessage("Objective successfully added to system.");
 		}
 		catch(Exception e)
 		{
-			showMessage(e.getMessage());
+			showErrorMessage(e.getMessage());
 		}
 	}
 
@@ -671,7 +683,7 @@ public class Controller extends JFrame {
 			showMessage("Your password has been successfully changed.");
 		}
 		catch(Exception e){
-			showMessage(e.getMessage());
+			showErrorMessage(e.getMessage());
 		}
 		
 	}
@@ -684,6 +696,7 @@ public class Controller extends JFrame {
 	{
 		CardLayout temp = (CardLayout)panel.getLayout();
 		temp.show(panel, card);
+		lblMessage.setText("");
 	}
 	
 	private ActionListener ActionListenerShow(JPanel panel, String card)
@@ -732,11 +745,11 @@ public class Controller extends JFrame {
 		Child c;
 		try {
 			c = model.addChild(name, dob, dateJoined, guardians);
-			showMessage(name + " has been successfully added to the system.");
 			editChild.setChild(c);
 			show(childPanel, "Child");
+			showMessage(name + " has been successfully added to the system.");
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
+			showErrorMessage(e.getMessage());
 		}
 		
 	}
@@ -818,7 +831,7 @@ public class Controller extends JFrame {
          }
          else
          {
-        	 showMessage("Three incorrect attempts. Exiting program.");
+        	 showErrorMessage("Three incorrect attempts. Exiting program.");
         	 
         	 System.exit(1);
          }
@@ -827,8 +840,13 @@ public class Controller extends JFrame {
 
     private void showMessage(String message)
     {
+    	lblMessage.setText(message);
+    }
+    
+    private void showErrorMessage(String message)
+    {
+    	showMessage(message);
     	JOptionPane.showMessageDialog(null, message);
     }
     
-
 }
