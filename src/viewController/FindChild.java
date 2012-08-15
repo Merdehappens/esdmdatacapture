@@ -20,7 +20,6 @@ import java.util.List;
 
 public class FindChild extends PanelView {
 
-
 	/**
 	 * 
 	 */
@@ -37,25 +36,24 @@ public class FindChild extends PanelView {
 	public FindChild() {
 		super();
 		initialise();
-	
+
 	}
-	
-	public FindChild(ESDMModel model)
-	{
+
+	public FindChild(ESDMModel model) {
 		super(model);
 		initialise();
 	}
-	
-	private void initialise()
-	{
+
+	// Initialises all the graphical components on the page.
+	private void initialise() {
 		setLayout(null);
-		
+
 		super.setTitle("Select Child");
-		
+
 		btnSubmit = new JButton("Submit");
 		btnSubmit.setBounds(10, 316, 89, 23);
 		add(btnSubmit);
-		
+
 		btnReset = new JButton("Reset");
 
 		btnReset.addActionListener(new ActionListener() {
@@ -65,81 +63,71 @@ public class FindChild extends PanelView {
 			}
 		});
 
-
-		
 		btnReset.setBounds(111, 316, 89, 23);
 		add(btnReset);
-		
+
 		btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(210, 316, 89, 23);
 		add(btnCancel);
-		
+
 		childListModel = new DefaultListModel<Child>();
-		
+
 		childList = new JList<Child>(childListModel);
 		childList.setBounds(27, 118, 238, 172);
 		add(childList);
-		
 
-		
-		JLabel lblSelectChild = new JLabel("Select the Child that you wish to view details of:");
+		JLabel lblSelectChild = new JLabel(
+				"Select the Child that you wish to view details of:");
 		lblSelectChild.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSelectChild.setBounds(24, 93, 241, 14);
 		add(lblSelectChild);
-		
+
 		JLabel lblSearchChild = new JLabel("Search Child:");
 		lblSearchChild.setBounds(27, 31, 77, 30);
 		add(lblSearchChild);
-		
+
 		txtChildName = new JTextField();
 		txtChildName.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
 
 				searchList(txtChildName.getText());
-				
+
 			}
 		});
-
 
 		txtChildName.setBounds(100, 31, 162, 30);
 		add(txtChildName);
 		txtChildName.setColumns(10);
 
 	}
-	
 
-	public void setChildren(List<Child> list)
-	{
-		children = (ArrayList<Child>)list;
+	public void setChildren(List<Child> list) {
+		children = (ArrayList<Child>) list;
 		childListModel.clear();
 		txtChildName.setText("");
-		
+
 		int size = children.size();
-		for(int i = 0; i < size; i++)
-		{
+		for (int i = 0; i < size; i++) {
 			childListModel.addElement(children.get(i));
 		}
 	}
-	
-	
-	public Child getSelectedChild()
-	{
+
+	public Child getSelectedChild() {
 		return childList.getSelectedValue();
 	}
-	
-	public void submitListener(ActionListener al)
-	{
-		btnSubmit.addActionListener(al);	
+
+	// Takes in an ActionListener and adds it to the submit button
+	public void submitListener(ActionListener al) {
+		btnSubmit.addActionListener(al);
 	}
-	
-	public void cancelListener(ActionListener al)
-	{
+
+	// Takes in an ActionListener and adds it to the cancel button
+	public void cancelListener(ActionListener al) {
 		btnCancel.addActionListener(al);
 	}
-	
+
 	private void searchList(String text) {
-		
 
 	}
 
@@ -151,12 +139,10 @@ public class FindChild extends PanelView {
 		destination = p;
 	}
 
-	
+	// Overrides the refreshView method in PanelView and refreshes the view of this panel
 	public void refreshView() {
 		txtChildName.setText("");
 		searchList(txtChildName.getText());
 	}
 
-	
-	
 }

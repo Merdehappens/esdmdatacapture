@@ -20,6 +20,7 @@ public class Child implements SimpleKey {
     private Calendar dob;
     private List<Guardian> guardians;
     private List<Objective> objectives;
+    private List<Integer> currentStep;
     private List<Mark> marks;
     private ImageIcon picture;
     private URL pictureLink;
@@ -29,6 +30,7 @@ public class Child implements SimpleKey {
     {
         guardians = new ArrayList<Guardian>();
         objectives = new ArrayList<Objective>();
+        currentStep = new ArrayList<Integer>();
         marks = new ArrayList<Mark>();
         active = true;
     }
@@ -38,6 +40,7 @@ public class Child implements SimpleKey {
         guardians = new ArrayList<Guardian>();
         objectives = new ArrayList<Objective>();
         marks = new ArrayList<Mark>();
+        currentStep = new ArrayList<Integer>();
         this.name = name;
         this.dob = dob;
         this.dateJoined = dateJoined;
@@ -68,11 +71,13 @@ public class Child implements SimpleKey {
         this.guardians = guardians;
     }
     
+    // Adds a guardian to the list of guardians
     public void addGuardian(Guardian guardian)
     {
         guardians.add(guardian);
     }
     
+    // adds a mark to the list of marks
     public void addMark(Mark mark)
     {
     	marks.add(mark);
@@ -89,11 +94,42 @@ public class Child implements SimpleKey {
     public final String getName() {
         return name;
     }
+    
+    // Increments the current step of the objective parsed through by one
+    public void incrementStep(Objective o) throws Exception
+    {
+    	int size = objectives.size();
+    	int x = -1;
+    	
+    	for(int i = 0; i < size; i++)
+    	{
+    		if(objectives.get(i) == o)
+    		{
+    			objectives.get(i).getStepsNo();
+    			x = currentStep.get(i);
+    			x++;
+    			if(objectives.get(i).getStepsNo() >= x)
+    			{
+    				currentStep.set(i, x);
+    			}
+    			else
+    			{
+    				throw new Exception("Already at the maximum step for this objective");
+    			}
+    			break;
+    		}
+    	}
+    	
+    	if(x == -1)
+    	{
+    		throw new Exception("Could not find objective to increment step of");
+    	}
+    }
 
     public void setName(String name) throws Exception {
         if(name.equals(""))
         {
-        	throw(new Exception("The Child's name cannot be empty."));
+        	throw(new Exception("The child's name cannot be empty."));
         }
     	this.name = name;
     }
@@ -101,6 +137,23 @@ public class Child implements SimpleKey {
     public void addObjective(Objective o)
     {
         objectives.add(o);
+        currentStep.add(0);
+    }
+    
+    final public int getCurrentStep(Objective o)
+    {
+    	int size = objectives.size();
+    	
+    	for(int i = 0; i < size; i++)
+    	{
+    		if(objectives.get(i) == o)
+    		{
+    			return currentStep.get(i);
+    		}
+    	}
+    	
+    	return -1;
+    
     }
     
     /* This method takes in a URL. and sets the URL in the child object to that URL and sets the childs picture to be the

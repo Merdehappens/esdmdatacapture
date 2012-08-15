@@ -1,9 +1,15 @@
 package system.helper;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.Random;
+
+import javax.swing.JFileChooser;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 
 public class Helper {
@@ -68,13 +74,61 @@ public class Helper {
     * Returns a string representation of a calendar object in DD/MM/YY format
     */
    
-public static String simpleDateFormat(Calendar c) {
-	if(c != null)
-	{
-		return c.get(GregorianCalendar.DATE) + "/" + (c.get(GregorianCalendar.MONTH) + 1) + "/" + c.get(GregorianCalendar.YEAR);
-	}
-	return null;
-}
+   public static String simpleDateFormat(Calendar c) 
+   {
+	   if(c != null)
+	   {
+		   return c.get(GregorianCalendar.DATE) + "/" + (c.get(GregorianCalendar.MONTH) + 1) + "/" + c.get(GregorianCalendar.YEAR);
+	   }
+	   return null;
+   }
+   
+   
+   public static void exportCSV(File f, JTable table) throws Exception
+   {
+	  // FileWriter fw = new FileWriter("C:\\Users\\Damian\\Desktop\\test.csv");
+	   PrintWriter pw = new PrintWriter(f);
+	   
+	   DefaultTableModel tblModel = (DefaultTableModel)table.getModel();
+	   
+	   int colCount = tblModel.getColumnCount();
+	   
+	   for(int i = 0; i < colCount; i++)
+	   {
+		   pw.write(tblModel.getColumnName(i) + '\t');
+	   }
+	   pw.write('\n');
+	   
+	   int rowCount = tblModel.getRowCount();
+	   
+	   for(int i = 0; i < rowCount; i++)
+	   {
+		   for(int x = 0; x < colCount; x++)
+		   {
+			   pw.write("\"" + tblModel.getValueAt(i, x) + "\"\t");
+		   }
+		   pw.write('\n');
+	   }
+	   pw.close();
+	   
 
-    
+   }
+   
+   public static File chooseFile()
+   {
+	   JFileChooser fc = new JFileChooser();
+	   
+	   int returnVal = fc.showSaveDialog(null);
+	   if (returnVal == JFileChooser.APPROVE_OPTION)
+	   {
+		   File file = fc.getSelectedFile();
+		   return file;
+	   }
+	   else
+	   {
+		   return null;
+	   }
+   }
+
+   
 }

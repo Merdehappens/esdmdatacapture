@@ -15,39 +15,38 @@ public class ReportingView extends PanelView {
 	 * Create the panel.
 	 */
 	JButton btnViewReport;
-	
+
 	public ReportingView() {
 		super();
 		initialise();
-	
+
 	}
-	
-	public ReportingView(ESDMModel model)
-	{
+
+	public ReportingView(ESDMModel model) {
 		super(model);
 		initialise();
 	}
-	
-	private void initialise()
-	{
+
+	// Initialises all the graphical components on the page.
+	private void initialise() {
 		setLayout(null);
-		
+
 		super.setTitle("Reporting");
-		
+
 		btnViewReport = new JButton("View Report");
 		btnViewReport.setBounds(20, 70, 200, 40);
 		add(btnViewReport);
-	
+
 	}
-	
-	public void viewReportListener(ActionListener al)
-	{
+
+	// Takes in an ActionListener and adds it to the View Report button
+	public void viewReportListener(ActionListener al) {
 		btnViewReport.addActionListener(al);
 	}
 
-	@Override
+	// Overrides the refreshView method in PanelView and refreshes the view of this panel
 	public void refreshView() {
-	
+
 	}
 
 }

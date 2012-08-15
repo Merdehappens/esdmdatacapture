@@ -52,6 +52,11 @@ public class Objective implements SimpleKey  {
         steps.add(newStep);
     }
     
+    public int getStepsNo()
+    {
+    	return steps.size();
+    }
+    
     public void setSteps(Collection<Step> step)
     {
         steps = new ArrayList<Step>(step);
