@@ -13,9 +13,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class ObjectiveView extends PanelView {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3263162072078805101L;
 	private JButton btnAddNewObjective;
 	private JButton btnViewObjectives;
@@ -37,9 +34,10 @@ public class ObjectiveView extends PanelView {
 	// Initialises all the graphical components on the page.
 	private void initialise() {
 		setLayout(null);
-
+		// Sets the title of the page
 		super.setTitle("Objective");
 
+		// Creates 3 new buttons and adds them to the page
 		btnAddNewObjective = new JButton("Add New Objective");
 		btnAddNewObjective.setBounds(50, 109, 200, 30);
 		add(btnAddNewObjective);
@@ -52,10 +50,12 @@ public class ObjectiveView extends PanelView {
 		btnAddObjectiveTo.setBounds(470, 109, 200, 30);
 		add(btnAddObjectiveTo);
 
+		// Creates a new scrollpane and adds it to the screen
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(50, 150, 900, 300);
 		add(scrollPane);
 
+		// creates a new table model, and table and adds the table to the scroll pane
 		tableModel = new DefaultTableModel();
 		objectiveTable = new JTable() {
 
@@ -66,13 +66,14 @@ public class ObjectiveView extends PanelView {
 			}
 		};
 		scrollPane.setViewportView(objectiveTable);
+		objectiveTable.setModel(tableModel);
 
+		// sets the column names to the string array
 		String[] columnNames = new String[] { "ObjectiveID", "Name",
 				"Description", "Level", "Number of Steps" };
 
 		tableModel.setColumnIdentifiers(columnNames);
 
-		objectiveTable.setModel(tableModel);
 		refreshView();
 
 	}
@@ -98,6 +99,7 @@ public class ObjectiveView extends PanelView {
 		populateTable();
 	}
 
+	// Returns the objective for the row that is selected
 	public Objective getSelectedObjective() throws Exception {
 
 		Objective objective;
@@ -114,13 +116,15 @@ public class ObjectiveView extends PanelView {
 
 	private void populateTable() {
 
+		// Removes all rows from table
 		while (tableModel.getRowCount() > 0) {
 			tableModel.removeRow(0);
 		}
-
+		// Gets the objective list from the model
 		objectives = new ArrayList<Objective>(this.getModel()
 				.getObjectiveList());
 
+		// Iterates through the objectives list adding the details to the table
 		int size = objectives.size();
 		for (int i = 0; i < size; i++) {
 			Objective objective = objectives.get(i);

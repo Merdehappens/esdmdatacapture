@@ -20,6 +20,7 @@ public class Step {
     private String no;
     private String code;
     private String description;
+   // private Objective objective;
     
     public Step()
     {
@@ -36,6 +37,17 @@ public class Step {
     	this.no = no;
     	this.code = code;
     	this.description = description;
+    }
+    
+    public void setObjective(Objective objective)
+    {
+   // 	this.objective = objective;
+    }
+    
+    final public Objective getObjective()
+    {
+   // 	return objective;
+    	return null;
     }
     
     public void setId(String id)

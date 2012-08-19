@@ -94,6 +94,8 @@ public class ViewReport extends PanelView {
 		lblChildName = new JLabel("");
 		lblChildName.setBounds(44, 43, 115, 14);
 		add(lblChildName);
+		
+		// Creates a new button to export report to file
 
 		JButton btnExport = new JButton("Export to File");
 		btnExport.addActionListener(new ActionListener() {
@@ -105,8 +107,10 @@ public class ViewReport extends PanelView {
 		add(btnExport);
 
 	}
+	
+	// For the Export to file button. Sets up a file chooser and then creates the file in the folder specified.
 
-	protected void saveCSV() {
+	private void saveCSV() {
 		File f = Helper.chooseFile();
 		try {
 			Helper.exportCSV(f, tblSession);
@@ -126,9 +130,11 @@ public class ViewReport extends PanelView {
 	// Refreshes the table to be the same as the object
 
 	public void refreshTable() {
+		
 		lblChildName.setText(child.getName());
 		ArrayList<Mark> marks = (ArrayList<Mark>) child.getMarks();
-
+		
+		// Iterates through everything in the table and removes them all
 		while (tableModel.getRowCount() > 0) {
 			tableModel.removeRow(0);
 		}
@@ -136,11 +142,13 @@ public class ViewReport extends PanelView {
 		SimpleDateFormat dateFormatter = new SimpleDateFormat(
 				"dd/MM/YY hh:mm:ss a");
 
+
+
+		// Iterates through all the marks in the list (which is retrieved from
+		// the child) then adds them to the object array and adds the object array to
+		// the table as a row
 		int size = marks.size();
-
-		// Iterates through all the marks in teh list (which is retrieved from
-		// the child) then displays them in the table
-
+		
 		for (int i = 0; i < size; i++) {
 			Mark mark = marks.get(i);
 

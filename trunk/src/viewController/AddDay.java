@@ -113,6 +113,7 @@ public class AddDay extends PanelView {
 
 		childScrollPane.setViewportView(childPanel);
 
+		// Creates 3 labels
 		JLabel lblSessions = new JLabel("Sessions");
 		lblSessions.setBounds(403, 133, 133, 14);
 		lblSessions.setHorizontalAlignment(SwingConstants.CENTER);
@@ -194,9 +195,9 @@ public class AddDay extends PanelView {
 
 	// Overrides the refreshView method in PanelView and refreshes the view of this panel
 	public void refreshView() {
-		
+		// Removes all children from panel
 		childPanel.removeAll();
-
+		
 		ArrayList<Child> temp = (ArrayList<Child>) this.getModel()
 				.getChildList();
 
@@ -206,7 +207,7 @@ public class AddDay extends PanelView {
 
 		int x = -90;
 		int s = -300;
-
+		// Iterates through the list of children and adds buttons for each child
 		int size = temp.size();
 		for (int i = 0; i < size; i++) {
 			if (i % 3 == 0) {
@@ -230,7 +231,7 @@ public class AddDay extends PanelView {
 		revalidate();
 
 		listModel.clear();
-
+		// Sets the room list
 		Vector<Room> v = new Vector<Room>(this.getModel().getRoomList());
 		ComboBoxModel<Room> cmbModel = new DefaultComboBoxModel<Room>(v);
 		cmbRoom.setModel(cmbModel);
@@ -239,9 +240,10 @@ public class AddDay extends PanelView {
 
 	}
 
+	// Swaps the items in the list up or down depending on the number parsed through
+	// Positive is down the list (higher index) negative is up the list (lower index)
 	private void swapButton(int i) {
 		int index = lstCurrentSession.getSelectedIndex();
-		System.out.println(index);
 		if (index >= 0) {
 			Session temp = (Session) listModel.remove(index);
 
@@ -270,10 +272,9 @@ public class AddDay extends PanelView {
 
 	public ArrayList<Child> getChildren() {
 		ArrayList<Child> childList = new ArrayList<Child>();
-
+		// Iterates through the buttons and any that are selected add the child to the list
 		for (int i = 0; i < tglbtn.length; i++) {
 			JToggleButton toggleButton = (JToggleButton) tglbtn[i][0];
-			System.out.println(i);
 			if (toggleButton.isSelected()) {
 				childList.add((Child) tglbtn[i][1]);
 			}
@@ -281,16 +282,17 @@ public class AddDay extends PanelView {
 		return childList;
 	}
 
+	// returns the room that is selected
 	public Room getRoom() {
 		Room room = cmbModel.getElementAt(cmbRoom.getSelectedIndex());
 		return room;
 	}
 
+	// Returns the sessions that are selected in the list in order
 	public ArrayList<Session> getSessions() {
 		ArrayList<Session> session = new ArrayList<Session>();
 
 		int size = listModel.getSize();
-		;
 		for (int i = 0; i < size; i++) {
 			session.add(listModel.get(i));
 		}
@@ -298,6 +300,7 @@ public class AddDay extends PanelView {
 		return session;
 	}
 
+	// Returns the selected date
 	public Calendar getDate() {
 		return dateChooser.getCalendar();
 	}
