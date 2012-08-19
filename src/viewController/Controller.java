@@ -119,13 +119,7 @@ public class Controller extends JFrame {
 
 		loadingFrame = new JFrame("Loading");
 		
-		// Hibernate Database set-up:
-		AnnotationConfiguration config = new AnnotationConfiguration();
-		config.addAnnotatedClass(Step.class);
-		config.configure("hibernate.cfg.xml");
-		
-		new SchemaExport(config).create(true, true);
-		// Hibernate Database set-up complete
+
 		
 		final Thread t1 = new Thread(new Runnable() {
 			public void run() {
@@ -169,6 +163,16 @@ public class Controller extends JFrame {
 			}
 		});
 		t2.run();
+		
+		// Hibernate Database set-up:
+		AnnotationConfiguration config = new AnnotationConfiguration();
+		config.addAnnotatedClass(Step.class);
+		config.configure("hibernate.cfg.xml");
+		
+		new SchemaExport(config).create(true, true);
+		// Hibernate Database set-up complete
+		
+		
 		t1.run();
 
 		// EventQueue.invokeLater
