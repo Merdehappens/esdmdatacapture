@@ -7,13 +7,8 @@ import system.model.ESDMModel;
 
 public class ReportingView extends PanelView {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -970035637832481957L;
-	/**
-	 * Create the panel.
-	 */
+
 	JButton btnViewReport;
 
 	public ReportingView() {
@@ -30,9 +25,10 @@ public class ReportingView extends PanelView {
 	// Initialises all the graphical components on the page.
 	private void initialise() {
 		setLayout(null);
-
+		// Sets the title of the page
 		super.setTitle("Reporting");
-
+		
+		// Adds the view Report button to the page
 		btnViewReport = new JButton("View Report");
 		btnViewReport.setBounds(20, 70, 200, 40);
 		add(btnViewReport);

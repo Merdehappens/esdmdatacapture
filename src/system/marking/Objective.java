@@ -40,10 +40,11 @@ public class Objective implements SimpleKey  {
         steps = new ArrayList<Step>(c);
     }
     
-    public Objective(String name, String description)
+    public Objective(String name, String description, int level)
     {
     	this.name = name;
     	this.description = description;
+    	this.level = level;
     	steps = new ArrayList<Step>();
     }
     
@@ -90,6 +91,12 @@ public class Objective implements SimpleKey  {
 	{
 		this.description = description;
 	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+
     
     
     

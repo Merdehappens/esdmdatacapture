@@ -31,6 +31,7 @@ public class AddObjective extends PanelView {
 	private JTable tblStep;
 	private DefaultTableModel tableModel;
 	private JTextArea txtObjectiveDescription;
+	private JTextField txtLevel;
 
 	/**
 	 * Create the panel.
@@ -49,75 +50,87 @@ public class AddObjective extends PanelView {
 	// Initialises all the graphical components on the page.
 	private void initialise() {
 		setLayout(null);
-
+		// Sets the title to the string parsedd through
 		super.setTitle("Add New Objective");
 
+		// create and add labels to page
 		JLabel lblName = new JLabel("Objective Name:");
-		lblName.setBounds(10, 43, 130, 35);
+		lblName.setBounds(10, 66, 130, 35);
 		add(lblName);
 
 		JLabel lblDateOfBirth = new JLabel("Objective Description");
 		lblDateOfBirth.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDateOfBirth.setBounds(10, 89, 345, 14);
+		lblDateOfBirth.setBounds(10, 112, 345, 14);
 		add(lblDateOfBirth);
-
-		txtObjectiveName = new JTextField();
-		txtObjectiveName.setBounds(114, 43, 241, 30);
-		add(txtObjectiveName);
-		txtObjectiveName.setColumns(10);
-
-		btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(21, 324, 89, 23);
-		add(btnSubmit);
-
-		btnReset = new JButton("Reset");
-		btnReset.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				resetForm();
-			}
-		});
-		btnReset.setBounds(120, 324, 105, 21);
-		add(btnReset);
-
-		btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(235, 324, 94, 21);
-		add(btnCancel);
-
-		txtObjectiveDescription = new JTextArea();
-		txtObjectiveDescription.setBounds(10, 114, 345, 178);
-		add(txtObjectiveDescription);
-		txtObjectiveDescription.setLineWrap(true);
 
 		JLabel lblCurrentSteps = new JLabel("Current Steps (In Order)");
 		lblCurrentSteps.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCurrentSteps.setBounds(394, 43, 467, 14);
+		lblCurrentSteps.setBounds(389, 112, 467, 14);
 		add(lblCurrentSteps);
+		
+		// Creates and adds text fields to page
+		txtObjectiveName = new JTextField();
+		txtObjectiveName.setBounds(114, 66, 461, 30);
+		add(txtObjectiveName);
+		txtObjectiveName.setColumns(10);
 
+		txtObjectiveDescription = new JTextArea();
+		txtObjectiveDescription.setBounds(10, 137, 345, 178);
+		add(txtObjectiveDescription);
+		txtObjectiveDescription.setLineWrap(true);
+		
+		// Adds submit button to the page
+		btnSubmit = new JButton("Submit");
+		btnSubmit.setBounds(21, 347, 89, 23);
+		add(btnSubmit);
+
+		// Adds reset button to page and adds action listener to it that
+		// calls the refreshView method
+		btnReset = new JButton("Reset");
+		btnReset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refreshView();
+			}
+		});
+		btnReset.setBounds(120, 347, 105, 21);
+		add(btnReset);
+
+		// Adds a cancel button to the page.
+		btnCancel = new JButton("Cancel");
+		btnCancel.setBounds(235, 347, 94, 21);
+		add(btnCancel);
+		
+		// Adds the scroll pane for the table
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(394, 68, 478, 244);
+		scrollPane.setBounds(389, 137, 478, 244);
 		add(scrollPane);
 
+		// Creates and adds the table to the scroll pane and 
+		// initialises the column names and table model
 		tblStep = new JTable();
 		scrollPane.setViewportView(tblStep);
 		String[] columnNames = new String[] { "Code", "Step" };
-
 		tableModel = new DefaultTableModel();
 		tableModel.setColumnIdentifiers(columnNames);
-
 		tblStep.setModel(tableModel);
 
+		// Adds an empty row to the table model
 		String[] tempRow = new String[] { "", "" };
 		tableModel.addRow(tempRow);
 
+		// Adds the delete step button to the screen and adds
+		// the action listener that removes the selected row
 		JButton btnDeleteSelectedStep = new JButton("Delete Selected Step");
 		btnDeleteSelectedStep.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tableModel.removeRow(tblStep.getSelectedRow());
 			}
 		});
-		btnDeleteSelectedStep.setBounds(503, 324, 150, 23);
+		btnDeleteSelectedStep.setBounds(488, 392, 150, 23);
 		add(btnDeleteSelectedStep);
 
+		// Adds the add step button to the screen and adds
+		// the action listener that adds a blank row
 		JButton btnAddStep = new JButton("Add Step");
 		btnAddStep.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -125,18 +138,22 @@ public class AddObjective extends PanelView {
 				tableModel.addRow(tempRow);
 			}
 		});
-		btnAddStep.setBounds(404, 324, 89, 23);
+		btnAddStep.setBounds(389, 392, 89, 23);
 		add(btnAddStep);
 
+		// Adds the swap up button to the screen and adds
+		// the action listener that swaps the rows around
 		JButton btnUp = new JButton("Up");
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				swapRows(-1);
 			}
 		});
-		btnUp.setBounds(877, 115, 59, 35);
+		btnUp.setBounds(878, 229, 59, 35);
 		add(btnUp);
 
+		// Adds the swap down button to the screen and adds
+		// the action listener that swaps the rows around
 		JButton btnDown = new JButton("Down");
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -144,12 +161,26 @@ public class AddObjective extends PanelView {
 
 			}
 		});
-		btnDown.setBounds(876, 161, 60, 40);
+		btnDown.setBounds(877, 275, 60, 40);
 		add(btnDown);
+		
+		JLabel lblLevel = new JLabel("Level:");
+		lblLevel.setBounds(585, 66, 65, 30);
+		add(lblLevel);
+		
+		txtLevel = new JTextField();
+		txtLevel.setBounds(628, 66, 119, 30);
+		add(txtLevel);
+		txtLevel.setColumns(10);
 
+		// Sets the column widths
 		tblStep.getColumnModel().getColumn(0).setPreferredWidth(40);
 		tblStep.getColumnModel().getColumn(1).setPreferredWidth(320);
 
+		
+		// Adds a listener that listens for when the table loses focus.
+		// This is required so that if save is clicked while still editing
+		// it will stop all editing and be able to save the text
 		tblStep.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
@@ -175,11 +206,14 @@ public class AddObjective extends PanelView {
 		btnCancel.addActionListener(al);
 	}
 
+	// Resets the text fields
 	private void resetForm() {
 		txtObjectiveName.setText("");
 		txtObjectiveDescription.setText("");
+		txtLevel.setText("");
 	}
 
+	// Swaps the selected row either up or down by the value specified in i
 	private void swapRows(int i) {
 		int start = tblStep.getSelectedRow();
 		if (start + i >= 0 && start + i < tblStep.getRowCount()) {
@@ -187,14 +221,21 @@ public class AddObjective extends PanelView {
 		}
 	}
 
+	// Returns the string value for name text box
 	public String getObjectiveName() {
 		return txtObjectiveName.getText();
 	}
 
+	// Returns the string value for description text box
 	public String getObjectiveDescription() {
 		return txtObjectiveDescription.getText();
 	}
+	
+	public int getLevel() {
+		return Integer.parseInt(txtLevel.getText());
+	}
 
+	// Returns a multi dimensional string array for the steps
 	public String[][] getSteps() {
 
 		String[][] temp = new String[tblStep.getRowCount()][2];
@@ -212,7 +253,8 @@ public class AddObjective extends PanelView {
 		resetForm();
 		resetTable();
 	}
-
+	
+	// Resets the table to be blank with just 1 row in them
 	private void resetTable() {
 		while (tblStep.getRowCount() > 0) {
 			tableModel.removeRow(0);
@@ -221,5 +263,4 @@ public class AddObjective extends PanelView {
 		String[] row = new String[] { "", "" };
 		tableModel.addRow(row);
 	}
-
 }

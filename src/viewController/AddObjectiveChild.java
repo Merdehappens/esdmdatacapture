@@ -49,35 +49,37 @@ public class AddObjectiveChild extends PanelView {
 	// Initialises all the graphical components on the page.
 	private void initialise() {
 		setLayout(null);
-
+		// Sets the title of the panel to the string specified
 		super.setTitle("Add Objective to Child");
 
+		// Adds a submit button to the screen
 		btnSubmit = new JButton("Submit");
 		btnSubmit.setBounds(27, 333, 89, 23);
 		add(btnSubmit);
 
+		// Adds reset button to the screen and sets an actionlistener
+		// so that when pressed it calls refreshView
 		btnReset = new JButton("Reset");
-
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				txtChildName.setText("");
-				searchList("");
+				refreshView();
 			}
 		});
-
 		btnReset.setBounds(126, 333, 89, 23);
 		add(btnReset);
 
+		// Adds a cancel button to the screen
 		btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(225, 333, 89, 23);
 		add(btnCancel);
 
+		// Creates the new list and list model
 		childListModel = new DefaultListModel<Child>();
-
 		childList = new JList<Child>(childListModel);
 		childList.setBounds(27, 118, 238, 172);
 		add(childList);
 
+		// Adds 2 labels to the screen
 		JLabel lblSelectChild = new JLabel(
 				"Select the child that you wish to add this objective to:");
 		lblSelectChild.setHorizontalAlignment(SwingConstants.CENTER);
@@ -88,6 +90,7 @@ public class AddObjectiveChild extends PanelView {
 		lblSearchChild.setBounds(27, 31, 77, 30);
 		add(lblSearchChild);
 
+		// Adds a new text field with a listener
 		txtChildName = new JTextField();
 		txtChildName.addKeyListener(new KeyAdapter() {
 			@Override
@@ -138,8 +141,10 @@ public class AddObjectiveChild extends PanelView {
 		int size = children.size();
 		for (int i = 0; i < size; i++) {
 			Child temp = children.get(i);
-
-			if (temp.toString().contains(text)) {
+			String childName = temp.getName().toLowerCase();
+			text = text.toLowerCase();
+			
+			if (childName.contains(text)) {
 				childListModel.addElement(temp);
 			}
 		}

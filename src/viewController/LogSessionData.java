@@ -57,9 +57,7 @@ public class LogSessionData extends PanelView {
 	private DefaultListModel<Step> stepModel;
 	private DefaultListModel<Mark> markModel;
 
-	/**
-	 * Create the panel.
-	 */
+
 	public LogSessionData() {
 
 		initialise();

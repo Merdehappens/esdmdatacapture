@@ -152,7 +152,7 @@ public class ESDMModel {
         childList.add(child);
         
         Objective objective = new Objective("Looks at indicated pictures as adult points to picture in book", 
-        		"In activities with books and puzzles, when an adult points (touching or proximal point 6? or less) to a picture child will visually orient and/or grasp or tap pictures or objects that the adult is pointing to 80% of opportunities for 4 of 5 consecutive days across 3 or more adults and settings.");
+        		"In activities with books and puzzles, when an adult points (touching or proximal point 6? or less) to a picture child will visually orient and/or grasp or tap pictures or objects that the adult is pointing to 80% of opportunities for 4 of 5 consecutive days across 3 or more adults and settings.", 1);
         Step step = new Step("1", "MC", "Orients and grasp/tap w/ partial physical prompt 50% opp");
         objective.addSteps(step);
         step = new Step("2", "MC", "Orients and/or grasp/tap 50% of opp");
@@ -167,7 +167,7 @@ public class ESDMModel {
         objectiveList.add(objective);
         
         objective = new Objective("Combines functionally related actions on a play theme", 
-        		"During pretend play with an adult, when provided with the materials for a play sequence (eg. bathing, cooking, eating), child will spontaneously link functionally related actions on a play sequence for 3 different play themes over 4 consecutive days");
+        		"During pretend play with an adult, when provided with the materials for a play sequence (eg. bathing, cooking, eating), child will spontaneously link functionally related actions on a play sequence for 3 different play themes over 4 consecutive days", 9);
         
         step = new Step("1", "MC", "Combines 2 related actions after adult model & ver P 50%");
         objective.addSteps(step);
@@ -188,7 +188,7 @@ public class ESDMModel {
         
         
         objective = new Objective("Uses a spoon", 
-        		"During mealtimes, when child is eating a meal that requires the use of a spoon, after an adult models using the spoon correctly, child will be able to use the spoon to eat 5+ spoonfuls of her meal, on 80% of opportunities over 3 consecutive days with 2+ people.");
+        		"During mealtimes, when child is eating a meal that requires the use of a spoon, after an adult models using the spoon correctly, child will be able to use the spoon to eat 5+ spoonfuls of her meal, on 80% of opportunities over 3 consecutive days with 2+ people.", 2);
         
         step = new Step("1", "MC", "Uses spoon when adult loads spoon 50%");
         objective.addSteps(step);
@@ -331,8 +331,24 @@ public class ESDMModel {
      * Adds a new user account to the system.
      */
     
-    public String addUser(String name, String username, String emailAddress, String phoneNo)
+    public String addUser(String name, String username, String emailAddress, String phoneNo) throws Exception
     {
+    	if(name.length() == 0)
+    	{
+    		throw new Exception("Name field must be filled in.");
+    	}
+    	if(username.length() == 0)
+    	{
+    		throw new Exception("Username field must be filled in.");
+    	}
+    	if(emailAddress.length() == 0)
+    	{
+    		throw new Exception("Email field must be filled in.");
+    	}
+    	if(phoneNo.length() == 0)
+    	{
+    		throw new Exception("Phone number field must be filled in.");
+    	}
     	
     	UserAccount user = new UserAccount(name, username, emailAddress);
     	
@@ -454,18 +470,26 @@ public class ESDMModel {
 	 *        steps[1][0] is the code of the second step, step [1][1] is the description of the second step. and so on.
 	 */
 	
-	public void addObjective(String Name, String description, String[][] steps) throws Exception
+	public void addObjective(String name, String description, String[][] steps, int level) throws Exception
 	{
 	
-		//iterate through string//
-		//create step for each pair//
-		//create objective with these steps//
+		//iterate through string
+		//create step for each pair
+		//create objective with these steps
 		if(steps.length == 0)
 		{
 			throw new Exception("No steps have been added.");
 		}
+		if(name.length() == 0)
+		{
+			throw new Exception("Name field is empty.");
+		}
+		if(description.length() == 0)
+		{
+			throw new Exception("Description field is empty.");
+		}
 		
-		Objective o = new Objective(Name, description);
+		Objective o = new Objective(name, description, level);
 		for (int i = 0; i < steps.length; i++)
 		{
 			if(steps[i][0].length() == 0 || steps[i][1].length() == 0)

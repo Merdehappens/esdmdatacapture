@@ -63,7 +63,6 @@ public class Controller extends JFrame {
 	private JPanel accountPanel;
 	private JTabbedPane tabbedPane;
 	private EditChild editChild;
-	private FindChild findChild;
 	private FindChild findChildReport;
 	private SessionView sessionView;
 	private ObjectiveView objectiveView;
@@ -256,8 +255,6 @@ public class Controller extends JFrame {
 		editChild = new EditChild();
 		childPanel.add(editChild, "editChild");
 
-		findChild = new FindChild(model);
-		childPanel.add(findChild, "findChild");
 
 		// Add all the panels (Cards) to the Objectives Tab
 
@@ -391,13 +388,7 @@ public class Controller extends JFrame {
 
 		addChild.cancelListener(ActionListenerShow(childPanel, "Child"));
 
-		findChild.submitListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				findChildSubmit(evt);
-			}
-		});
 
-		findChild.cancelListener(ActionListenerShow(childPanel, "Child"));
 		addObjectiveChild
 				.cancelListener(ActionListenerShow(childPanel, "Child"));
 
@@ -473,11 +464,18 @@ public class Controller extends JFrame {
 				String username = newUserAccount.getUsername();
 				String emailAddress = newUserAccount.getEmailAddress();
 				String phoneNo = newUserAccount.getPhoneNo();
-				String pass = model.addUser(name, username, emailAddress,
-						phoneNo);
+				String pass;
+				try {
+					pass = model.addUser(name, username, emailAddress,
+							phoneNo);
+					show(accountPanel, "Account");
+					showErrorMessage("The password has been set to: " + pass + "."
+							+ "\nPlease note this down and inform the user.");
+				} catch (Exception e) {
+					showMessage(e.getMessage());
+				}
 
-				showMessage("The password has been set to: " + pass + "."
-						+ "\nPlease note this down and inform the user.");
+
 			}
 		});
 
@@ -507,7 +505,11 @@ public class Controller extends JFrame {
 
 		findChildReport.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				findChildReportSubmit(evt);
+				try {
+					findChildReportSubmit(evt);
+				} catch (Exception e) {
+					showErrorMessage(e.getMessage());
+				}
 			}
 		});
 
@@ -527,12 +529,19 @@ public class Controller extends JFrame {
 
 		viewObjective.cancelListener(ActionListenerShow(objectivePanel,
 				"Objective"));
-
+		
 		viewObjective.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-
+				try {
+					String message = viewObjective.saveObjective();
+					show(objectivePanel, "Objective");
+					showMessage(message);
+				} catch (Exception e) {
+					showMessage(e.getMessage());
+				}
 			}
 		});
+
 
 		objectiveView.viewObjectives(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -639,9 +648,11 @@ public class Controller extends JFrame {
 	private void addObjective() {
 		String name = addObjective.getObjectiveName();
 		String description = addObjective.getObjectiveDescription();
+		int level = addObjective.getLevel();
 		String[][] steps = addObjective.getSteps();
+		
 		try {
-			model.addObjective(name, description, steps);
+			model.addObjective(name, description, steps, level);
 			show(objectivePanel, "Objective");
 			showMessage("Objective successfully added to system.");
 		} catch (Exception e) {
@@ -691,14 +702,12 @@ public class Controller extends JFrame {
 	// Sets the child in the edit child panel and then shows the edit child
 	// panel
 
-	private void findChildSubmit(ActionEvent evt) {
-		EditChild p = (EditChild) findChild.getDestination();
-		p.setChild(findChild.getSelectedChild());
-		show(childPanel, "editChild");
-	}
-
-	private void findChildReportSubmit(ActionEvent evt) {
+	private void findChildReportSubmit(ActionEvent evt) throws Exception {
 		ViewReport p = (ViewReport) findChildReport.getDestination();
+		if(findChildReport.getSelectedChild() == null)
+		{
+			throw new Exception("No child is selected.");
+		}
 		p.setChild(findChildReport.getSelectedChild());
 		p.refreshTable();
 		show(reportingPanel, "viewReport");

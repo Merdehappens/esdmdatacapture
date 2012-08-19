@@ -20,9 +20,6 @@ import javax.swing.JScrollPane;
 
 public class SessionView extends PanelView {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4174778855073882231L;
 	private JButton btnViewDay;
 	private JButton btnReset;
@@ -33,13 +30,9 @@ public class SessionView extends PanelView {
 	private DefaultTableModel tableModel;
 	private JButton btnNewDay;
 
-	/**
-	 * Create the panel.
-	 */
+
 	public SessionView() {
-
 		initialise();
-
 	}
 
 	public SessionView(ESDMModel model) {
@@ -50,13 +43,16 @@ public class SessionView extends PanelView {
 	// Initialises all the graphical components on the page.
 	private void initialise() {
 		setLayout(null);
-
+		// Sets title of the panel
 		super.setTitle("Session");
-
+		
+		// Adds view Day button to panel
 		btnViewDay = new JButton("View Day");
 		btnViewDay.setBounds(180, 109, 108, 30);
 		add(btnViewDay);
 
+		// Adds the reset search criteria button to the page and add action listener
+		// that makes the view refresh
 		btnReset = new JButton("Reset Search Criteria");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -66,6 +62,7 @@ public class SessionView extends PanelView {
 		btnReset.setBounds(799, 109, 151, 30);
 		add(btnReset);
 
+		// Adds refine search button to the screen that when clicked calls showRefineSearch method
 		JButton btnRefineSearch = new JButton("Refine Search");
 		btnRefineSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -75,26 +72,30 @@ public class SessionView extends PanelView {
 		btnRefineSearch.setBounds(656, 109, 133, 30);
 		add(btnRefineSearch);
 
+		// Adds a scroll pane to the screen for the table to go in
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(50, 150, 900, 300);
 		add(scrollPane);
 
+		// Creates a new JTable
 		tblSession = new JTable() {
-
+			private static final long serialVersionUID = 1L;
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 
 		};
-
 		scrollPane.setViewportView(tblSession);
+		
+		// Sets the name of the columns
 		String[] columnNames = new String[] { "SessionID", "Room Name", "Date" };
-
 		tableModel = new DefaultTableModel();
 		tableModel.setColumnIdentifiers(columnNames);
-
+		
+		// Sets the model of the table to the new DefaultTableModel
 		tblSession.setModel(tableModel);
-
+		
+		// Adds the new day button to the screen
 		btnNewDay = new JButton("New Day");
 		btnNewDay.setBounds(50, 109, 120, 30);
 		add(btnNewDay);
@@ -111,14 +112,19 @@ public class SessionView extends PanelView {
 		btnNewDay.addActionListener(al);
 	}
 
+	// Refreshes the table to the list that was parsed through
+	
 	private void refreshTable(ArrayList<Day> dayList) {
 
+		// Removes all rows in the table
 		while (tblSession.getRowCount() > 0) {
 			tableModel.removeRow(0);
 		}
 
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/YY");
 		int size = dayList.size();
+		
+		// Iterates through the list parsed through and adds them to the table
 		for (int i = 0; i < size; i++) {
 			Object[] row = new Object[3];
 			Day temp = dayList.get(i);
@@ -129,11 +135,12 @@ public class SessionView extends PanelView {
 
 			tableModel.addRow(row);
 		}
-
+		
 		tblSession.setModel(tableModel);
-
 	}
 
+	// Returns the day that is selected. if no day is selected it throws an exception that
+	// will be caught/handled by the caller
 	public Day getDay() throws Exception {
 		if (tblSession.getSelectedRow() == -1) {
 			throw new Exception("No Day was selected.");
@@ -146,11 +153,15 @@ public class SessionView extends PanelView {
 		refreshTable((ArrayList<Day>) this.getModel().getDayList());
 	}
 
+
 	public void showRefineSearch() {
+		// Initialises all the buttons/labels for the refine search screen
 		JLabel lblDateFrom = new JLabel("Date From:");
 		dateChooserFrom = new JDateChooser();
 		JLabel lblDateTo = new JLabel("Date To:");
 		dateChooserTo = new JDateChooser();
+		
+		// Adds the todays date button and when it is pressed sets both date from and to to todays date
 		JButton btnTodaysDate = new JButton("Todays Date");
 		btnTodaysDate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -161,13 +172,15 @@ public class SessionView extends PanelView {
 
 			}
 		});
-
+		// Adds all the buttons/labels to an array
 		Object[] arr = { lblDateFrom, dateChooserFrom, lblDateTo,
 				dateChooserTo, btnTodaysDate };
 
+		// Creates the option pane for the refine search screen
 		int res = JOptionPane.showConfirmDialog(null, arr, "Refine Search",
 				JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
+		// Refines the search based on what options were ticked in the refine search panel
 		if (res == 0) {
 			ArrayList<Day> dayList = new ArrayList<Day>(this.getModel()
 					.getDays(dateChooserFrom.getCalendar(),
