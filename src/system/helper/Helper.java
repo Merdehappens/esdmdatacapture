@@ -129,6 +129,15 @@ public class Helper {
 		   return null;
 	   }
    }
+   
+   public static boolean checkPasswordLength(String s)
+   {
+	   if(s.length() >= 6)
+	   {
+		   return true;
+	   }
+	   return false;
+   }
 
    
 }
