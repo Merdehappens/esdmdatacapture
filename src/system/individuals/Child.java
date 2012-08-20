@@ -6,13 +6,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import javax.persistence.Entity;
 import javax.swing.ImageIcon;
 
 import system.helper.SimpleKey;
 import system.marking.Mark;
 import system.marking.Objective;
 
-
+//@Entity // <-- Beginning to integrate Child into DB...
 public class Child implements SimpleKey {
     private String id;
     private String name;

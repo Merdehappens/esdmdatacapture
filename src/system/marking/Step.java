@@ -4,8 +4,12 @@
  */
 package system.marking;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -17,10 +21,15 @@ public class Step {
     
 	@Id
     private String id;
+	@Column(nullable=false)
     private String no;
+	@Column(nullable=false)
     private String code;
+	@Basic
     private String description;
-   // private Objective objective;
+	@ManyToOne
+	@JoinColumn(name="objective_id")
+    private Objective objective;
     
     public Step()
     {
@@ -41,13 +50,12 @@ public class Step {
     
     public void setObjective(Objective objective)
     {
-   // 	this.objective = objective;
+    	this.objective = objective;
     }
     
     final public Objective getObjective()
     {
-   // 	return objective;
-    	return null;
+    	return objective;
     }
     
     public void setId(String id)
@@ -58,6 +66,16 @@ public class Step {
     public void setDescription(String description)
     {
         this.description = description;
+    }
+    
+    public void setNo(String no)
+    {
+    	this.no = no;
+    }
+    
+    public void setCode(String code)
+    {
+    	this.code = code;
     }
     
     public String getDescription()
