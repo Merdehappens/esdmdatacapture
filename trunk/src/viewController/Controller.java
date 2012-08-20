@@ -506,6 +506,17 @@ public class Controller extends JFrame {
 				findChildReport.setChildren(model.getChildList());
 			}
 		});
+		
+		viewReport.exportListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					viewReport.saveCSV();
+				} catch (Exception e) {
+					showErrorMessage("There was an issue with saving the file");
+					e.printStackTrace();
+				}
+			}
+		});
 
 		findChildReport.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {

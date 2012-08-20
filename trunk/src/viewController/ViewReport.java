@@ -27,7 +27,7 @@ public class ViewReport extends PanelView {
 	private Child child;
 	private JButton btnSave;
 	private JLabel lblChildName;
-
+	private JButton btnExport;
 	/**
 	 * Create the panel.
 	 */
@@ -97,12 +97,7 @@ public class ViewReport extends PanelView {
 		
 		// Creates a new button to export report to file
 
-		JButton btnExport = new JButton("Export to File");
-		btnExport.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				saveCSV();
-			}
-		});
+		btnExport = new JButton("Export to File");
 		btnExport.setBounds(396, 468, 139, 26);
 		add(btnExport);
 
@@ -110,14 +105,10 @@ public class ViewReport extends PanelView {
 	
 	// For the Export to file button. Sets up a file chooser and then creates the file in the folder specified.
 
-	private void saveCSV() {
+
+	public void saveCSV() throws Exception {
 		File f = Helper.chooseFile();
-		try {
-			Helper.exportCSV(f, tblSession);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Helper.exportCSV(f, tblSession);
 
 	}
 
@@ -125,6 +116,10 @@ public class ViewReport extends PanelView {
 
 	public void saveListener(ActionListener al) {
 		btnSave.addActionListener(al);
+	}
+	
+	public void exportListener(ActionListener al) {
+		btnExport.addActionListener(al);
 	}
 
 	// Refreshes the table to be the same as the object
