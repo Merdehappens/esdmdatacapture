@@ -222,18 +222,18 @@ public class ESDMModel {
         sessionList.add(new Session("S07", "Toilet"));
         
         Therapist user = new Therapist();
-        user.setPassword("Temporary");
+        user.tempSetPassword("Temporary");
         user.setUsername("Temporary");
         therapistList.add(user);
         
         user = new Therapist();		
         user.setUsername("dbisignano");
-        user.setPassword("temp");
+        user.tempSetPassword("temp");
         therapistList.add(user);
         
         user = new Therapist();
         user.setUsername("temp");
-        user.setPassword("temp");
+        user.tempSetPassword("temp");
         therapistList.add(user);
         
         Guardian guardian = new Guardian();

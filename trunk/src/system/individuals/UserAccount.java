@@ -1,6 +1,7 @@
 
 package system.individuals;
 
+import system.helper.Helper;
 import system.helper.SimpleKey;
 import BCrypt.BCrypt;
 
@@ -77,7 +78,15 @@ public class UserAccount implements SimpleKey {
      * password attribute
      */
 
-    public void setPassword(String password) {
+    public void setPassword(String password) throws Exception {
+    	if(!(Helper.checkPasswordLength(password)))
+    	{
+    		throw new Exception("Password is not enough letters");
+    	}
+    	this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+    
+    public void tempSetPassword(String password) {
     	this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
