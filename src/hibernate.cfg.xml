@@ -9,7 +9,7 @@
 
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://5.132.24.185/ESDMData</property>
+        <property name="connection.url">jdbc:mysql://5.139.230.162/esdm</property>
         <property name="connection.username">esdm</property>
         <property name="connection.password">esdm</property>
 
