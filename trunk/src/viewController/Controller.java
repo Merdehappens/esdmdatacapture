@@ -661,12 +661,13 @@ public class Controller extends JFrame {
 	}
 
 	private void addObjective() {
-		String name = addObjective.getObjectiveName();
-		String description = addObjective.getObjectiveDescription();
-		int level = addObjective.getLevel();
-		String[][] steps = addObjective.getSteps();
-		
+
 		try {
+			String name = addObjective.getObjectiveName();
+			String description = addObjective.getObjectiveDescription();
+			int level = addObjective.getLevel();
+			String[][] steps = addObjective.getSteps();
+			
 			model.addObjective(name, description, steps, level);
 			show(objectivePanel, "Objective");
 			showMessage("Objective successfully added to system.");
