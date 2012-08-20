@@ -4,6 +4,8 @@ package system.individuals;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Entity;
+
 
 public class Guardian extends UserAccount {
 	private Set<Child> children;

@@ -5,15 +5,23 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import system.helper.SimpleKey;
 
-
+@Entity
 public class Objective implements SimpleKey  {
-    private List<Step> steps;
-    private String name;
+	@Id
+	private String id;
+	private String name;
     private String description;
     private int level;
-	private String id;
+    @OneToMany(targetEntity=Step.class, mappedBy="objective", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    private List<Step> steps;
     
     public final int getLevel()
     {

@@ -1,17 +1,31 @@
 
 package system.individuals;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
 import system.helper.Helper;
 import system.helper.SimpleKey;
 import BCrypt.BCrypt;
 
-
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public class UserAccount implements SimpleKey {
-    private String name;
+    @Id
+	private String name;
+    @Basic
     private String emailAddress;
+    @Column(nullable=false)
     private String password;
+    @Column(nullable=false)
     private String username;
+    @Basic
     private String phoneNo;
+    @Basic
     private boolean access;
     
     public UserAccount()
