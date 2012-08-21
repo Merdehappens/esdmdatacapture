@@ -248,8 +248,11 @@ public class ESDMModel {
         guardian.setPhoneNo("Phone No 1");
         guardian.setAccess("g");
         userList.add(guardian);
-        //child.addGuardian(guardian);
-        //guardian.addChild(child);
+        
+        child.addGuardian(guardian);
+        guardian.addChild(child);
+        
+        
         
         
         c = Calendar.getInstance();
@@ -333,7 +336,7 @@ public class ESDMModel {
      * Adds a new user account to the system.
      */
     
-    public String addUser(String name, String username, String emailAddress, String phoneNo) throws Exception
+    public Therapist newTherapist(String name, String username, String emailAddress, String phoneNo, String password, String access) throws Exception
     {
     	if(name.length() == 0)
     	{
@@ -352,13 +355,40 @@ public class ESDMModel {
     		throw new Exception("Phone number field must be filled in.");
     	}
     	
-    	UserAccount user = new UserAccount(name, username, emailAddress);
+    	Therapist user = new Therapist(name, username, emailAddress);
+    	user.setAccess(access);
     	
-    	String password = Helper.generateRandomString(8);
     	user.setPassword(password);
 
-    	return password;
+    	return user;
     }
+    
+	public Guardian newGuardian(String name, String username, String emailAddress, String phoneNo, String password, String access) throws Exception
+	{
+		if(name.length() == 0)
+		{
+			throw new Exception("Name field must be filled in.");
+		}
+		if(username.length() == 0)
+		{
+			throw new Exception("Username field must be filled in.");
+		}
+		if(emailAddress.length() == 0)
+		{
+			throw new Exception("Email field must be filled in.");
+		}
+		if(phoneNo.length() == 0)
+		{
+			throw new Exception("Phone number field must be filled in.");
+		}
+	
+		Guardian user = new Guardian(name, username, emailAddress);
+		user.setAccess(access);
+	
+		user.setPassword(password);
+
+		return user;
+	}
     
     
     
@@ -384,7 +414,7 @@ public class ESDMModel {
      * dob, date joined and list of guardians
      */
     
-    public Child addChild(String name, Calendar dob, Calendar dateJoined, ArrayList<Guardian> guardians) throws Exception
+    public Child addChild(String name, Calendar dob, Calendar dateJoined) throws Exception
     {
     	
     	if(name.length() == 0)
@@ -398,13 +428,7 @@ public class ESDMModel {
     	}
     	
         Child child = new Child(name, dob, dateJoined);
-
-        int size = guardians.size();
-        for(int i = 0; i < size; i++)
-        {
-        	child.addGuardian(guardians.get(i));
-        }
-        
+       
         childList.add(child);
         
         return child;
@@ -526,8 +550,8 @@ public class ESDMModel {
 	 * Adds a new guardian to the system
 	 */
 	
-	public void addGuardian(Guardian temp) {
-		userList.add(temp);
+	public void addGuardian(Guardian guardian) {
+		userList.add(guardian);
 	}
 
 
@@ -765,5 +789,7 @@ public class ESDMModel {
 	public String getCurrentAccess() {
 		return currentUser.getAccess();
 	}
+
+
 	
 }

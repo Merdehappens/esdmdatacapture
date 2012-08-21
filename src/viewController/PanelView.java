@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import system.individuals.Child;
 import system.model.ESDMModel;
 
 public abstract class PanelView extends JPanel {

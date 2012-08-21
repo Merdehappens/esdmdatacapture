@@ -3,8 +3,6 @@ package viewController;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
-import system.helper.Helper;
-import system.individuals.Child;
 import system.individuals.Guardian;
 import system.individuals.UserAccount;
 import system.model.ESDMModel;
@@ -12,13 +10,11 @@ import system.model.ESDMModel;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
 
 
 public class LinkGuardian extends PanelView {
@@ -27,7 +23,6 @@ public class LinkGuardian extends PanelView {
 	private static final long serialVersionUID = -2762847607634692026L;
 	private JButton btnSubmit;
 	private JButton btnCancel;
-	private JTable table;
 	private JTable guardianTable;
 	private DefaultTableModel guardianTableModel;
 	private JButton btnLinkAccount;
@@ -45,7 +40,7 @@ public class LinkGuardian extends PanelView {
 	public void initialise() {
 		setLayout(null);
 		
-		super.setTitle("Link Guardian to Account");
+		super.setTitle("Link Guardian to Child");
 
 		// Creates and adds 2 new buttons to panel
 		btnSubmit = new JButton("Submit");

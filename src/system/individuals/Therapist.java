@@ -28,7 +28,12 @@ public class Therapist extends UserAccount {
 		return marks;
 	}
 
-	public void setMarks(List<Mark> marks) {
+	public Therapist(String name, String username, String emailAddress) {
+		super(name, username, emailAddress);
+	}
+	
+		public void setMarks(List<Mark> marks) {
 		this.marks = marks;
 	}
+
 }

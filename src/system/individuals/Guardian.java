@@ -37,7 +37,11 @@ public class Guardian extends UserAccount {
      * Adds a child object to the hashSet inside the guardian object
      */
     
-    public void addChild(Child child)
+    public Guardian(String name, String username, String emailAddress) {
+		super(name, username, emailAddress);
+	}
+
+	public void addChild(Child child)
     {
     	children.add(child);
     }
