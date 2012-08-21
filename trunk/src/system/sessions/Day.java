@@ -7,21 +7,49 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
 import system.helper.SimpleKey;
 import system.individuals.Child;
 import system.marking.Mark;
+import system.marking.Step;
 import system.model.Room;
 
 
-
+@Entity
 public class Day implements SimpleKey {
-    
+	@Id
+	@Column(name="DayID")
+	private String id;
+    @ManyToMany
+    @JoinTable(name="DayChild",
+    		joinColumns={@JoinColumn(name="DayID")},
+    		inverseJoinColumns={@JoinColumn(name="ChildID")})
     private List<Child> children;
+    @Transient
     private Calendar date;
-    private String id;
+    @Transient
     private Room room;
+    // ^ ^ ^ "room" set to Transient, as I believe Room is no longer used
+    @ManyToMany
+    @JoinTable(name="DaySession",
+    		joinColumns={@JoinColumn(name="DayID")},
+    		inverseJoinColumns={@JoinColumn(name="SessionID")})
     private List<Session> sessions;
     private boolean template;
+    @OneToMany(targetEntity=Mark.class,
+    		mappedBy="day",
+    		cascade=CascadeType.ALL,
+    		fetch=FetchType.LAZY)
     private List<Mark> marks;
     
     public Day()
@@ -128,5 +156,26 @@ public class Day implements SimpleKey {
 		sessions.add(session);
 
 	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setChildren(List<Child> children) {
+		this.children = children;
+	}
+
+	public void setDate(Calendar date) {
+		this.date = date;
+	}
+
+	public void setSessions(List<Session> sessions) {
+		this.sessions = sessions;
+	}
+
+	public void setMarks(List<Mark> marks) {
+		this.marks = marks;
+	}
     
+	
 }
