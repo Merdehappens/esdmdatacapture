@@ -7,24 +7,57 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.swing.ImageIcon;
 
 import system.helper.SimpleKey;
 import system.marking.Mark;
 import system.marking.Objective;
+import system.marking.Step;
+import system.sessions.Day;
 
-//@Entity // <-- Beginning to integrate Child into DB...
+@Entity
 public class Child implements SimpleKey {
-    private String id;
+    @Id
+    @Column(name="ChildID")
+	private String id;
     private String name;
     private Calendar dateJoined;
     private Calendar dob;
+    @ManyToMany
+    @JoinTable(name="GuardianChild",
+		joinColumns={@JoinColumn(name="ChildID")},
+		inverseJoinColumns={@JoinColumn(name="name")})
     private List<Guardian> guardians;
+    @ManyToMany
+    @JoinTable(name="ChildObjective",
+    		joinColumns={@JoinColumn(name="ChildID")},
+    		inverseJoinColumns={@JoinColumn(name="ObjectiveID")})
     private List<Objective> objectives;
+    @Transient
     private List<Integer> currentStep;
+    @OneToMany(targetEntity=Mark.class,
+    		mappedBy="child",
+    		cascade=CascadeType.ALL,
+    		fetch=FetchType.LAZY)
     private List<Mark> marks;
+    @ManyToMany
+    @JoinTable(name="DayChild",
+    		joinColumns={@JoinColumn(name="ChildID")},
+    		inverseJoinColumns={@JoinColumn(name="DayID")})
+    private List<Day> days;
+    @Transient
     private ImageIcon picture;
+    @Transient
     private URL pictureLink;
     private boolean active;
     
@@ -49,7 +82,35 @@ public class Child implements SimpleKey {
         active = true;
     }
 
-    public final Calendar getDateJoined() {
+    public List<Integer> getCurrentStep() {
+		return currentStep;
+	}
+
+	public void setCurrentStep(List<Integer> currentStep) {
+		this.currentStep = currentStep;
+	}
+
+	public void setGuardians(List<Guardian> guardians) {
+		this.guardians = guardians;
+	}
+
+	public void setObjectives(List<Objective> objectives) {
+		this.objectives = objectives;
+	}
+
+	public void setMarks(List<Mark> marks) {
+		this.marks = marks;
+	}
+
+	public void setPicture(ImageIcon picture) {
+		this.picture = picture;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public final Calendar getDateJoined() {
         return dateJoined;
     }
 
@@ -202,6 +263,14 @@ public class Child implements SimpleKey {
 
 	public final boolean getActive() {
 		return active;
+	}
+
+	public List<Day> getDays() {
+		return days;
+	}
+
+	public void setDays(List<Day> days) {
+		this.days = days;
 	}
     
     

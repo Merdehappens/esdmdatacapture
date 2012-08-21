@@ -23,10 +23,12 @@ import system.individuals.Child;
 import system.individuals.Guardian;
 import system.individuals.Therapist;
 import system.individuals.UserAccount;
+import system.marking.Mark;
 import system.marking.Objective;
 import system.marking.Step;
 import system.model.ESDMModel;
 import system.model.Room;
+import system.sessions.Day;
 import system.sessions.Session;
 
 
@@ -175,11 +177,14 @@ public class Controller extends JFrame {
 		config.addAnnotatedClass(Objective.class);
 		config.addAnnotatedClass(UserAccount.class);
 		config.addAnnotatedClass(Therapist.class);
-		//config.addAnnotatedClass(Guardian.class);
-		//config.addAnnotatedClass(Child.class);
+		config.addAnnotatedClass(Guardian.class);
+		config.addAnnotatedClass(Child.class);
+		config.addAnnotatedClass(Mark.class);
+		config.addAnnotatedClass(Day.class);
+		config.addAnnotatedClass(Session.class);
 		config.configure("hibernate.cfg.xml");
 		
-		new SchemaExport(config).create(true, true);
+		//new SchemaExport(config).create(true, true);
 		// ^ ^ ^ SchemaExport is commented out once all tables are created,
 		// ^ ^ ^ uncommented when new classes have been annotated and also
 		// ^ ^ ^ need to be added.
@@ -189,7 +194,7 @@ public class Controller extends JFrame {
 		//			HIBERNATE DATABASE ENTITY TEST CODE
 		
 		// Hibernate Database Step-object Test
-		SessionFactory factory = config.buildSessionFactory();
+		/*SessionFactory factory = config.buildSessionFactory();
 		org.hibernate.Session session = factory.getCurrentSession();
 		
 		session.beginTransaction();
@@ -218,7 +223,7 @@ public class Controller extends JFrame {
 		session.save(testStep);
 		session.save(testTher);
 		session.save(testObj);
-		session.getTransaction().commit();
+		session.getTransaction().commit();*/
 		// 		NOTE: Hibernate saves these test objects to the database
 		//		at ".commit()", NOT at ".save(testStep)"
 		//		This is important to understand, especially later on.

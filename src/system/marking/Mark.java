@@ -4,22 +4,42 @@ package system.marking;
 
 import java.util.Calendar;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
 import system.helper.SimpleKey;
 import system.individuals.Child;
 import system.individuals.Therapist;
 import system.sessions.Day;
 import system.sessions.Session;
 
-
+@Entity
 public class Mark implements SimpleKey {
+	@Id
     private String id;
+	@ManyToOne
+	@JoinColumn(name="child_id")
     private Child child;
     private int mark;
+	@ManyToOne
+	@JoinColumn(name="day_id")
     private Day day;
+	@ManyToOne
+	@JoinColumn(name="session_id")
     private Session session;
+    @Transient
     private Objective objective;
+    // ^ ^ ^ Transient, as database model does not have connection between Mark and Objective
+	@ManyToOne
+	@JoinColumn(name="step_id")
     private Step step;
+	@ManyToOne
+	@JoinColumn(name="therapist_id")
     private Therapist therapist;
+	@Transient
     private Calendar time;
     private String comment;
     

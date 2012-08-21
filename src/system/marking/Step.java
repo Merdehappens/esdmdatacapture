@@ -4,12 +4,20 @@
  */
 package system.marking;
 
+import java.util.List;
+
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
+import system.individuals.Child;
 
 /**
  *
@@ -30,8 +38,16 @@ public class Step {
 	@ManyToOne
 	@JoinColumn(name="objective_id")
     private Objective objective;
-    
-    public Step()
+	@Transient
+	private Child child;
+    @OneToMany(targetEntity=Mark.class,
+    		mappedBy="step",
+    		cascade=CascadeType.ALL,
+    		fetch=FetchType.LAZY)
+    private List<Mark> marks;
+
+
+	public Step()
     {
     }
     
@@ -103,5 +119,21 @@ public class Step {
     	return no + " " + description;
     }
     
-    
+    public Child getChild() {
+		return child;
+	}
+
+	public void setChild(Child child) {
+		this.child = child;
+	}
+
+	public List<Mark> getMarks() {
+		return marks;
+	}
+
+	public void setMarks(List<Mark> marks) {
+		this.marks = marks;
+	}
+	
+	
 }
