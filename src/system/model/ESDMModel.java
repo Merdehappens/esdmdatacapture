@@ -27,9 +27,8 @@ public class ESDMModel {
     
     private List<Child> childList;
     private Set<Session> sessionList;
-    private List<Guardian> guardianList;
-    private List<Therapist> therapistList;
     private List<Objective> objectiveList;
+    private List<UserAccount> userList;
     private Set<Mark> markList;
     private List<Day> dayList;
     private List<Room> roomList;
@@ -39,12 +38,11 @@ public class ESDMModel {
     {
         childList = new ArrayList<Child>();
         sessionList = new HashSet<Session>();
-        therapistList = new ArrayList<Therapist>();
         objectiveList = new ArrayList<Objective>();
-        guardianList = new ArrayList<Guardian>();
         markList = new HashSet<Mark>();
         roomList = new ArrayList<Room>();
         dayList = new ArrayList<Day>();
+        userList = new ArrayList<UserAccount>();
         currentUser = null;
         try {
 			loadFromDatabase();
@@ -220,35 +218,39 @@ public class ESDMModel {
         sessionList.add(new Session("S05", "One/One"));
         sessionList.add(new Session("S06", "Informal"));
         sessionList.add(new Session("S07", "Toilet"));
+ 
         
-        Therapist user = new Therapist();
-        user.tempSetPassword("Temporary");
-        user.setUsername("Temporary");
-        therapistList.add(user);
-        
-        user = new Therapist();		
+        Therapist user = new Therapist();		
         user.setUsername("dbisignano");
         user.tempSetPassword("temp");
-        therapistList.add(user);
+        userList.add(user);
         
         user = new Therapist();
         user.setUsername("temp");
         user.tempSetPassword("temp");
-        therapistList.add(user);
+        user.setAccess("n");
+        userList.add(user);
         
+
         Guardian guardian = new Guardian();
-        guardian.setName("Name1");
-        guardian.setEmailAddress("EmailAddress1");
-        guardian.setPhoneNo("Phone No 1");
-        
-        guardianList.add(guardian);
-        
-        guardian = new Guardian();
         guardian.setName("Name2");
         guardian.setEmailAddress("EmailAddress2");
         guardian.setPhoneNo("Phone No 2");
+
+        userList.add(guardian);
         
-        guardianList.add(guardian);
+        
+        guardian = new Guardian();
+        guardian.setUsername("Temp");
+        guardian.tempSetPassword("Temp");
+        guardian.setName("Name1");
+        guardian.setEmailAddress("EmailAddress1");
+        guardian.setPhoneNo("Phone No 1");
+        guardian.setAccess("g");
+        userList.add(guardian);
+        //child.addGuardian(guardian);
+        //guardian.addChild(child);
+        
         
         c = Calendar.getInstance();
         c.set(2012, 4, 10);
@@ -290,12 +292,12 @@ public class ESDMModel {
 
     public boolean login(String username, String password)
     {
-    	int size = therapistList.size();
+    	int size = userList.size();
         for(int i = 0; i < size; i++)
         {
-        	UserAccount temp = therapistList.get(i);
+        	UserAccount temp = userList.get(i);
         	
-        	if(temp.getUsername().equals(username))
+        	if(temp.getUsername() != null && temp.getUsername().equals(username))
         	{
         		if(BCrypt.checkpw(password, temp.getPassword()))
         		{
@@ -306,7 +308,7 @@ public class ESDMModel {
         		{
         			return false;
         		}
-        	}     		
+        	}
         }
         return false;
     }
@@ -525,12 +527,9 @@ public class ESDMModel {
 	 */
 	
 	public void addGuardian(Guardian temp) {
-		guardianList.add(temp);
+		userList.add(temp);
 	}
 
-	public List<Guardian> getGuardianList() {
-		return guardianList;
-	}
 
 	public List<Day> getDayList() {
 		return dayList;
@@ -735,5 +734,36 @@ public class ESDMModel {
 		}
 	}
 	
+	public ArrayList<Guardian> getGuardianList() {
+		ArrayList<Guardian> guardians = new ArrayList<Guardian>();
+		int size = userList.size();
+		for(int i = 0; i < size; i++)
+		{
+			UserAccount u = userList.get(i);
+			if(u instanceof Guardian)
+			{
+				guardians.add((Guardian)u);
+			}
+		}
+		return guardians;
+	}
+
+
+	public UserAccount getUserAccount(String username) {
+		int size = userList.size();
+		for(int i = 0; i < size; i++)
+		{
+			UserAccount user = userList.get(i);
+			if(user.getUsername().equals(username))
+			{
+				return user;
+			}
+		}
+		return null;
+	}
+
+	public String getCurrentAccess() {
+		return currentUser.getAccess();
+	}
 	
 }

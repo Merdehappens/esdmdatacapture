@@ -10,6 +10,7 @@ import system.sessions.Day;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JScrollPane;
@@ -28,7 +29,8 @@ public class ReviewSession extends PanelView {
 	private JLabel lblRoomName;
 	private JButton btnLogMarks;
 	private JButton btnSave;
-
+	private JButton btnExport;
+	
 
 	public ReviewSession() {
 		initialise();
@@ -109,8 +111,12 @@ public class ReviewSession extends PanelView {
 
 		// Creates and adds the Log Marks button to the screen
 		btnLogMarks = new JButton("Log more marks \nfor this session");
-		btnLogMarks.setBounds(489, 454, 260, 21);
+		btnLogMarks.setBounds(631, 455, 260, 21);
 		add(btnLogMarks);
+		
+		btnExport = new JButton("Export to CSV");
+		btnExport.setBounds(438, 454, 170, 23);
+		add(btnExport);
 
 		// Sets the column widths 
 		tblReview.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -175,6 +181,10 @@ public class ReviewSession extends PanelView {
 	public void saveListener(ActionListener al) {
 		btnSave.addActionListener(al);
 	}
+	
+	public void exportListener(ActionListener al) {
+		btnExport.addActionListener(al);
+	}
 
 	// Takes in an ActionListener and adds it to the Log Mark button
 	public void logMarksListener(ActionListener al) {
@@ -194,5 +204,11 @@ public class ReviewSession extends PanelView {
 	// Overrides the refreshView method in PanelView and refreshes the view of this panel
 	public void refreshView() {
 		refreshTable();
+	}
+	
+	// Saves the table to CSV file
+	public void saveCSV() throws Exception {
+		File f = Helper.chooseFile();
+		Helper.exportCSV(f, tblReview);
 	}
 }

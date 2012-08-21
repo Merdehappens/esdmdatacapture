@@ -109,7 +109,6 @@ public class ViewReport extends PanelView {
 	public void saveCSV() throws Exception {
 		File f = Helper.chooseFile();
 		Helper.exportCSV(f, tblSession);
-
 	}
 
 	// Adds the action listener that is parsed in on the save button

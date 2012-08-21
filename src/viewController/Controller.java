@@ -85,6 +85,8 @@ public class Controller extends JFrame {
 	private ChildView childViewGrid;
 	private ViewObjective viewObjective;
 	private JLabel lblMessage;
+	private LinkGuardian linkGuardian;
+	private String access;
 
 	public Controller() throws MalformedURLException {
 		addWindowListener(new WindowAdapter() {
@@ -211,7 +213,7 @@ public class Controller extends JFrame {
 		testTher.tempSetPassword("testPassword1");
 		testTher.setUsername("tU1");
 		testTher.setPhoneNo("+61 4 17 testPhoneNo1");
-		testTher.setAccess(true);
+		testTher.setAccess("a");
 		
 		session.save(testStep);
 		session.save(testTher);
@@ -349,6 +351,9 @@ public class Controller extends JFrame {
 
 		newUserAccount = new NewUserAccount();
 		accountPanel.add(newUserAccount, "newUserAccount");
+		
+		linkGuardian = new LinkGuardian(model);
+		accountPanel.add(linkGuardian, "linkGuardian");
 
 		lblMessage = new JLabel("");
 		lblMessage.setBounds(10, 540, 432, 24);
@@ -389,6 +394,7 @@ public class Controller extends JFrame {
 		logSessionData.commitMarkListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				logSessionData.addMark();
+				showMessage("Mark added.");
 			}
 		});
 
@@ -396,6 +402,7 @@ public class Controller extends JFrame {
 				.addTimestampListener(new java.awt.event.ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						logSessionData.addTimestamp();
+						showMessage("Timestamp added.");
 					}
 				});
 
@@ -409,6 +416,16 @@ public class Controller extends JFrame {
 		reviewSession.saveListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				show(sessionPanel, "Session");
+			}
+		});
+		
+		reviewSession.exportListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					reviewSession.saveCSV();
+				} catch (Exception e) {
+					showMessage(e.getMessage());
+				}
 			}
 		});
 
@@ -535,6 +552,17 @@ public class Controller extends JFrame {
 		});
 
 		newUserAccount.cancel(ActionListenerShow(accountPanel, "Account"));
+		
+		linkGuardian.addLinkAccount(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					linkGuardian.linkAccount();
+				} catch (Exception e) {
+					showMessage(e.getMessage());
+				}
+			}
+		});
+		
 
 	}
 
@@ -554,7 +582,15 @@ public class Controller extends JFrame {
 			public void actionPerformed(ActionEvent evt) {
 				show(reportingPanel, "findChildReport");
 				findChildReport.setDestination(viewReport);
-				findChildReport.setChildren(model.getChildList());
+				if(access.equals("g"))
+				{
+					Guardian g = (Guardian) model.getCurrentUser();
+					findChildReport.setChildren(g.getChildren());
+				}
+				else
+				{
+					findChildReport.setChildren(model.getChildList());
+				}
 			}
 		});
 		
@@ -697,6 +733,12 @@ public class Controller extends JFrame {
 
 		accountView.newUserAccount(ActionListenerShow(accountPanel,
 				"newUserAccount"));
+		
+		accountView.linkGuardian(ActionListenerShow(accountPanel,
+				"linkGuardian"));
+		
+		linkGuardian.cancel(ActionListenerShow(accountPanel,
+				"Account"));
 
 		tabbedPane.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
@@ -869,7 +911,29 @@ public class Controller extends JFrame {
 
 			System.exit(1);
 		}
+		
+		access = model.getCurrentAccess();
+		
+		setPermissions();
 
+	}
+	
+	private void setPermissions() {
+		if(access.equals("n"))
+		{
+		
+		}
+		else if(access.equals("g"))
+		{
+			tabbedPane.setEnabledAt(1, false);
+			tabbedPane.setEnabledAt(2, false);
+			tabbedPane.setEnabledAt(3, false);
+			accountView.setAccess("g");
+		}
+		else if(access.equals("a"))
+		{
+			
+		}
 	}
 
 	private void showMessage(String message) {
