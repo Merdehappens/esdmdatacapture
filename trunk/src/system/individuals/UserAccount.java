@@ -26,24 +26,26 @@ public class UserAccount implements SimpleKey {
     @Basic
     private String phoneNo;
     @Basic
-    private boolean access;
+    private String access;
     
     public UserAccount()
     {
+    	access = "n";
     }
     
     public UserAccount(String name, String username, String emailAddress) {
 		this.name = name;
 		this.username = username;
 		this.emailAddress = emailAddress;
+		access = "n";
 	}
     
-    public boolean getAccess()
+    public String getAccess()
     {
     	return access;
     }
     
-    public void setAccess(boolean access)
+    public void setAccess(String access)
     {
     	this.access = access;
     }

@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -89,6 +90,8 @@ public class Helper {
    public static void exportCSV(File f, JTable table) throws Exception
    {
 	  // FileWriter fw = new FileWriter("C:\\Users\\Damian\\Desktop\\test.csv");
+	   if(f != null)
+	   {
 	   PrintWriter pw = new PrintWriter(f);
 	   
 	   DefaultTableModel tblModel = (DefaultTableModel)table.getModel();
@@ -112,7 +115,7 @@ public class Helper {
 		   pw.write('\n');
 	   }
 	   pw.close();
-	   
+	   }
 
    }
    
@@ -123,7 +126,12 @@ public class Helper {
 	   int returnVal = fc.showSaveDialog(null);
 	   if (returnVal == JFileChooser.APPROVE_OPTION)
 	   {
-		   File file = fc.getSelectedFile();
+		   String path = fc.getSelectedFile().getAbsolutePath();
+		   if(path.lastIndexOf("csv") == -1)
+		   {
+			   path = path + ".csv";
+		   }
+		   File file = new File(path);
 		   return file;
 	   }
 	   else

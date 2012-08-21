@@ -13,6 +13,7 @@ public class AccountView extends PanelView {
 	private JButton btnChangePassword;
 	private JButton btnChangeEmailAddress;
 	private JButton btnNewUserAccount;
+	private JButton btnLinkGuardian;
 
 	public AccountView() {
 		super();
@@ -47,6 +48,10 @@ public class AccountView extends PanelView {
 		btnNewUserAccount = new JButton("Add New User Account");
 		btnNewUserAccount.setBounds(20, 170, 200, 40);
 		add(btnNewUserAccount);
+		
+		btnLinkGuardian = new JButton("Link Guardian to Account");
+		btnLinkGuardian.setBounds(20, 221, 200, 40);
+		add(btnLinkGuardian);
 
 	}
 
@@ -64,9 +69,22 @@ public class AccountView extends PanelView {
 	public void newUserAccount(ActionListener al) {
 		btnNewUserAccount.addActionListener(al);
 	}
+	
+	// Takes in an ActionListener and adds it to the link guardian buttton
+	public void linkGuardian(ActionListener al) {
+		btnLinkGuardian.addActionListener(al);
+	}
 
 	// Overrides the refreshView method in PanelView and refreshes the view of this panel
 	public void refreshView() {
+	}
+
+	public void setAccess(String string) {
+		if(!string.equals("a"))
+		{
+			btnNewUserAccount.setEnabled(false);
+			btnLinkGuardian.setEnabled(false);
+		}
 	}
 
 }

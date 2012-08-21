@@ -127,14 +127,21 @@ public class FindChild extends PanelView {
 
 	private void searchList(String text) {
 		childListModel.clear();
-		int size = children.size();
-		for (int i = 0; i < size; i++) {
-			Child temp = children.get(i);
-			String childName = temp.getName().toLowerCase();
-			text = text.toLowerCase();
+		if(children == null)
+		{
 			
-			if (childName.contains(text)) {
-				childListModel.addElement(temp);
+		}
+		else
+		{
+			int size = children.size();
+			for (int i = 0; i < size; i++) {
+				Child temp = children.get(i);
+				String childName = temp.getName().toLowerCase();
+				text = text.toLowerCase();
+			
+				if (childName.contains(text)) {
+					childListModel.addElement(temp);
+				}
 			}
 		}
 	}

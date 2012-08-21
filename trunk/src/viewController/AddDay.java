@@ -235,6 +235,7 @@ public class AddDay extends PanelView {
 		Vector<Room> v = new Vector<Room>(this.getModel().getRoomList());
 		ComboBoxModel<Room> cmbModel = new DefaultComboBoxModel<Room>(v);
 		cmbRoom.setModel(cmbModel);
+		dateChooser.setCalendar(null);
 
 		this.requestFocusInWindow();
 
