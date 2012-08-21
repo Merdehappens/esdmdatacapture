@@ -8,7 +8,6 @@ import system.model.ESDMModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
@@ -19,13 +18,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
-
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import java.awt.BorderLayout;
 
 public class AddChild extends PanelView {
 
@@ -36,9 +30,6 @@ public class AddChild extends PanelView {
 	private JButton btnCancel;
 	private JDateChooser dateJoinedChooser;
 	private JDateChooser dobChooser;
-	private ArrayList<Guardian> guardians;
-	private JTable tblGuardian;
-	private DefaultTableModel tblGuardianModel;
 	private File picture;
 	private JLabel lblPicture;
 
@@ -59,7 +50,6 @@ public class AddChild extends PanelView {
 
 	private void initialise() {
 		picture = null;
-		guardians = new ArrayList<Guardian>();
 
 		setLayout(null);
 		// Sets the title of the screen
@@ -67,34 +57,32 @@ public class AddChild extends PanelView {
 
 		// Adds labels to the screen
 		JLabel lblName = new JLabel("Name:");
-		lblName.setBounds(10, 40, 46, 30);
+		lblName.setBounds(10, 66, 46, 30);
 		add(lblName);
-
-		JLabel lblDateOfBirth = new JLabel("Date Of Birth");
-		lblDateOfBirth.setBounds(10, 81, 73, 30);
-		add(lblDateOfBirth);
-
-		JLabel lblDateJoined = new JLabel("Date Joined");
-		lblDateJoined.setBounds(10, 120, 73, 30);
-		add(lblDateJoined);
 
 		// Adds text fields to screen
 		txtName = new JTextField();
-		txtName.setBounds(66, 40, 271, 30);
+		txtName.setBounds(43, 66, 294, 30);
 		add(txtName);
 		txtName.setColumns(10);
 
 		dobChooser = new JDateChooser();
-		dobChooser.setBounds(87, 81, 250, 30);
+		dobChooser.setBounds(10, 107, 327, 30);
 		add(dobChooser);
+		
+				JLabel lblDateOfBirth = new JLabel("Date Of Birth");
+				dobChooser.add(lblDateOfBirth, BorderLayout.WEST);
 
 		dateJoinedChooser = new JDateChooser();
-		dateJoinedChooser.setBounds(93, 120, 244, 30);
+		dateJoinedChooser.setBounds(10, 146, 327, 30);
 		add(dateJoinedChooser);
+		
+				JLabel lblDateJoined = new JLabel("Date Joined");
+				dateJoinedChooser.add(lblDateJoined, BorderLayout.WEST);
 		
 		// Adds submit button to screen
 		btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(10, 343, 89, 23);
+		btnSubmit.setBounds(10, 241, 89, 30);
 		add(btnSubmit);
 
 		// Creates a reset button and adds an action listener to it. that when clicked it resets all fields.
@@ -104,101 +92,15 @@ public class AddChild extends PanelView {
 				refreshView();
 			}
 		});
-		btnReset.setBounds(109, 344, 105, 21);
+		btnReset.setBounds(109, 242, 105, 29);
 		add(btnReset);
 
 		// Creates and adds a cancel button to screen
 		btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(224, 344, 94, 21);
+		btnCancel.setBounds(224, 242, 94, 29);
 		add(btnCancel);
-
-		// Creates a new JTable where the first column is not editable
-
-		tblGuardian = new JTable() {
-			private static final long serialVersionUID = -6097806136687511132L;
-
-			public boolean isCellEditable(int rowIndex, int colIndex) {
-				if (colIndex == 0) {
-					return false;
-				}
-				return true;
-			}
-		};
-
-		/*
-		 * Adds a listener so that if the table loses focus it stops editing on
-		 * that cell.
-		 * 
-		 * This is so that when add is clicked when a cell is still being edited
-		 * the information in the cell is saved and not lost.
-		 */
-
-		tblGuardian.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent arg0) {
-
-				TableCellEditor editor = tblGuardian.getCellEditor();
-				if (editor != null) {
-					editor.stopCellEditing();
-				}
-
-			}
-		});
-
-		// Sets up the tables columns and model
-
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 237, 342, 95);
-		add(scrollPane);
-
-		scrollPane.setViewportView(tblGuardian);
 		
-		// Sets the column names
-		String[] columnNames = new String[] { "GuardianID", "Name",
-				"Phone Number" };
 
-		tblGuardianModel = new DefaultTableModel();
-		// adds the column names to the table
-		tblGuardianModel.setColumnIdentifiers(columnNames);
-
-		tblGuardian.setModel(tblGuardianModel);
-
-		JLabel lblChildsGuardians = new JLabel("Child's Guardians");
-		lblChildsGuardians.setHorizontalAlignment(SwingConstants.CENTER);
-		lblChildsGuardians.setBounds(10, 212, 342, 14);
-		add(lblChildsGuardians);
-
-		// Creates a new Button and adds a new action listener to the button so
-		// that when button is pressed it adds a new row to the table.
-		JButton btnAddGuardian = new JButton("Add a Guardian");
-		
-		btnAddGuardian.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				Object[] tempRow = new Object[3];
-				tempRow[0] = null;
-				tempRow[1] = "";
-				tempRow[2] = "";
-
-				tblGuardianModel.addRow(tempRow);
-			}
-		});
-		btnAddGuardian.setBounds(364, 249, 120, 23);
-		add(btnAddGuardian);
-
-		// Creates a new button and adds a new action listener to the button so
-		// when it is pressed it removes the selected row from the table.
-
-		JButton btnDeleteGuardian = new JButton("Remove Selected Guardian");
-		btnDeleteGuardian.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (tblGuardian.getSelectedRow() >= 0) {
-					tblGuardianModel.removeRow(tblGuardian.getSelectedRow());
-				}
-			}
-		});
-		btnDeleteGuardian.setBounds(364, 281, 120, 23);
-		add(btnDeleteGuardian);
 
 		// Adds a new button that when pressed makes a new File Chooser dialog
 		// open So that the user can choose a picture to upload for this child.
@@ -216,7 +118,7 @@ public class AddChild extends PanelView {
 				lblPicture.setIcon(temp);
 			}
 		});
-		btnSelectPictureTo.setBounds(364, 43, 144, 27);
+		btnSelectPictureTo.setBounds(364, 69, 144, 27);
 		add(btnSelectPictureTo);
 
 		// Adds a new Label that will hold the picture chosen for the child.
@@ -230,30 +132,6 @@ public class AddChild extends PanelView {
 	// Returns the text inside the text box for name
 	public String getChildName() {
 		return txtName.getText();
-	}
-
-	/*
-	 * Returns the guardian objects that are in the table. if there is no object
-	 * for the specified row it will create an object and add it to the list to
-	 * be returned.
-	 */
-
-	public ArrayList<Guardian> getGuardians() {
-		
-		guardians = new ArrayList<Guardian>();
-		for (int i = 0; i < tblGuardian.getRowCount(); i++) {
-			
-			Guardian guardian = (Guardian) tblGuardianModel.getValueAt(i, 0);
-			
-			if (guardian == null) {
-				guardian = new Guardian();
-				guardian.setName((String) tblGuardianModel.getValueAt(i, 1));
-				guardian.setPhoneNo((String) tblGuardianModel.getValueAt(i, 2));
-			}
-			guardians.add(guardian);
-		}
-
-		return guardians;
 	}
 
 	// Returns the DOB that is chosen by the date chooser
@@ -280,10 +158,8 @@ public class AddChild extends PanelView {
 	public void resetTextField() {
 		txtName.setText("");
 		Date tempDate = null;
-		guardians = new ArrayList<Guardian>();
 		dateJoinedChooser.setDate(tempDate);
 		dobChooser.setDate(tempDate);
-		tblGuardianModel.setRowCount(0);
 		lblPicture.setIcon(null);
 	}
 

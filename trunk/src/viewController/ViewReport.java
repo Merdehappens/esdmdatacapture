@@ -15,7 +15,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JLabel;
-import java.awt.event.ActionEvent;
 import java.io.File;
 
 public class ViewReport extends PanelView {

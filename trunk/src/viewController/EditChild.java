@@ -3,6 +3,7 @@ package viewController;
 import javax.swing.JButton;
 
 import system.individuals.Child;
+import system.individuals.Guardian;
 import system.model.ESDMModel;
 
 import javax.swing.JLabel;
@@ -13,6 +14,11 @@ import com.toedter.calendar.JDateChooser;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class EditChild extends PanelView {
 
@@ -29,6 +35,10 @@ public class EditChild extends PanelView {
 	private JLabel txtId;
 	private JButton btnCancel;
 	private JButton btnSave;
+	private JTable table;
+	private JTable tblGuardian;
+	private DefaultTableModel tblGuardianModel;
+	private JLabel lblPicture;
 
 	/**
 	 * Create the panel.
@@ -77,7 +87,7 @@ public class EditChild extends PanelView {
 
 		btnSave = new JButton("Save");
 
-		btnSave.setBounds(10, 189, 89, 23);
+		btnSave.setBounds(10, 363, 89, 23);
 		add(btnSave);
 
 		JButton btnReset = new JButton("Reset");
@@ -86,11 +96,11 @@ public class EditChild extends PanelView {
 				refreshView();
 			}
 		});
-		btnReset.setBounds(109, 189, 105, 21);
+		btnReset.setBounds(109, 363, 105, 21);
 		add(btnReset);
 
 		btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(224, 189, 94, 21);
+		btnCancel.setBounds(224, 363, 94, 21);
 		add(btnCancel);
 
 		JLabel lblId = new JLabel("Id:");
@@ -100,7 +110,21 @@ public class EditChild extends PanelView {
 		txtId = new JLabel("");
 		txtId.setBounds(40, 33, 216, 30);
 		add(txtId);
-
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 189, 319, 150);
+		add(scrollPane);
+		
+		tblGuardian = new JTable();
+		tblGuardianModel = new DefaultTableModel();
+		tblGuardian.setModel(tblGuardianModel);
+		scrollPane.setViewportView(tblGuardian);
+		
+		lblPicture = new JLabel("");
+		lblPicture.setBounds(369, 66, 189, 129);
+		add(lblPicture);
+		String[] colIdentifiers = {"Name", "Phone Number", "Email Address"};
+		tblGuardianModel.setColumnIdentifiers(colIdentifiers);
 	}
 
 	// Takes in an ActionListener and adds it to the Save Child button
@@ -145,6 +169,33 @@ public class EditChild extends PanelView {
 		dateJoinedChooser.setCalendar(child.getDateJoined());
 		txtId.setText(child.getId());
 		txtName.setText(child.getName());
+
+		
+		lblPicture.setIcon(child.getPicture());
+		
+		populateTable();
+		System.out.println(child.getGuardians().size());
 	}
 
+	private void populateTable() {
+		ArrayList<Guardian> guardians = new ArrayList<Guardian>(child.getGuardians());
+		
+		while(tblGuardianModel.getRowCount() > 0)
+		{
+			tblGuardianModel.removeRow(0);
+		}
+		
+		int size = guardians.size();
+		for(int i = 0; i < size; i++)
+		{
+			Guardian g = guardians.get(i);
+			
+			Object[] temp = new Object[3];
+			temp[0] = g.getName();
+			temp[1] = g.getPhoneNo();
+			temp[2] = g.getEmailAddress();
+			
+			tblGuardianModel.addRow(temp);
+		}
+	}
 }

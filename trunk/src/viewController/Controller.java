@@ -1,6 +1,8 @@
 package viewController;
 
 import java.awt.Dimension;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,6 +21,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
+import system.helper.Helper;
 import system.individuals.Child;
 import system.individuals.Guardian;
 import system.individuals.Therapist;
@@ -33,6 +36,7 @@ import system.sessions.Session;
 
 
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.awt.Font;
@@ -52,6 +56,10 @@ public class Controller extends JFrame {
 	/**
 	 * 
 	 */
+	private static final String adminAccess = "a";
+	private static final String therapistAccess = "n";
+	private static final String guardianAccess = "g";
+	
 	private static final long serialVersionUID = -6281745567153858417L;
 	private static final int xRes = 1024;
 	private static final int yRes = 600;
@@ -541,10 +549,21 @@ public class Controller extends JFrame {
 				String username = newUserAccount.getUsername();
 				String emailAddress = newUserAccount.getEmailAddress();
 				String phoneNo = newUserAccount.getPhoneNo();
-				String pass;
+				String pass = Helper.generateRandomString(8);
+				
+				String access = newUserAccount.getSelectedAccess();
+				
+
 				try {
-					pass = model.addUser(name, username, emailAddress,
-							phoneNo);
+					if(access.equals(guardianAccess))
+					{
+						model.newGuardian(name, username, emailAddress, phoneNo, pass, access);
+					}
+					else
+					{
+						model.newTherapist(name, username, emailAddress, phoneNo, pass, access);
+						
+					}
 					show(accountPanel, "Account");
 					showErrorMessage("The password has been set to: " + pass + "."
 							+ "\nPlease note this down and inform the user.");
@@ -587,7 +606,7 @@ public class Controller extends JFrame {
 			public void actionPerformed(ActionEvent evt) {
 				show(reportingPanel, "findChildReport");
 				findChildReport.setDestination(viewReport);
-				if(access.equals("g"))
+				if(access.equals(guardianAccess))
 				{
 					Guardian g = (Guardian) model.getCurrentUser();
 					findChildReport.setChildren(g.getChildren());
@@ -834,11 +853,8 @@ public class Controller extends JFrame {
 		String name = addChild.getChildName();
 		Calendar dob = addChild.getDob();
 		Calendar dateJoined = addChild.getDateJoined();
-		ArrayList<Guardian> guardians = addChild.getGuardians();
-		Child c;
 		try {
-			c = model.addChild(name, dob, dateJoined, guardians);
-			editChild.setChild(c);
+			Child c = model.addChild(name, dob, dateJoined);
 			show(childPanel, "Child");
 			showMessage(name + " has been successfully added to the system.");
 		} catch (Exception e) {
@@ -924,20 +940,20 @@ public class Controller extends JFrame {
 	}
 	
 	private void setPermissions() {
-		if(access.equals("n"))
+		if(access.equals(adminAccess))
+		{
+			
+		}
+		else if(access.equals(therapistAccess))
 		{
 		
 		}
-		else if(access.equals("g"))
+		else if(access.equals(guardianAccess))
 		{
 			tabbedPane.setEnabledAt(1, false);
 			tabbedPane.setEnabledAt(2, false);
 			tabbedPane.setEnabledAt(3, false);
-			accountView.setAccess("g");
-		}
-		else if(access.equals("a"))
-		{
-			
+			accountView.setAccess(guardianAccess);
 		}
 	}
 

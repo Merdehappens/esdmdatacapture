@@ -1,5 +1,6 @@
 package viewController;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
@@ -7,6 +8,7 @@ import system.model.ESDMModel;
 
 import java.awt.event.ActionListener;
 import javax.swing.JTextField;
+import javax.swing.JRadioButton;
 
 
 public class NewUserAccount extends PanelView {
@@ -19,6 +21,9 @@ public class NewUserAccount extends PanelView {
 	private JTextField txtUsername;
 	private JTextField txtEmail;
 	private JTextField txtPhone;
+	private JRadioButton rdbtnAdminTherapist;
+	private JRadioButton rdbtnGuardian;
+	private JRadioButton rdbtnTherapist;
 
 	public NewUserAccount() {
 		initialise();
@@ -80,7 +85,41 @@ public class NewUserAccount extends PanelView {
 		txtPhone.setBounds(116, 191, 242, 30);
 		add(txtPhone);
 		txtPhone.setColumns(10);
+		
+		rdbtnTherapist = new JRadioButton("Therapist");
+		rdbtnTherapist.setBounds(115, 249, 109, 23);
+		add(rdbtnTherapist);
+		
+		rdbtnGuardian = new JRadioButton("Guardian");
+		rdbtnGuardian.setBounds(10, 249, 109, 23);
+		add(rdbtnGuardian);
+		
+		rdbtnAdminTherapist = new JRadioButton("Admin Therapist");
+		rdbtnAdminTherapist.setBounds(226, 249, 109, 23);
+		add(rdbtnAdminTherapist);
+		
+		ButtonGroup b = new ButtonGroup();
+		b.add(rdbtnGuardian);
+		b.add(rdbtnTherapist);
+		b.add(rdbtnAdminTherapist);
 
+	}
+	
+	public String getSelectedAccess()
+	{
+		if(rdbtnAdminTherapist.isSelected())
+		{
+			return "a";
+		}
+		else if(rdbtnTherapist.isSelected())
+		{
+			return "n";
+		}
+		else
+		{
+			return "g";
+		}
+		
 	}
 
 	// Takes in an ActionListener and adds it to the submit button
@@ -125,5 +164,4 @@ public class NewUserAccount extends PanelView {
 	public void refreshView() {
 		resetTextFields();
 	}
-
 }
