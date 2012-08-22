@@ -30,6 +30,7 @@ public class ReviewSession extends PanelView {
 	private JButton btnLogMarks;
 	private JButton btnSave;
 	private JButton btnExport;
+	private JButton btnEditMark;
 	
 
 	public ReviewSession() {
@@ -65,7 +66,7 @@ public class ReviewSession extends PanelView {
 				refreshView();
 			}
 		});
-		btnReset.setBounds(139, 454, 105, 21);
+		btnReset.setBounds(139, 454, 105, 23);
 		add(btnReset);
 
 		// Adds a scroll pane to the screen for the table to go in
@@ -111,12 +112,16 @@ public class ReviewSession extends PanelView {
 
 		// Creates and adds the Log Marks button to the screen
 		btnLogMarks = new JButton("Log more marks \nfor this session");
-		btnLogMarks.setBounds(631, 455, 260, 21);
+		btnLogMarks.setBounds(631, 454, 260, 23);
 		add(btnLogMarks);
 		
 		btnExport = new JButton("Export to CSV");
 		btnExport.setBounds(438, 454, 170, 23);
 		add(btnExport);
+		
+		btnEditMark = new JButton("Edit Mark");
+		btnEditMark.setBounds(254, 454, 139, 23);
+		add(btnEditMark);
 
 		// Sets the column widths 
 		tblReview.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -190,6 +195,11 @@ public class ReviewSession extends PanelView {
 	public void logMarksListener(ActionListener al) {
 		btnLogMarks.addActionListener(al);
 	}
+	
+	// Takes in an ActionListener and adds it to the edit mark button
+	public void editMarksListener(ActionListener al) {
+		btnEditMark.addActionListener(al);
+	}
 
 	// Sets the day to the day parsed through
 	public void setDay(Day day) {
@@ -210,5 +220,9 @@ public class ReviewSession extends PanelView {
 	public void saveCSV() throws Exception {
 		File f = Helper.chooseFile();
 		Helper.exportCSV(f, tblReview);
+	}
+
+	public Mark getSelectedMark() {
+		return (Mark)tableModel.getValueAt(tblReview.getSelectedRow(), 5);
 	}
 }

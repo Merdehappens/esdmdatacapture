@@ -156,7 +156,10 @@ public class AddDay extends PanelView {
 		btnRemove = new JButton("<");
 		btnRemove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				listModel.remove(lstCurrentSession.getSelectedIndex());
+				if(lstCurrentSession.getSelectedIndex() >= 0)
+				{
+					listModel.remove(lstCurrentSession.getSelectedIndex());
+				}
 			}
 		});
 		btnRemove.setBounds(546, 246, 43, 29);
