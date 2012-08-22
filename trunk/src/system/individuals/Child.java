@@ -38,13 +38,11 @@ public class Child implements SimpleKey {
 		joinColumns={@JoinColumn(name="ChildID")},
 		inverseJoinColumns={@JoinColumn(name="name")})
     private List<Guardian> guardians;
-    @ManyToMany
-    @JoinTable(name="ChildObjective",
-    		joinColumns={@JoinColumn(name="ChildID")},
-    		inverseJoinColumns={@JoinColumn(name="ObjectiveID")})
-    private List<Objective> objectives;
-    @Transient
-    private List<Integer> currentStep;
+    //@ManyToMany
+    //@JoinTable(name="ChildObjective",
+    //		joinColumns={@JoinColumn(name="ChildID")},
+    //		inverseJoinColumns={@JoinColumn(name="ObjectiveID")})
+    private List<ChildObjective> objectives;
     @OneToMany(targetEntity=Mark.class,
     		mappedBy="child",
     		cascade=CascadeType.ALL,
@@ -58,14 +56,13 @@ public class Child implements SimpleKey {
     @Transient
     private ImageIcon picture;
     @Transient
-    private URL pictureLink;
+    private String pictureLink;
     private boolean active;
     
     public Child()
     {
         guardians = new ArrayList<Guardian>();
-        objectives = new ArrayList<Objective>();
-        currentStep = new ArrayList<Integer>();
+        objectives = new ArrayList<ChildObjective>();
         marks = new ArrayList<Mark>();
         active = true;
     }
@@ -73,29 +70,25 @@ public class Child implements SimpleKey {
     public Child(String name, Calendar dob, Calendar dateJoined)
     {
         guardians = new ArrayList<Guardian>();
-        objectives = new ArrayList<Objective>();
+        objectives = new ArrayList<ChildObjective>();
         marks = new ArrayList<Mark>();
-        currentStep = new ArrayList<Integer>();
         this.name = name;
         this.dob = dob;
         this.dateJoined = dateJoined;
         active = true;
     }
 
-    public List<Integer> getCurrentStep() {
-		return currentStep;
-	}
-
-	public void setCurrentStep(List<Integer> currentStep) {
-		this.currentStep = currentStep;
-	}
-
 	public void setGuardians(List<Guardian> guardians) {
 		this.guardians = guardians;
 	}
 
-	public void setObjectives(List<Objective> objectives) {
-		this.objectives = objectives;
+	public void setObjectives(List<Objective> childObjectives) {
+		int size = childObjectives.size();
+		for(int i = 0; i < size; i++)
+		{
+			ChildObjective co = new ChildObjective(childObjectives.get(i), this);
+			objectives.add(co);
+		}
 	}
 
 	public void setMarks(List<Mark> marks) {
@@ -162,31 +155,23 @@ public class Child implements SimpleKey {
     public void incrementStep(Objective o) throws Exception
     {
     	int size = objectives.size();
-    	int x = -1;
+    	boolean x = false;
     	
     	for(int i = 0; i < size; i++)
     	{
-    		if(objectives.get(i) == o)
+    		if(objectives.get(i).getObjective() == o)
     		{
-    			objectives.get(i).getStepsNo();
-    			x = currentStep.get(i);
-    			x++;
-    			if(objectives.get(i).getStepsNo() >= x)
-    			{
-    				currentStep.set(i, x);
-    			}
-    			else
-    			{
-    				throw new Exception("Already at the maximum step for this objective");
-    			}
+    			objectives.get(i).incrementStep();
+    			x = true;
     			break;
     		}
     	}
     	
-    	if(x == -1)
+    	if(!(x))
     	{
-    		throw new Exception("Could not find objective to increment step of");
+    		throw new Exception("The objective does not exist in that child");
     	}
+    	
     }
 
     public void setName(String name) throws Exception {
@@ -199,8 +184,8 @@ public class Child implements SimpleKey {
     
     public void addObjective(Objective o)
     {
-        objectives.add(o);
-        currentStep.add(0);
+        ChildObjective co = new ChildObjective(o, this);
+        objectives.add(co);
     }
     
     final public int getCurrentStep(Objective o)
@@ -209,9 +194,9 @@ public class Child implements SimpleKey {
     	
     	for(int i = 0; i < size; i++)
     	{
-    		if(objectives.get(i) == o)
+    		if(objectives.get(i).getObjective() == o)
     		{
-    			return currentStep.get(i);
+    			return objectives.get(i).getStep();
     		}
     	}
     	
@@ -223,12 +208,12 @@ public class Child implements SimpleKey {
      * picture that the URL points to
      */
     
-    public void setPictureLink(URL pictureLink) {
+    public void setPictureLink(String pictureLink) {
         this.pictureLink = pictureLink;
         picture = new ImageIcon(pictureLink);
     }
     
-    public final URL getPictureLink()
+    public final String getPictureLink()
     {
         return pictureLink;
     }
@@ -244,7 +229,15 @@ public class Child implements SimpleKey {
     }
 
 	public final List<Objective> getObjectives() {
-		return objectives;
+		int size = objectives.size();
+		ArrayList<Objective> o = new ArrayList<Objective>();
+		
+		for(int i = 0; i < size; i++)
+		{
+			o.add(objectives.get(i).getObjective());
+		}
+		
+		return o;
 	}
 
 	public final List<Mark> getMarks() {

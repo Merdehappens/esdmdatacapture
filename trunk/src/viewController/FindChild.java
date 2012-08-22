@@ -51,7 +51,7 @@ public class FindChild extends PanelView {
 		super.setTitle("Select Child");
 
 		btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(10, 316, 89, 23);
+		btnSubmit.setBounds(20, 316, 89, 23);
 		add(btnSubmit);
 
 		btnReset = new JButton("Reset");
@@ -63,7 +63,7 @@ public class FindChild extends PanelView {
 			}
 		});
 
-		btnReset.setBounds(111, 316, 89, 23);
+		btnReset.setBounds(111, 316, 97, 23);
 		add(btnReset);
 
 		btnCancel = new JButton("Cancel");
@@ -73,13 +73,13 @@ public class FindChild extends PanelView {
 		childListModel = new DefaultListModel<Child>();
 
 		childList = new JList<Child>(childListModel);
-		childList.setBounds(27, 118, 238, 172);
+		childList.setBounds(20, 118, 279, 187);
 		add(childList);
 
 		JLabel lblSelectChild = new JLabel(
-				"Select the Child that you wish to view details of:");
+				"Select the Child that you wish to view marks of:");
 		lblSelectChild.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSelectChild.setBounds(24, 93, 241, 14);
+		lblSelectChild.setBounds(10, 93, 295, 14);
 		add(lblSelectChild);
 
 		JLabel lblSearchChild = new JLabel("Search Child:");
