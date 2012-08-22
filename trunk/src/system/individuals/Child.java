@@ -38,10 +38,10 @@ public class Child implements SimpleKey {
 		joinColumns={@JoinColumn(name="ChildID")},
 		inverseJoinColumns={@JoinColumn(name="name")})
     private List<Guardian> guardians;
-    //@ManyToMany
-    //@JoinTable(name="ChildObjective",
-    //		joinColumns={@JoinColumn(name="ChildID")},
-    //		inverseJoinColumns={@JoinColumn(name="ObjectiveID")})
+    @OneToMany(targetEntity=ChildObjective.class,
+    		mappedBy="child",
+    		cascade=CascadeType.ALL,
+    		fetch=FetchType.LAZY)
     private List<ChildObjective> objectives;
     @OneToMany(targetEntity=Mark.class,
     		mappedBy="child",

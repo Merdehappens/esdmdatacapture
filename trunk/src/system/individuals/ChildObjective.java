@@ -7,14 +7,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.swing.ImageIcon;
@@ -27,10 +30,17 @@ import system.sessions.Day;
 
 @Entity
 public class ChildObjective{
-
-    int currentStep;
-    Objective objective;
-    Child child;
+	
+	@Id
+	private String id;
+	@ManyToOne
+	@JoinColumn(name="objective_id")
+	private Objective objective;
+	@ManyToOne
+	@JoinColumn(name="child_id")
+    private Child child;
+    @Basic
+    private int currentStep;
     
     public ChildObjective(Objective objective, Child child)
     {
@@ -56,6 +66,34 @@ public class ChildObjective{
 
 	public int getStep() {
 		return currentStep;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public Child getChild() {
+		return child;
+	}
+
+	public void setChild(Child child) {
+		this.child = child;
+	}
+
+	public int getCurrentStep() {
+		return currentStep;
+	}
+
+	public void setCurrentStep(int currentStep) {
+		this.currentStep = currentStep;
+	}
+
+	public void setObjective(Objective objective) {
+		this.objective = objective;
 	}
         
 }
