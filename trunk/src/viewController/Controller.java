@@ -1,5 +1,6 @@
 package viewController;
 
+import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
@@ -431,6 +432,19 @@ public class Controller extends JFrame {
 		reviewSession.saveListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				show(sessionPanel, "Session");
+			}
+		});
+		
+		reviewSession.editMarksListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				Mark mark = reviewSession.getSelectedMark();
+				Day day = reviewSession.getDay();
+				ChangeMark cm = new ChangeMark(mark, day);
+				cm.setModalityType(ModalityType.APPLICATION_MODAL);
+				cm.setVisible(true);
+				
+				System.out.println("TESTESTEST");
+				
 			}
 		});
 		
