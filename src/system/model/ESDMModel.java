@@ -129,7 +129,7 @@ public class ESDMModel {
         Calendar c = Calendar.getInstance();
         c.set(1991, 07, 21);
         child.setDob(c);
-        child.setPictureLink(new URL("http://www.hanselman.com/blog/content/binary/WindowsLiveWriter/CleanupyourTempFiles_8F63/TempFiles%5B7%5D.jpg"));
+        child.setPictureLink("http://www.hanselman.com/blog/content/binary/WindowsLiveWriter/CleanupyourTempFiles_8F63/TempFiles%5B7%5D.jpg");
         childList.add(child);
         
         child = new Child();
@@ -138,7 +138,7 @@ public class ESDMModel {
         c = Calendar.getInstance();
         c.set(1992, 11, 01);
         child.setDob(c);
-        child.setPictureLink(new URL("http://www.hanselman.com/blog/content/binary/WindowsLiveWriter/CleanupyourTempFiles_8F63/TempFiles%5B7%5D.jpg"));
+        child.setPictureLink("http://www.hanselman.com/blog/content/binary/WindowsLiveWriter/CleanupyourTempFiles_8F63/TempFiles%5B7%5D.jpg");
         childList.add(child);
         
         child = new Child();
