@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 
 import system.helper.SimpleKey;
 import system.individuals.Child;
+import system.individuals.ChildObjective;
 import system.sessions.Session;
 
 @Entity
@@ -32,22 +33,22 @@ public class Objective implements SimpleKey  {
     		cascade=CascadeType.ALL,
     		fetch=FetchType.LAZY)
     private List<Step> steps;
-    @ManyToMany
-    @JoinTable(name="ChildObjective",
-		joinColumns={@JoinColumn(name="ObjectiveID")},
-		inverseJoinColumns={@JoinColumn(name="ChildID")})
-    private List<Child> children;
+    @OneToMany(targetEntity=ChildObjective.class,
+    		mappedBy="objective",
+    		cascade=CascadeType.ALL,
+    		fetch=FetchType.LAZY)
+    private List<ChildObjective> children;
     @ManyToMany
     @JoinTable(name="SessionObjective",
     		joinColumns={@JoinColumn(name="ObjectiveID")},
     		inverseJoinColumns={@JoinColumn(name="SessionID")})
     private List<Session> sessions;
     
-    public List<Child> getChildren() {
+    public List<ChildObjective> getChildren() {
 		return children;
 	}
 
-	public void setChildren(List<Child> children) {
+	public void setChildren(List<ChildObjective> children) {
 		this.children = children;
 	}
 
@@ -73,13 +74,13 @@ public class Objective implements SimpleKey  {
     public Objective()
     {
         steps = new ArrayList<Step>();
-        children = new ArrayList<Child>();
+        children = new ArrayList<ChildObjective>();
     }
     
     public Objective(Collection<Step> c)
     {
         steps = new ArrayList<Step>(c);
-        children = new ArrayList<Child>();
+        children = new ArrayList<ChildObjective>();
     }
     
     public Objective(String name, String description, int level)
@@ -88,7 +89,7 @@ public class Objective implements SimpleKey  {
     	this.description = description;
     	this.level = level;
     	steps = new ArrayList<Step>();
-    	children = new ArrayList<Child>();
+    	children = new ArrayList<ChildObjective>();
     }
     
     public void addSteps(Step newStep)

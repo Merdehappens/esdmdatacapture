@@ -23,6 +23,7 @@ import javax.swing.event.ChangeEvent;
 
 import system.helper.Helper;
 import system.individuals.Child;
+import system.individuals.ChildObjective;
 import system.individuals.Guardian;
 import system.individuals.Therapist;
 import system.individuals.UserAccount;
@@ -190,6 +191,7 @@ public class Controller extends JFrame {
 		config.addAnnotatedClass(Mark.class);
 		config.addAnnotatedClass(Day.class);
 		config.addAnnotatedClass(Session.class);
+		config.addAnnotatedClass(ChildObjective.class);
 		config.configure("hibernate.cfg.xml");
 		
 		//new SchemaExport(config).create(true, true);
