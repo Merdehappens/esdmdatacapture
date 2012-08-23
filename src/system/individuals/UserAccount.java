@@ -108,6 +108,10 @@ public class UserAccount { //implements SimpleKey {
     public void tempSetPassword(String password) {
     	this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
+    
+    public void setHashedPassword(String password) {
+    	this.password = password;
+    }
 
     public String getUsername() {
         return username;
