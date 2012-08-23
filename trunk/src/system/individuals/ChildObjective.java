@@ -13,12 +13,15 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 import javax.swing.ImageIcon;
 
@@ -32,7 +35,8 @@ import system.sessions.Day;
 public class ChildObjective{
 	
 	@Id
-	private String id;
+	@GeneratedValue
+	private int id;
 	@ManyToOne
 	@JoinColumn(name="objective_id")
 	private Objective objective;
@@ -55,6 +59,10 @@ public class ChildObjective{
     	this.child = child;
     	this.currentStep = currentStep;
     }
+    
+    public ChildObjective()
+    {
+    }
 
 	public Objective getObjective() {
 		return objective;
@@ -68,11 +76,11 @@ public class ChildObjective{
 		return currentStep;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

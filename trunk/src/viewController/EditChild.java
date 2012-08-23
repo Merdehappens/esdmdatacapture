@@ -137,7 +137,7 @@ public class EditChild extends PanelView {
 		btnCancel.addActionListener(al);
 	}
 
-	public void setId(String childId) {
+	public void setId(int childId) {
 		try {
 			setChild(this.getModel().viewChild(childId));
 		} catch (Exception e) {
@@ -167,7 +167,7 @@ public class EditChild extends PanelView {
 	public void refreshView() {
 		dobChooser.setCalendar(child.getDob());
 		dateJoinedChooser.setCalendar(child.getDateJoined());
-		txtId.setText(child.getId());
+		txtId.setText(child.getId()+"");
 		txtName.setText(child.getName());
 
 		

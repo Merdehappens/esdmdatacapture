@@ -9,11 +9,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.TableGenerator;
 
 import system.helper.SimpleKey;
 import system.marking.Mark;
@@ -23,8 +26,9 @@ import system.marking.Objective;
 @Entity
 public class Session implements SimpleKey {
 	@Id
+	@GeneratedValue
 	@Column(name="SessionID")
-	private String id;
+	private int id;
 	private String description;
     @ManyToMany
     @JoinTable(name="SessionObjective",
@@ -46,14 +50,20 @@ public class Session implements SimpleKey {
     {    
     }
     
-    public Session(String id, String description)
+    public Session(String description)
+    {
+        this.description = description;
+        objectives = new ArrayList<Objective>();
+    }
+    
+    public Session(int id, String description)
     {
         this.id = id;
         this.description = description;
         objectives = new ArrayList<Objective>();
     }
     
-    public String getId()
+    public int getId()
     {
         return id;
     }
@@ -77,7 +87,7 @@ public class Session implements SimpleKey {
 	}
 
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

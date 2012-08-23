@@ -7,15 +7,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 import javax.swing.ImageIcon;
 
@@ -28,8 +32,9 @@ import system.sessions.Day;
 @Entity
 public class Child implements SimpleKey {
     @Id
+    @GeneratedValue
     @Column(name="ChildID")
-	private String id;
+	private int id;
     private String name;
     private Calendar dateJoined;
     private Calendar dob;
@@ -55,7 +60,7 @@ public class Child implements SimpleKey {
     private List<Day> days;
     @Transient
     private ImageIcon picture;
-    @Transient
+    @Basic
     private String pictureLink;
     private boolean active;
     
@@ -139,11 +144,11 @@ public class Child implements SimpleKey {
     	marks.add(mark);
     }
 
-    public final String getId() {
+    public final int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

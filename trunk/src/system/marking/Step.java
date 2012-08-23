@@ -11,10 +11,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 
 import system.individuals.Child;
@@ -28,7 +31,8 @@ import system.individuals.Child;
 public class Step {
     
 	@Id
-    private String id;
+	@GeneratedValue
+    private int id;
 	@Column(nullable=false)
     private String no;
 	@Column(nullable=false)
@@ -51,7 +55,7 @@ public class Step {
     {
     }
     
-    public Step(String id, String description)
+    public Step(int id, String description)
     {
         this.id = id;
         this.description = description;
@@ -74,7 +78,7 @@ public class Step {
     	return objective;
     }
     
-    public void setId(String id)
+    public void setId(int id)
     {
         this.id = id;
     }
@@ -99,7 +103,7 @@ public class Step {
         return description;
     }
     
-    public String getId()
+    public int getId()
     {
         return id;
     }

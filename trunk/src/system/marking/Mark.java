@@ -5,9 +5,12 @@ package system.marking;
 import java.util.Calendar;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 
 import system.helper.SimpleKey;
@@ -19,7 +22,8 @@ import system.sessions.Session;
 @Entity
 public class Mark implements SimpleKey {
 	@Id
-    private String id;
+	@GeneratedValue
+    private int id;
 	@ManyToOne
 	@JoinColumn(name="child_id")
     private Child child;
@@ -88,7 +92,7 @@ public class Mark implements SimpleKey {
 	 * Creates a new mark object with the time that is parsed through
 	 */
 
-    public Mark(String id, Child child, Objective objective, int mark, Session session, 
+    public Mark(int id, Child child, Objective objective, int mark, Session session, 
     					Step step, Therapist therapist, Calendar time) {
         this.id = id;
         this.child = child;
@@ -97,6 +101,10 @@ public class Mark implements SimpleKey {
         this.step = step;
         this.therapist = therapist;
         this.time = time;
+    }
+    
+    public Mark()
+    {
     }
     
 	/*
@@ -115,12 +123,15 @@ public class Mark implements SimpleKey {
 		time = Calendar.getInstance();
 	}
 
-	public String getId()
+	public int getId()
     {
         return id;
     }
 	
-	
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String toString()
 	{
 		if(mark == 0)

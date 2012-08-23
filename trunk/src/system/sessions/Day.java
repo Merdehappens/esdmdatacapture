@@ -11,11 +11,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 
 import system.helper.SimpleKey;
@@ -28,8 +31,9 @@ import system.model.Room;
 @Entity
 public class Day implements SimpleKey {
 	@Id
+	@GeneratedValue
 	@Column(name="DayID")
-	private String id;
+	private int id;
     @ManyToMany
     @JoinTable(name="DayChild",
     		joinColumns={@JoinColumn(name="DayID")},
@@ -56,7 +60,7 @@ public class Day implements SimpleKey {
     {
     }
 
-    public Day(ArrayList<Child> children, Calendar date, String id, ArrayList<Session> sessions) {
+    public Day(ArrayList<Child> children, Calendar date, int id, ArrayList<Session> sessions) {
         this.children = children;
         this.date = date;
         setDateTime();
@@ -72,8 +76,17 @@ public class Day implements SimpleKey {
         date.set(Calendar.SECOND, 0);
         date.set(Calendar.MILLISECOND, 0);
     }
+    
+    public Day(Calendar date)
+    {
+        this.date = date;
+        setDateTime();
+        marks = new ArrayList<Mark>();
+        children = new ArrayList<Child>();
+        sessions = new ArrayList<Session>();
+    }
         
-    public Day(Calendar date, String id)
+    public Day(Calendar date, int id)
     {
         this.date = date;
         setDateTime();
@@ -108,7 +121,7 @@ public class Day implements SimpleKey {
     	this.room = room;
     }
     
-    public String getId()
+    public int getId()
     {
         return id;
     }
@@ -138,7 +151,7 @@ public class Day implements SimpleKey {
 	
 	public String toString()
 	{
-		return id;
+		return (id+"");
 	}
 	
 	public Calendar getDate()
@@ -157,7 +170,7 @@ public class Day implements SimpleKey {
 
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
