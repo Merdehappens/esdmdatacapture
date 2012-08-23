@@ -370,8 +370,9 @@ public class ESDMModel {
     		}
     	}
     	
-    /*	String sqlChildQry = ("Select child.childId, child.active, child.dateJoined," +
-    			"child.dob, child.name, child.pictureLink From Child child");
+    	//String sqlChildQry = ("Select child.ChildID, child.active, child.dateJoined," +
+    	String sqlChildQry = ("Select child.active, child.dateJoined," +
+    			" child.dob, child.name, child.pictureLink From Child child");
     	query = session.createQuery(sqlChildQry);
     	
     	Child child;
@@ -386,9 +387,9 @@ public class ESDMModel {
     		System.out.println(row[2]);
     		System.out.println(row[3]);
     		System.out.println(row[4]);
-    		System.out.println(row[5]);
+    		//System.out.println(row[5]);
     		
-    	}*/
+    	} 
     	
     	
     
