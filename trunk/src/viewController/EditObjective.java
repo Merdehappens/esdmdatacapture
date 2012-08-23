@@ -25,7 +25,7 @@ public class EditObjective extends PanelView {
 	private JButton btnReset;
 	private JButton btnCancel;
 	private JTable tblStep;
-	private DefaultTableModel tableModel;
+	private DefaultTableModel tblStepModel;
 	private JTextArea txtObjectiveDescription;
 
 	/**
@@ -97,18 +97,18 @@ public class EditObjective extends PanelView {
 		scrollPane.setViewportView(tblStep);
 		String[] columnNames = new String[] { "Code", "Step" };
 
-		tableModel = new DefaultTableModel();
-		tableModel.setColumnIdentifiers(columnNames);
+		tblStepModel = new DefaultTableModel();
+		tblStepModel.setColumnIdentifiers(columnNames);
 
-		tblStep.setModel(tableModel);
+		tblStep.setModel(tblStepModel);
 
 		String[] tempRow = new String[] { "", "" };
-		tableModel.addRow(tempRow);
+		tblStepModel.addRow(tempRow);
 
 		JButton btnDeleteSelectedStep = new JButton("Delete Selected Step");
 		btnDeleteSelectedStep.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tableModel.removeRow(tblStep.getSelectedRow());
+				tblStepModel.removeRow(tblStep.getSelectedRow());
 			}
 		});
 		btnDeleteSelectedStep.setBounds(503, 324, 150, 23);
@@ -118,7 +118,7 @@ public class EditObjective extends PanelView {
 		btnAddStep.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String[] tempRow = new String[] { "", "" };
-				tableModel.addRow(tempRow);
+				tblStepModel.addRow(tempRow);
 			}
 		});
 		btnAddStep.setBounds(404, 324, 89, 23);
@@ -166,7 +166,7 @@ public class EditObjective extends PanelView {
 	private void swapRows(int i) {
 		int start = tblStep.getSelectedRow();
 		if (start + i >= 0 && start + i < tblStep.getRowCount()) {
-			tableModel.moveRow(start, start, start + i);
+			tblStepModel.moveRow(start, start, start + i);
 		}
 	}
 

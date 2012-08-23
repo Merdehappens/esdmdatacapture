@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
@@ -29,6 +30,7 @@ import system.helper.Helper;
 import system.individuals.Child;
 import system.marking.Mark;
 import system.marking.Objective;
+import system.marking.Step;
 import system.sessions.Day;
 import system.sessions.Session;
 import javax.swing.JTextPane;
@@ -43,15 +45,24 @@ public class ChangeMark extends JDialog {
 	private ArrayList<Objective> objectives;
 	private JComboBox<Mark> cmbMark;
 	private JComboBox<Child> cmbChild;
+	private JButton btnSave;
+	private JButton btnCancel;
+	private Mark mark;
+	private Day day;
+	private DefaultComboBoxModel<Session> cmbSessionModel;
+	private DefaultComboBoxModel<Child> cmbChildModel;
+	private DefaultComboBoxModel<Objective> cmbObjectiveModel;
+	private JTextField txtStep;
+	private JTextField txtTime;
+	private DefaultComboBoxModel<Mark> cmbMarkModel;
+	private JTextArea txtComments;
 
 	
 
 	/**
 	 * Create the dialog.
-	 * @param m 
-	 * @param day 
 	 */
-	public ChangeMark(Mark mark, Day day) {
+	public ChangeMark() {
 		setBounds(100, 100, 556, 435);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -70,19 +81,11 @@ public class ChangeMark extends JDialog {
 			contentPanel.add(lblChangeMark);
 		}
 		
-		child = mark.getChild();
+
 		
 		JComboBox<Session> cmbSession = new JComboBox<Session>();
-		sessions = new ArrayList<Session>(day.getSessions());
-		int size = sessions.size();
-		DefaultComboBoxModel<Session> cmbSessionModel = new DefaultComboBoxModel<Session>();
-		for(int i = 0; i < size; i++)
-		{
-			cmbSessionModel.addElement(sessions.get(i));
-		}
+		cmbSessionModel = new DefaultComboBoxModel<Session>();
 		cmbSession.setModel(cmbSessionModel);
-		
-		cmbSessionModel.setSelectedItem(mark.getSession());
 		
 		cmbSession.setBounds(73, 74, 223, 20);
 		contentPanel.add(cmbSession);
@@ -92,7 +95,96 @@ public class ChangeMark extends JDialog {
 		cmbChild = new JComboBox<Child>();
 		cmbChild.setBounds(73, 102, 223, 20);
 		contentPanel.add(cmbChild);
-		DefaultComboBoxModel<Child> cmbChildModel = new DefaultComboBoxModel<Child>();
+		cmbChildModel = new DefaultComboBoxModel<Child>();
+		cmbChild.setModel(cmbChildModel);
+		
+
+		
+		
+		JLabel lblObjective = new JLabel("Objective");
+		lblObjective.setBounds(10, 131, 53, 14);
+		contentPanel.add(lblObjective);
+		
+		JComboBox<Objective> cmbObjective = new JComboBox<Objective>();
+		cmbObjectiveModel = new DefaultComboBoxModel<Objective>();
+		cmbObjective.setModel(cmbObjectiveModel);
+		
+		cmbObjective.setBounds(73, 128, 457, 20);
+		contentPanel.add(cmbObjective);
+		
+		
+		
+		
+		JLabel lblStep = new JLabel("Step");
+		lblStep.setBounds(10, 189, 46, 14);
+		contentPanel.add(lblStep);
+		
+		txtStep = new JTextField();
+		txtStep.setBounds(73, 186, 46, 20);
+		contentPanel.add(txtStep);
+        	
+		txtTime = new JTextField();
+		txtTime.setBounds(363, 74, 167, 20);
+		contentPanel.add(txtTime);
+		
+		JLabel lblMark = new JLabel("Mark");
+		lblMark.setBounds(179, 189, 46, 14);
+		contentPanel.add(lblMark);
+		
+		cmbMark = new JComboBox<Mark>();
+		cmbMark.setBounds(222, 186, 53, 20);
+		cmbMarkModel = new DefaultComboBoxModel<Mark>();
+		contentPanel.add(cmbMark);
+		cmbMark.setModel(cmbMarkModel);
+		
+
+		
+		txtComments = new JTextArea();
+		txtComments.setBounds(10, 240, 520, 113);
+		contentPanel.add(txtComments);
+		txtComments.setLineWrap(true);
+		txtComments.setWrapStyleWord(true);
+		
+		JLabel lblChild = new JLabel("Child");
+		lblChild.setBounds(10, 105, 53, 14);
+		contentPanel.add(lblChild);
+		
+
+		
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				btnSave = new JButton("Save");
+				btnSave.setActionCommand("OK");
+				buttonPane.add(btnSave);
+				getRootPane().setDefaultButton(btnSave);
+			}
+			{
+				btnCancel = new JButton("Cancel");
+				btnCancel.setActionCommand("Cancel");
+				buttonPane.add(btnCancel);
+			}
+		}
+		
+		
+	}
+	
+	public void refreshView(Mark mark, Day day)
+	{
+		this.mark = mark;
+		this.day = day;
+		child = mark.getChild();
+		
+		sessions = new ArrayList<Session>(day.getSessions());
+		int size = sessions.size();
+		for(int i = 0; i < size; i++)
+		{
+			cmbSessionModel.addElement(sessions.get(i));
+		}
+		
+		cmbSessionModel.setSelectedItem(mark.getSession());
 		
 		ArrayList<Child> children = new ArrayList<Child>(day.getChildren());
 		size = children.size();
@@ -101,19 +193,11 @@ public class ChangeMark extends JDialog {
 			cmbChildModel.addElement(children.get(i));
 		}
 		cmbChildModel.setSelectedItem(child);
-		cmbChild.setModel(cmbChildModel);
 		
-		
-		JLabel lblObjective = new JLabel("Objective");
-		lblObjective.setBounds(10, 131, 53, 14);
-		contentPanel.add(lblObjective);
-		
-		JComboBox<Objective> cmbObjective = new JComboBox<Objective>();
 		
 		objectives = new ArrayList<Objective>(child.getObjectives());
 		
 		size = objectives.size();
-		DefaultComboBoxModel<Objective> cmbObjectiveModel = new DefaultComboBoxModel<Objective>();
 		boolean obj = (mark.getObjective() == null);
 		
 		if(obj)
@@ -131,40 +215,14 @@ public class ChangeMark extends JDialog {
 			cmbObjectiveModel.setSelectedItem(mark.getObjective());
 		}
 		
-		cmbObjective.setModel(cmbObjectiveModel);
 		
-		cmbObjective.setBounds(73, 128, 457, 20);
-		contentPanel.add(cmbObjective);
-		
-		
-		
-		
-		JLabel lblStep = new JLabel("Step");
-		lblStep.setBounds(10, 189, 46, 14);
-		contentPanel.add(lblStep);
-		
-		JTextField txtStep = new JTextField();
-		txtStep.setBounds(73, 186, 46, 20);
-		contentPanel.add(txtStep);
         if(mark.getStep() != null)
         {
         	txtStep.setText(mark.getStep().getNo());
         }
-        	
-		JTextField txtTime = new JTextField();
-		txtTime.setBounds(363, 74, 167, 20);
-		contentPanel.add(txtTime);
-		
+        
 		txtTime.setText(Helper.simpleDateFormat(mark.getTime()));
 		
-		JLabel lblMark = new JLabel("Mark");
-		lblMark.setBounds(179, 189, 46, 14);
-		contentPanel.add(lblMark);
-		
-		cmbMark = new JComboBox<Mark>();
-		cmbMark.setBounds(222, 186, 53, 20);
-		DefaultComboBoxModel<Mark> cmbMarkModel = new DefaultComboBoxModel<Mark>();
-		contentPanel.add(cmbMark);
 		for(int i = -1; i < 2; i++)
 		{
 			Mark newMark = new Mark(i);
@@ -174,36 +232,74 @@ public class ChangeMark extends JDialog {
 				cmbMarkModel.setSelectedItem(newMark);
 			}
 		}
-		cmbMark.setModel(cmbMarkModel);
-		
-		JTextArea txtComments = new JTextArea();
-		txtComments.setBounds(10, 240, 520, 113);
-		contentPanel.add(txtComments);
-		txtComments.setLineWrap(true);
-		txtComments.setWrapStyleWord(true);
+	
 		txtComments.setText(mark.getComment());
 		
-		JLabel lblChild = new JLabel("Child");
-		lblChild.setBounds(10, 105, 53, 14);
-		contentPanel.add(lblChild);
-		
+	}
+	
+	public void saveButtonListener(ActionListener al){
+		btnSave.addActionListener(al);
+	}
+	
+	public void cancelButtonListener(ActionListener al){
+		btnCancel.addActionListener(al);
+	}
 
-		
+	public Session getSession() {
+		return (Session) cmbSessionModel.getSelectedItem();
+	}
+
+	public Child getChild() {
+		return (Child) cmbChildModel.getSelectedItem();
+	}
+
+	public Calendar getTime() {
+		return mark.getTime();
+	}
+
+	public Objective getObjective() {
+		return (Objective) cmbObjectiveModel.getSelectedItem();
+	}
+
+	public Step getStep() throws Exception {
+		int step = -1;
+		if(txtStep.getText().length() != 0)
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton saveButton = new JButton("Save");
-				saveButton.setActionCommand("OK");
-				buttonPane.add(saveButton);
-				getRootPane().setDefaultButton(saveButton);
+			try{
+				step = Integer.parseInt(txtStep.getText());
 			}
+			catch(Exception e)
 			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+				throw new Exception("Step is in incorrect format."); 
 			}
 		}
+		else
+		{
+			return null;
+		}
+		Objective o = getObjective();
+		Step s = null;
+		if(step <= o.getStepsNo())
+		{
+			s = o.getStep(step);
+		}
+		
+		return s;
+
 	}
+
+	public String getComment() {
+		return txtComments.getText();
+	}
+	
+	public Mark getMark()
+	{
+		return mark;
+	}
+
+	public int getIntMark() {
+		Mark m = (Mark) cmbMarkModel.getSelectedItem(); 
+		return m.getMark();
+	}
+	
 }

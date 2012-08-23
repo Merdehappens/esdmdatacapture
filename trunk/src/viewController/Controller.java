@@ -99,6 +99,7 @@ public class Controller extends JFrame {
 	private JLabel lblMessage;
 	private LinkGuardian linkGuardian;
 	private String access;
+	private ChangeMark changeMark;
 
 	public Controller() throws MalformedURLException {
 		addWindowListener(new WindowAdapter() {
@@ -381,14 +382,27 @@ public class Controller extends JFrame {
 		});
 		
 		reviewSession.editMarksListener(new java.awt.event.ActionListener() {
+
 			public void actionPerformed(ActionEvent evt) {
 				Mark mark = reviewSession.getSelectedMark();
 				Day day = reviewSession.getDay();
-				ChangeMark cm = new ChangeMark(mark, day);
-				cm.setModalityType(ModalityType.APPLICATION_MODAL);
-				cm.setVisible(true);
+				changeMark = new ChangeMark();
 				
-				System.out.println("TESTESTEST");
+				changeMark.saveButtonListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						changeMark.setVisible(false);
+						saveMark();
+						reviewSession.refreshView();
+					}
+				});
+				
+				changeMark.refreshView(mark, day);
+				changeMark.setModalityType(ModalityType.APPLICATION_MODAL);
+				changeMark.setVisible(true);
+				
+				
+
+				
 				
 			}
 		});
@@ -709,7 +723,44 @@ public class Controller extends JFrame {
 				editChild.refreshView();
 			}
 		});
-
+		
+		editChild.removeObjectiveListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				model.removeObjective(editChild.getChild(), editChild.getSelectedObjective());
+				editChild.refreshView();
+				showMessage("Successfully removed objective from child");
+			}
+		});
+		
+		editChild.setMasteredListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				Child c = editChild.getChild();
+				Objective o = editChild.getSelectedObjective();
+				model.setMastered(c, o);
+			}
+		});
+		
+		editChild.addObjectiveListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				//TODO Add Objective
+			}
+		});
+		
+		editChild.incrementStepListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				Child c = editChild.getChild();
+				Objective o = editChild.getSelectedObjective();
+				model.incrementStep(c, o);
+			}
+		});
+		
+		editChild.decrementStepListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				Child c = editChild.getChild();
+				Objective o = editChild.getSelectedObjective();
+				model.decrementStep(c, o);
+			}
+		});
 		accountView.changeEmailAddress(ActionListenerShow(accountPanel,
 				"changeEmail"));
 
@@ -925,6 +976,23 @@ public class Controller extends JFrame {
 	private void showErrorMessage(String message) {
 		showMessage(message);
 		JOptionPane.showMessageDialog(null, message);
+	}
+	
+	public void saveMark() {
+		try {
+		Session session = changeMark.getSession();
+		Child child = changeMark.getChild();
+		Calendar time = changeMark.getTime();
+		Objective objective = changeMark.getObjective();
+		Step step = changeMark.getStep();
+		int markVal = changeMark.getIntMark();
+		String comment = changeMark.getComment();
+		
+		model.updateMark(changeMark.getMark(), session, child, time, objective, step, markVal, comment);
+		
+		} catch (Exception e) {
+			showMessage(e.getMessage());
+		}
 	}
 
 }

@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JLabel;
 import java.io.File;
+import java.awt.BorderLayout;
 
 public class ViewReport extends PanelView {
 
@@ -69,29 +70,27 @@ public class ViewReport extends PanelView {
 		// Adds the date chooser to the page
 
 		JDateChooser dateChooserTo = new JDateChooser();
-		dateChooserTo.setBounds(257, 80, 157, 35);
+		dateChooserTo.setBounds(254, 108, 200, 35);
 		add(dateChooserTo);
 
 		JLabel lblTo = new JLabel("To Date:");
-		lblTo.setBounds(189, 79, 74, 36);
-		add(lblTo);
-
-		JLabel lblFrom = new JLabel("From Date:");
-		lblFrom.setBounds(189, 33, 74, 35);
-		add(lblFrom);
+		dateChooserTo.add(lblTo, BorderLayout.WEST);
 
 		// Adds the second date chooser to the page
 
 		JDateChooser dateChooserFrom = new JDateChooser();
-		dateChooserFrom.setBounds(257, 33, 157, 35);
+		dateChooserFrom.setBounds(254, 61, 200, 35);
 		add(dateChooserFrom);
+		
+				JLabel lblFrom = new JLabel("From Date:");
+				dateChooserFrom.add(lblFrom, BorderLayout.WEST);
 
 		JLabel lblChild = new JLabel("Child: ");
-		lblChild.setBounds(10, 43, 30, 14);
+		lblChild.setBounds(10, 43, 44, 14);
 		add(lblChild);
 
 		lblChildName = new JLabel("");
-		lblChildName.setBounds(44, 43, 115, 14);
+		lblChildName.setBounds(64, 43, 115, 14);
 		add(lblChildName);
 		
 		// Creates a new button to export report to file
