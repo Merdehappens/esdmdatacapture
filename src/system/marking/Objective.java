@@ -17,6 +17,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
+import javax.persistence.Transient;
 
 import com.mysql.jdbc.Blob;
 
@@ -50,7 +51,20 @@ public class Objective implements SimpleKey  {
     		joinColumns={@JoinColumn(name="ObjectiveID")},
     		inverseJoinColumns={@JoinColumn(name="SessionID")})
     private List<Session> sessions;
+    @Transient
+    private ObjectiveType objType;
+    
 
+	public void setType(ObjectiveType objType)
+	{
+		this.objType = objType;
+	}
+	
+	public ObjectiveType getType()
+	{
+		return objType;
+	}
+	
     public Objective()
     {
         steps = new ArrayList<Step>();
@@ -132,9 +146,15 @@ public class Objective implements SimpleKey  {
 		return children;
 	}
 
+	public Step getStep(int currentStep) {
+		return steps.get(currentStep - 1);
+	}
+	
 	public void setChildren(List<ChildObjective> children) {
 		this.children = children;
 	}
+	
+
 
 	public void setSteps(List<Step> steps) {
 		this.steps = steps;
