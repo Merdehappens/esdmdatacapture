@@ -110,7 +110,7 @@ public class Controller extends JFrame {
 								JOptionPane.YES_NO_OPTION,
 								JOptionPane.QUESTION_MESSAGE);
 				if (answer == JOptionPane.YES_OPTION) {
-					System.exit(0);
+					exitProgram();
 				}
 
 			}
@@ -119,6 +119,12 @@ public class Controller extends JFrame {
 		model = new ESDMModel();
 		initComponents();
 		initButtonListeners();
+	}
+	
+	private void exitProgram()
+	{
+		model.modelExit();
+		System.exit(0);
 	}
 
 	public Controller(ESDMModel model) throws MalformedURLException {

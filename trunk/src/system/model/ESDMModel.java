@@ -83,6 +83,11 @@ public class ESDMModel {
 		factory = config.buildSessionFactory();
     }
     
+    public void modelExit()
+    {
+    	factory.close();
+    }
+    
     public AnnotationConfiguration getConfig() {
 		return config;
 	}
@@ -312,7 +317,7 @@ public class ESDMModel {
         guardian1.tempSetPassword("Name2Pass");
         guardian1.setEmailAddress("EmailAddress2");
         guardian1.setPhoneNo("Phone No 2");
-
+        guardian1.setAccess("g");
         userList.add(guardian1);
         
         
@@ -414,22 +419,25 @@ public class ESDMModel {
     	Query query = session.createQuery(sqlUserAccountQry);
     	
     	Therapist ther;
+    	String therCheck;
     	
     	for(Iterator it = query.iterate(); it.hasNext();)
     	{
     		Object[] row = (Object[]) it.next();
 
-    		ther = new Therapist();
-    		ther.setName(row[0]+"");
-    		ther.setAccess(row[1]+"");
-    		ther.setEmailAddress(row[2]+"");
-    		ther.tempSetPassword(row[3]+"");
-    		ther.setPhoneNo(row[4]+"");
-    		ther.setUsername(row[5]+"");
-    		userList.add(ther);
+    		therCheck = (row[1]+"");
+    		if(!(therCheck.equals("g")));
+    		{
+    			ther = new Therapist();
+    			ther.setName(row[0]+"");
+    			ther.setAccess(therCheck);
+    			ther.setEmailAddress(row[2]+"");
+    			ther.setHashedPassword(row[3]+"");
+    			ther.setPhoneNo(row[4]+"");
+    			ther.setUsername(row[5]+"");
+    			userList.add(ther);
+    		}
     	}
-    	
-    	session.close();
     
     }
     
@@ -504,7 +512,13 @@ public class ESDMModel {
     	user.setAccess(access);
     	
     	user.setPassword(password);
-    	//TODO Add Therapist Here
+    	
+    	org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
+    	
+    	session.save(user);
+    	session.getTransaction().commit();
+    	
     	return user;
     }
     
@@ -727,6 +741,12 @@ public class ESDMModel {
 				if(BCrypt.checkpw(oldPassword, currentUser.getPassword()))
 				{
 					currentUser.setPassword(newPassword2);
+
+			    	org.hibernate.Session session = factory.getCurrentSession();
+			    	session.beginTransaction();
+			    	
+			    	session.update(currentUser);
+			    	session.getTransaction().commit();
 				}
 				else
 				{
