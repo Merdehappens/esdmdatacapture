@@ -338,6 +338,7 @@ public class ESDMModel {
     	Query query = session.createQuery(sqlUserAccountQry);
     	
     	Therapist ther;
+    	Guardian guar;
     	String therCheck;
     	
     	for(Iterator it = query.iterate(); it.hasNext();)
@@ -345,7 +346,7 @@ public class ESDMModel {
     		Object[] row = (Object[]) it.next();
 
     		therCheck = (row[1]+"");
-    		if(!(therCheck.equals("g")));
+    		if(!(therCheck.equals("g")))
     		{
     			ther = new Therapist();
     			ther.setName(row[0]+"");
@@ -356,7 +357,40 @@ public class ESDMModel {
     			ther.setUsername(row[5]+"");
     			userList.add(ther);
     		}
+    		else
+    		{
+    			guar = new Guardian();
+    			guar.setName(row[0]+"");
+    			guar.setAccess(therCheck);
+    			guar.setEmailAddress(row[2]+"");
+    			guar.setHashedPassword(row[3]+"");
+    			guar.setPhoneNo(row[4]+"");
+    			guar.setUsername(row[5]+"");
+    			userList.add(guar);
+    		}
     	}
+    	
+    /*	String sqlChildQry = ("Select child.childId, child.active, child.dateJoined," +
+    			"child.dob, child.name, child.pictureLink From Child child");
+    	query = session.createQuery(sqlChildQry);
+    	
+    	Child child;
+    	
+    	for(Iterator it = query.iterate(); it.hasNext();)
+    	{
+    		Object[] row = (Object[]) it.next();
+    		child = new Child();
+    		
+    		System.out.println(row[0]);
+    		System.out.println(row[1]);
+    		System.out.println(row[2]);
+    		System.out.println(row[3]);
+    		System.out.println(row[4]);
+    		System.out.println(row[5]);
+    		
+    	}*/
+    	
+    	
     
     }
     
@@ -508,7 +542,12 @@ public class ESDMModel {
         Child child = new Child(name, dob, dateJoined);
        
         childList.add(child);
-        //TODO - ADD CHILD HERE
+
+    	org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
+    	
+    	session.save(child);
+    	session.getTransaction().commit();
         
         return child;
     }
