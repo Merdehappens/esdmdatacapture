@@ -234,12 +234,15 @@ public class AddObjective extends PanelView {
 	public int getLevel() throws Exception {
 		if(txtLevel.getText().length() != 0)
 		{
+			try{
 			return Integer.parseInt(txtLevel.getText());
+			}
+			catch(Exception e) {
+				throw new Exception("Level must be a number.");
+			}
 		}
-		else
-		{
-			throw new Exception("Level is blank");
-		}
+		
+		return 0;
 	}
 
 	// Returns a multi dimensional string array for the steps

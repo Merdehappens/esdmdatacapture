@@ -32,22 +32,18 @@ public class LogSessionData extends PanelView {
 	private JLabel lblSetting;
 	private JLabel lblChild;
 	private JLabel lblObjectives;
-	private JLabel lblStep;
 	private JLabel lblMark;
 	private JButton btnCommitMark;
 	private JButton btnAddTimestamp;
 	private JList<Session> lstSession;
 	private JList<Child> lstChild;
 	private JList<Objective> lstObjective;
-	private JList<Step> lstStep;
 	private JList<Mark> lstMark;
 	private Day day;
 	private JButton btnChildPrevious;
 	private JButton btnChildNext;
 	private JButton btnObjectivePrevious;
 	private JButton btnObjectiveNext;
-	private JButton btnStepPrevious;
-	private JButton btnStepNext;
 	private JButton btnMarkPrevious;
 	private JButton btnMarkNext;
 
@@ -97,13 +93,8 @@ public class LogSessionData extends PanelView {
 
 		lblObjectives = new JLabel("Objectives");
 		lblObjectives.setHorizontalAlignment(SwingConstants.CENTER);
-		lblObjectives.setBounds(310, 65, 306, 14);
+		lblObjectives.setBounds(310, 65, 522, 14);
 		add(lblObjectives);
-
-		lblStep = new JLabel("Step");
-		lblStep.setHorizontalAlignment(SwingConstants.CENTER);
-		lblStep.setBounds(626, 65, 206, 14);
-		add(lblStep);
 
 		lblMark = new JLabel("Mark");
 		lblMark.setHorizontalAlignment(SwingConstants.CENTER);
@@ -132,22 +123,10 @@ public class LogSessionData extends PanelView {
 		objectiveModel = new DefaultListModel<Objective>();
 		lstObjective = new JList<Objective>(objectiveModel);
 		lstObjective.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lstObjective.addListSelectionListener(new ListSelectionListener() {
-
-			public void valueChanged(ListSelectionEvent e) {
-				populateStepList();
-			}
-
-		});
-
-		lstObjective.setBounds(310, 94, 306, 174);
+		lstObjective.setBounds(310, 94, 522, 174);
 		add(lstObjective);
 
 		stepModel = new DefaultListModel<Step>();
-		lstStep = new JList<Step>(stepModel);
-		lstStep.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lstStep.setBounds(626, 94, 206, 174);
-		add(lstStep);
 
 		markModel = new DefaultListModel<Mark>();
 		lstMark = new JList<Mark>(markModel);
@@ -226,7 +205,7 @@ public class LogSessionData extends PanelView {
 			}
 		});
 
-		btnObjectivePrevious.setBounds(423, 270, 40, 40);
+		btnObjectivePrevious.setBounds(527, 270, 40, 40);
 		add(btnObjectivePrevious);
 
 		btnObjectiveNext = new JButton(">");
@@ -238,30 +217,8 @@ public class LogSessionData extends PanelView {
 			}
 		});
 
-		btnObjectiveNext.setBounds(473, 270, 40, 40);
+		btnObjectiveNext.setBounds(577, 270, 40, 40);
 		add(btnObjectiveNext);
-
-		btnStepPrevious = new JButton("<");
-		btnStepPrevious.setMnemonic(KeyEvent.VK_C);
-		btnStepPrevious.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setIndex(lstStep, stepModel, -1);
-
-			}
-		});
-		btnStepPrevious.setBounds(684, 270, 40, 40);
-		add(btnStepPrevious);
-
-		btnStepNext = new JButton(">");
-		btnStepNext.setMnemonic(KeyEvent.VK_V);
-		btnStepNext.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setIndex(lstStep, stepModel, 1);
-
-			}
-		});
-		btnStepNext.setBounds(734, 270, 40, 40);
-		add(btnStepNext);
 
 		btnMarkPrevious = new JButton("<");
 		btnMarkPrevious.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -317,25 +274,6 @@ public class LogSessionData extends PanelView {
 
 	}
 
-	private void populateStepList() {
-
-		stepModel.clear();
-
-		Objective objective = lstObjective.getSelectedValue();
-		if (objective != null) {
-			ArrayList<Step> steps = (ArrayList<Step>) objective.getSteps();
-			if (steps != null) {
-				int size = steps.size();
-				for (int i = 0; i < size; i++) {
-					stepModel.addElement(steps.get(i));
-				}
-
-			}
-			Child child = childModel.get(lstChild.getSelectedIndex());
-			lstStep.setSelectedIndex(child.getCurrentStep(objective));
-		}
-	}
-
 	public void clearLists() {
 		sessionModel.clear();
 		childModel.clear();
@@ -389,7 +327,7 @@ public class LogSessionData extends PanelView {
 			Child child = childModel.get(lstChild.getSelectedIndex());
 			Objective objective = objectiveModel.get(lstObjective
 					.getSelectedIndex());
-			Step step = stepModel.get(lstStep.getSelectedIndex());
+			Step step = child.getCurrentStep(objective);
 			int mark = markModel.get(lstMark.getSelectedIndex()).getMark();
 			this.getModel().addMark(session, child, objective, step, mark, day);
 		} catch (Exception e) {

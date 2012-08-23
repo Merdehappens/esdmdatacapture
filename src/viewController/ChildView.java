@@ -175,36 +175,41 @@ public class ChildView extends PanelView {
 
 		Object[] arr = { lblName, txtName, lblActive, cmbActive };
 
-		JOptionPane.showConfirmDialog(null, arr, "Refine Search",
+		int res = JOptionPane.showConfirmDialog(null, arr, "Refine Search",
 				JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+		System.out.println(res);
+		if(res == 0)
+		{
+			ArrayList<Child> fullChildList = new ArrayList<Child>(this.getModel()
+					.getChildList());
+			ArrayList<Child> showChildList = new ArrayList<Child>();
 
-		ArrayList<Child> fullChildList = new ArrayList<Child>(this.getModel()
-				.getChildList());
-		ArrayList<Child> showChildList = new ArrayList<Child>();
+			int size = fullChildList.size();
+			for (int i = 0; i < size; i++) {
+				Child tempChild = fullChildList.get(i);
+				String name = tempChild.getName();
 
-		int size = fullChildList.size();
-		for (int i = 0; i < size; i++) {
-			Child tempChild = fullChildList.get(i);
-			String name = tempChild.getName();
-
-			if (name.toLowerCase().contains(txtName.getText().toLowerCase())) {
-				int index = cmbActive.getSelectedIndex();
-				if (index == 2) {
-					showChildList.add(tempChild);
-				} else if (index == 1) {
-					if (tempChild.getActive() == false) {
+				if (name.toLowerCase().contains(txtName.getText().toLowerCase())) {
+					int index = cmbActive.getSelectedIndex();
+					if (index == 2) {
 						showChildList.add(tempChild);
-					}
-				} else {
-					if (tempChild.getActive() == true) {
-						showChildList.add(tempChild);
+					} else if (index == 1) {
+						if (tempChild.getActive() == false) {
+							showChildList.add(tempChild);
+						}
+					} else {
+						if (tempChild.getActive() == true) {
+							showChildList.add(tempChild);
+						}
 					}
 				}
 			}
-
+			populateTable(showChildList);
 		}
-
-		populateTable(showChildList);
+		else
+		{
+			populateTable(childList);
+		}
 	}
 
 }
