@@ -3,7 +3,9 @@ package viewController;
 import javax.swing.JButton;
 
 import system.individuals.Child;
+import system.individuals.ChildObjective;
 import system.individuals.Guardian;
+import system.marking.Objective;
 import system.model.ESDMModel;
 
 import javax.swing.JLabel;
@@ -39,6 +41,13 @@ public class EditChild extends PanelView {
 	private JTable tblGuardian;
 	private DefaultTableModel tblGuardianModel;
 	private JLabel lblPicture;
+	private JTable tblObjective;
+	private DefaultTableModel tblObjectiveModel;
+	private JButton btnSetMastered;
+	private JButton btnRemoveObjective;
+	private JButton btnIncrementStep;
+	private JButton btnDecrementStep;
+	private JButton btnAddObjective;
 
 	/**
 	 * Create the panel.
@@ -123,8 +132,44 @@ public class EditChild extends PanelView {
 		lblPicture = new JLabel("");
 		lblPicture.setBounds(369, 66, 189, 129);
 		add(lblPicture);
-		String[] colIdentifiers = {"Name", "Phone Number", "Email Address"};
-		tblGuardianModel.setColumnIdentifiers(colIdentifiers);
+		
+		JScrollPane scrlTable = new JScrollPane();
+		scrlTable.setBounds(355, 63, 482, 316);
+		add(scrlTable);
+		
+		tblObjective = new JTable();
+		scrlTable.setViewportView(tblObjective);
+		
+		tblObjectiveModel = new DefaultTableModel();
+		tblObjective.setModel(tblObjectiveModel);
+		
+		
+		String[] colIdentifiers = {"Objective", "Type", "Step", "Mastered?"};
+		tblObjectiveModel.setColumnIdentifiers(colIdentifiers);
+		
+		
+		btnAddObjective = new JButton("Add Objective");
+		btnAddObjective.setBounds(857, 66, 132, 23);
+		add(btnAddObjective);
+
+		
+		btnSetMastered = new JButton("Set Mastered");
+		btnSetMastered.setBounds(857, 152, 132, 23);
+		add(btnSetMastered);
+		
+		btnRemoveObjective = new JButton("Remove Objective");
+		btnRemoveObjective.setBounds(857, 111, 132, 23);
+		add(btnRemoveObjective);
+		
+		btnIncrementStep = new JButton("Increment Step");
+		btnIncrementStep.setBounds(857, 273, 132, 23);
+		add(btnIncrementStep);
+		
+		btnDecrementStep = new JButton("Decrement Step");
+		btnDecrementStep.setBounds(857, 316, 132, 23);
+		add(btnDecrementStep);
+		String[] guardianColIdentifiers = {"Name", "Phone Number", "Email Address"};
+		tblGuardianModel.setColumnIdentifiers(guardianColIdentifiers);
 	}
 
 	// Takes in an ActionListener and adds it to the Save Child button
@@ -135,6 +180,37 @@ public class EditChild extends PanelView {
 	// Takes in an ActionListener and adds it to the Cancel button
 	public void cancelListener(ActionListener al) {
 		btnCancel.addActionListener(al);
+	}
+	
+	// Takes in an ActionListener and adds it to the remove objective button
+	public void removeObjectiveListener(ActionListener al) {
+		btnRemoveObjective.addActionListener(al);
+	}
+	
+	// Takes in an ActionListener and adds it to the increment step button
+	public void incrementStepListener(ActionListener al) {
+		btnIncrementStep.addActionListener(al);
+	}
+
+	// Takes in an ActionListener and adds it to the decrement step button
+	public void decrementStepListener(ActionListener al) {
+		btnDecrementStep.addActionListener(al);
+	}
+	
+	// Takes in an ActionListener and adds it to the add objective button
+	public void addObjectiveListener(ActionListener al) {
+		btnAddObjective.addActionListener(al);
+	}
+	
+	// Takes in an ActionListener and adds it to the Set Mastered button
+	public void setMasteredListener(ActionListener al) {
+		btnSetMastered.addActionListener(al);
+	}
+	
+	public Objective getSelectedObjective()
+	{
+		return (Objective)tblObjectiveModel.getValueAt(tblObjective.getSelectedRow(), 0);
+		
 	}
 
 	public void setId(int childId) {
@@ -174,7 +250,6 @@ public class EditChild extends PanelView {
 		lblPicture.setIcon(child.getPicture());
 		
 		populateTable();
-		System.out.println(child.getGuardians().size());
 	}
 
 	private void populateTable() {
@@ -183,6 +258,10 @@ public class EditChild extends PanelView {
 		while(tblGuardianModel.getRowCount() > 0)
 		{
 			tblGuardianModel.removeRow(0);
+		}
+		while(tblObjectiveModel.getRowCount() > 0)
+		{
+			tblObjectiveModel.removeRow(0);
 		}
 		
 		int size = guardians.size();
@@ -197,5 +276,24 @@ public class EditChild extends PanelView {
 			
 			tblGuardianModel.addRow(temp);
 		}
+		
+		ArrayList<ChildObjective> obj = new ArrayList<ChildObjective>(child.getChildObjectives());
+		size = obj.size();
+		for(int i = 0; i < size; i++)
+		{
+			Object[] o = new Object[4];
+			
+			ChildObjective co = obj.get(i);
+			Objective objective = co.getObjective();
+			
+			o[0] = objective;
+			o[1] = objective.getType();
+			o[2] = co.getStep().getNo();
+			o[3] = co.getMastered();
+			
+			tblObjectiveModel.addRow(o);
+		}
+		
+		System.out.println(size);
 	}
 }
