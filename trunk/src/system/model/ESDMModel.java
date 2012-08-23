@@ -359,7 +359,7 @@ public class ESDMModel {
     	user.setAccess(access);
     	
     	user.setPassword(password);
-
+    	//TODO Add Therapist Here
     	return user;
     }
     
@@ -384,9 +384,9 @@ public class ESDMModel {
 	
 		Guardian user = new Guardian(name, username, emailAddress);
 		user.setAccess(access);
-	
 		user.setPassword(password);
-
+		userList.add(user);
+		//TODO ADD GUARDIAN
 		return user;
 	}
     
@@ -430,6 +430,7 @@ public class ESDMModel {
         Child child = new Child(name, dob, dateJoined);
        
         childList.add(child);
+        //TODO - ADD CHILD HERE
         
         return child;
     }
@@ -481,6 +482,7 @@ public class ESDMModel {
 			day.addSession(sessions.get(x));
 		}
 		dayList.add(day);
+		//TODO ADD DAY HERE
 		
 		
 		return day;
@@ -525,9 +527,12 @@ public class ESDMModel {
 			String no = (i + 1) + "";
 			Step step = new Step(no, steps[i][0], steps[i][1]);//retrieves info from 2D array and makes a new step
 			o.addSteps(step);
+			//TODO ADD STEPS HERE
 		}
 		
 		objectiveList.add(o);
+		
+		//TODO ADD OBJECTIVE HERE
 	}
 
 	/*
@@ -624,6 +629,7 @@ public class ESDMModel {
 		day.addMark(tempMark);
 		child.addMark(tempMark);
 		markList.add(tempMark);
+		//TODO ADD MARK HERE
 	}
 	
 	public void addTimestamp(Session session, Child child, Objective objective, Step step, int mark, Day day) throws Exception
@@ -633,6 +639,8 @@ public class ESDMModel {
 		day.addMark(tempMark);
 		child.addMark(tempMark);
 		markList.add(tempMark);
+		
+		//TODO ADD MARK HERE TOO
 	
 	}
 
