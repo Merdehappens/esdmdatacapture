@@ -25,6 +25,7 @@ import java.util.Calendar;
 import javax.swing.SwingConstants;
 import javax.swing.JFormattedTextField;
 
+import system.helper.Helper;
 import system.individuals.Child;
 import system.marking.Mark;
 import system.marking.Objective;
@@ -40,6 +41,8 @@ public class ChangeMark extends JDialog {
 	private Calendar time;
 	private ArrayList<Session> sessions;
 	private ArrayList<Objective> objectives;
+	private JComboBox<Mark> cmbMark;
+	private JComboBox<Child> cmbChild;
 
 	
 
@@ -84,8 +87,25 @@ public class ChangeMark extends JDialog {
 		cmbSession.setBounds(73, 74, 223, 20);
 		contentPanel.add(cmbSession);
 		
+		
+		
+		cmbChild = new JComboBox<Child>();
+		cmbChild.setBounds(73, 102, 223, 20);
+		contentPanel.add(cmbChild);
+		DefaultComboBoxModel<Child> cmbChildModel = new DefaultComboBoxModel<Child>();
+		
+		ArrayList<Child> children = new ArrayList<Child>(day.getChildren());
+		size = children.size();
+		for(int i = 0; i < size; i++)
+		{
+			cmbChildModel.addElement(children.get(i));
+		}
+		cmbChildModel.setSelectedItem(child);
+		cmbChild.setModel(cmbChildModel);
+		
+		
 		JLabel lblObjective = new JLabel("Objective");
-		lblObjective.setBounds(10, 110, 53, 14);
+		lblObjective.setBounds(10, 131, 53, 14);
 		contentPanel.add(lblObjective);
 		
 		JComboBox<Objective> cmbObjective = new JComboBox<Objective>();
@@ -94,44 +114,80 @@ public class ChangeMark extends JDialog {
 		
 		size = objectives.size();
 		DefaultComboBoxModel<Objective> cmbObjectiveModel = new DefaultComboBoxModel<Objective>();
+		boolean obj = (mark.getObjective() == null);
+		
+		if(obj)
+		{
+			cmbObjectiveModel.addElement(null);
+		}
+		
 		for(int i = 0; i < size; i++)
 		{
 			cmbObjectiveModel.addElement(objectives.get(i));
 		}
-		cmbObjectiveModel.setSelectedItem(mark.getObjective());
+
+		if(!obj)
+		{
+			cmbObjectiveModel.setSelectedItem(mark.getObjective());
+		}
 		
 		cmbObjective.setModel(cmbObjectiveModel);
 		
-		
-		cmbObjective.setBounds(73, 107, 457, 20);
+		cmbObjective.setBounds(73, 128, 457, 20);
 		contentPanel.add(cmbObjective);
+		
+		
+		
 		
 		JLabel lblStep = new JLabel("Step");
 		lblStep.setBounds(10, 189, 46, 14);
 		contentPanel.add(lblStep);
 		
 		JTextField txtStep = new JTextField();
-		txtStep.setBounds(73, 186, 46, 17);
+		txtStep.setBounds(73, 186, 46, 20);
 		contentPanel.add(txtStep);
-        
-        
+        if(mark.getStep() != null)
+        {
+        	txtStep.setText(mark.getStep().getNo());
+        }
+        	
 		JTextField txtTime = new JTextField();
-		txtTime.setBounds(363, 74, 167, 17);
+		txtTime.setBounds(363, 74, 167, 20);
 		contentPanel.add(txtTime);
+		
+		txtTime.setText(Helper.simpleDateFormat(mark.getTime()));
 		
 		JLabel lblMark = new JLabel("Mark");
 		lblMark.setBounds(179, 189, 46, 14);
 		contentPanel.add(lblMark);
 		
-		JComboBox cmboxMark = new JComboBox();
-		cmboxMark.setBounds(222, 186, 53, 20);
-		contentPanel.add(cmboxMark);
+		cmbMark = new JComboBox<Mark>();
+		cmbMark.setBounds(222, 186, 53, 20);
+		DefaultComboBoxModel<Mark> cmbMarkModel = new DefaultComboBoxModel<Mark>();
+		contentPanel.add(cmbMark);
+		for(int i = -1; i < 2; i++)
+		{
+			Mark newMark = new Mark(i);
+			cmbMarkModel.addElement(newMark);
+			if(newMark.toString().equals(mark.toString()))
+			{
+				cmbMarkModel.setSelectedItem(newMark);
+			}
+		}
+		cmbMark.setModel(cmbMarkModel);
 		
 		JTextArea txtComments = new JTextArea();
 		txtComments.setBounds(10, 240, 520, 113);
 		contentPanel.add(txtComments);
 		txtComments.setLineWrap(true);
 		txtComments.setWrapStyleWord(true);
+		txtComments.setText(mark.getComment());
+		
+		JLabel lblChild = new JLabel("Child");
+		lblChild.setBounds(10, 105, 53, 14);
+		contentPanel.add(lblChild);
+		
+
 		
 		{
 			JPanel buttonPane = new JPanel();
