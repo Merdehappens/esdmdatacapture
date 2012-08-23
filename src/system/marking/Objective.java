@@ -9,11 +9,16 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.TableGenerator;
+
+import com.mysql.jdbc.Blob;
 
 import system.helper.SimpleKey;
 import system.individuals.Child;
@@ -23,9 +28,11 @@ import system.sessions.Session;
 @Entity
 public class Objective implements SimpleKey  {
 	@Id
+	@GeneratedValue
 	@Column(name="ObjectiveID")
-	private String id;
+	private int id;
 	private String name;
+	@Column(length=10000)
     private String description;
     private int level;
     @OneToMany(targetEntity=Step.class,
@@ -43,34 +50,7 @@ public class Objective implements SimpleKey  {
     		joinColumns={@JoinColumn(name="ObjectiveID")},
     		inverseJoinColumns={@JoinColumn(name="SessionID")})
     private List<Session> sessions;
-    
-    public List<ChildObjective> getChildren() {
-		return children;
-	}
 
-	public void setChildren(List<ChildObjective> children) {
-		this.children = children;
-	}
-
-	public void setSteps(List<Step> steps) {
-		this.steps = steps;
-	}
-
-	public final int getLevel()
-    {
-    	return level;
-    }
-    
-	public final String getId()
-	{
-		return id;
-	}
-	
-	public void setId(String id)
-	{
-		this.id = id;
-	}
-	
     public Objective()
     {
         steps = new ArrayList<Step>();
@@ -147,9 +127,33 @@ public class Objective implements SimpleKey  {
 	public void setSessions(List<Session> sessions) {
 		this.sessions = sessions;
 	}
-
-
     
+    public List<ChildObjective> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<ChildObjective> children) {
+		this.children = children;
+	}
+
+	public void setSteps(List<Step> steps) {
+		this.steps = steps;
+	}
+
+	public final int getLevel()
+    {
+    	return level;
+    }
     
+	public final int getId()
+	{
+		return id;
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+	
     
 }

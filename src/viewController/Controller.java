@@ -181,67 +181,6 @@ public class Controller extends JFrame {
 		});
 		t2.run();
 		
-		// Hibernate Database set-up:
-		AnnotationConfiguration config = new AnnotationConfiguration();
-		config.addAnnotatedClass(Step.class);
-		config.addAnnotatedClass(Objective.class);
-		config.addAnnotatedClass(UserAccount.class);
-		config.addAnnotatedClass(Therapist.class);
-		config.addAnnotatedClass(Guardian.class);
-		config.addAnnotatedClass(Child.class);
-		config.addAnnotatedClass(Mark.class);
-		config.addAnnotatedClass(Day.class);
-		config.addAnnotatedClass(Session.class);
-		config.addAnnotatedClass(ChildObjective.class);
-		config.configure("hibernate.cfg.xml");
-		
-		//new SchemaExport(config).create(true, true);
-		// ^ ^ ^ SchemaExport is commented out once all tables are created,
-		// ^ ^ ^ uncommented when new classes have been annotated and also
-		// ^ ^ ^ need to be added.
-		// Hibernate Database set-up complete
-		
-		
-		//			HIBERNATE DATABASE ENTITY TEST CODE
-		
-		// Hibernate Database Step-object Test
-		/*SessionFactory factory = config.buildSessionFactory();
-		org.hibernate.Session session = factory.getCurrentSession();
-		
-		session.beginTransaction();
-		
-		Step testStep = new Step();
-		testStep.setId("testStepId1");
-		testStep.setNo("testNo1");
-		testStep.setCode("testCode1");
-		testStep.setDescription("testDescription1");
-		
-		Objective testObj = new Objective();
-		testObj.setId("testObjId1");
-		testObj.setName("testName1");
-		testObj.setDescription("testDesc1");
-		testObj.setLevel(1);
-		testStep.setObjective(testObj);
-		
-		Therapist testTher = new Therapist();
-		testTher.setName("testTherName1");
-		testTher.setEmailAddress("test@EmailAddress1.com");
-		testTher.tempSetPassword("testPassword1");
-		testTher.setUsername("tU1");
-		testTher.setPhoneNo("+61 4 17 testPhoneNo1");
-		testTher.setAccess("a");
-		
-		session.save(testStep);
-		session.save(testTher);
-		session.save(testObj);
-		session.getTransaction().commit();*/
-		// 		NOTE: Hibernate saves these test objects to the database
-		//		at ".commit()", NOT at ".save(testStep)"
-		//		This is important to understand, especially later on.
-		
-		//	^	^	HIBERNATE DATABASE ENTITY TESTS COMPLETE	^	^
-		
-		
 		t1.run();
 
 		// EventQueue.invokeLater

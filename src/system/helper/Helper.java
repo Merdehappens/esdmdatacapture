@@ -22,11 +22,12 @@ public class Helper {
 	 * 
 	 */
 	
-   public static <E extends SimpleKey> E search(Collection<E> collection, String key)
+   public static <E extends SimpleKey> E search(Collection<E> collection, int key)
    {
       for(E e: collection)
       {
-         if( e.getId().equals(key) )
+         //if( e.getId().equals(key) )
+    	 if(e.getId() == key)
          {
             return e;
          }

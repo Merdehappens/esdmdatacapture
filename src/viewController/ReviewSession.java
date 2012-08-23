@@ -138,7 +138,7 @@ public class ReviewSession extends PanelView {
 	// Refreshes the table to the day set in this object
 	private void refreshTable() {
 		// Sets the id, date and room name
-		lblId.setText(day.getId());
+		lblId.setText(day.getId()+"");
 		lblDate.setText(Helper.simpleDateFormat(day.getDate()));
 		lblRoomName.setText(day.getRoom().getRoomName());
 

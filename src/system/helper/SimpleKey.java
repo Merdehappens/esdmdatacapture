@@ -5,5 +5,5 @@ package system.helper;
 
 public interface SimpleKey
 {
-	public abstract String getId();
+	public abstract int getId();
 }
