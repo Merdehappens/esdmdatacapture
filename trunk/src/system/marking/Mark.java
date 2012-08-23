@@ -152,4 +152,31 @@ public class Mark implements SimpleKey {
 	{
 		this.comment = comment;
 	}
+
+	public void setSession(Session session) {
+		this.session = session;
+	}
+
+	public void setChild(Child child) {
+		this.child = child;
+	}
+
+	public void setTime(Calendar time) {
+		this.time = time;
+	}
+
+	public void setObjective(Objective objective) {
+		this.objective = objective;
+	}
+	
+	public void setMark(int mark)
+	{
+		this.mark = mark;
+	}
+
+	public void setStep(Step step) {
+		this.step = step;
+	}
+	
+	
 }

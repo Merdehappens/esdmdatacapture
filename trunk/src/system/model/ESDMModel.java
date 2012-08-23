@@ -176,97 +176,73 @@ public class ESDMModel {
         child1.setName("John Doe");
         Calendar c = Calendar.getInstance();
         c.set(1991, 07, 21);
-        child1.setDob(c);
-        child1.setPictureLink("http://www.hanselman.com/blog/content/binary/WindowsLiveWriter/CleanupyourTempFiles_8F63/TempFiles%5B7%5D.jpg");
-        childList.add(child1);
+    	this.addChild("John Doe", c, c);
+
         
-        Child child2 = new Child();
-        //child2.setId("C002");
-        child2.setName("Sally Smith");
         c = Calendar.getInstance();
-        c.set(1992, 11, 01);
-        child2.setDob(c);
-        child2.setPictureLink("http://www.hanselman.com/blog/content/binary/WindowsLiveWriter/CleanupyourTempFiles_8F63/TempFiles%5B7%5D.jpg");
-        childList.add(child2);
+        c.set(1992, 11, 01);    	
+        this.addChild("Sally Pearson", c, c);
+     
         
-        Child child3 = new Child();
-        //child3.setId("C003");
-        child3.setName("Billy May");
         c = Calendar.getInstance();
-        c.set(1995, 0, 04);
-        child3.setDob(c);
-        childList.add(child3);
+        c.set(1992, 11, 01);    	
+        this.addChild("Billy May", c, c);
         
-        Objective objective1 = new Objective("Looks at indicated pictures as adult points to picture in book", 
+        
+        Objective objective = new Objective("Looks at indicated pictures as adult points to picture in book", 
         		"In activities with books and puzzles, when an adult points (touching or proximal point 6? or less) to a picture child will visually orient and/or grasp or tap pictures or objects that the adult is pointing to 80% of opportunities for 4 of 5 consecutive days across 3 or more adults and settings.", 1);
-        Step step1 = new Step("1", "MC", "Orients and grasp/tap w/ partial physical prompt 50% opp");
-        objective1.addSteps(step1);
-        step1.setObjective(objective1);
-        Step step2 = new Step("2", "MC", "Orients and/or grasp/tap 50% of opp");
-        objective1.addSteps(step2);
-        step2.setObjective(objective1);
-        Step step3 = new Step("3", "MC", "Orients and/or grasp/tap 80% of opp");
-        objective1.addSteps(step3);
-        step3.setObjective(objective1);
+        Step step = new Step("1", "MC", "Orients and grasp/tap w/ partial physical prompt 50% opp");
+        objective.addSteps(step);
+        step = new Step("2", "MC", "Orients and/or grasp/tap 50% of opp");
+        objective.addSteps(step);
+        step = new Step("3", "MC", "Orients and/or grasp/tap 80% of opp");
+        objective.addSteps(step);
         
         for(int i = 0; i < 2; i++)
         {
-        	childList.get(i).addObjective(objective1);
+        	this.addObjectiveChild(childList.get(i), objective);
         }
-        objectiveList.add(objective1);
+        objectiveList.add(objective);
         
-        Objective objective2 = new Objective("Combines functionally related actions on a play theme", 
+        objective = new Objective("Combines functionally related actions on a play theme", 
         		"During pretend play with an adult, when provided with the materials for a play sequence (eg. bathing, cooking, eating), child will spontaneously link functionally related actions on a play sequence for 3 different play themes over 4 consecutive days", 9);
         
-        Step step4 = new Step("1", "MC", "Combines 2 related actions after adult model & ver P 50%");
-        objective2.addSteps(step4);
-        step4.setObjective(objective2);
-        Step step5 = new Step("2", "MC", "Combines 2 related actions after adult model & ver P 80%");
-        objective2.addSteps(step5);
-        step5.setObjective(objective2);
-        Step step6 = new Step("3", "MC", "Combines 2 related actions 1 theme, verbal prompting");
-        objective2.addSteps(step6);
-        step6.setObjective(objective2);
-        Step step7 = new Step("4", "MC", "Combines 2 related actions 1 theme");
-        objective2.addSteps(step7);
-        step7.setObjective(objective2);
-        Step step8 = new Step("5", "MC", "Combines 2 related actions 2 themes");
-        objective2.addSteps(step8);
-        step8.setObjective(objective2);
-        Step step9 = new Step("6", "MC", "Combines 2 related actions 3 themes, 4 days");
-        objective2.addSteps(step9);
-        step9.setObjective(objective2);
+        step = new Step("1", "MC", "Combines 2 related actions after adult model & ver P 50%");
+        objective.addSteps(step);
+        step = new Step("2", "MC", "Combines 2 related actions after adult model & ver P 80%");
+        objective.addSteps(step);
+        step = new Step("3", "MC", "Combines 2 related actions 1 theme, verbal prompting");
+        objective.addSteps(step);
+        step = new Step("4", "MC", "Combines 2 related actions 1 theme");
+        objective.addSteps(step);
+        step = new Step("5", "MC", "Combines 2 related actions 2 themes");
+        objective.addSteps(step);
+        step = new Step("6", "MC", "Combines 2 related actions 3 themes, 4 days");
+        objective.addSteps(step);
   
         
-        objectiveList.add(objective2);
-        child3.addObjective(objective2);
+        objectiveList.add(objective);
+      //  this.addObjectiveChild(childList.get(0), objective);
         
-        
-        Objective objective3 = new Objective("Uses a spoon", 
+        objective = new Objective("Uses a spoon", 
         		"During mealtimes, when child is eating a meal that requires the use of a spoon, after an adult models using the spoon correctly, child will be able to use the spoon to eat 5+ spoonfuls of her meal, on 80% of opportunities over 3 consecutive days with 2+ people.", 2);
         
-        Step step10 = new Step("1", "MC", "Uses spoon when adult loads spoon 50%");
-        objective3.addSteps(step10);
-        step10.setObjective(objective3);
-        Step step11 = new Step("2", "MC", "Uses spoon when adult loads spoon 80%");
-        objective3.addSteps(step11);
-        step11.setObjective(objective3);
-        Step step12 = new Step("3", "MC", "Loads spoon with PPP, brings spoon to mouth independently, 80%");
-        objective3.addSteps(step12);
-        step12.setObjective(objective3);
-        Step step13 = new Step("4", "MC", "Loads spoon & brings to mouth independently, verP, 80%");
-        objective3.addSteps(step13);
-        step13.setObjective(objective3);
-        Step step14 = new Step("5", "MC", "Loads spoon & brings to mouth independently, 3 times in a row");
-        objective3.addSteps(step14);
-        step14.setObjective(objective3);
-        Step step15 = new Step("6", "MC", "6.Loads spoon &  brings to mouth independently 5+ times in a row");
-        objective3.addSteps(step15);
-        step15.setObjective(objective3);
+        step = new Step("1", "MC", "Uses spoon when adult loads spoon 50%");
+        objective.addSteps(step);
+        step = new Step("2", "MC", "Uses spoon when adult loads spoon 80%");
+        objective.addSteps(step);
+        step = new Step("3", "MC", "Loads spoon with PPP, brings spoon to mouth independently, 80%");
+        objective.addSteps(step);
+        step = new Step("4", "MC", "Loads spoon & brings to mouth independently, verP, 80%");
+        objective.addSteps(step);
+        step = new Step("5", "MC", "Loads spoon & brings to mouth independently, 3 times in a row");
+        objective.addSteps(step);
+        step = new Step("6", "MC", "6.Loads spoon &  brings to mouth independently 5+ times in a row");
+        objective.addSteps(step);
         
-        childList.get(1).addObjective(objective3);
-        childList.get(2).addObjective(objective3);
-        objectiveList.add(objective3);
+        childList.get(1).addObjective(objective);
+        childList.get(2).addObjective(objective);
+        objectiveList.add(objective);
         
         
         Room room = new Room("Room 1");
@@ -274,140 +250,83 @@ public class ESDMModel {
         roomList.add(room);
         roomList.add(new Room("Room 2"));
         
-        //Session session1 = new Session("S01", "Group");
-        //Session session2 = new Session("S02", "Centers");
-        //Session session3 = new Session("S03", "Meals");
-        //Session session4 = new Session("S04", "Enrichment");
-        //Session session5 = new Session("S05", "One/One");
-        //Session session6 = new Session("S06", "Informal");
-        //Session session7 = new Session("S07", "Toilet");
-        Session session1 = new Session("Group");
-        Session session2 = new Session("Centers");
-        Session session3 = new Session("Meals");
-        Session session4 = new Session("Enrichment");
-        Session session5 = new Session("One/One");
-        Session session6 = new Session("Informal");
-        Session session7 = new Session("Toilet");
-        sessionList.add(session1);
-        sessionList.add(session2);
-        sessionList.add(session3);
-        sessionList.add(session4);
-        sessionList.add(session5);
-        sessionList.add(session6);
-        sessionList.add(session7);
+        sessionList.add(new Session("S01", "Group"));
+        sessionList.add(new Session("S02", "Centers"));
+        sessionList.add(new Session("S03", "Meals"));
+        sessionList.add(new Session("S04", "Enrichment"));
+        sessionList.add(new Session("S05", "One/One"));
+        sessionList.add(new Session("S06", "Informal"));
+        sessionList.add(new Session("S07", "Toilet"));
  
         
-        Therapist user1 = new Therapist();		
-        user1.setUsername("dbisignano");
-        user1.tempSetPassword("temp");
-        user1.setName("Damian B");
-        userList.add(user1);
+        Therapist user = new Therapist();		
+        user.setUsername("dbisignano");
+        user.tempSetPassword("temp");
+        userList.add(user);
         
-        Therapist user2 = new Therapist();
-        user2.setUsername("temp");
-        user2.tempSetPassword("temp");
-        user2.setAccess("n");
-        user2.setName("Random Temp");
-        userList.add(user2);
+        user = new Therapist();
+        user.setUsername("temp");
+        user.tempSetPassword("temp");
+        user.setAccess("n");
+        userList.add(user);
         
 
-        Guardian guardian1 = new Guardian();
-        guardian1.setUsername("Name 2");
-        guardian1.setName("Name 2");
-        guardian1.tempSetPassword("Name2Pass");
-        guardian1.setEmailAddress("EmailAddress2");
-        guardian1.setPhoneNo("Phone No 2");
-        guardian1.setAccess("g");
-        userList.add(guardian1);
+        Guardian guardian = new Guardian();
+        guardian.setName("Name2");
+        guardian.setEmailAddress("EmailAddress2");
+        guardian.setPhoneNo("Phone No 2");
+
+        userList.add(guardian);
         
         
-        Guardian guardian2 = new Guardian();
-        guardian2.setUsername("Temp");
-        guardian2.tempSetPassword("Temp");
-        guardian2.setName("Name1");
-        guardian2.setEmailAddress("EmailAddress1");
-        guardian2.setPhoneNo("Phone No 1");
-        guardian2.setAccess("g");
-        userList.add(guardian2);
+        guardian = new Guardian();
+        guardian.setUsername("Temp");
+        guardian.tempSetPassword("Temp");
+        guardian.setName("Name1");
+        guardian.setEmailAddress("EmailAddress1");
+        guardian.setPhoneNo("Phone No 1");
+        guardian.setAccess("g");
+        userList.add(guardian);
         
-        child3.addGuardian(guardian2);
-        guardian2.addChild(child3);
+
+        childList.get(0).addGuardian(guardian);
+        guardian.addChild(childList.get(0));
         
         
         
         
         c = Calendar.getInstance();
         c.set(2012, 4, 10);
-        //Day day1 = new Day(c, "T01");
-        Day day1 = new Day(c);
-        day1.setRoom(room);
-        dayList.add(day1);
+        Day day = new Day(c, "T01");
+        day.setRoom(room);
+        dayList.add(day);
+        
 
         c = Calendar.getInstance();
         c.set(2012, 4, 22);
-        //Day day2 = new Day(c, "T02");
-        Day day2 = new Day(c);
-        day2.setRoom(room);
-        dayList.add(day2);
+        day = new Day(c, "T02");
+        day.setRoom(room);
+        dayList.add(day);
 
         c = Calendar.getInstance();
         c.set(2012, 4, 24);
-        //Day day3 = new Day(c, "T03");
-        Day day3 = new Day(c);
-        day3.setRoom(room);
-        dayList.add(day3);
+        day = new Day(c, "T03");
+        day.setRoom(room);
+        dayList.add(day);
 
         c = Calendar.getInstance();
         c.set(2012, 4, 27);
-        //Day day4 = new Day(c, "T04");
-        Day day4 = new Day(c);
-        day4.setRoom(room);
-        dayList.add(day4);*/
+        day = new Day(c, "T04");
+        day.setRoom(room);
+        dayList.add(day);
         
         
-        //for(int i = 0; i < objectiveList.size(); i++)
-        //{
-        //	objectiveList.get(i).setId("O000" + i);
-        //}
-        
-        /*session.save(child1);
-        session.save(child2);
-        session.save(child3);
-        session.save(objective1);
-        session.save(objective2);
-        session.save(objective3);
-        session.save(step1);
-        session.save(step2);
-        session.save(step3);
-        session.save(step4);
-        session.save(step5);
-        session.save(step6);
-        session.save(step7);
-        session.save(step8);
-        session.save(step9);
-        session.save(step10);
-        session.save(step11);
-        session.save(step12);
-        session.save(step13);
-        session.save(step14);
-        session.save(step15);
-        session.save(session1);
-        session.save(session2);
-        session.save(session3);
-        session.save(session4);
-        session.save(session5);
-        session.save(session6);
-        session.save(session7);
-        session.save(user1);
-        session.save(user2);
-        session.save(guardian1);
-        session.save(guardian2);
-        session.save(day1);
-        session.save(day2);
-        session.save(day3);
-        session.save(day4);
-        
-        session.getTransaction().commit();*/
+        for(int i = 0; i < objectiveList.size(); i++)
+        {
+        	objectiveList.get(i).setId("O000" + i);
+        }
+
+		session.getTransaction().commit();*/
         
         //		^		^		^		^
         // Uncomment above session.save code (and session.beginTransaction code at top of this method)
@@ -618,7 +537,7 @@ public class ESDMModel {
 	{
 		if(date == null)
 		{
-			throw new Exception("Date must be entered.");
+			throw new Exception("Date is not in correct format or missing.");
 		}
 		if(children == null || children.size() == 0)
 		{
@@ -912,7 +831,7 @@ public class ESDMModel {
 			int size = objList.size();
 			for(int i = 0; i < size; i++)
 			{
-				if(objList.get(i).getId() == objective.getId())
+				if(objList.get(i) == objective)
 				{
 					obj = objList.get(i);
 					break;
@@ -961,6 +880,39 @@ public class ESDMModel {
 
 	public String getCurrentAccess() {
 		return currentUser.getAccess();
+	}
+	
+	public void removeObjective(Child c, Objective o)
+	{
+		c.removeObjective(o);
+	}
+
+	public void updateMark(Mark mark, Session session, Child child,
+			Calendar time, Objective objective, Step step, int markVal,
+			String comment) {
+		
+		mark.setSession(session);
+		mark.setChild(child);
+		mark.setTime(time);
+		mark.setObjective(objective);
+		mark.setStep(step);
+		mark.setMark(markVal);
+		mark.setComments(comment);
+	}
+
+	public void incrementStep(Child c, Objective o) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void decrementStep(Child c, Objective o) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setMastered(Child c, Objective o) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
