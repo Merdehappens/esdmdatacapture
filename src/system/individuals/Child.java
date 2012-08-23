@@ -5,6 +5,7 @@ package system.individuals;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -193,7 +194,7 @@ public class Child implements SimpleKey {
         objectives.add(co);
     }
     
-    final public int getCurrentStep(Objective o)
+    final public Step getCurrentStep(Objective o)
     {
     	int size = objectives.size();
     	
@@ -205,7 +206,7 @@ public class Child implements SimpleKey {
     		}
     	}
     	
-    	return -1;
+    	return null;
     
     }
     
@@ -269,6 +270,26 @@ public class Child implements SimpleKey {
 
 	public void setDays(List<Day> days) {
 		this.days = days;
+	}
+
+	public List<ChildObjective> getChildObjectives() {
+		return objectives;
+	}
+
+	public boolean removeObjective(Objective o) {
+		boolean removed = false;
+		int size = objectives.size();
+		for(int i = 0; i < size; i++)
+		{
+			if(objectives.get(i).getObjective() == o)
+			{
+				objectives.remove(i);
+				removed = true;
+				break;
+			}
+		}
+		return removed;
+		
 	}
     
     

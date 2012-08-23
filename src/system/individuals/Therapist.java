@@ -31,9 +31,7 @@ public class Therapist extends UserAccount {
 	public Therapist(String name, String username, String emailAddress) {
 		super(name, username, emailAddress);
 	}
-	
 		public void setMarks(List<Mark> marks) {
 		this.marks = marks;
 	}
-
 }
