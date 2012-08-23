@@ -46,11 +46,13 @@ public class ChildObjective{
     @Basic
     private int currentStep;
     
+    private boolean mastered;
+    
     public ChildObjective(Objective objective, Child child)
     {
     	this.objective = objective;
     	this.child = child;
-    	currentStep = 0;
+    	currentStep = 1;
     }
     
     public ChildObjective(Objective objective, Child child, int currentStep)
@@ -72,8 +74,8 @@ public class ChildObjective{
 		currentStep++;
 	}
 
-	public int getStep() {
-		return currentStep;
+	public Step getStep() {
+		return objective.getStep(currentStep);
 	}
 
 	public int getId() {
@@ -102,6 +104,15 @@ public class ChildObjective{
 
 	public void setObjective(Objective objective) {
 		this.objective = objective;
+	}
+
+	public boolean getMastered() {
+		return mastered;
+	}
+	
+	public void setMastered(boolean mastered)
+	{
+		this.mastered = mastered;
 	}
         
 }
