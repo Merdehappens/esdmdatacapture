@@ -73,9 +73,10 @@ public class ESDMModel {
 		config.addAnnotatedClass(Day.class);
 		config.addAnnotatedClass(Session.class);
 		config.addAnnotatedClass(ChildObjective.class);
+		config.addAnnotatedClass(Room.class);
 		config.configure("hibernate.cfg.xml");
 		
-		//new SchemaExport(config).create(true, true);
+		// new SchemaExport(config).create(true, true);
 		// ^ ^ ^ SchemaExport is commented out once all tables are created,
 		// ^ ^ ^ uncommented when class annotations have been changed and
 		// ^ ^ ^ therefore classes need to be added again.
@@ -168,10 +169,11 @@ public class ESDMModel {
     
     private void loadFromDatabase() throws Exception
     {
-    	//org.hibernate.Session session = factory.getCurrentSession();
-    	//session.beginTransaction();
+    	/*
+    	org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
     	
-        /*Child child1 = new Child();
+        Child child1 = new Child();
         //child1.setId("C001"); 
         child1.setName("John Doe");
         Calendar c = Calendar.getInstance();
@@ -249,14 +251,6 @@ public class ESDMModel {
         
         roomList.add(room);
         roomList.add(new Room("Room 2"));
-        
-        sessionList.add(new Session("S01", "Group"));
-        sessionList.add(new Session("S02", "Centers"));
-        sessionList.add(new Session("S03", "Meals"));
-        sessionList.add(new Session("S04", "Enrichment"));
-        sessionList.add(new Session("S05", "One/One"));
-        sessionList.add(new Session("S06", "Informal"));
-        sessionList.add(new Session("S07", "Toilet"));
  
         
         Therapist user = new Therapist();		
@@ -295,47 +289,40 @@ public class ESDMModel {
         
         
         
-        c = Calendar.getInstance();
-        c.set(2012, 4, 10);
-        Day day = new Day(c, "T01");
-        day.setRoom(room);
-        dayList.add(day);
-        
-
-        c = Calendar.getInstance();
-        c.set(2012, 4, 22);
-        day = new Day(c, "T02");
-        day.setRoom(room);
-        dayList.add(day);
-
-        c = Calendar.getInstance();
-        c.set(2012, 4, 24);
-        day = new Day(c, "T03");
-        day.setRoom(room);
-        dayList.add(day);
-
-        c = Calendar.getInstance();
-        c.set(2012, 4, 27);
-        day = new Day(c, "T04");
-        day.setRoom(room);
-        dayList.add(day);
-        
         
         for(int i = 0; i < objectiveList.size(); i++)
         {
-        	objectiveList.get(i).setId("O000" + i);
+        	objectiveList.get(i).setId(i);
         }
 
-		session.getTransaction().commit();*/
+		session.getTransaction().commit();
         
         //		^		^		^		^
         // Uncomment above session.save code (and session.beginTransaction code at top of this method)
         // if these hard-coded objects ever need to be re-added to the database.
     	
+        */
+        roomList.add(new Room("Room1"));
+        roomList.add(new Room("Room2"));
+    	
     	org.hibernate.Session session = factory.openSession();
+    	
+    	String sqlSessionQry = ("Select session.id, session.description from Session session");
+    	Query query = session.createQuery(sqlSessionQry);
+    	
+    	for(Iterator it = query.iterate(); it.hasNext();)
+    	{
+    		Object[] row = (Object[]) it.next();
+    		int id = (Integer)row[0];
+    		String description = "" + row[1];
+    		
+    		sessionList.add(new Session(id, description));
+    	}
+    	
+    	
     	String sqlUserAccountQry = ("Select useraccount.name, useraccount.access, useraccount.emailAddress," +
     			"useraccount.password, useraccount.phoneNo, useraccount.username From UserAccount useraccount");
-    	Query query = session.createQuery(sqlUserAccountQry);
+    	query = session.createQuery(sqlUserAccountQry);
     	
     	Therapist ther;
     	Guardian guar;
@@ -370,8 +357,7 @@ public class ESDMModel {
     		}
     	}
     	
-    	//String sqlChildQry = ("Select child.ChildID, child.active, child.dateJoined," +
-    	String sqlChildQry = ("Select child.active, child.dateJoined," +
+    	String sqlChildQry = ("Select child.id, child.active, child.dateJoined," +
     			" child.dob, child.name, child.pictureLink From Child child");
     	query = session.createQuery(sqlChildQry);
     	
@@ -380,16 +366,62 @@ public class ESDMModel {
     	for(Iterator it = query.iterate(); it.hasNext();)
     	{
     		Object[] row = (Object[]) it.next();
-    		child = new Child();
     		
-    		System.out.println(row[0]);
-    		System.out.println(row[1]);
-    		System.out.println(row[2]);
-    		System.out.println(row[3]);
-    		System.out.println(row[4]);
-    		//System.out.println(row[5]);
     		
-    	} 
+    		int id = (int) row[0];
+    		boolean active = (boolean) row[1];
+    		Calendar dateJoined = (Calendar) row[2];
+    		Calendar dob = (Calendar) row[3];
+    		String name = row[4] + "";
+    		String pictureLink = row[5] + "";
+    		
+    		child = new Child(name, dob, dateJoined);
+    		child.setId(id);
+    		child.setActive(active);
+    		child.setPictureLink(pictureLink);
+    		childList.add(child);
+    		
+    	}
+    	
+    	
+    	String sqlObjectiveQry = ("Select objective.id, objective.description, objective.level, " +
+    			"objective.name From Objective objective");
+    	query = session.createQuery(sqlObjectiveQry);
+    	
+    	Objective objective;
+    	
+    	for(Iterator it = query.iterate(); it.hasNext();)
+    	{
+    		Object[] row = (Object[]) it.next();
+    		
+    		int id = (int) row[0];
+    		String description = ""+row[1];
+    		int level = (int) row[2];
+    		String name = ""+row[3];
+    		
+    		objective = new Objective(name, description, level);
+    		objective.setId(id);
+    		
+    		objectiveList.add(objective);
+    		
+    		String sqlStepQry = ("Select step.id, step.code, step.description, step.no" +
+    				" From Step step where step.objective = " + id + " Order by step.no");
+    		Query stepQuery = session.createQuery(sqlStepQry);
+    		
+    		for(Iterator it2 = stepQuery.iterate(); it2.hasNext();)
+    		{
+    			Object[] stepRow = (Object[]) it2.next();
+    			int stepId = (int) row[0];
+    			String code = ""+row[1];
+    			String stepDescription = ""+row[2];
+    			String no = ""+row[3];
+    			
+    			Step s = new Step(no, code, stepDescription);
+    			s.setId(stepId);
+    			objective.addSteps(s);
+    		}
+    		
+    	}
     	
     	
     
@@ -499,7 +531,13 @@ public class ESDMModel {
 		user.setAccess(access);
 		user.setPassword(password);
 		userList.add(user);
-		//TODO ADD GUARDIAN
+		
+    	org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
+    	
+    	session.save(user);
+    	session.getTransaction().commit();
+    	
 		return user;
 	}
     
@@ -600,7 +638,11 @@ public class ESDMModel {
 			day.addSession(sessions.get(x));
 		}
 		dayList.add(day);
-		//TODO ADD DAY HERE
+    	org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
+    	
+    	session.save(day);
+    	session.getTransaction().commit();
 		
 		
 		return day;
@@ -635,6 +677,9 @@ public class ESDMModel {
 			throw new Exception("Description field is empty.");
 		}
 		
+    	org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
+		
 		Objective o = new Objective(name, description, level);
 		for (int i = 0; i < steps.length; i++)
 		{
@@ -645,12 +690,18 @@ public class ESDMModel {
 			String no = (i + 1) + "";
 			Step step = new Step(no, steps[i][0], steps[i][1]);//retrieves info from 2D array and makes a new step
 			o.addSteps(step);
-			//TODO ADD STEPS HERE
+			step.setObjective(o);
+			
+
+	    	
+	    	session.save(step);
+			
 		}
 		
+		session.save(o);
+    	session.getTransaction().commit();
 		objectiveList.add(o);
-		
-		//TODO ADD OBJECTIVE HERE
+
 	}
 
 	/*
@@ -752,8 +803,15 @@ public class ESDMModel {
 		Mark tempMark = new Mark(session, child, objective, step, mark, (Therapist)currentUser, day);
 		day.addMark(tempMark);
 		child.addMark(tempMark);
-		markList.add(tempMark);
-		//TODO ADD MARK HERE
+		markList.add(tempMark);    	
+		
+		org.hibernate.Session dbSession = factory.getCurrentSession();
+    	dbSession.beginTransaction();
+    	
+    	dbSession.save(tempMark);
+    	dbSession.update(child);
+    	dbSession.update(day);
+    	dbSession.getTransaction().commit();
 	}
 	
 	public void addTimestamp(Session session, Child child, Objective objective, Step step, int mark, Day day) throws Exception
@@ -763,8 +821,15 @@ public class ESDMModel {
 		day.addMark(tempMark);
 		child.addMark(tempMark);
 		markList.add(tempMark);
+
+    	org.hibernate.Session dbSession = factory.getCurrentSession();
+    	dbSession.beginTransaction();
+    	
+    	dbSession.save(tempMark);
+    	dbSession.update(child);
+    	dbSession.update(day);
+    	dbSession.getTransaction().commit();
 		
-		//TODO ADD MARK HERE TOO
 	
 	}
 
@@ -888,6 +953,15 @@ public class ESDMModel {
 				child.addObjective(objective);
 			}
 		}
+		
+
+    	org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
+    	
+    	session.update(child);
+    	session.getTransaction().commit();
+		
+		
 	}
 	
 	public ArrayList<Guardian> getGuardianList() {
