@@ -300,8 +300,8 @@ public class LogSessionData extends PanelView {
 		sessionModel.clear();
 		childModel.clear();
 
-		ArrayList<Session> settings = (ArrayList<Session>) day.getSessions();
-		ArrayList<Child> children = (ArrayList<Child>) day.getChildren();
+		ArrayList<Session> settings = new ArrayList<Session>(day.getSessions());
+		ArrayList<Child> children = new ArrayList<Child>(day.getChildren());
 
 		int size = settings.size();
 		for (int i = 0; i < size; i++) {

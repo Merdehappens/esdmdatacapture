@@ -147,7 +147,7 @@ public class ReviewSession extends PanelView {
 			tableModel.removeRow(0);
 		}
 
-		ArrayList<Mark> marks = (ArrayList<Mark>) day.getMarks();
+		ArrayList<Mark> marks = new ArrayList<Mark>(day.getMarks());
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("h:mm:ss a");
 
 		// Iterates through the marks list and adds them to the table

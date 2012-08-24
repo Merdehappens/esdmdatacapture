@@ -46,6 +46,7 @@ import java.awt.event.WindowAdapter;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 
 //testing
@@ -346,6 +347,7 @@ public class Controller extends JFrame {
 					show(sessionPanel, "logSessionData");
 				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
+					e.printStackTrace();
 				}
 
 			}
@@ -542,8 +544,12 @@ public class Controller extends JFrame {
 					show(accountPanel, "Account");
 					showErrorMessage("The password has been set to: " + pass + "."
 							+ "\nPlease note this down and inform the user.");
-				} catch (Exception e) {
-					showMessage(e.getMessage());
+				} catch(ConstraintViolationException e) 
+				{
+					showErrorMessage("That username already exists");
+				}
+				catch (Exception e) {
+					showErrorMessage(e.getMessage());
 				}
 
 
@@ -742,7 +748,7 @@ public class Controller extends JFrame {
 		
 		editChild.addObjectiveListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				//TODO Add Objective
+				//TODO Add Objective to Child
 			}
 		});
 		
