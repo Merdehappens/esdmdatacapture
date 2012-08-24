@@ -76,7 +76,7 @@ public class ESDMModel {
 		config.addAnnotatedClass(Room.class);
 		config.configure("hibernate.cfg.xml");
 		
-		// new SchemaExport(config).create(true, true);
+		//new SchemaExport(config).create(true, true);
 		// ^ ^ ^ SchemaExport is commented out once all tables are created,
 		// ^ ^ ^ uncommented when class annotations have been changed and
 		// ^ ^ ^ therefore classes need to be added again.
@@ -302,10 +302,18 @@ public class ESDMModel {
         // if these hard-coded objects ever need to be re-added to the database.
     	
         */
+        Therapist user = new Therapist();
+        user.setUsername("temp");
+        user.tempSetPassword("temp");
+        user.setAccess("a");
+        userList.add(user);
+        
+    	
         roomList.add(new Room("Room1"));
         roomList.add(new Room("Room2"));
     	
     	org.hibernate.Session session = factory.openSession();
+    	
     	
     	String sqlSessionQry = ("Select session.id, session.description from Session session");
     	Query query = session.createQuery(sqlSessionQry);
@@ -420,8 +428,24 @@ public class ESDMModel {
     			s.setId(stepId);
     			objective.addSteps(s);
     		}
-    		
     	}
+    	
+    	/*
+    	String sqlDayQry = ("Select day.id, day.template From Day day");
+    	query = session.createQuery(sqlDayQry);
+    	
+    	Day day;
+    	
+    	for(Iterator it = query.iterate(); it.hasNext();)
+    	{
+    		Object[] row = (Object[]) it.next();
+    		day = new Day();
+    		day.setId((int) row[0]);
+    		day.setTemplate((boolean) row[1]);
+
+    		dayList.add(day);
+        	session.refresh(day);
+    	}*/
     	
     	
     

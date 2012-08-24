@@ -43,7 +43,7 @@ public class Mark implements SimpleKey {
 	@ManyToOne
 	@JoinColumn(name="therapist_id")
     private Therapist therapist;
-	@Transient
+	
     private Calendar time;
     private String comment;
     
@@ -176,6 +176,7 @@ public class Mark implements SimpleKey {
 
 	public void setStep(Step step) {
 		this.step = step;
+		objective = step.getObjective();
 	}
 	
 	

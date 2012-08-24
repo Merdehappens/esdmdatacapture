@@ -10,7 +10,6 @@ public class Room {
 	@Id
 	@GeneratedValue
 	private int id;
-	@Basic
 	private String roomName;
 	
 	public Room(int id, String roomName)

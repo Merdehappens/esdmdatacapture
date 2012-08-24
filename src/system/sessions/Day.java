@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
@@ -39,9 +40,11 @@ public class Day implements SimpleKey {
     		joinColumns={@JoinColumn(name="DayID")},
     		inverseJoinColumns={@JoinColumn(name="ChildID")})
     private List<Child> children;
-    @Transient
+
+
     private Calendar date;
-    @Transient
+	@ManyToOne
+	@JoinColumn(name="roomId")
     private Room room;
     // ^ ^ ^ "room" set to Transient, as I believe Room is no longer used
     @ManyToMany
@@ -58,6 +61,9 @@ public class Day implements SimpleKey {
     
     public Day()
     {
+    	children = new ArrayList<Child>();
+    	sessions = new ArrayList<Session>();
+        marks = new ArrayList<Mark>();
     }
 
     public Day(ArrayList<Child> children, Calendar date, int id, ArrayList<Session> sessions) {
