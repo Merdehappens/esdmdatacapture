@@ -42,8 +42,6 @@ public class Step {
 	@ManyToOne
 	@JoinColumn(name="objective_id")
     private Objective objective;
-	@Transient
-	private Child child;
     @OneToMany(targetEntity=Mark.class,
     		mappedBy="step",
     		cascade=CascadeType.ALL,
@@ -122,14 +120,6 @@ public class Step {
     {
     	return no + " " + description;
     }
-    
-    public Child getChild() {
-		return child;
-	}
-
-	public void setChild(Child child) {
-		this.child = child;
-	}
 
 	public List<Mark> getMarks() {
 		return marks;
