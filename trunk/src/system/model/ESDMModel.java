@@ -1051,6 +1051,24 @@ public class ESDMModel {
 		mark.setMark(markVal);
 		mark.setComments(comment);
 	}
+	
+	public void saveObjective(Objective objective, String[] objDetails, int level, String[][] steps)
+	{
+		objective.setDescription(objDetails[0]);
+		objective.setName(objDetails[1]);
+		objective.setLevel(level);
+		
+		ArrayList<Step> stepList = new ArrayList<Step>();
+		
+		for(int i = 0; i < steps.length; i++)
+		{
+			Step s = new Step(steps[i][0], steps[i][1], steps[i][2]);
+			stepList.add(s);
+			s.setObjective(objective);
+		}
+		objective.setSteps(stepList);
+		
+	}
 
 	public void incrementStep(Child c, Objective o) {
 		// TODO Auto-generated method stub
