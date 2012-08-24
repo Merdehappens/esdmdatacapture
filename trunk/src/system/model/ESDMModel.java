@@ -303,16 +303,15 @@ public class ESDMModel {
     	
         */
         Therapist user = new Therapist();
-        user.setUsername("temp");
-        user.tempSetPassword("temp");
+        user.setUsername("temp1");
+        user.tempSetPassword("temp1");
         user.setAccess("a");
         userList.add(user);
         
     	
-        roomList.add(new Room("Room1"));
-        roomList.add(new Room("Room2"));
     	
     	org.hibernate.Session session = factory.openSession();
+    	
     	
     	
     	String sqlSessionQry = ("Select session.id, session.description from Session session");
@@ -325,6 +324,19 @@ public class ESDMModel {
     		String description = "" + row[1];
     		
     		sessionList.add(new Session(id, description));
+    	}
+    	
+    	String sqlRoomQry = ("Select room.id, room.roomName From Room room");
+    	query = session.createQuery(sqlRoomQry);
+    	Room room;
+    	
+    	for(Iterator it = query.iterate(); it.hasNext();)
+    	{
+    		Object[] row = (Object[]) it.next();
+    		int id = (int) row[0];
+    		String name = ""+row[1];
+    		room = new Room(id, name);
+    		roomList.add(room);
     	}
     	
     	
@@ -426,12 +438,13 @@ public class ESDMModel {
     			
     			Step s = new Step(no, code, stepDescription);
     			s.setId(stepId);
+    			s.setObjective(objective); 
     			objective.addSteps(s);
     		}
     	}
     	
     	/*
-    	String sqlDayQry = ("Select day.id, day.template From Day day");
+    	String sqlDayQry = ("Select day.id, day.template, day.room, day. From Day day");
     	query = session.createQuery(sqlDayQry);
     	
     	Day day;
@@ -840,15 +853,16 @@ public class ESDMModel {
 	
 	public void addTimestamp(Session session, Child child, Objective objective, Step step, int mark, Day day) throws Exception
 	{
-		Mark tempMark = new Mark(session, child, objective, step, mark, (Therapist)currentUser, day);
+		Therapist t = (Therapist)currentUser;
+		Mark tempMark = new Mark(session, child, objective, step, mark, t, day);
 		tempMark.setComments("Timestamp Logged.");
 		day.addMark(tempMark);
 		child.addMark(tempMark);
 		markList.add(tempMark);
-
+		t.addMark(tempMark);
     	org.hibernate.Session dbSession = factory.getCurrentSession();
     	dbSession.beginTransaction();
-    	
+    	dbSession.save(t);
     	dbSession.save(tempMark);
     	dbSession.update(child);
     	dbSession.update(day);

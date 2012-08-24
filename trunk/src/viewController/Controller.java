@@ -616,6 +616,7 @@ public class Controller extends JFrame {
 					findChildReportSubmit(evt);
 				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
+					e.printStackTrace();
 				}
 			}
 		});

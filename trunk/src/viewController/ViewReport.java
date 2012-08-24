@@ -124,7 +124,7 @@ public class ViewReport extends PanelView {
 	public void refreshTable() {
 		
 		lblChildName.setText(child.getName());
-		ArrayList<Mark> marks = (ArrayList<Mark>) child.getMarks();
+		ArrayList<Mark> marks = new ArrayList<Mark>(child.getMarks());
 		
 		// Iterates through everything in the table and removes them all
 		while (tableModel.getRowCount() > 0) {
