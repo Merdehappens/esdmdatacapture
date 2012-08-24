@@ -1,6 +1,7 @@
 
 package system.individuals;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,6 +17,7 @@ public class Therapist extends UserAccount {
     public Therapist()
     {
         super();
+        marks = new ArrayList<Mark>();
     }
     
     @OneToMany(targetEntity=Mark.class,
@@ -30,8 +32,15 @@ public class Therapist extends UserAccount {
 
 	public Therapist(String name, String username, String emailAddress) {
 		super(name, username, emailAddress);
+		marks = new ArrayList<Mark>();
 	}
-		public void setMarks(List<Mark> marks) {
+	
+	public void setMarks(List<Mark> marks) {
 		this.marks = marks;
+	}
+		
+	public void addMark(Mark mark)
+	{
+		marks.add(mark);
 	}
 }
