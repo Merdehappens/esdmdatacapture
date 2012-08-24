@@ -441,10 +441,11 @@ public class ESDMModel {
     			s.setObjective(objective); 
     			objective.addSteps(s);
     		}
+    		
     	}
     	
-    	/*
-    	String sqlDayQry = ("Select day.id, day.template, day.room, day. From Day day");
+    	
+    	String sqlDayQry = ("Select day.id, day.template, day.room, day.date From Day day");
     	query = session.createQuery(sqlDayQry);
     	
     	Day day;
@@ -455,10 +456,10 @@ public class ESDMModel {
     		day = new Day();
     		day.setId((int) row[0]);
     		day.setTemplate((boolean) row[1]);
-
+    		day.setRoom((Room)row[2]);
+    		day.setDate((Calendar)row[3]);
     		dayList.add(day);
-        	session.refresh(day);
-    	}*/
+    	}
     	
     	
     

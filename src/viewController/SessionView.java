@@ -88,7 +88,7 @@ public class SessionView extends PanelView {
 		scrollPane.setViewportView(tblSession);
 		
 		// Sets the name of the columns
-		String[] columnNames = new String[] { "SessionID", "Room Name", "Date" };
+		String[] columnNames = new String[] { "SessionID", "Room Name", "No of children", "Date" };
 		tableModel = new DefaultTableModel();
 		tableModel.setColumnIdentifiers(columnNames);
 		
@@ -126,12 +126,20 @@ public class SessionView extends PanelView {
 		
 		// Iterates through the list parsed through and adds them to the table
 		for (int i = 0; i < size; i++) {
-			Object[] row = new Object[3];
+			Object[] row = new Object[4];
+			
 			Day temp = dayList.get(i);
+
+			Calendar c = Calendar.getInstance();
+			dateFormatter.format(c.getTime());
+			
+			temp.getDate();
 
 			row[0] = temp;
 			row[1] = temp.getRoom().getRoomName();
-			row[2] = dateFormatter.format(temp.getDate().getTime());
+			row[2] = temp.getChildren().size();
+			row[3] = "" + dateFormatter.format(temp.getDate().getTime());
+			
 
 			tableModel.addRow(row);
 		}

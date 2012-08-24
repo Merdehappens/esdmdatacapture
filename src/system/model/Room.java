@@ -19,6 +19,11 @@ public class Room {
 		this.roomName = roomName;
 	}
 	
+	public Room()
+	{
+		
+	}
+	
 	public Room(String roomName)
 	{
 		this.roomName = roomName;
