@@ -223,6 +223,14 @@ public class ReviewSession extends PanelView {
 	}
 
 	public Mark getSelectedMark() {
-		return (Mark)tableModel.getValueAt(tblReview.getSelectedRow(), 5);
+		int row = tblReview.getSelectedRow();
+		if(row == -1)
+		{
+			return null;
+		}
+		else
+		{
+			return (Mark)tableModel.getValueAt(row, 5);
+		}
 	}
 }

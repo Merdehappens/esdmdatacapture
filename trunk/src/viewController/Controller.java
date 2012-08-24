@@ -393,7 +393,14 @@ public class Controller extends JFrame {
 				changeMark.saveButtonListener(new java.awt.event.ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						changeMark.setVisible(false);
-						saveMark();
+						if(reviewSession.getSelectedMark() != null)
+						{
+							saveMark();
+						}
+						else
+						{
+							showMessage("No mark selected.");
+						}
 						reviewSession.refreshView();
 					}
 				});
