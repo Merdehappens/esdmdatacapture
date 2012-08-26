@@ -92,7 +92,6 @@ public class LinkGuardian extends PanelView {
 		ArrayList<Guardian> guardians = new ArrayList<Guardian>(this.getModel().getGuardianList());
 
 		int size = guardians.size();
-		System.out.println(size);
 		for (int i = 0; i < size; i++) {
 			Guardian tempGuard = guardians.get(i);
 
