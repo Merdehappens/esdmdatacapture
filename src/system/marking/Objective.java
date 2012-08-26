@@ -113,7 +113,7 @@ public class Objective implements SimpleKey  {
     
     public String toString()
     {
-    	return name + " Level: " + level;
+    	return name;
     }
 
 	public final List<Step> getSteps() {
@@ -147,7 +147,8 @@ public class Objective implements SimpleKey  {
 	}
 
 	public Step getStep(int currentStep) {
-		return steps.get(currentStep - 1);
+		Step s = steps.get(currentStep - 1);
+		return s;
 	}
 	
 	public void setChildren(List<ChildObjective> children) {

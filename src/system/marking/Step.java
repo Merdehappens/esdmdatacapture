@@ -118,7 +118,7 @@ public class Step {
     
     public String toString()
     {
-    	return no + " " + description;
+    	return no;
     }
 
 	public List<Mark> getMarks() {

@@ -158,8 +158,12 @@ public class Child implements SimpleKey {
     }
     
     // Increments the current step of the objective parsed through by one
-    public void incrementStep(Objective o) throws Exception
+    public void incrementStep(Objective o, int num) throws Exception
     {
+    	if(num != 1 && num != -1)
+    	{
+    		throw new Exception("The number parsed through was not valid");
+    	}
     	int size = objectives.size();
     	boolean x = false;
     	
@@ -167,7 +171,7 @@ public class Child implements SimpleKey {
     	{
     		if(objectives.get(i).getObjective() == o)
     		{
-    			objectives.get(i).incrementStep();
+    			objectives.get(i).incrementStep(num);
     			x = true;
     			break;
     		}
@@ -192,6 +196,11 @@ public class Child implements SimpleKey {
     {
         ChildObjective co = new ChildObjective(o, this);
         objectives.add(co);
+    }
+    
+    public void addChildObjective(ChildObjective co)
+    {
+    	objectives.add(co);
     }
     
     final public Step getCurrentStep(Objective o)
@@ -290,6 +299,24 @@ public class Child implements SimpleKey {
 		}
 		return removed;
 		
+	}
+
+	public void setMastered(Objective o, boolean b) throws Exception {
+		int size = objectives.size();
+		boolean x = false;
+		for(int i = 0; i <size; i++)
+		{
+			if(objectives.get(i).getObjective() == o)
+			{
+				objectives.get(i).setMastered(b);
+				x = true;
+				break;
+			}
+		}
+		if(!x)
+		{
+			throw new Exception("Could not find objective in that child");
+		}
 	}
     
     

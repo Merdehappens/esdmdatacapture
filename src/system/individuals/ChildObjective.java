@@ -53,6 +53,7 @@ public class ChildObjective{
     	this.objective = objective;
     	this.child = child;
     	currentStep = 1;
+    	mastered = false;
     }
     
     public ChildObjective(Objective objective, Child child, int currentStep)
@@ -60,18 +61,29 @@ public class ChildObjective{
     	this.objective = objective;
     	this.child = child;
     	this.currentStep = currentStep;
+    	mastered = false;
     }
     
     public ChildObjective()
     {
+    	currentStep = 1;
+    	mastered = false;
     }
 
 	public Objective getObjective() {
 		return objective;
 	}
 
-	public void incrementStep() {
-		currentStep++;
+	public void incrementStep(int num) throws Exception {
+		int stepNum = currentStep + num;
+		if(stepNum <= 0 || stepNum > objective.getStepsNo())
+		{
+			throw new Exception("Cannot increment or decrement step any more");
+		}
+		else
+		{
+			currentStep = stepNum;
+		}
 	}
 
 	public Step getStep() {

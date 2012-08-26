@@ -750,7 +750,12 @@ public class Controller extends JFrame {
 			public void actionPerformed(ActionEvent evt) {
 				Child c = editChild.getChild();
 				Objective o = editChild.getSelectedObjective();
-				model.setMastered(c, o);
+				try {
+					model.setMastered(c, o);
+				} catch (Exception e) {
+					showMessage(e.getMessage());
+					e.printStackTrace();
+				}
 			}
 		});
 		
@@ -764,7 +769,16 @@ public class Controller extends JFrame {
 			public void actionPerformed(ActionEvent evt) {
 				Child c = editChild.getChild();
 				Objective o = editChild.getSelectedObjective();
-				model.incrementStep(c, o);
+				try {
+					model.incrementStep(c, o);
+					lblMessage.setText("");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					showMessage(e.getMessage());
+					e.printStackTrace();
+				}
+				editChild.refreshView();
+				
 			}
 		});
 		
@@ -772,7 +786,15 @@ public class Controller extends JFrame {
 			public void actionPerformed(ActionEvent evt) {
 				Child c = editChild.getChild();
 				Objective o = editChild.getSelectedObjective();
-				model.decrementStep(c, o);
+				try {
+					model.decrementStep(c, o);
+					lblMessage.setText("");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					showMessage(e.getMessage());
+					e.printStackTrace();
+				}
+				editChild.refreshView();
 			}
 		});
 		accountView.changeEmailAddress(ActionListenerShow(accountPanel,

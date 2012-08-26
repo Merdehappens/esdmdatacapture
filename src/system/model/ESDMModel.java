@@ -431,10 +431,10 @@ public class ESDMModel {
     		for(Iterator it2 = stepQuery.iterate(); it2.hasNext();)
     		{
     			Object[] stepRow = (Object[]) it2.next();
-    			int stepId = (int) row[0];
-    			String code = ""+row[1];
-    			String stepDescription = ""+row[2];
-    			String no = ""+row[3];
+    			int stepId = (int) stepRow[0];
+    			String code = ""+stepRow[1];
+    			String stepDescription = ""+stepRow[2];
+    			String no = ""+stepRow[3];
     			
     			Step s = new Step(no, code, stepDescription);
     			s.setId(stepId);
@@ -461,6 +461,36 @@ public class ESDMModel {
     		dayList.add(day);
     	}
     	
+    	// TODO
+    	/* Loading of the followign items is alraedy implemented
+    	 * room, Session, User Account, Therapist, Guardian & Objectives & steps. they are implemented 100%
+    	 * Children, Day are being loaded in but not all associations are being loaded.
+    	
+    	*/
+    	
+  /* NOT WORKING
+   * 
+   *   	String sqlChildObjectiveQry = ("Select co.id, co.objective, co.child, co.currentStep, co.mastered From ChildObjective co");
+    	query = session.createQuery(sqlChildObjectiveQry);
+    	
+    	ChildObjective co;
+    	
+    	for(Iterator it = query.iterate(); it.hasNext();)
+    	{
+    		Object[] row = (Object[]) it.next();
+    		int id = (int) row[0];
+    		Objective o = (Objective) row[1];
+    		Child c = (Child) row[2];
+    		int currentStep = (int) row[3];
+    		boolean mastered = (boolean) row[4];
+    		co = new ChildObjective(o, c, currentStep);
+    		co.setId(id);
+    		co.setMastered(mastered);
+    		System.out.println(co.getChild().getName() + " " + co.getObjective().getName());
+    		c.addChildObjective(co);
+    		System.out.println(c.getObjectives().size());
+    	}
+*/    	
     	
     
     }
@@ -842,14 +872,18 @@ public class ESDMModel {
 		day.addMark(tempMark);
 		child.addMark(tempMark);
 		markList.add(tempMark);    	
-		
+		/* not in 100% working order yet TODO
 		org.hibernate.Session dbSession = factory.getCurrentSession();
     	dbSession.beginTransaction();
     	
     	dbSession.save(tempMark);
+    	
+    	Not sure if we have to do these Updates or if hibernate automatically goes around updating everything
     	dbSession.update(child);
     	dbSession.update(day);
     	dbSession.getTransaction().commit();
+    	*/
+		
 	}
 	
 	public void addTimestamp(Session session, Child child, Objective objective, Step step, int mark, Day day) throws Exception
@@ -861,6 +895,8 @@ public class ESDMModel {
 		child.addMark(tempMark);
 		markList.add(tempMark);
 		t.addMark(tempMark);
+		
+		/* not in 100% working order yet TODO
     	org.hibernate.Session dbSession = factory.getCurrentSession();
     	dbSession.beginTransaction();
     	dbSession.save(t);
@@ -868,7 +904,7 @@ public class ESDMModel {
     	dbSession.update(child);
     	dbSession.update(day);
     	dbSession.getTransaction().commit();
-		
+		*/
 	
 	}
 
@@ -993,13 +1029,14 @@ public class ESDMModel {
 			}
 		}
 		
-
+		/*
+		 * TODO - Not very fast. seems to update everything in child. not just childs objectives. don't know better way?
     	org.hibernate.Session session = factory.getCurrentSession();
     	session.beginTransaction();
     	
     	session.update(child);
     	session.getTransaction().commit();
-		
+		*/
 		
 	}
 	
@@ -1071,19 +1108,16 @@ public class ESDMModel {
 		
 	}
 
-	public void incrementStep(Child c, Objective o) {
-		// TODO Auto-generated method stub
-		
+	public void incrementStep(Child c, Objective o) throws Exception {
+		c.incrementStep(o, 1);
 	}
 
-	public void decrementStep(Child c, Objective o) {
-		// TODO Auto-generated method stub
-		
+	public void decrementStep(Child c, Objective o) throws Exception {
+		c.incrementStep(o, -1);
 	}
 
-	public void setMastered(Child c, Objective o) {
-		// TODO Auto-generated method stub
-		
+	public void setMastered(Child c, Objective o) throws Exception {
+		c.setMastered(o, true);
 	}
 
 
