@@ -294,6 +294,5 @@ public class EditChild extends PanelView {
 			tblObjectiveModel.addRow(o);
 		}
 		
-		System.out.println(size);
 	}
 }

@@ -126,5 +126,11 @@ public class ChildObjective{
 	{
 		this.mastered = mastered;
 	}
+	
+	public String toString()
+	{
+		return "Child: " + child + " Objective: " + objective + " Step " + currentStep
+							+ " Mastered: " + mastered;
+	}
         
 }

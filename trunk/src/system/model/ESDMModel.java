@@ -58,6 +58,8 @@ public class ESDMModel {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+        
+        printAll();
     }
     
     public void hibernateSetUp()
@@ -311,9 +313,21 @@ public class ESDMModel {
     	
     	
     	org.hibernate.Session session = factory.openSession();
+ 
     	
-    	
-    	
+    	/*   	String sqlSessionQry = ("Select session.id from Session session");
+    	Query query = session.createQuery(sqlSessionQry);
+
+    	for(Iterator it = query.iterate(); it.hasNext();)
+    	{
+    		
+    		int id = (int) it.next();
+    		Session s = (Session) session.get(Session.class, id);
+    		sessionList.add(s);
+    	}*/
+
+
+
     	String sqlSessionQry = ("Select session.id, session.description from Session session");
     	Query query = session.createQuery(sqlSessionQry);
     	
@@ -461,6 +475,8 @@ public class ESDMModel {
     		dayList.add(day);
     	}
     	
+    	
+	
     	// TODO
     	/* Loading of the followign items is alraedy implemented
     	 * room, Session, User Account, Therapist, Guardian & Objectives & steps. they are implemented 100%
@@ -468,7 +484,7 @@ public class ESDMModel {
     	
     	*/
     	
-  /* NOT WORKING
+  /* NOT WORKING TODO: SCRAP THIS CODE?
    * 
    *   	String sqlChildObjectiveQry = ("Select co.id, co.objective, co.child, co.currentStep, co.mastered From ChildObjective co");
     	query = session.createQuery(sqlChildObjectiveQry);
@@ -483,14 +499,26 @@ public class ESDMModel {
     		Child c = (Child) row[2];
     		int currentStep = (int) row[3];
     		boolean mastered = (boolean) row[4];
-    		co = new ChildObjective(o, c, currentStep);
+    		
+    		
+    		co = new ChildObjective(o, c);
+    		co.setCurrentStep(currentStep);
     		co.setId(id);
     		co.setMastered(mastered);
-    		System.out.println(co.getChild().getName() + " " + co.getObjective().getName());
     		c.addChildObjective(co);
-    		System.out.println(c.getObjectives().size());
+    		
+    		System.out.println(co);
+    		
+    		
     	}
-*/    	
+    	
+    	for(int i = 0; i < childList.size(); i++)
+    	{
+    		System.out.println(childList.get(i).getChildObjectives().size());
+    	}
+    	//co = new ChildObjective(objectiveList.get(0), childList.get(0));
+    	//childList.get(0).addChildObjective(co);
+ */    	
     	
     
     }
@@ -1118,6 +1146,34 @@ public class ESDMModel {
 
 	public void setMastered(Child c, Objective o) throws Exception {
 		c.setMastered(o, true);
+	}
+	
+	
+	public void printAll()
+	{
+				
+				for(int i = 0; i < childList.size(); i++)
+				{
+					Child c = childList.get(i);
+					String s = c.getName() + "\n";
+					
+					ArrayList<ChildObjective> co = new ArrayList<ChildObjective>(c.getChildObjectives());
+					for(int x = 0; x < co.size(); x++)
+					{
+						ChildObjective childo = co.get(x);
+						s = s + childo.getMastered() + " " + childo.getCurrentStep() + " " +
+								childo.getObjective().getName() + " " + childo.getChild().getName() + "\n\n";
+					}
+					
+					System.out.println("Child --------------\n" + s);
+					
+				}
+				
+				
+				for(int i = 0; i < dayList.size(); i++)
+				{
+					Day d = dayList.get(i);
+				}
 	}
 
 

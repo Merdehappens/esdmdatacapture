@@ -177,7 +177,6 @@ public class ChildView extends PanelView {
 
 		int res = JOptionPane.showConfirmDialog(null, arr, "Refine Search",
 				JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-		System.out.println(res);
 		if(res == 0)
 		{
 			ArrayList<Child> fullChildList = new ArrayList<Child>(this.getModel()
