@@ -155,6 +155,11 @@ public class Objective implements SimpleKey  {
 		this.children = children;
 	}
 	
+	public void addChild(ChildObjective co)
+	{
+		children.add(co);
+	}
+	
 
 
 	public void setSteps(List<Step> steps) {

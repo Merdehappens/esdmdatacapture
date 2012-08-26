@@ -391,31 +391,7 @@ public class ESDMModel {
     		}
     	}
     	
-    	String sqlChildQry = ("Select child.id, child.active, child.dateJoined," +
-    			" child.dob, child.name, child.pictureLink From Child child");
-    	query = session.createQuery(sqlChildQry);
     	
-    	Child child;
-    	
-    	for(Iterator it = query.iterate(); it.hasNext();)
-    	{
-    		Object[] row = (Object[]) it.next();
-    		
-    		
-    		int id = (int) row[0];
-    		boolean active = (boolean) row[1];
-    		Calendar dateJoined = (Calendar) row[2];
-    		Calendar dob = (Calendar) row[3];
-    		String name = row[4] + "";
-    		String pictureLink = row[5] + "";
-    		
-    		child = new Child(name, dob, dateJoined);
-    		child.setId(id);
-    		child.setActive(active);
-    		child.setPictureLink(pictureLink);
-    		childList.add(child);
-    		
-    	}
     	
     	
     	String sqlObjectiveQry = ("Select objective.id, objective.description, objective.level, " +
@@ -458,6 +434,33 @@ public class ESDMModel {
     		
     	}
     	
+    	String sqlChildQry = ("Select child.id, child.active, child.dateJoined," +
+    			" child.dob, child.name, child.pictureLink From Child child");
+    	query = session.createQuery(sqlChildQry);
+    	
+    	Child child;
+    	
+    	for(Iterator it = query.iterate(); it.hasNext();)
+    	{
+    		Object[] row = (Object[]) it.next();
+    		
+    		
+    		int id = (int) row[0];
+    		boolean active = (boolean) row[1];
+    		Calendar dateJoined = (Calendar) row[2];
+    		Calendar dob = (Calendar) row[3];
+    		String name = row[4] + "";
+    		String pictureLink = row[5] + "";
+    		
+    		child = new Child(name, dob, dateJoined);
+    		child.setId(id);
+    		child.setActive(active);
+    		child.setPictureLink(pictureLink);
+    		childList.add(child);
+    		
+    	}
+    	
+    	/*
     	
     	String sqlDayQry = ("Select day.id, day.template, day.room, day.date From Day day");
     	query = session.createQuery(sqlDayQry);
@@ -475,7 +478,7 @@ public class ESDMModel {
     		dayList.add(day);
     	}
     	
-    	
+    	*/
 	
     	// TODO
     	/* Loading of the followign items is alraedy implemented
@@ -484,9 +487,8 @@ public class ESDMModel {
     	
     	*/
     	
-  /* NOT WORKING TODO: SCRAP THIS CODE?
-   * 
-   *   	String sqlChildObjectiveQry = ("Select co.id, co.objective, co.child, co.currentStep, co.mastered From ChildObjective co");
+   /* TODO FFUUUUUUUU NOT WORKINGGGGGGGG
+     	String sqlChildObjectiveQry = ("Select co.id, co.objective, co.child, co.currentStep, co.mastered From ChildObjective co");
     	query = session.createQuery(sqlChildObjectiveQry);
     	
     	ChildObjective co;
@@ -502,23 +504,13 @@ public class ESDMModel {
     		
     		
     		co = new ChildObjective(o, c);
+    		c.addChildObjective(co);
     		co.setCurrentStep(currentStep);
     		co.setId(id);
     		co.setMastered(mastered);
-    		c.addChildObjective(co);
+    		o.addChild(co);
     		
-    		System.out.println(co);
-    		
-    		
-    	}
-    	
-    	for(int i = 0; i < childList.size(); i++)
-    	{
-    		System.out.println(childList.get(i).getChildObjectives().size());
-    	}
-    	//co = new ChildObjective(objectiveList.get(0), childList.get(0));
-    	//childList.get(0).addChildObjective(co);
- */    	
+    	}*/
     	
     
     }

@@ -201,7 +201,8 @@ public class Child implements SimpleKey {
     public void addChildObjective(ChildObjective co)
     {
     	objectives.add(co);
-    	System.out.println("The list is this size: " + objectives.size());
+    	
+
     }
     
     final public Step getCurrentStep(Objective o)
