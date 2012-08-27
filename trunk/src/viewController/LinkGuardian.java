@@ -25,7 +25,6 @@ public class LinkGuardian extends PanelView {
 	private JButton btnCancel;
 	private JTable guardianTable;
 	private DefaultTableModel guardianTableModel;
-	private JButton btnLinkAccount;
 
 	public LinkGuardian() {
 		initialise();
@@ -52,25 +51,17 @@ public class LinkGuardian extends PanelView {
 		add(btnCancel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(188, 90, 556, 229);
+		scrollPane.setBounds(10, 88, 556, 229);
 		add(scrollPane);
 
 		guardianTableModel = new DefaultTableModel();
 		guardianTable = new JTable(guardianTableModel);
 		scrollPane.setViewportView(guardianTable);
 		
-		btnLinkAccount = new JButton("Link Account");
-
-		btnLinkAccount.setBounds(309, 359, 157, 30);
-		add(btnLinkAccount);
-		
 		String[] col = {"Username", "Name", "Email Address"};
 		guardianTableModel.setColumnIdentifiers(col);
 	}
 	
-	public void addLinkAccount(ActionListener al) {
-		btnLinkAccount.addActionListener(al);
-	}
 
 	// Takes in an ActionListener and adds it to the submit button
 	public void submit(ActionListener al) {

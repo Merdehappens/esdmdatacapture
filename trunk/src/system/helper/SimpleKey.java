@@ -6,4 +6,6 @@ package system.helper;
 public interface SimpleKey
 {
 	public abstract int getId();
+
+	public boolean equals(Object o);
 }

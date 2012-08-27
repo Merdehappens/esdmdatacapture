@@ -8,22 +8,22 @@ import system.model.ESDMModel;
 
 import java.awt.event.ActionListener;
 
-public class ChangeEmail extends PanelView {
+public class UpdateDetails extends PanelView {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -9133299148971810165L;
 	private JTextField txtNewEmailAddress;
-	private JButton btnChangeEmail;
+	private JButton btnSave;
 	private JButton btnCancel;
 
-	public ChangeEmail() {
+	public UpdateDetails() {
 		initialise();
 
 	}
 
-	public ChangeEmail(ESDMModel model) {
+	public UpdateDetails(ESDMModel model) {
 		super(model);
 		initialise();
 	}
@@ -32,19 +32,19 @@ public class ChangeEmail extends PanelView {
 	public void initialise() {
 		setLayout(null);
 
-		super.setTitle("Change Email");
+		super.setTitle("Update Details");
 
-		JLabel lblOldPassword = new JLabel("New Email Address:");
-		lblOldPassword.setBounds(352, 77, 114, 30);
-		add(lblOldPassword);
+		JLabel lblEmail = new JLabel("Email Address:");
+		lblEmail.setBounds(352, 77, 114, 30);
+		add(lblEmail);
 
 		txtNewEmailAddress = new JTextField();
 		txtNewEmailAddress.setBounds(462, 77, 209, 30);
 		add(txtNewEmailAddress);
 
-		btnChangeEmail = new JButton("Change Email");
-		btnChangeEmail.setBounds(352, 171, 139, 30);
-		add(btnChangeEmail);
+		btnSave = new JButton("Save");
+		btnSave.setBounds(352, 171, 139, 30);
+		add(btnSave);
 
 		btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(532, 171, 139, 30);
@@ -54,8 +54,8 @@ public class ChangeEmail extends PanelView {
 
 	// Takes in an ActionListener and adds it to the change Email button
 
-	public void changeEmail(ActionListener al) {
-		btnChangeEmail.addActionListener(al);
+	public void saveListener(ActionListener al) {
+		btnSave.addActionListener(al);
 	}
 
 	// Takes in an ActionListener and adds it to the cancel button

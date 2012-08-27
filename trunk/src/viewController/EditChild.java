@@ -48,6 +48,7 @@ public class EditChild extends PanelView {
 	private JButton btnIncrementStep;
 	private JButton btnDecrementStep;
 	private JButton btnAddObjective;
+	private JButton btnAddGuardian;
 
 	/**
 	 * Create the panel.
@@ -96,7 +97,7 @@ public class EditChild extends PanelView {
 
 		btnSave = new JButton("Save");
 
-		btnSave.setBounds(10, 363, 89, 23);
+		btnSave.setBounds(10, 389, 89, 23);
 		add(btnSave);
 
 		JButton btnReset = new JButton("Reset");
@@ -105,11 +106,11 @@ public class EditChild extends PanelView {
 				refreshView();
 			}
 		});
-		btnReset.setBounds(109, 363, 105, 21);
+		btnReset.setBounds(109, 389, 105, 21);
 		add(btnReset);
 
 		btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(224, 363, 94, 21);
+		btnCancel.setBounds(224, 389, 94, 21);
 		add(btnCancel);
 
 		JLabel lblId = new JLabel("Id:");
@@ -168,8 +169,17 @@ public class EditChild extends PanelView {
 		btnDecrementStep = new JButton("Decrement Step");
 		btnDecrementStep.setBounds(857, 316, 132, 23);
 		add(btnDecrementStep);
+		
+		btnAddGuardian = new JButton("Add Guardian");
+		btnAddGuardian.setBounds(10, 350, 139, 23);
+		add(btnAddGuardian);
 		String[] guardianColIdentifiers = {"Name", "Phone Number", "Email Address"};
 		tblGuardianModel.setColumnIdentifiers(guardianColIdentifiers);
+	}
+	
+	// Takes in an ActionListener and adds it to the Add Guardian button
+	public void addGuardianListener(ActionListener al) {
+		btnAddGuardian.addActionListener(al);
 	}
 
 	// Takes in an ActionListener and adds it to the Save Child button
