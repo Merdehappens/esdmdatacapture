@@ -3,13 +3,15 @@ package viewController;
 import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 
-import javax.swing.ImageIcon;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
@@ -24,10 +26,7 @@ import javax.swing.event.ChangeEvent;
 
 import system.helper.Helper;
 import system.individuals.Child;
-import system.individuals.ChildObjective;
 import system.individuals.Guardian;
-import system.individuals.Therapist;
-import system.individuals.UserAccount;
 import system.marking.Mark;
 import system.marking.Objective;
 import system.marking.Step;
@@ -38,16 +37,12 @@ import system.sessions.Session;
 
 
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.exception.ConstraintViolationException;
-import org.hibernate.tool.hbm2ddl.SchemaExport;
 
 //testing
 /**
@@ -90,7 +85,7 @@ public class Controller extends JFrame {
 	private ReportingView reportingView;
 	private AccountView accountView;
 	private ChangePassword changePassword;
-	private ChangeEmail changeEmail;
+	private UpdateDetails changeEmail;
 	private AddObjectiveChild addObjectiveChild;
 	private ReviewSession reviewSession;
 	private ViewReport viewReport;
@@ -101,6 +96,7 @@ public class Controller extends JFrame {
 	private LinkGuardian linkGuardian;
 	private String access;
 	private ChangeMark changeMark;
+	private AddGuardian addGuardian;
 
 	public Controller() throws MalformedURLException {
 		addWindowListener(new WindowAdapter() {
@@ -306,7 +302,7 @@ public class Controller extends JFrame {
 		accountView = new AccountView();
 		accountPanel.add(accountView, "Account");
 
-		changeEmail = new ChangeEmail();
+		changeEmail = new UpdateDetails();
 		accountPanel.add(changeEmail, "changeEmail");
 
 		changePassword = new ChangePassword();
@@ -386,6 +382,8 @@ public class Controller extends JFrame {
 		reviewSession.editMarksListener(new java.awt.event.ActionListener() {
 
 			public void actionPerformed(ActionEvent evt) {
+				
+				// TODO Change Mark
 				Mark mark = reviewSession.getSelectedMark();
 				Day day = reviewSession.getDay();
 				changeMark = new ChangeMark();
@@ -517,11 +515,11 @@ public class Controller extends JFrame {
 
 		changePassword.cancel(ActionListenerShow(accountPanel, "Account"));
 
-		changeEmail.changeEmail(new java.awt.event.ActionListener() {
+		changeEmail.saveListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				model.setEmail(changeEmail.getEmail());
 				show(accountPanel, "Account");
-				showMessage("Email successfully changed.");
+				showMessage("Details successfully saved.");
 			}
 		});
 
@@ -564,17 +562,7 @@ public class Controller extends JFrame {
 		});
 
 		newUserAccount.cancel(ActionListenerShow(accountPanel, "Account"));
-		
-		linkGuardian.addLinkAccount(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				try {
-					linkGuardian.linkAccount();
-				} catch (Exception e) {
-					showMessage(e.getMessage());
-				}
-			}
-		});
-		
+			
 
 	}
 
@@ -712,6 +700,39 @@ public class Controller extends JFrame {
 				"addObjective"));
 
 		editChild.cancelListener(ActionListenerShow(childPanel, "Child"));
+		
+		editChild.addGuardianListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				// TODO Add guardian
+				addGuardian = new AddGuardian(model.getGuardianList());
+				
+				addGuardian.saveButtonListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						addGuardian.setVisible(false);
+						if(addGuardian.getGuardian() != null)
+						{
+							try {
+								model.addChildGuardian(editChild.getChild(), addGuardian.getGuardian());
+							} catch (Exception e) {
+								showErrorMessage(e.getMessage());
+							}
+						}
+						else
+						{
+							showMessage("No Guardian Selected.");
+						}
+						editChild.refreshView();
+					}
+				});
+			
+				addGuardian.setModalityType(ModalityType.APPLICATION_MODAL);
+				addGuardian.setVisible(true);
+				
+			}
+		});
+		
+		
 
 		editChild.saveChildListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -905,7 +926,7 @@ public class Controller extends JFrame {
 		Calendar dob = addChild.getDob();
 		Calendar dateJoined = addChild.getDateJoined();
 		try {
-			Child c = model.addChild(name, dob, dateJoined);
+			model.addChild(name, dob, dateJoined);
 			show(childPanel, "Child");
 			showMessage(name + " has been successfully added to the system.");
 		} catch (Exception e) {

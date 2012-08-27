@@ -50,6 +50,29 @@ public class Guardian extends UserAccount {
 	public void setChildren(List<Child> children) {
 		this.children = children;
 	}
+	
+	public boolean equals(Object o)
+	{
+		if (o == null) {
+			return false;
+		}
+		if(getClass() != o.getClass()) {
+			return false;
+		}
+		if(o == this)
+		{
+			return true;
+		}
+		Guardian g = (Guardian) o;
+		if(g.getId().equals(o))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
     
     
 }

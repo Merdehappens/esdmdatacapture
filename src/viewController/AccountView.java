@@ -45,11 +45,11 @@ public class AccountView extends PanelView {
 		add(btnChangeEmailAddress);
 
 		// Adds the New user account button to the screen
-		btnNewUserAccount = new JButton("Add New User Account");
+		btnNewUserAccount = new JButton("Create New User Account");
 		btnNewUserAccount.setBounds(20, 170, 200, 40);
 		add(btnNewUserAccount);
 		
-		btnLinkGuardian = new JButton("Link Guardian to Account");
+		btnLinkGuardian = new JButton("Link Guardian to Child");
 		btnLinkGuardian.setBounds(20, 221, 200, 40);
 		add(btnLinkGuardian);
 

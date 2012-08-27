@@ -957,6 +957,30 @@ public class ESDMModel {
     	session.save(o);
     	session.getTransaction().commit();
 	}
+
+	public void addChildGuardian(Child child, Guardian guardian) throws Exception {
+		ArrayList<Guardian> childsGuardians = new ArrayList<Guardian>(child.getGuardians());
+		for(int i = 0; i < childsGuardians.size(); i++)
+		{
+			
+			if(childsGuardians.get(i).equals(guardian))
+			{
+				throw new Exception ("Guardian already exists for this child");
+			}
+		}
+		
+		guardian.addChild(child);
+		child.addGuardian(guardian);
+		
+		org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
+    	guardian = (Guardian) session.merge(guardian);
+    	child = (Child) session.merge(child);
+    	
+    	session.update(guardian);
+    	session.update(child);
+    	session.getTransaction().commit();
+	}
 	
 	
 }
