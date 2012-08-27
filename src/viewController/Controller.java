@@ -679,6 +679,7 @@ public class Controller extends JFrame {
 					show(objectivePanel, "addObjectiveChild");
 				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
+					e.printStackTrace();
 				}
 
 			}
@@ -697,6 +698,7 @@ public class Controller extends JFrame {
 							+ child.getName() + " .");
 				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
+					e.printStackTrace();
 				}
 
 			}

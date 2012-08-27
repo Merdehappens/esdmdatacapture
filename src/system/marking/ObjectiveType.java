@@ -22,7 +22,10 @@ public class ObjectiveType {
 	@Basic
 	private String name;
     @OneToMany(targetEntity=Objective.class,
-    		mappedBy="objType")
+    		mappedBy="objType",
+    		cascade=CascadeType.ALL,
+    		fetch=FetchType.EAGER)
+
 	private List<Objective> objectives;
 	
 	public ObjectiveType()

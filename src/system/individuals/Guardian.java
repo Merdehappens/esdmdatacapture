@@ -15,7 +15,7 @@ import javax.persistence.ManyToMany;
 public class Guardian extends UserAccount {
 	@ManyToMany
     @JoinTable(name="GuardianChild",
-		joinColumns={@JoinColumn(name="name")},
+		joinColumns={@JoinColumn(name="username")},
 		inverseJoinColumns={@JoinColumn(name="ChildID")})
 	private List<Child> children;
     

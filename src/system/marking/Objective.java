@@ -52,8 +52,9 @@ public class Objective implements SimpleKey  {
     		joinColumns={@JoinColumn(name="ObjectiveID")},
     		inverseJoinColumns={@JoinColumn(name="SessionID")})
     private List<Session> sessions;
-	@ManyToOne
-	@JoinColumn(name="objtype_ID")
+/*	@ManyToOne
+	@JoinColumn(name="objtype_ID")*/
+    @Transient
     private ObjectiveType objType;
     
 
