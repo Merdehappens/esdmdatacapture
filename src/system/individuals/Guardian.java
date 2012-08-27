@@ -64,7 +64,7 @@ public class Guardian extends UserAccount {
 			return true;
 		}
 		Guardian g = (Guardian) o;
-		if(g.getId().equals(o))
+		if(g.getUsername().equals(this.getUsername()))
 		{
 			return true;
 		}
