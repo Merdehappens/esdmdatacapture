@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
@@ -39,7 +40,7 @@ public class Objective implements SimpleKey  {
     @OneToMany(targetEntity=Step.class,
     		mappedBy="objective",
     		cascade=CascadeType.ALL,
-    		fetch=FetchType.LAZY)
+    		fetch=FetchType.EAGER)
     private List<Step> steps;
     @OneToMany(targetEntity=ChildObjective.class,
     		mappedBy="objective",
@@ -51,7 +52,8 @@ public class Objective implements SimpleKey  {
     		joinColumns={@JoinColumn(name="ObjectiveID")},
     		inverseJoinColumns={@JoinColumn(name="SessionID")})
     private List<Session> sessions;
-    @Transient
+	@ManyToOne
+	@JoinColumn(name="objtype_ID")
     private ObjectiveType objType;
     
 

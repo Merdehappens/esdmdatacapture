@@ -17,15 +17,15 @@ import BCrypt.BCrypt;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-public class UserAccount { //implements SimpleKey {
+public class UserAccount {
     @Id
-	private String name;
+	private String username;
     @Basic
     private String emailAddress;
     @Column(nullable=false)
     private String password;
     @Column(nullable=false)
-    private String username;
+    private String name;
     @Basic
     private String phoneNo;
     @Basic

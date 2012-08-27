@@ -512,7 +512,6 @@ public class Controller extends JFrame {
 		changePassword.changePassword(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				changePassword();
-				model.printAll();
 			}
 		});
 

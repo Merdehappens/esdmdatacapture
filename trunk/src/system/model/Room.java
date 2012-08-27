@@ -5,8 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import system.helper.SimpleKey;
+
 @Entity
-public class Room {
+public class Room implements SimpleKey {
 	@Id
 	@GeneratedValue
 	private int id;
