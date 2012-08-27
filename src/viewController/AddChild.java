@@ -2,7 +2,6 @@ package viewController;
 
 import javax.swing.JButton;
 
-import system.individuals.Guardian;
 import system.model.ESDMModel;
 
 import javax.swing.ImageIcon;
@@ -15,10 +14,8 @@ import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
 
 public class AddChild extends PanelView {

@@ -4,14 +4,11 @@ package system.model;
 
 
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.*;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.tool.hbm2ddl.SchemaExport;
-
 import system.helper.Helper;
 import system.individuals.Child;
 import system.individuals.ChildObjective;
@@ -20,7 +17,6 @@ import system.individuals.Therapist;
 import system.individuals.UserAccount;
 import system.marking.Mark;
 import system.marking.Objective;
-import system.marking.ObjectiveType;
 import system.marking.Step;
 import system.sessions.Day;
 import system.sessions.Session;
@@ -173,9 +169,9 @@ public class ESDMModel {
     private void loadFromDatabase() throws Exception
     {
     	org.hibernate.Session session = factory.openSession();
- /*   	session.beginTransaction();
+    /*  session.beginTransaction();
     	
-        Therapist user = new Therapist();
+      	Therapist user = new Therapist();
         user.setUsername("temp");
         user.tempSetPassword("temp");
         user.setName("temp");
@@ -203,8 +199,8 @@ public class ESDMModel {
         session.save(new Session("One-On-One"));
     	
     	session.getTransaction().commit();
-*/    	
-    	
+
+*/    
            	
     	String qry = ("Select sess from Session sess");
     	Query query = session.createQuery(qry);
@@ -731,9 +727,6 @@ public class ESDMModel {
 	
 	public List<Day> getDays(Calendar from, Calendar to)
 	{
-
-
-	    
 		
 		ArrayList<Day> days = new ArrayList<Day>();
 		
@@ -807,6 +800,13 @@ public class ESDMModel {
 		child.setName(name);
 		child.setDob(dob);
 		child.setDateJoined(dateJoined);
+		
+		org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
+    	child = (Child) session.merge(child);
+    	session.save(child);
+    	session.getTransaction().commit();
+		
 	}
 
 	public void addObjectiveChild(Child child, Objective objective) throws Exception {
@@ -906,12 +906,11 @@ public class ESDMModel {
 		
 	}
 	
-	public void saveObjective(Objective objective, String[] objDetails, int level, String[][] steps)
+	public void saveObjective(Objective objective, String name, String description, int level, String[][] steps)
 	{
-		objective.setDescription(objDetails[0]);
-		objective.setName(objDetails[1]);
+		objective.setDescription(name);
+		objective.setName(description);
 		objective.setLevel(level);
-		
 		ArrayList<Step> stepList = new ArrayList<Step>();
 		
 		for(int i = 0; i < steps.length; i++)
@@ -920,8 +919,23 @@ public class ESDMModel {
 			stepList.add(s);
 			s.setObjective(objective);
 		}
+		
+		org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
+		
+		ArrayList<Step> objectiveSteps = new ArrayList<Step>(objective.getSteps());
+		for(int i = 0; i < objectiveSteps.size(); i++)
+		{
+			Step s = (Step) session.merge(objectiveSteps.get(i));
+			session.delete(s);
+		}
+		
+
 		objective.setSteps(stepList);
 		
+    	objective = (Objective) session.merge(objective);
+    	session.save(objective);
+    	session.getTransaction().commit();
 	}
 
 	public void incrementStep(Child c, Objective o) throws Exception {
@@ -934,6 +948,14 @@ public class ESDMModel {
 
 	public void setMastered(Child c, Objective o) throws Exception {
 		c.setMastered(o, true);
+	}
+
+	public void updateObject(Object o) {
+		org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
+    	o = (Object) session.merge(o);
+    	session.save(o);
+    	session.getTransaction().commit();
 	}
 	
 	

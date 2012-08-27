@@ -4,15 +4,10 @@ package system.individuals;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.TableGenerator;
-
 import system.helper.Helper;
-import system.helper.SimpleKey;
 import BCrypt.BCrypt;
 
 @Entity

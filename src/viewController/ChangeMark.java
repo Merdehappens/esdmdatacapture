@@ -14,35 +14,25 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.JPopupMenu;
-import java.awt.Component;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
-import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.SwingConstants;
-import javax.swing.JFormattedTextField;
-
-import system.helper.Helper;
 import system.individuals.Child;
 import system.marking.Mark;
 import system.marking.Objective;
 import system.marking.Step;
 import system.sessions.Day;
 import system.sessions.Session;
-import javax.swing.JTextPane;
+import java.awt.event.ActionEvent;
 
 public class ChangeMark extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private Child child;
 	private int step;
 	private Calendar time;
 	private ArrayList<Session> sessions;
@@ -57,7 +47,6 @@ public class ChangeMark extends JDialog {
 	private DefaultComboBoxModel<Child> cmbChildModel;
 	private DefaultComboBoxModel<Objective> cmbObjectiveModel;
 	private JTextField txtStep;
-	private JTextField txtTime;
 	private DefaultComboBoxModel<Mark> cmbMarkModel;
 	private JTextArea txtComments;
 	private DateEditor timeEditor;
@@ -77,7 +66,7 @@ public class ChangeMark extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JLabel lblSession = new JLabel("Session");
-			lblSession.setBounds(10, 77, 53, 14);
+			lblSession.setBounds(10, 74, 53, 28);
 			contentPanel.add(lblSession);
 		}
 		{
@@ -94,13 +83,18 @@ public class ChangeMark extends JDialog {
 		cmbSessionModel = new DefaultComboBoxModel<Session>();
 		cmbSession.setModel(cmbSessionModel);
 		
-		cmbSession.setBounds(73, 74, 223, 20);
+		cmbSession.setBounds(73, 74, 223, 28);
 		contentPanel.add(cmbSession);
 		
 		
 		
 		cmbChild = new JComboBox<Child>();
-		cmbChild.setBounds(73, 102, 223, 20);
+		cmbChild.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setObjectives(mark);
+			}
+		});
+		cmbChild.setBounds(73, 113, 223, 28);
 		contentPanel.add(cmbChild);
 		cmbChildModel = new DefaultComboBoxModel<Child>();
 		cmbChild.setModel(cmbChildModel);
@@ -109,25 +103,25 @@ public class ChangeMark extends JDialog {
 		
 		
 		JLabel lblObjective = new JLabel("Objective");
-		lblObjective.setBounds(10, 131, 53, 14);
+		lblObjective.setBounds(10, 150, 53, 25);
 		contentPanel.add(lblObjective);
 		
 		JComboBox<Objective> cmbObjective = new JComboBox<Objective>();
 		cmbObjectiveModel = new DefaultComboBoxModel<Objective>();
 		cmbObjective.setModel(cmbObjectiveModel);
 		
-		cmbObjective.setBounds(73, 128, 457, 20);
+		cmbObjective.setBounds(73, 147, 457, 28);
 		contentPanel.add(cmbObjective);
 		
 		
 		
 		
 		JLabel lblStep = new JLabel("Step");
-		lblStep.setBounds(10, 189, 46, 14);
+		lblStep.setBounds(10, 200, 46, 14);
 		contentPanel.add(lblStep);
 		
 		txtStep = new JTextField();
-		txtStep.setBounds(73, 186, 46, 20);
+		txtStep.setBounds(73, 197, 28, 28);
 		contentPanel.add(txtStep);
         	
 		
@@ -135,18 +129,17 @@ public class ChangeMark extends JDialog {
 		timeSpinner = new JSpinner( new SpinnerDateModel() );
 		timeEditor = new JSpinner.DateEditor(timeSpinner, "HH:mm:ss");
 		timeSpinner.setEditor(timeEditor);
-		 // will only show the current time
 		
 		timeSpinner.setBounds(363, 74, 167, 30);
 		contentPanel.add(timeSpinner);
 		
 		
 		JLabel lblMark = new JLabel("Mark");
-		lblMark.setBounds(179, 189, 46, 14);
+		lblMark.setBounds(179, 200, 46, 14);
 		contentPanel.add(lblMark);
 		
 		cmbMark = new JComboBox<Mark>();
-		cmbMark.setBounds(222, 186, 53, 20);
+		cmbMark.setBounds(222, 197, 53, 28);
 		cmbMarkModel = new DefaultComboBoxModel<Mark>();
 		contentPanel.add(cmbMark);
 		cmbMark.setModel(cmbMarkModel);
@@ -160,7 +153,7 @@ public class ChangeMark extends JDialog {
 		txtComments.setWrapStyleWord(true);
 		
 		JLabel lblChild = new JLabel("Child");
-		lblChild.setBounds(10, 105, 53, 14);
+		lblChild.setBounds(10, 116, 53, 25);
 		contentPanel.add(lblChild);
 		
 		JLabel lblHhmmss = new JLabel("hh:mm:ss");
@@ -190,60 +183,78 @@ public class ChangeMark extends JDialog {
 		
 	}
 	
+	protected void setObjectives(Mark mark) {
+		// Get the child that has been selected
+		Child child = (Child) cmbChildModel.getSelectedItem();
+		// Removed everything from the objectives model
+		cmbObjectiveModel.removeAllElements();
+		
+		// Gets all the objectives from the selected child.
+		objectives = new ArrayList<Objective>(child.getObjectives());
+	
+		
+		// Adds the an empty objective to the combo box
+		cmbObjectiveModel.addElement(null);
+
+		// Iterates through list of objectives in a child adding them all to the combo box
+		int size = objectives.size();		
+		for(int i = 0; i < size; i++)
+		{
+			cmbObjectiveModel.addElement(objectives.get(i));
+		}
+
+		if(child == mark.getChild())
+		{
+			cmbObjectiveModel.setSelectedItem(mark.getObjective());
+		}
+		else
+		{
+			cmbObjectiveModel.setSelectedItem(null);
+		}
+		
+		setSteps(mark);
+
+
+	}
+
+	private void setSteps(Mark mark) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void refreshView(Mark mark, Day day)
 	{
+		
 		this.mark = mark;
 		this.day = day;
-		child = mark.getChild();
+		Child child = mark.getChild();
+		
 		
 		Date d = mark.getTime().getTime();
 		timeSpinner.setValue(d);
-
 		
+
+		// Iterate through all the sessions in the day and add them to combo box
 		sessions = new ArrayList<Session>(day.getSessions());
 		int size = sessions.size();
 		for(int i = 0; i < size; i++)
 		{
 			cmbSessionModel.addElement(sessions.get(i));
 		}
-		
+		// Set the selected item for the session box to be the one selected.
 		cmbSessionModel.setSelectedItem(mark.getSession());
 		
+		// Get all the children from the day. iterate through teh list adding all children
 		ArrayList<Child> children = new ArrayList<Child>(day.getChildren());
 		size = children.size();
 		for(int i = 0; i < size; i++)
 		{
 			cmbChildModel.addElement(children.get(i));
 		}
+		// Set the child to the one that was selected
 		cmbChildModel.setSelectedItem(child);
 		
-		
-		objectives = new ArrayList<Objective>(child.getObjectives());
-		
-		size = objectives.size();
-		boolean obj = (mark.getObjective() == null);
-		
-		if(obj)
-		{
-			cmbObjectiveModel.addElement(null);
-		}
-		
-		for(int i = 0; i < size; i++)
-		{
-			cmbObjectiveModel.addElement(objectives.get(i));
-		}
-
-		if(!obj)
-		{
-			cmbObjectiveModel.setSelectedItem(mark.getObjective());
-		}
-		
-		
-        if(mark.getStep() != null)
-        {
-        	txtStep.setText(mark.getStep().getNo());
-        }
-        
+		setObjectives(mark);
 		
 		for(int i = -1; i < 2; i++)
 		{
