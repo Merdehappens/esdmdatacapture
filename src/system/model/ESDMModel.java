@@ -897,6 +897,13 @@ public class ESDMModel {
 		mark.setStep(step);
 		mark.setMark(markVal);
 		mark.setComments(comment);
+		
+    	org.hibernate.Session dbSession = factory.getCurrentSession();
+
+    	dbSession.beginTransaction();
+    	dbSession.save(mark);
+    	dbSession.getTransaction().commit();
+		
 	}
 	
 	public void saveObjective(Objective objective, String[] objDetails, int level, String[][] steps)
