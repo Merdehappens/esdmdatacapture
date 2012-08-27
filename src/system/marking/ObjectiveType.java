@@ -1,12 +1,28 @@
 package system.marking;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import system.individuals.ChildObjective;
 import system.sessions.Session;
 
+@Entity
 public class ObjectiveType {
-	private String id;
+	
+	@Id
+	@GeneratedValue
+	private int id;
+	@Basic
 	private String name;
-	// Stores the objectives that are this type
+    @OneToMany(targetEntity=Objective.class,
+    		mappedBy="objType")
 	private List<Objective> objectives;
 	
 	public ObjectiveType()
@@ -20,12 +36,12 @@ public class ObjectiveType {
 		objectives = new ArrayList<Objective>();		
 	}
 	
-	public String getId()
+	public int getId()
 	{
 		return id;
 	}
 	
-	public void setId(String id)
+	public void setId(int id)
 	{
 		this.id = id;
 	}

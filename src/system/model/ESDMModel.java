@@ -20,6 +20,7 @@ import system.individuals.Therapist;
 import system.individuals.UserAccount;
 import system.marking.Mark;
 import system.marking.Objective;
+import system.marking.ObjectiveType;
 import system.marking.Step;
 import system.sessions.Day;
 import system.sessions.Session;
@@ -59,7 +60,6 @@ public class ESDMModel {
 			e.printStackTrace();
 		}
         
-        printAll();
     }
     
     public void hibernateSetUp()
@@ -76,9 +76,10 @@ public class ESDMModel {
 		config.addAnnotatedClass(Session.class);
 		config.addAnnotatedClass(ChildObjective.class);
 		config.addAnnotatedClass(Room.class);
+		config.addAnnotatedClass(ObjectiveType.class);
 		config.configure("hibernate.cfg.xml");
 		
-		//new SchemaExport(config).create(true, true);
+		new SchemaExport(config).create(true, true);
 		// ^ ^ ^ SchemaExport is commented out once all tables are created,
 		// ^ ^ ^ uncommented when class annotations have been changed and
 		// ^ ^ ^ therefore classes need to be added again.
@@ -171,188 +172,93 @@ public class ESDMModel {
     
     private void loadFromDatabase() throws Exception
     {
-    	/*
-    	org.hibernate.Session session = factory.getCurrentSession();
+    	org.hibernate.Session session = factory.openSession();
     	session.beginTransaction();
     	
-        Child child1 = new Child();
-        //child1.setId("C001"); 
-        child1.setName("John Doe");
-        Calendar c = Calendar.getInstance();
-        c.set(1991, 07, 21);
-    	this.addChild("John Doe", c, c);
-
-        
-        c = Calendar.getInstance();
-        c.set(1992, 11, 01);    	
-        this.addChild("Sally Pearson", c, c);
-     
-        
-        c = Calendar.getInstance();
-        c.set(1992, 11, 01);    	
-        this.addChild("Billy May", c, c);
-        
-        
-        Objective objective = new Objective("Looks at indicated pictures as adult points to picture in book", 
-        		"In activities with books and puzzles, when an adult points (touching or proximal point 6? or less) to a picture child will visually orient and/or grasp or tap pictures or objects that the adult is pointing to 80% of opportunities for 4 of 5 consecutive days across 3 or more adults and settings.", 1);
-        Step step = new Step("1", "MC", "Orients and grasp/tap w/ partial physical prompt 50% opp");
-        objective.addSteps(step);
-        step = new Step("2", "MC", "Orients and/or grasp/tap 50% of opp");
-        objective.addSteps(step);
-        step = new Step("3", "MC", "Orients and/or grasp/tap 80% of opp");
-        objective.addSteps(step);
-        
-        for(int i = 0; i < 2; i++)
-        {
-        	this.addObjectiveChild(childList.get(i), objective);
-        }
-        objectiveList.add(objective);
-        
-        objective = new Objective("Combines functionally related actions on a play theme", 
-        		"During pretend play with an adult, when provided with the materials for a play sequence (eg. bathing, cooking, eating), child will spontaneously link functionally related actions on a play sequence for 3 different play themes over 4 consecutive days", 9);
-        
-        step = new Step("1", "MC", "Combines 2 related actions after adult model & ver P 50%");
-        objective.addSteps(step);
-        step = new Step("2", "MC", "Combines 2 related actions after adult model & ver P 80%");
-        objective.addSteps(step);
-        step = new Step("3", "MC", "Combines 2 related actions 1 theme, verbal prompting");
-        objective.addSteps(step);
-        step = new Step("4", "MC", "Combines 2 related actions 1 theme");
-        objective.addSteps(step);
-        step = new Step("5", "MC", "Combines 2 related actions 2 themes");
-        objective.addSteps(step);
-        step = new Step("6", "MC", "Combines 2 related actions 3 themes, 4 days");
-        objective.addSteps(step);
-  
-        
-        objectiveList.add(objective);
-      //  this.addObjectiveChild(childList.get(0), objective);
-        
-        objective = new Objective("Uses a spoon", 
-        		"During mealtimes, when child is eating a meal that requires the use of a spoon, after an adult models using the spoon correctly, child will be able to use the spoon to eat 5+ spoonfuls of her meal, on 80% of opportunities over 3 consecutive days with 2+ people.", 2);
-        
-        step = new Step("1", "MC", "Uses spoon when adult loads spoon 50%");
-        objective.addSteps(step);
-        step = new Step("2", "MC", "Uses spoon when adult loads spoon 80%");
-        objective.addSteps(step);
-        step = new Step("3", "MC", "Loads spoon with PPP, brings spoon to mouth independently, 80%");
-        objective.addSteps(step);
-        step = new Step("4", "MC", "Loads spoon & brings to mouth independently, verP, 80%");
-        objective.addSteps(step);
-        step = new Step("5", "MC", "Loads spoon & brings to mouth independently, 3 times in a row");
-        objective.addSteps(step);
-        step = new Step("6", "MC", "6.Loads spoon &  brings to mouth independently 5+ times in a row");
-        objective.addSteps(step);
-        
-        childList.get(1).addObjective(objective);
-        childList.get(2).addObjective(objective);
-        objectiveList.add(objective);
-        
-        
-        Room room = new Room("Room 1");
-        
-        roomList.add(room);
-        roomList.add(new Room("Room 2"));
- 
-        
-        Therapist user = new Therapist();		
-        user.setUsername("dbisignano");
-        user.tempSetPassword("temp");
-        userList.add(user);
-        
-        user = new Therapist();
+        Therapist user = new Therapist();
         user.setUsername("temp");
         user.tempSetPassword("temp");
-        user.setAccess("n");
-        userList.add(user);
-        
-
-        Guardian guardian = new Guardian();
-        guardian.setName("Name2");
-        guardian.setEmailAddress("EmailAddress2");
-        guardian.setPhoneNo("Phone No 2");
-
-        userList.add(guardian);
-        
-        
-        guardian = new Guardian();
-        guardian.setUsername("Temp");
-        guardian.tempSetPassword("Temp");
-        guardian.setName("Name1");
-        guardian.setEmailAddress("EmailAddress1");
-        guardian.setPhoneNo("Phone No 1");
-        guardian.setAccess("g");
-        userList.add(guardian);
-        
-
-        childList.get(0).addGuardian(guardian);
-        guardian.addChild(childList.get(0));
-        
-        
-        
-        
-        
-        for(int i = 0; i < objectiveList.size(); i++)
-        {
-        	objectiveList.get(i).setId(i);
-        }
-
-		session.getTransaction().commit();
-        
-        //		^		^		^		^
-        // Uncomment above session.save code (and session.beginTransaction code at top of this method)
-        // if these hard-coded objects ever need to be re-added to the database.
-    	
-        */
-        Therapist user = new Therapist();
-        user.setUsername("temp1");
-        user.tempSetPassword("temp1");
+        user.setName("temp");
         user.setAccess("a");
         userList.add(user);
-        
-    	
-    	
-    	org.hibernate.Session session = factory.openSession();
- 
-    	
-    	/*   	String sqlSessionQry = ("Select session.id from Session session");
-    	Query query = session.createQuery(sqlSessionQry);
+       	session.save(user);
+               
 
+        session.save(new Room("Room 1"));
+        session.save(new Room("Room 2"));
+        session.save(new Room("Room 3"));
+
+        session.save(new Session("Meals"));
+        session.save(new Session("Toilet"));
+        session.save(new Session("Group"));
+        session.save(new Session("One-On-One"));
+    	
+    	session.getTransaction().commit();
+    	
+    	
+           	
+    	String qry = ("Select sess from Session sess");
+    	Query query = session.createQuery(qry);
+    	
     	for(Iterator it = query.iterate(); it.hasNext();)
     	{
-    		
-    		int id = (int) it.next();
-    		Session s = (Session) session.get(Session.class, id);
+    		Session s = (Session) it.next();
     		sessionList.add(s);
-    	}*/
-
-
-
-    	String sqlSessionQry = ("Select session.id, session.description from Session session");
-    	Query query = session.createQuery(sqlSessionQry);
+    	}
+    	
+    	qry = ("Select room from Room room");
+    	query = session.createQuery(qry);
     	
     	for(Iterator it = query.iterate(); it.hasNext();)
     	{
-    		Object[] row = (Object[]) it.next();
-    		int id = (Integer)row[0];
-    		String description = "" + row[1];
-    		
-    		sessionList.add(new Session(id, description));
+    		Room r = (Room) it.next();
+    		roomList.add(r);
     	}
     	
-    	String sqlRoomQry = ("Select room.id, room.roomName From Room room");
-    	query = session.createQuery(sqlRoomQry);
-    	Room room;
+    	
+    	qry = ("Select obj from Objective obj");
+    	query = session.createQuery(qry);
     	
     	for(Iterator it = query.iterate(); it.hasNext();)
     	{
-    		Object[] row = (Object[]) it.next();
-    		int id = (int) row[0];
-    		String name = ""+row[1];
-    		room = new Room(id, name);
-    		roomList.add(room);
+    		Objective o = (Objective) it.next();
+    		objectiveList.add(o);
     	}
     	
+    	qry = ("Select child from Child child");
+    	query = session.createQuery(qry);
+    	
+    	for(Iterator it = query.iterate(); it.hasNext();)
+    	{
+    		Child c = (Child) it.next();
+    		childList.add(c);
+    	}
+    	
+    	qry = ("Select day from Day day");
+    	query = session.createQuery(qry);
+
+    	for(Iterator it = query.iterate(); it.hasNext();)
+    	{
+    		Day d = (Day) it.next();
+    		dayList.add(d);
+    	}
+    	
+    	
+    	qry = ("Select mark from Mark mark");
+    	query = session.createQuery(qry);
+    	
+    	for(Iterator it = query.iterate(); it.hasNext();)
+    	{
+    		Mark m = (Mark) it.next();
+    		markList.add(m);
+    	}
+    	
+    	
+
+
+    	
+    	
+
     	
     	String sqlUserAccountQry = ("Select useraccount.name, useraccount.access, useraccount.emailAddress," +
     			"useraccount.password, useraccount.phoneNo, useraccount.username From UserAccount useraccount");
@@ -393,75 +299,8 @@ public class ESDMModel {
     	
     	
     	
-    	
-    	String sqlObjectiveQry = ("Select objective.id, objective.description, objective.level, " +
-    			"objective.name From Objective objective");
-    	query = session.createQuery(sqlObjectiveQry);
-    	
-    	Objective objective;
-    	
-    	for(Iterator it = query.iterate(); it.hasNext();)
-    	{
-    		Object[] row = (Object[]) it.next();
-    		
-    		int id = (int) row[0];
-    		String description = ""+row[1];
-    		int level = (int) row[2];
-    		String name = ""+row[3];
-    		
-    		objective = new Objective(name, description, level);
-    		objective.setId(id);
-    		
-    		objectiveList.add(objective);
-    		
-    		String sqlStepQry = ("Select step.id, step.code, step.description, step.no" +
-    				" From Step step where step.objective = " + id + " Order by step.no");
-    		Query stepQuery = session.createQuery(sqlStepQry);
-    		
-    		for(Iterator it2 = stepQuery.iterate(); it2.hasNext();)
-    		{
-    			Object[] stepRow = (Object[]) it2.next();
-    			int stepId = (int) stepRow[0];
-    			String code = ""+stepRow[1];
-    			String stepDescription = ""+stepRow[2];
-    			String no = ""+stepRow[3];
-    			
-    			Step s = new Step(no, code, stepDescription);
-    			s.setId(stepId);
-    			s.setObjective(objective); 
-    			objective.addSteps(s);
-    		}
-    		
-    	}
-    	
-    	String sqlChildQry = ("Select child.id, child.active, child.dateJoined," +
-    			" child.dob, child.name, child.pictureLink From Child child");
-    	query = session.createQuery(sqlChildQry);
-    	
-    	Child child;
-    	
-    	for(Iterator it = query.iterate(); it.hasNext();)
-    	{
-    		Object[] row = (Object[]) it.next();
-    		
-    		
-    		int id = (int) row[0];
-    		boolean active = (boolean) row[1];
-    		Calendar dateJoined = (Calendar) row[2];
-    		Calendar dob = (Calendar) row[3];
-    		String name = row[4] + "";
-    		String pictureLink = row[5] + "";
-    		
-    		child = new Child(name, dob, dateJoined);
-    		child.setId(id);
-    		child.setActive(active);
-    		child.setPictureLink(pictureLink);
-    		childList.add(child);
-    		
-    	}
-    	
+    	//TODO
     	/*
-    	
     	String sqlDayQry = ("Select day.id, day.template, day.room, day.date From Day day");
     	query = session.createQuery(sqlDayQry);
     	
@@ -473,44 +312,23 @@ public class ESDMModel {
     		day = new Day();
     		day.setId((int) row[0]);
     		day.setTemplate((boolean) row[1]);
-    		day.setRoom((Room)row[2]);
+    		Room r = (Room)row[2];
+    		day.setRoom(Helper.search(roomList, r.getId()));
     		day.setDate((Calendar)row[3]);
+    		
+    		String sqlDayChildQry = ("Select day.children From Day day where day.id = " + day.getId());
+    			Query query2 = session.createQuery(sqlDayChildQry);
+
+    			for(Iterator it2 = query2.iterate(); it2.hasNext();)
+    			{
+    				int id = (int) it2.next();
+    				day.addChildren(Helper.search(childList, id));    				
+    			}
+    		
+    		
     		dayList.add(day);
-    	}
-    	
-    	*/
-	
-    	// TODO
-    	/* Loading of the followign items is alraedy implemented
-    	 * room, Session, User Account, Therapist, Guardian & Objectives & steps. they are implemented 100%
-    	 * Children, Day are being loaded in but not all associations are being loaded.
-    	
-    	*/
-    	
-   /* TODO FFUUUUUUUU NOT WORKINGGGGGGGG
-     	String sqlChildObjectiveQry = ("Select co.id, co.objective, co.child, co.currentStep, co.mastered From ChildObjective co");
-    	query = session.createQuery(sqlChildObjectiveQry);
-    	
-    	ChildObjective co;
-    	
-    	for(Iterator it = query.iterate(); it.hasNext();)
-    	{
-    		Object[] row = (Object[]) it.next();
-    		int id = (int) row[0];
-    		Objective o = (Objective) row[1];
-    		Child c = (Child) row[2];
-    		int currentStep = (int) row[3];
-    		boolean mastered = (boolean) row[4];
-    		
-    		
-    		co = new ChildObjective(o, c);
-    		c.addChildObjective(co);
-    		co.setCurrentStep(currentStep);
-    		co.setId(id);
-    		co.setMastered(mastered);
-    		o.addChild(co);
-    		
     	}*/
+    	
     	
     
     }
@@ -1140,34 +958,5 @@ public class ESDMModel {
 		c.setMastered(o, true);
 	}
 	
-	
-	public void printAll()
-	{
-				
-				for(int i = 0; i < childList.size(); i++)
-				{
-					Child c = childList.get(i);
-					String s = c.getName() + "\n";
-					
-					ArrayList<ChildObjective> co = new ArrayList<ChildObjective>(c.getChildObjectives());
-					for(int x = 0; x < co.size(); x++)
-					{
-						ChildObjective childo = co.get(x);
-						s = s + childo.getMastered() + " " + childo.getCurrentStep() + " " +
-								childo.getObjective().getName() + " " + childo.getChild().getName() + "\n\n";
-					}
-					
-					System.out.println("Child --------------\n" + s);
-					
-				}
-				
-				
-				for(int i = 0; i < dayList.size(); i++)
-				{
-					Day d = dayList.get(i);
-				}
-	}
-
-
 	
 }
