@@ -10,9 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import system.individuals.ChildObjective;
-import system.sessions.Session;
-
 @Entity
 public class ObjectiveType {
 	

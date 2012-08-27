@@ -648,9 +648,10 @@ public class Controller extends JFrame {
 		viewObjective.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
-					String message = viewObjective.saveObjective();
+					Objective o = viewObjective.saveObjective();
+					model.updateObject(o);
 					show(objectivePanel, "Objective");
-					showMessage(message);
+					showMessage("Objective successfully added");
 				} catch (Exception e) {
 					showMessage(e.getMessage());
 				}

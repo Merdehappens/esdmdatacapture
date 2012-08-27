@@ -97,7 +97,7 @@ public class ViewObjective extends PanelView {
 		txtObjectiveDescription.setLineWrap(true);
 		txtObjectiveDescription.setWrapStyleWord(true);
 
-		JLabel lblCurrentSteps = new JLabel("Current Steps (In Order)");
+		JLabel lblCurrentSteps = new JLabel("Steps (In Order)");
 		lblCurrentSteps.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCurrentSteps.setBounds(394, 102, 467, 14);
 		add(lblCurrentSteps);
@@ -105,7 +105,7 @@ public class ViewObjective extends PanelView {
 		// Adds a scroll pane for the JTable to go in
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(394, 127, 478, 244);
+		scrollPane.setBounds(394, 127, 478, 279);
 		add(scrollPane);
 
 		// Adds a table for the steps and sets the column names
@@ -124,55 +124,6 @@ public class ViewObjective extends PanelView {
 		
 		String[] tempRow = new String[] { "", "" };
 		tableModel.addRow(tempRow);
-
-		// Adds the button to delete step and a listener to determine what that
-		// button does (gets currently selected row and removes it)
-
-		JButton btnDeleteSelectedStep = new JButton("Delete Selected Step");
-		btnDeleteSelectedStep.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tableModel.removeRow(tblStep.getSelectedRow());
-			}
-		});
-		btnDeleteSelectedStep.setBounds(503, 383, 150, 23);
-		add(btnDeleteSelectedStep);
-
-		// Adds the button to add step and a listener to determine what the
-		// button does (adds a blank row)
-
-		JButton btnAddStep = new JButton("Add Step");
-		btnAddStep.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String[] tempRow = new String[] { "", "" };
-				tableModel.addRow(tempRow);
-			}
-		});
-		btnAddStep.setBounds(404, 383, 89, 23);
-		add(btnAddStep);
-
-		// Adds the button to move a step up the list and a listener to
-		// determine what the button does (swap the selected row up)
-
-		JButton btnUp = new JButton("Up");
-		btnUp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				swapRows(-1);
-			}
-		});
-		btnUp.setBounds(883, 206, 59, 35);
-		add(btnUp);
-
-		// Adds the button to move a step down the list and a listener to
-		// determine what the button does (swap the selected row down)
-
-		JButton btnDown = new JButton("Down");
-		btnDown.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				swapRows(1);
-			}
-		});
-		btnDown.setBounds(882, 252, 60, 40);
-		add(btnDown);
 		
 		txtLevel = new JTextField();
 		txtLevel.setColumns(10);
@@ -191,7 +142,7 @@ public class ViewObjective extends PanelView {
 	}
 
 	
-	public String saveObjective() throws Exception {
+	public Objective saveObjective() throws Exception {
 		if(txtObjectiveDescription.getText().length() == 0){
 			throw new Exception("Description field is not filled in.");			
 		}
@@ -203,27 +154,21 @@ public class ViewObjective extends PanelView {
 		objective.setName(txtObjectiveName.getText());
 		objective.setLevel(Integer.parseInt(txtLevel.getText()));
 
-		ArrayList<Step> steps = new ArrayList<Step>();
+		ArrayList<Step> steps = new ArrayList<Step>(objective.getSteps());
 		
 		int size = tblStep.getRowCount();
 		// Iterates through the table and creates step objects and adds them to the arraylist 
 		for(int i = 0; i < size; i++)
 		{
-			tblStep.getComponentAt(i, 0);
 			String code = (String)tblStep.getValueAt(i, 0);
 			String description = (String)tblStep.getValueAt(i, 1);
-			String no = Integer.toString((i + 1));
-			Step s = new Step(no, code, description);
-			steps.add(s);
-		}
-		if(steps.size() == 0)
-		{
-			throw new Exception("There are no steps added.");
+			steps.get(i).setCode(code);
+			steps.get(i).setDescription(description);
 		}
 		// Sets the step list in the objective to the ArrayList 
 		objective.setSteps(steps);
 		
-		return "Successfully saved objective.";
+		return objective;
 	}
 
 
@@ -243,14 +188,6 @@ public class ViewObjective extends PanelView {
 	public void setObjective(Objective o) {
 		objective = o;
 		refreshView();
-	}
-
-	private void swapRows(int i) {
-		int start = tblStep.getSelectedRow();
-		if (start + i >= 0 && start + i < tblStep.getRowCount()) {
-			tableModel.moveRow(start, start, start + i);
-			tblStep.changeSelection(start + i, 0, false, false);
-		}
 	}
 
 	// returns the text in objective name
