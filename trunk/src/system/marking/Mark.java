@@ -34,7 +34,8 @@ public class Mark implements SimpleKey {
 	@ManyToOne
 	@JoinColumn(name="session_id")
     private Session session;
-    @Transient
+	@ManyToOne
+	@JoinColumn(name="objective_id")
     private Objective objective;
     // ^ ^ ^ Transient, as database model does not have connection between Mark and Objective
 	@ManyToOne

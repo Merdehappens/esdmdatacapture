@@ -57,6 +57,12 @@ public class Objective implements SimpleKey  {
     @Transient
     private ObjectiveType objType;
     
+    @OneToMany(targetEntity=Mark.class,
+    		mappedBy="objective",
+    		cascade=CascadeType.ALL,
+    		fetch=FetchType.LAZY)
+    private List<Mark> marks;
+    
 
 	public void setType(ObjectiveType objType)
 	{
@@ -72,12 +78,14 @@ public class Objective implements SimpleKey  {
     {
         steps = new ArrayList<Step>();
         children = new ArrayList<ChildObjective>();
+        marks = new ArrayList<Mark>();
     }
     
     public Objective(Collection<Step> c)
     {
         steps = new ArrayList<Step>(c);
         children = new ArrayList<ChildObjective>();
+        marks = new ArrayList<Mark>();
     }
     
     public Objective(String name, String description, int level)
@@ -87,6 +95,22 @@ public class Objective implements SimpleKey  {
     	this.level = level;
     	steps = new ArrayList<Step>();
     	children = new ArrayList<ChildObjective>();
+    	marks = new ArrayList<Mark>();
+    }
+    
+    public void addMark(Mark mark)
+    {
+    	marks.add(mark);
+    }
+    
+    public List<Mark> getMarks()
+    {
+    	return marks;
+    }
+    
+    public void setMarks(List<Mark> marks)
+    {
+    	this.marks = new ArrayList<Mark>(marks);
     }
     
     public void addSteps(Step newStep)

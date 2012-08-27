@@ -7,7 +7,10 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JSpinner.DateEditor;
 import javax.swing.JTextArea;
+import javax.swing.SpinnerDateModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -22,6 +25,7 @@ import javax.swing.JCheckBox;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.SwingConstants;
 import javax.swing.JFormattedTextField;
@@ -56,6 +60,9 @@ public class ChangeMark extends JDialog {
 	private JTextField txtTime;
 	private DefaultComboBoxModel<Mark> cmbMarkModel;
 	private JTextArea txtComments;
+	private DateEditor timeEditor;
+	private SpinnerDateModel spinnerModel;
+	private JSpinner timeSpinner;
 
 	
 
@@ -123,9 +130,16 @@ public class ChangeMark extends JDialog {
 		txtStep.setBounds(73, 186, 46, 20);
 		contentPanel.add(txtStep);
         	
-		txtTime = new JTextField();
-		txtTime.setBounds(363, 74, 167, 20);
-		contentPanel.add(txtTime);
+		
+		
+		timeSpinner = new JSpinner( new SpinnerDateModel() );
+		timeEditor = new JSpinner.DateEditor(timeSpinner, "HH:mm:ss");
+		timeSpinner.setEditor(timeEditor);
+		 // will only show the current time
+		
+		timeSpinner.setBounds(363, 74, 167, 30);
+		contentPanel.add(timeSpinner);
+		
 		
 		JLabel lblMark = new JLabel("Mark");
 		lblMark.setBounds(179, 189, 46, 14);
@@ -148,6 +162,11 @@ public class ChangeMark extends JDialog {
 		JLabel lblChild = new JLabel("Child");
 		lblChild.setBounds(10, 105, 53, 14);
 		contentPanel.add(lblChild);
+		
+		JLabel lblHhmmss = new JLabel("hh:mm:ss");
+		lblHhmmss.setBounds(366, 58, 82, 14);
+		contentPanel.add(lblHhmmss);
+	
 		
 
 		
@@ -176,6 +195,10 @@ public class ChangeMark extends JDialog {
 		this.mark = mark;
 		this.day = day;
 		child = mark.getChild();
+		
+		Date d = mark.getTime().getTime();
+		timeSpinner.setValue(d);
+
 		
 		sessions = new ArrayList<Session>(day.getSessions());
 		int size = sessions.size();
@@ -221,7 +244,6 @@ public class ChangeMark extends JDialog {
         	txtStep.setText(mark.getStep().getNo());
         }
         
-		txtTime.setText(Helper.simpleDateFormat(mark.getTime()));
 		
 		for(int i = -1; i < 2; i++)
 		{
@@ -254,7 +276,10 @@ public class ChangeMark extends JDialog {
 	}
 
 	public Calendar getTime() {
-		return mark.getTime();
+		SpinnerDateModel s = timeEditor.getModel();
+		Calendar c = Calendar.getInstance();
+		c.setTime(s.getDate());
+		return c;
 	}
 
 	public Objective getObjective() {
@@ -301,5 +326,4 @@ public class ChangeMark extends JDialog {
 		Mark m = (Mark) cmbMarkModel.getSelectedItem(); 
 		return m.getMark();
 	}
-	
 }
