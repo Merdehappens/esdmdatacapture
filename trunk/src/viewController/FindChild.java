@@ -101,7 +101,7 @@ public class FindChild extends PanelView {
 	}
 
 	public void setChildren(List<Child> list) {
-		children = (ArrayList<Child>) list;
+		children = new ArrayList<Child>(list);
 		childListModel.clear();
 		txtChildName.setText("");
 

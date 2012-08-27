@@ -42,7 +42,7 @@ public class Child implements SimpleKey {
     @ManyToMany
     @JoinTable(name="GuardianChild",
 		joinColumns={@JoinColumn(name="ChildID")},
-		inverseJoinColumns={@JoinColumn(name="name")})
+		inverseJoinColumns={@JoinColumn(name="username")})
     private List<Guardian> guardians;
     @OneToMany(targetEntity=ChildObjective.class,
     		mappedBy="child",

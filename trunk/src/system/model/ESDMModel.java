@@ -76,10 +76,10 @@ public class ESDMModel {
 		config.addAnnotatedClass(Session.class);
 		config.addAnnotatedClass(ChildObjective.class);
 		config.addAnnotatedClass(Room.class);
-		config.addAnnotatedClass(ObjectiveType.class);
+		//config.addAnnotatedClass(ObjectiveType.class);
 		config.configure("hibernate.cfg.xml");
 		
-		new SchemaExport(config).create(true, true);
+		//new SchemaExport(config).create(true, true);
 		// ^ ^ ^ SchemaExport is commented out once all tables are created,
 		// ^ ^ ^ uncommented when class annotations have been changed and
 		// ^ ^ ^ therefore classes need to be added again.
@@ -173,7 +173,7 @@ public class ESDMModel {
     private void loadFromDatabase() throws Exception
     {
     	org.hibernate.Session session = factory.openSession();
-    	session.beginTransaction();
+ /*   	session.beginTransaction();
     	
         Therapist user = new Therapist();
         user.setUsername("temp");
@@ -182,6 +182,15 @@ public class ESDMModel {
         user.setAccess("a");
         userList.add(user);
        	session.save(user);
+       	
+       	
+        Guardian guard = new Guardian();
+        guard.setUsername("guard");
+        guard.tempSetPassword("guard");
+        guard.setName("guard");
+        guard.setAccess("g");
+        userList.add(guard);
+       	session.save(guard);
                
 
         session.save(new Room("Room 1"));
@@ -194,7 +203,7 @@ public class ESDMModel {
         session.save(new Session("One-On-One"));
     	
     	session.getTransaction().commit();
-    	
+*/    	
     	
            	
     	String qry = ("Select sess from Session sess");
@@ -297,37 +306,7 @@ public class ESDMModel {
     		}
     	}
     	
-    	
-    	
-    	//TODO
-    	/*
-    	String sqlDayQry = ("Select day.id, day.template, day.room, day.date From Day day");
-    	query = session.createQuery(sqlDayQry);
-    	
-    	Day day;
-    	
-    	for(Iterator it = query.iterate(); it.hasNext();)
-    	{
-    		Object[] row = (Object[]) it.next();
-    		day = new Day();
-    		day.setId((int) row[0]);
-    		day.setTemplate((boolean) row[1]);
-    		Room r = (Room)row[2];
-    		day.setRoom(Helper.search(roomList, r.getId()));
-    		day.setDate((Calendar)row[3]);
-    		
-    		String sqlDayChildQry = ("Select day.children From Day day where day.id = " + day.getId());
-    			Query query2 = session.createQuery(sqlDayChildQry);
 
-    			for(Iterator it2 = query2.iterate(); it2.hasNext();)
-    			{
-    				int id = (int) it2.next();
-    				day.addChildren(Helper.search(childList, id));    				
-    			}
-    		
-    		
-    		dayList.add(day);
-    	}*/
     	
     	
     
@@ -710,17 +689,13 @@ public class ESDMModel {
 		day.addMark(tempMark);
 		child.addMark(tempMark);
 		markList.add(tempMark);    	
-		/* not in 100% working order yet TODO
+
 		org.hibernate.Session dbSession = factory.getCurrentSession();
     	dbSession.beginTransaction();
     	
     	dbSession.save(tempMark);
     	
-    	Not sure if we have to do these Updates or if hibernate automatically goes around updating everything
-    	dbSession.update(child);
-    	dbSession.update(day);
     	dbSession.getTransaction().commit();
-    	*/
 		
 	}
 	
@@ -734,15 +709,12 @@ public class ESDMModel {
 		markList.add(tempMark);
 		t.addMark(tempMark);
 		
-		/* not in 100% working order yet TODO
     	org.hibernate.Session dbSession = factory.getCurrentSession();
     	dbSession.beginTransaction();
-    	dbSession.save(t);
+    	
     	dbSession.save(tempMark);
-    	dbSession.update(child);
-    	dbSession.update(day);
+    	
     	dbSession.getTransaction().commit();
-		*/
 	
 	}
 
@@ -867,14 +839,13 @@ public class ESDMModel {
 			}
 		}
 		
-		/*
-		 * TODO - Not very fast. seems to update everything in child. not just childs objectives. don't know better way?
     	org.hibernate.Session session = factory.getCurrentSession();
+
     	session.beginTransaction();
-    	
-    	session.update(child);
+    	child = (Child) session.merge(child);
+    	session.save(child);
     	session.getTransaction().commit();
-		*/
+
 		
 	}
 	
