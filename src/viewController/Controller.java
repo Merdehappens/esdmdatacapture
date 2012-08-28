@@ -1167,6 +1167,7 @@ public class Controller extends JFrame {
 	public void goBack() {
 		try{
 		int size = backList.size() - 1;
+		backList.remove(size);	
 		String card = backList.remove(size - 1);
 		JPanel panel = panelMap.get(card);
 		show(panel, card);
@@ -1179,7 +1180,7 @@ public class Controller extends JFrame {
 		}
 		catch(Exception e)
 		{
-			showMessage("There is not any history any further");
+			showErrorMessage("There is not any history any further");
 		}
 	}
 	
