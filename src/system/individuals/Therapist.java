@@ -14,18 +14,19 @@ import system.marking.Mark;
 @Entity
 public class Therapist extends UserAccount {
     
-    public Therapist()
-    {
-        super();
-        marks = new ArrayList<Mark>();
-    }
-    
     @OneToMany(targetEntity=Mark.class,
     		mappedBy="therapist",
     		cascade=CascadeType.ALL,
     		fetch=FetchType.LAZY)
     private List<Mark> marks;
 
+    
+    public Therapist()
+    {
+        super();
+        marks = new ArrayList<Mark>();
+    }
+   
 	public List<Mark> getMarks() {
 		return marks;
 	}

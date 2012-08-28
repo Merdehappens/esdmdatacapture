@@ -51,6 +51,9 @@ public class Guardian extends UserAccount {
 		this.children = children;
 	}
 	
+	// Checks if the object is null, checks if same class
+	// Checks if it's the same reference then checks if the same
+	// Username.
 	public boolean equals(Object o)
 	{
 		if (o == null) {
