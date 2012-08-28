@@ -39,10 +39,13 @@ import system.sessions.Session;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 
 import org.hibernate.exception.ConstraintViolationException;
+import javax.swing.JButton;
 
 //testing
 /**
@@ -97,10 +100,12 @@ public class Controller extends JFrame {
 	private String access;
 	private ChangeMark changeMark;
 	private AddGuardian addGuardian;
+	
+	private HashMap<String, JPanel> panelMap = new HashMap<String, JPanel>();
 
+	
 	public Controller() throws MalformedURLException {
 		addWindowListener(new WindowAdapter() {
-			@Override
 			public void windowClosing(WindowEvent arg0) {
 				int answer = JOptionPane
 						.showConfirmDialog(null,
@@ -115,23 +120,20 @@ public class Controller extends JFrame {
 		});
 		setLookAndFeel();
 		model = new ESDMModel();
+		// Initialises all the components of the screens
 		initComponents();
+		// Initialises all the button listeners for the components
 		initButtonListeners();
 	}
 	
+	// called before program exits to make sure the database connection is closed correctly 
 	private void exitProgram()
 	{
 		model.modelExit();
 		System.exit(0);
 	}
 
-	public Controller(ESDMModel model) throws MalformedURLException {
-
-		setLookAndFeel();
-		this.model = model;
-		initComponents();
-		initButtonListeners();
-	}
+	
 
 	/**
 	 * Launch the application.
@@ -139,9 +141,8 @@ public class Controller extends JFrame {
 	public static void main(String[] args) {
 
 		loadingFrame = new JFrame("Loading");
-		
 
-		
+		// Creates a thread to create the new Controller class
 		final Thread t1 = new Thread(new Runnable() {
 			public void run() {
 
@@ -157,6 +158,7 @@ public class Controller extends JFrame {
 			}
 		});
 
+		// Creates a thread to create the loading screen
 		final Thread t2 = new Thread(new Runnable() {
 			public void run() {
 
@@ -183,11 +185,9 @@ public class Controller extends JFrame {
 
 			}
 		});
-		t2.run();
 		
+		t2.run();
 		t1.run();
-
-		// EventQueue.invokeLater
 
 	}
 
@@ -245,78 +245,108 @@ public class Controller extends JFrame {
 
 		homeView = new HomeView();
 		homePanel.add(homeView, "Home");
+		panelMap.put("Home", homePanel);
 
 		// Add all the panels (Cards) to the Session Tab
 		
 		sessionView = new SessionView(model);
 		sessionPanel.add(sessionView, "Session");
+		panelMap.put("Session", sessionPanel);
 
 		addDay = new AddDay(model);
 		sessionPanel.add(addDay, "addDay");
+		panelMap.put("addDay", sessionPanel);
 
 		reviewSession = new ReviewSession();
 		sessionPanel.add(reviewSession, "reviewSession");
+		panelMap.put("reviewSession", sessionPanel);
 
 		logSessionData = new LogSessionData(model);
 		sessionPanel.add(logSessionData, "logSessionData");
+		panelMap.put("logSessionData", sessionPanel);
 
 		// Add all the panels (Cards) to the Child Tab
 
 		childViewGrid = new ChildView(model);
 		childPanel.add(childViewGrid, "Child");
+		panelMap.put("Child", childPanel);
 
 		addChild = new AddChild(model);
 		childPanel.add(addChild, "addChild");
+		panelMap.put("addChild", childPanel);
 
 		editChild = new EditChild();
 		childPanel.add(editChild, "editChild");
+		panelMap.put("editChild", childPanel);
 
 
 		// Add all the panels (Cards) to the Objectives Tab
 
 		objectiveView = new ObjectiveView(model);
 		objectivePanel.add(objectiveView, "Objective");
+		panelMap.put("Objective", objectivePanel);
 
 		addObjectiveChild = new AddObjectiveChild(model);
 		objectivePanel.add(addObjectiveChild, "addObjectiveChild");
+		panelMap.put("addObjectiveChild", objectivePanel);
 
 		viewObjective = new ViewObjective(model);
 		objectivePanel.add(viewObjective, "viewObjective");
+		panelMap.put("viewObjective", objectivePanel);
 
 		addObjective = new AddObjective();
 		objectivePanel.add(addObjective, "addObjective");
+		panelMap.put("addObjective", objectivePanel);
 
 		// Add all the panels (Cards) to the Reporting Tab
 
 		reportingView = new ReportingView();
 		reportingPanel.add(reportingView, "Reporting");
+		panelMap.put("Reporting", reportingPanel);
 
 		findChildReport = new FindChild(model);
 		reportingPanel.add(findChildReport, "findChildReport");
+		panelMap.put("findChildReport", reportingPanel);
 
 		viewReport = new ViewReport();
 		reportingPanel.add(viewReport, "viewReport");
+		panelMap.put("viewReport", reportingPanel);
+		
 
 		// Add all the panels (Cards) to the Accounts Tab
 
 		accountView = new AccountView();
 		accountPanel.add(accountView, "Account");
+		panelMap.put("Account", accountPanel);
 
 		changeEmail = new UpdateDetails();
 		accountPanel.add(changeEmail, "changeEmail");
+		panelMap.put("changeEmail", accountPanel);
 
 		changePassword = new ChangePassword();
 		accountPanel.add(changePassword, "changePassword");
+		panelMap.put("changePassword", accountPanel);
 
 		newUserAccount = new NewUserAccount();
 		accountPanel.add(newUserAccount, "newUserAccount");
+		panelMap.put("newUserAccount", accountPanel);
 		
 		linkGuardian = new LinkGuardian(model);
 		accountPanel.add(linkGuardian, "linkGuardian");
+		panelMap.put("linkGuardian", accountPanel);
 
 		lblMessage = new JLabel("");
-		lblMessage.setBounds(10, 540, 432, 24);
+		lblMessage.setBounds(106, 538, 829, 24);
 		contentPane.add(lblMessage);
+		
+		JButton btnBack = new JButton("<");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				goBack();
+			}
+		});
+		btnBack.setBounds(7, 539, 51, 23);
+		contentPane.add(btnBack);
 
 		// Show the login screen
 
@@ -348,9 +378,20 @@ public class Controller extends JFrame {
 
 			}
 		});
+		
+		
+		sessionView.newDay(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(sessionPanel, "addDay");
+			}
+		});
 
-		addDay.cancelListener(ActionListenerShow(sessionPanel, "Session"));
-
+		addDay.cancelListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(sessionPanel, "Session");
+			}
+		});
+		
 		logSessionData.commitMarkListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				logSessionData.addMark();
@@ -453,15 +494,27 @@ public class Controller extends JFrame {
 			}
 		});
 
-		addChild.cancelListener(ActionListenerShow(childPanel, "Child"));
+		addChild.cancelListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(childPanel, "Child");
+			}
+		});
 
 
-		addObjectiveChild
-				.cancelListener(ActionListenerShow(childPanel, "Child"));
+		addObjectiveChild.cancelListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					show(childPanel, "Child");
+				}
+			});
+				
 
-		childViewGrid.addChildListener(ActionListenerShow(childPanel,
-				"addChild"));
-
+		childViewGrid.addChildListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(childPanel, "addChild");
+			}
+		});
+		
+		
 		childViewGrid.editChildListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 
@@ -513,7 +566,11 @@ public class Controller extends JFrame {
 			}
 		});
 
-		changePassword.cancel(ActionListenerShow(accountPanel, "Account"));
+		changePassword.cancel(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(accountPanel, "Account");
+			}
+		});
 
 		changeEmail.saveListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -523,8 +580,12 @@ public class Controller extends JFrame {
 			}
 		});
 
-		changeEmail.cancel(ActionListenerShow(accountPanel, "Account"));
-
+		changeEmail.cancel(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(accountPanel, "Account");
+			}
+		});
+		
 		newUserAccount.submit(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				String name = newUserAccount.getUsersName();
@@ -561,7 +622,11 @@ public class Controller extends JFrame {
 			}
 		});
 
-		newUserAccount.cancel(ActionListenerShow(accountPanel, "Account"));
+		newUserAccount.cancel(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(accountPanel, "Account");
+			}
+		});
 			
 
 	}
@@ -573,8 +638,12 @@ public class Controller extends JFrame {
 			}
 		});
 
-		addObjective.cancelListener(ActionListenerShow(objectivePanel,
-				"Objective"));
+		addObjective.cancelListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(objectivePanel, "Objective");
+			}
+		});
+		
 	}
 
 	public void initReportingButtonListeners() {
@@ -616,8 +685,11 @@ public class Controller extends JFrame {
 			}
 		});
 
-		findChildReport.cancelListener(ActionListenerShow(reportingPanel,
-				"Reporting"));
+		findChildReport.cancelListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(reportingPanel, "Reporting");
+			}
+		});
 
 	}
 
@@ -628,10 +700,14 @@ public class Controller extends JFrame {
 		initAccountButtonListeners();
 		initReportingButtonListeners();
 
-		sessionView.newDay(ActionListenerShow(sessionPanel, "addDay"));
 
-		viewObjective.cancelListener(ActionListenerShow(objectivePanel,
-				"Objective"));
+		
+
+		viewObjective.cancelListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(objectivePanel, "Objective");
+			}
+		});
 		
 		viewObjective.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -693,13 +769,24 @@ public class Controller extends JFrame {
 			}
 		});
 
-		addObjectiveChild.cancelListener(ActionListenerShow(objectivePanel,
-				"Objective"));
+		addObjectiveChild.cancelListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(objectivePanel, "Objective");
+			}
+		});
 
-		objectiveView.addNewObjective(ActionListenerShow(objectivePanel,
-				"addObjective"));
+		objectiveView.addNewObjective(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(objectivePanel, "addObjective");
+			}
+		});
 
-		editChild.cancelListener(ActionListenerShow(childPanel, "Child"));
+		editChild.cancelListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(childPanel, "Child");
+			}
+		});
+	
 		
 		editChild.addGuardianListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -822,55 +909,58 @@ public class Controller extends JFrame {
 				editChild.refreshView();
 			}
 		});
-		accountView.changeEmailAddress(ActionListenerShow(accountPanel,
-				"changeEmail"));
+		accountView.changeEmailAddress(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(accountPanel, "changeEmail");
+			}
+		});
 
-		accountView.changePassword(ActionListenerShow(accountPanel,
-				"changePassword"));
-
-		accountView.newUserAccount(ActionListenerShow(accountPanel,
-				"newUserAccount"));
+		accountView.changePassword(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(accountPanel, "changePassword");
+			}
+		});
 		
-		accountView.linkGuardian(ActionListenerShow(accountPanel,
-				"linkGuardian"));
+		accountView.newUserAccount(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(accountPanel, "newUserAccount");
+			}
+		});
 		
-		linkGuardian.cancel(ActionListenerShow(accountPanel,
-				"Account"));
+		linkGuardian.cancel(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(accountPanel, "Account");
+			}
+		});
 
 		tabbedPane.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
-/*				show(childPanel, "Child");
-				show(homePanel, "Home");
-				show(sessionPanel, "Session");
-				show(objectivePanel, "Objective");
-				show(reportingPanel, "Reporting");
-				show(accountPanel, "Account");
-	*/			
+		
 				CardLayout c;
 				switch(tabbedPane.getSelectedIndex()) {
 				case 0:
 					c = (CardLayout) homePanel.getLayout();
-					c.first(homePanel);
+					show(homePanel, "Home");
 					break;
 				case 1:
 					c = (CardLayout) sessionPanel.getLayout();
-					c.first(sessionPanel);
+					show(sessionPanel, "Session");
 					break;
 				case 2:
 					c = (CardLayout) childPanel.getLayout();
-					c.first(childPanel);
+					show(childPanel, "Child");
 					break;
 				case 3:
 					c = (CardLayout) objectivePanel.getLayout();
-					c.first(objectivePanel);
+					show(objectivePanel, "Objective");
 					break;
 				case 4:
 					c = (CardLayout) reportingPanel.getLayout();
-					c.first(reportingPanel);
+					show(reportingPanel, "Reporting");
 					break;
 				case 5:
 					c = (CardLayout) accountPanel.getLayout();
-					c.first(accountPanel);
+					show(accountPanel, "Account");
 					break;
 				}
 			}
@@ -914,25 +1004,6 @@ public class Controller extends JFrame {
 	// Such as: homePanel, sessionPanel, childPanel, objectivePanel,
 	// reportingPanel, accountPanel.
 
-	private void show(JPanel panel, String card) {
-		CardLayout temp = (CardLayout) panel.getLayout();
-		temp.show(panel, card);
-		lblMessage.setText("");
-	}
-
-	private ActionListener ActionListenerShow(JPanel panel, String card) {
-		final JPanel j = panel;
-		final String c = card;
-		ActionListener al = new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(j, c);
-			}
-		};
-
-		return al;
-
-	}
-
 	// Sets the child in the edit child panel and then shows the edit child
 	// panel
 
@@ -974,6 +1045,7 @@ public class Controller extends JFrame {
 					break;
 				}
 			}
+			
 		} catch (Exception e) {
 			// If Nimbus is not available, you can set the GUI to another look
 			// and feel.
@@ -1084,30 +1156,42 @@ public class Controller extends JFrame {
 		}
 	}
 	
-	public void goBack() {
-		CardLayout card;
-		switch(tabbedPane.getSelectedIndex()) {
-		case 0:
-			card = (CardLayout) homePanel.getLayout();
-			
-			card.previous(homePanel);
-			break;
-		case 1:
-			
-			break;
-		case 2:
-			
-			break;
-		case 3:
-			
-			break;
-		case 4:
-			
-			break;
-		case 5:
-			
-			break;
+	private void printArray() {
+		System.out.println();
+		for(int i = 0; i <backList.size(); i++)
+		{
+			System.out.print(backList.get(i) + " - ");
 		}
 	}
+	
+	public void goBack() {
+		try{
+		int size = backList.size() - 1;
+		String card = backList.remove(size - 1);
+		JPanel panel = panelMap.get(card);
+		show(panel, card);
+		if(tabbedPane.getSelectedComponent() != panel)
+		{
+			tabbedPane.setSelectedComponent(panel);
+			backList.remove(backList.size() - 1);
+		}
+			
+		}
+		catch(Exception e)
+		{
+			showMessage("There is not any history any further");
+		}
+	}
+	
+	private void show(JPanel panel, String card) {
+		CardLayout temp = (CardLayout) panel.getLayout();
+		temp.show(panel, card);
+		lblMessage.setText("");
+		backList.add(card);
+		
+		printArray();
+	}
+	
+	ArrayList<String> backList = new ArrayList<String>();
 
 }
