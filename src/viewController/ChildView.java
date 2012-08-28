@@ -6,6 +6,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+
 import system.helper.Helper;
 import system.individuals.Child;
 import system.model.ESDMModel;
@@ -59,6 +61,7 @@ public class ChildView extends PanelView {
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(50, 150, 900, 300);
 		add(scrollPane);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
 		childTableModel = new DefaultTableModel();
 		childTable = new JTable() {

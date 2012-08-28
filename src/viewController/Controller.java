@@ -247,12 +247,12 @@ public class Controller extends JFrame {
 		homePanel.add(homeView, "Home");
 
 		// Add all the panels (Cards) to the Session Tab
+		
+		sessionView = new SessionView(model);
+		sessionPanel.add(sessionView, "Session");
 
 		addDay = new AddDay(model);
 		sessionPanel.add(addDay, "addDay");
-
-		sessionView = new SessionView(model);
-		sessionPanel.add(sessionView, "Session");
 
 		reviewSession = new ReviewSession();
 		sessionPanel.add(reviewSession, "reviewSession");
@@ -587,9 +587,9 @@ public class Controller extends JFrame {
 					Guardian g = (Guardian) model.getCurrentUser();
 					findChildReport.setChildren(g.getChildren());
 				}
-				else
+				else	
 				{
-					findChildReport.setChildren(model.getChildList());
+					findChildReport.setChildren(model.getChildList(true));
 				}
 			}
 		});
@@ -780,6 +780,7 @@ public class Controller extends JFrame {
 					showMessage(e.getMessage());
 					e.printStackTrace();
 				}
+				editChild.refreshView();
 			}
 		});
 		
@@ -838,12 +839,40 @@ public class Controller extends JFrame {
 
 		tabbedPane.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
-				show(childPanel, "Child");
+/*				show(childPanel, "Child");
 				show(homePanel, "Home");
 				show(sessionPanel, "Session");
 				show(objectivePanel, "Objective");
 				show(reportingPanel, "Reporting");
 				show(accountPanel, "Account");
+	*/			
+				CardLayout c;
+				switch(tabbedPane.getSelectedIndex()) {
+				case 0:
+					c = (CardLayout) homePanel.getLayout();
+					c.first(homePanel);
+					break;
+				case 1:
+					c = (CardLayout) sessionPanel.getLayout();
+					c.first(sessionPanel);
+					break;
+				case 2:
+					c = (CardLayout) childPanel.getLayout();
+					c.first(childPanel);
+					break;
+				case 3:
+					c = (CardLayout) objectivePanel.getLayout();
+					c.first(objectivePanel);
+					break;
+				case 4:
+					c = (CardLayout) reportingPanel.getLayout();
+					c.first(reportingPanel);
+					break;
+				case 5:
+					c = (CardLayout) accountPanel.getLayout();
+					c.first(accountPanel);
+					break;
+				}
 			}
 		});
 
@@ -1052,6 +1081,32 @@ public class Controller extends JFrame {
 		
 		} catch (Exception e) {
 			showMessage(e.getMessage());
+		}
+	}
+	
+	public void goBack() {
+		CardLayout card;
+		switch(tabbedPane.getSelectedIndex()) {
+		case 0:
+			card = (CardLayout) homePanel.getLayout();
+			
+			card.previous(homePanel);
+			break;
+		case 1:
+			
+			break;
+		case 2:
+			
+			break;
+		case 3:
+			
+			break;
+		case 4:
+			
+			break;
+		case 5:
+			
+			break;
 		}
 	}
 

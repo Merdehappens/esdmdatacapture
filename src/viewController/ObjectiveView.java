@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
 public class ObjectiveView extends PanelView {
@@ -54,7 +55,8 @@ public class ObjectiveView extends PanelView {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(50, 150, 900, 300);
 		add(scrollPane);
-
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		
 		// creates a new table model, and table and adds the table to the scroll pane
 		tableModel = new DefaultTableModel();
 		objectiveTable = new JTable() {
@@ -73,7 +75,7 @@ public class ObjectiveView extends PanelView {
 				"Description", "Level", "Number of Steps" };
 
 		tableModel.setColumnIdentifiers(columnNames);
-
+		
 		refreshView();
 
 	}
