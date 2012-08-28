@@ -7,6 +7,8 @@ import system.sessions.Day;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.ScrollPaneConstants;
+
 import com.toedter.calendar.JDateChooser;
 
 import java.awt.event.ActionListener;
@@ -76,6 +78,7 @@ public class SessionView extends PanelView {
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(50, 150, 900, 300);
 		add(scrollPane);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
 		// Creates a new JTable
 		tblSession = new JTable() {

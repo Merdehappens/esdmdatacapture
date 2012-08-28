@@ -27,6 +27,7 @@ import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.ToolTipManager;
 
 import javax.swing.JToggleButton;
 import java.awt.BorderLayout;
@@ -202,7 +203,7 @@ public class AddDay extends PanelView {
 		childPanel.removeAll();
 		
 		ArrayList<Child> temp = (ArrayList<Child>) this.getModel()
-				.getChildList();
+				.getChildList(true);
 
 		tglbtn = new Object[temp.size()][2];
 
@@ -221,8 +222,13 @@ public class AddDay extends PanelView {
 			Child child = temp.get(i);
 
 			tglbtn[i][1] = child;
-
-			tempButton = new JToggleButton(child.getName());
+			
+			
+			ToolTipManager.sharedInstance().setInitialDelay(0);
+			
+			String name = child.getName();			
+			tempButton = new JToggleButton(name);
+			tempButton.setToolTipText(name);
 			tempButton.setBounds(10 + (100 * i) - s, x, 100, 100);
 			tglbtn[i][0] = tempButton;
 			childPanel.add(tempButton);

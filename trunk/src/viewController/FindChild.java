@@ -10,6 +10,7 @@ import system.model.ESDMModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JLabel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.event.ActionEvent;
@@ -17,6 +18,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JScrollPane;
 
 public class FindChild extends PanelView {
 
@@ -51,7 +53,7 @@ public class FindChild extends PanelView {
 		super.setTitle("Select Child");
 
 		btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(20, 316, 89, 23);
+		btnSubmit.setBounds(10, 332, 89, 23);
 		add(btnSubmit);
 
 		btnReset = new JButton("Reset");
@@ -63,18 +65,14 @@ public class FindChild extends PanelView {
 			}
 		});
 
-		btnReset.setBounds(111, 316, 97, 23);
+		btnReset.setBounds(101, 332, 97, 23);
 		add(btnReset);
 
 		btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(210, 316, 89, 23);
+		btnCancel.setBounds(200, 332, 89, 23);
 		add(btnCancel);
 
 		childListModel = new DefaultListModel<Child>();
-
-		childList = new JList<Child>(childListModel);
-		childList.setBounds(20, 118, 279, 187);
-		add(childList);
 
 		JLabel lblSelectChild = new JLabel(
 				"Select the Child that you wish to view marks of:");
@@ -97,7 +95,14 @@ public class FindChild extends PanelView {
 		txtChildName.setBounds(100, 31, 162, 30);
 		add(txtChildName);
 		txtChildName.setColumns(10);
-
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 115, 312, 197);
+		add(scrollPane);
+		
+				childList = new JList<Child>(childListModel);
+				scrollPane.setViewportView(childList);
+				scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 	}
 
 	public void setChildren(List<Child> list) {
@@ -159,5 +164,4 @@ public class FindChild extends PanelView {
 		txtChildName.setText("");
 		searchList(txtChildName.getText());
 	}
-
 }

@@ -792,6 +792,8 @@ public class ESDMModel {
 
 	public void removeChild(Child child) {
 		child.setInactive();
+		
+		// TODO SAVE to dAtabase
 	}
 
 	
@@ -884,6 +886,8 @@ public class ESDMModel {
 	public void removeObjective(Child c, Objective o)
 	{
 		c.removeObjective(o);
+		
+		// TODO Save 
 	}
 
 	public void updateMark(Mark mark, Session session, Child child,
@@ -940,16 +944,20 @@ public class ESDMModel {
 
 	public void incrementStep(Child c, Objective o) throws Exception {
 		c.incrementStep(o, 1);
+		// TODO SAve to dB
 	}
 
 	public void decrementStep(Child c, Objective o) throws Exception {
 		c.incrementStep(o, -1);
+		// TODO SAve to dB
 	}
 
 	public void setMastered(Child c, Objective o) throws Exception {
 		c.setMastered(o, true);
+		updateObject(c);
 	}
 
+	// Takes in any object that is to be saved to the database. and saves it to the database.
 	public void updateObject(Object o) {
 		org.hibernate.Session session = factory.getCurrentSession();
     	session.beginTransaction();
