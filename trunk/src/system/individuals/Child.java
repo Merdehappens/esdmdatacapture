@@ -1,6 +1,4 @@
-
 package system.individuals;
-
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,66 +26,56 @@ import system.sessions.Day;
 
 @Entity
 public class Child implements SimpleKey {
-    @Id
-    @GeneratedValue
-    @Column(name="ChildID")
+	@Id
+	@GeneratedValue
+	@Column(name = "ChildID")
 	private int id;
-    private String name;
-    private Calendar dateJoined;
-    private Calendar dob;
-    @ManyToMany
-    @JoinTable(name="GuardianChild",
-		joinColumns={@JoinColumn(name="ChildID")},
-		inverseJoinColumns={@JoinColumn(name="username")})
-    private List<Guardian> guardians;
-    @OneToMany(targetEntity=ChildObjective.class,
-    		mappedBy="child",
-    		cascade=CascadeType.ALL,
-    		fetch=FetchType.LAZY)
-    private List<ChildObjective> objectives;
-    @OneToMany(targetEntity=Mark.class,
-    		mappedBy="child",
-    		cascade=CascadeType.ALL,
-    		fetch=FetchType.LAZY)
-    private List<Mark> marks;
-    @ManyToMany
-    @JoinTable(name="DayChild",
-    		joinColumns={@JoinColumn(name="ChildID")},
-    		inverseJoinColumns={@JoinColumn(name="DayID")})
-    private List<Day> days;
-    @Transient
-    private ImageIcon picture;
-    @Basic
-    private String pictureLink;
-    private boolean active;
-    
-    public Child()
-    {
-        guardians = new ArrayList<Guardian>();
-        objectives = new ArrayList<ChildObjective>();
-        marks = new ArrayList<Mark>();
-        active = true;
-    }
-    
-    public Child(String name, Calendar dob, Calendar dateJoined)
-    {
-        guardians = new ArrayList<Guardian>();
-        objectives = new ArrayList<ChildObjective>();
-        marks = new ArrayList<Mark>();
-        this.name = name;
-        this.dob = dob;
-        this.dateJoined = dateJoined;
-        active = true;
-    }
+	private String name;
+	private Calendar dateJoined;
+	private Calendar dob;
+	@ManyToMany
+	@JoinTable(name = "GuardianChild", joinColumns = { @JoinColumn(name = "ChildID") }, inverseJoinColumns = { @JoinColumn(name = "username") })
+	private List<Guardian> guardians;
+	@OneToMany(targetEntity = ChildObjective.class, mappedBy = "child", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<ChildObjective> objectives;
+	@OneToMany(targetEntity = Mark.class, mappedBy = "child", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Mark> marks;
+	@ManyToMany
+	@JoinTable(name = "DayChild", joinColumns = { @JoinColumn(name = "ChildID") }, inverseJoinColumns = { @JoinColumn(name = "DayID") })
+	private List<Day> days;
+	@Transient
+	private ImageIcon picture;
+	@Basic
+	private String pictureLink;
+	private boolean active;
+
+	public Child() {
+		guardians = new ArrayList<Guardian>();
+		objectives = new ArrayList<ChildObjective>();
+		marks = new ArrayList<Mark>();
+		active = true;
+	}
+
+	public Child(String name, Calendar dob, Calendar dateJoined) {
+		guardians = new ArrayList<Guardian>();
+		objectives = new ArrayList<ChildObjective>();
+		marks = new ArrayList<Mark>();
+		this.name = name;
+		this.dob = dob;
+		this.dateJoined = dateJoined;
+		active = true;
+	}
 
 	public void setGuardians(List<Guardian> guardians) {
 		this.guardians = guardians;
 	}
 
+	// Adds the objectives parsed through to the child
 	public void setObjectives(List<Objective> childObjectives) {
 		int size = childObjectives.size();
-		for(int i = 0; i < size; i++)
-		{
+		// Iterates through the list and for each objective creates a Child
+		// Objective object
+		for (int i = 0; i < size; i++) {
 			ChildObjective co = new ChildObjective(childObjectives.get(i), this);
 			objectives.add(co);
 		}
@@ -106,164 +94,148 @@ public class Child implements SimpleKey {
 	}
 
 	public final Calendar getDateJoined() {
-        return dateJoined;
-    }
+		return dateJoined;
+	}
 
-    public void setDateJoined(Calendar dateJoined) {
-        this.dateJoined = dateJoined;
-    }
+	public void setDateJoined(Calendar dateJoined) {
+		this.dateJoined = dateJoined;
+	}
 
-    public final Calendar getDob() {
-        return dob;
-    }
+	public final Calendar getDob() {
+		return dob;
+	}
 
-    public void setDob(Calendar dob) {
-        this.dob = dob;
-    }
+	public void setDob(Calendar dob) {
+		this.dob = dob;
+	}
 
-    public final List<Guardian> getGuardians() {
-        return guardians;
-    }
+	public final List<Guardian> getGuardians() {
+		return guardians;
+	}
 
-    public void setGuardians(ArrayList<Guardian> guardians) {
-        this.guardians = guardians;
-    }
-    
-    // Adds a guardian to the list of guardians
-    public void addGuardian(Guardian guardian)
-    {
-        guardians.add(guardian);
-    }
-    
-    // adds a mark to the list of marks
-    public void addMark(Mark mark)
-    {
-    	marks.add(mark);
-    }
+	public void setGuardians(ArrayList<Guardian> guardians) {
+		this.guardians = guardians;
+	}
 
-    public final int getId() {
-        return id;
-    }
+	// Adds a guardian to the list of guardians
+	public void addGuardian(Guardian guardian) {
+		guardians.add(guardian);
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	// adds a mark to the list of marks
+	public void addMark(Mark mark) {
+		marks.add(mark);
+	}
 
-    public final String getName() {
-        return name;
-    }
-    
-    // Increments the current step of the objective parsed through by one
-    public void incrementStep(Objective o, int num) throws Exception
-    {
-    	if(num != 1 && num != -1)
-    	{
-    		throw new Exception("The number parsed through was not valid");
-    	}
-    	int size = objectives.size();
-    	boolean x = false;
-    	
-    	for(int i = 0; i < size; i++)
-    	{
-    		if(objectives.get(i).getObjective() == o)
-    		{
-    			objectives.get(i).incrementStep(num);
-    			x = true;
-    			break;
-    		}
-    	}
-    	
-    	if(!(x))
-    	{
-    		throw new Exception("The objective does not exist in that child");
-    	}
-    	
-    }
+	public final int getId() {
+		return id;
+	}
 
-    public void setName(String name) throws Exception {
-        if(name.equals(""))
-        {
-        	throw(new Exception("The child's name cannot be empty."));
-        }
-    	this.name = name;
-    }
-    
-    public void addObjective(Objective o)
-    {
-        ChildObjective co = new ChildObjective(o, this);
-        objectives.add(co);
-    }
-    
-    public void addChildObjective(ChildObjective co)
-    {
-    	objectives.add(co);
-    	
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    }
-    
-    final public Step getCurrentStep(Objective o)
-    {
-    	int size = objectives.size();
-    	
-    	for(int i = 0; i < size; i++)
-    	{
-    		if(objectives.get(i).getObjective() == o)
-    		{
-    			return objectives.get(i).getStep();
-    		}
-    	}
-    	
-    	return null;
-    
-    }
-    
-    /* This method takes in a URL. and sets the URL in the child object to that URL and sets the childs picture to be the
-     * picture that the URL points to
-     */
-    
-    public void setPictureLink(String pictureLink) {
-        this.pictureLink = pictureLink;
-        picture = new ImageIcon(pictureLink);
-    }
-    
-    public final String getPictureLink()
-    {
-        return pictureLink;
-    }
-    
-    public final ImageIcon getPicture()
-    {
-        return picture;
-    }
-    
-    public String toString()
-    {
-        return name;
-    }
+	public final String getName() {
+		return name;
+	}
+
+	// Increments the current step of the objective parsed through by one
+	public void incrementStep(Objective o, int num) throws Exception {
+		// If the int isn't either + or - 1 exception is thrown
+		if (num != 1 && num != -1) {
+			throw new Exception("The number parsed through was not valid");
+		}
+		int size = objectives.size();
+		boolean x = false;
+
+		for (int i = 0; i < size; i++) {
+			if (objectives.get(i).getObjective() == o) {
+				objectives.get(i).incrementStep(num);
+				x = true;
+				break;
+			}
+		}
+		// If unable to find the objective in the childs list of objectives
+		// throw an exception
+		if (!(x)) {
+			throw new Exception("The objective does not exist in that child");
+		}
+
+	}
+
+	public void setName(String name) throws Exception {
+		if (name.equals("")) {
+			throw (new Exception("The child's name cannot be empty."));
+		}
+		this.name = name;
+	}
+
+	// Takes in an objective and creates a new CHildObjective out of it and adds
+	// it to the childs childobjectives list
+	public void addObjective(Objective o) {
+		ChildObjective co = new ChildObjective(o, this);
+		objectives.add(co);
+	}
+
+	public void addChildObjective(ChildObjective co) {
+		objectives.add(co);
+	}
+
+	final public Step getCurrentStep(Objective o) {
+		int size = objectives.size();
+
+		for (int i = 0; i < size; i++) {
+			if (objectives.get(i).getObjective() == o) {
+				return objectives.get(i).getStep();
+			}
+		}
+
+		return null;
+
+	}
+
+	/*
+	 * This method takes in a URL. and sets the URL in the child object to that
+	 * URL and sets the childs picture to be the picture that the URL points to
+	 */
+
+	public void setPictureLink(String pictureLink) {
+		this.pictureLink = pictureLink;
+		picture = new ImageIcon(pictureLink);
+	}
+
+	public final String getPictureLink() {
+		return pictureLink;
+	}
+
+	public final ImageIcon getPicture() {
+		return picture;
+	}
+
+	public String toString() {
+		return name;
+	}
 
 	public final List<Objective> getObjectives() {
 		int size = objectives.size();
 		ArrayList<Objective> o = new ArrayList<Objective>();
-		
-		for(int i = 0; i < size; i++)
-		{
+
+		for (int i = 0; i < size; i++) {
 			o.add(objectives.get(i).getObjective());
 		}
-		
+
 		return o;
 	}
 
 	public final List<Mark> getMarks() {
 		return marks;
 	}
-	
-	public void setInactive()
-	{
+
+	public void setInactive() {
 		active = false;
 	}
-	
-	public void setActive()
-	{
+
+	public void setActive() {
 		active = true;
 	}
 
@@ -286,36 +258,30 @@ public class Child implements SimpleKey {
 	public boolean removeObjective(Objective o) {
 		boolean removed = false;
 		int size = objectives.size();
-		for(int i = 0; i < size; i++)
-		{
-			if(objectives.get(i).getObjective() == o)
-			{
+		for (int i = 0; i < size; i++) {
+			if (objectives.get(i).getObjective() == o) {
 				objectives.remove(i);
 				removed = true;
 				break;
 			}
 		}
 		return removed;
-		
+
 	}
 
 	public void setMastered(Objective o, boolean b) throws Exception {
 		int size = objectives.size();
 		boolean x = false;
-		for(int i = 0; i <size; i++)
-		{
-			if(objectives.get(i).getObjective() == o)
-			{
+		for (int i = 0; i < size; i++) {
+			if (objectives.get(i).getObjective() == o) {
 				objectives.get(i).setMastered(b);
 				x = true;
 				break;
 			}
 		}
-		if(!x)
-		{
+		if (!x) {
 			throw new Exception("Could not find objective in that child");
 		}
 	}
-    
-    
+
 }

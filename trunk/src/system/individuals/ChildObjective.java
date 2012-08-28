@@ -54,6 +54,9 @@ public class ChildObjective{
 		return objective;
 	}
 
+	// Takes in an int and increments the step by that int.
+	// Can be either positive or negative. if 0 or less or greater than the size then 
+	// throws exception
 	public void incrementStep(int num) throws Exception {
 		int stepNum = currentStep + num;
 		if(stepNum <= 0 || stepNum > objective.getStepsNo())
