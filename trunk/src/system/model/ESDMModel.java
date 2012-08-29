@@ -459,6 +459,19 @@ public class ESDMModel {
     		throw new Exception("Date Of Birth is a required field.");
     	}
     	
+    	if(dateJoined != null)
+    	{
+    		if(dob.compareTo(dateJoined) > 0)
+    		{
+    			throw new Exception("Date Joined cannot be before Date of Birth");
+    		}
+    	}
+    	
+		if(dob.compareTo(Calendar.getInstance()) > 0)
+		{
+			throw new Exception("Date of Birth cannot be after today");
+		}
+    	
         Child child = new Child(name, dob, dateJoined);
        
         childList.add(child);
@@ -545,17 +558,21 @@ public class ESDMModel {
 		//iterate through string
 		//create step for each pair
 		//create objective with these steps
-		if(steps.length == 0)
-		{
-			throw new Exception("No steps have been added.");
-		}
 		if(name.length() == 0)
 		{
 			throw new Exception("Name field is empty.");
 		}
+		if(level == 0)
+		{
+			throw new Exception("Level field is empty.");
+		}
 		if(description.length() == 0)
 		{
 			throw new Exception("Description field is empty.");
+		}
+		if(steps.length == 0)
+		{
+			throw new Exception("No steps have been added.");
 		}
 		
     	org.hibernate.Session session = factory.getCurrentSession();
@@ -597,8 +614,16 @@ public class ESDMModel {
 	 * Sets the email of the user that is currently logged into the system to the String parsed through
 	 */
 	
-	public void setEmail(String email) {
-		currentUser.setEmailAddress(email);
+	public void setEmail(String email) throws Exception {
+		if(Helper.isValidEmailAddress(email))
+		{
+			currentUser.setEmailAddress(email);
+		}
+		else
+		{
+			throw new Exception("The email address is not valid.");
+		}
+
 	}
 
 	/*
@@ -799,6 +824,29 @@ public class ESDMModel {
 	
 	
 	public void updateChild(Child child, String name, Calendar dob, Calendar dateJoined) throws Exception {
+    	if(name.length() == 0)
+    	{
+    		throw new Exception("Name is a required field.");
+    	}
+    	
+    	if(dob == null)
+    	{
+    		throw new Exception("Date Of Birth is a required field.");
+    	}
+    	
+    	if(dateJoined != null)
+    	{
+    		if(dob.compareTo(dateJoined) > 0)
+    		{
+    			throw new Exception("Date Joined cannot be before Date of Birth");
+    		}
+    	}
+    	
+		if(dob.compareTo(Calendar.getInstance()) > 0)
+		{
+			throw new Exception("Date of Birth cannot be after today");
+		}
+		
 		child.setName(name);
 		child.setDob(dob);
 		child.setDateJoined(dateJoined);
@@ -910,33 +958,41 @@ public class ESDMModel {
 		
 	}
 	
-	public void saveObjective(Objective objective, String name, String description, int level, String[][] steps)
+	public void saveObjective(Objective objective, String name, String description, int level, String[][] steps) throws Exception
 	{
+		if(name.length() == 0)
+		{
+			throw new Exception("Name field is empty.");
+		}
+		if(level == 0)
+		{
+			throw new Exception("Level field is empty.");
+		}
+		if(description.length() == 0)
+		{
+			throw new Exception("Description field is empty.");
+		}
+		
 		objective.setDescription(name);
 		objective.setName(description);
 		objective.setLevel(level);
-		ArrayList<Step> stepList = new ArrayList<Step>();
 		
+		objective.getStepsNo();
+		int x = 1;
 		for(int i = 0; i < steps.length; i++)
 		{
-			Step s = new Step(steps[i][0], steps[i][1], steps[i][2]);
-			stepList.add(s);
-			s.setObjective(objective);
+			if(steps[i][0].isEmpty() || steps[i][1].isEmpty())
+			{
+				throw new Exception("Not all steps have been filled in.");
+			}
+			Step s = objective.getStep(x);
+			s.setNo("" + x++);
+			s.setCode(steps[i][0]);
+			s.setDescription(steps[i][1]);
 		}
 		
 		org.hibernate.Session session = factory.getCurrentSession();
     	session.beginTransaction();
-		
-		ArrayList<Step> objectiveSteps = new ArrayList<Step>(objective.getSteps());
-		for(int i = 0; i < objectiveSteps.size(); i++)
-		{
-			Step s = (Step) session.merge(objectiveSteps.get(i));
-			session.delete(s);
-		}
-		
-
-		objective.setSteps(stepList);
-		
     	objective = (Objective) session.merge(objective);
     	session.save(objective);
     	session.getTransaction().commit();

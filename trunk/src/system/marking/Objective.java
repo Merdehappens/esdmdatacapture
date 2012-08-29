@@ -168,8 +168,7 @@ public class Objective implements SimpleKey  {
 	}
 
 	public Step getStep(int currentStep) {
-		Step s = steps.get(currentStep - 1);
-		return s;
+		return steps.get(currentStep - 1);
 	}
 	
 	public void setChildren(List<ChildObjective> children) {
