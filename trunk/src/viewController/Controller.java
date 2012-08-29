@@ -102,6 +102,7 @@ public class Controller extends JFrame {
 	private AddGuardian addGuardian;
 	
 	private HashMap<String, JPanel> panelMap = new HashMap<String, JPanel>();
+	private JButton btnBack;
 
 	
 	public Controller() throws MalformedURLException {
@@ -243,7 +244,7 @@ public class Controller extends JFrame {
 
 		// Add all the panels (Cards) to the Session Tab
 
-		homeView = new HomeView();
+		homeView = new HomeView(model);
 		homePanel.add(homeView, "Home");
 		panelMap.put("Home", homePanel);
 
@@ -339,18 +340,21 @@ public class Controller extends JFrame {
 		lblMessage.setBounds(106, 538, 829, 24);
 		contentPane.add(lblMessage);
 		
-		JButton btnBack = new JButton("<");
+		btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				goBack();
 			}
 		});
-		btnBack.setBounds(7, 539, 51, 23);
+		btnBack.setBounds(7, 539, 70, 25);
 		contentPane.add(btnBack);
+		btnBack.setEnabled(false);
 
 		// Show the login screen
 
 		showLogin();
+		homeView.refreshView();
+		backList.add("Home");
 	}
 
 	// This function calls the functions from within each view class that
@@ -1168,6 +1172,7 @@ public class Controller extends JFrame {
 		try{
 		int size = backList.size() - 1;
 		backList.remove(size);	
+		System.out.println(size);
 		String card = backList.remove(size - 1);
 		JPanel panel = panelMap.get(card);
 		show(panel, card);
@@ -1182,6 +1187,12 @@ public class Controller extends JFrame {
 		{
 			showErrorMessage("There is not any history any further");
 		}
+		
+		if(backList.size() <= 1)
+		{
+			btnBack.setEnabled(false);
+		}
+		
 	}
 	
 	private void show(JPanel panel, String card) {
@@ -1189,8 +1200,7 @@ public class Controller extends JFrame {
 		temp.show(panel, card);
 		lblMessage.setText("");
 		backList.add(card);
-		
-		printArray();
+		btnBack.setEnabled(true);		
 	}
 	
 	ArrayList<String> backList = new ArrayList<String>();
