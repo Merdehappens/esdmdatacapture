@@ -217,6 +217,20 @@ public class ViewObjective extends PanelView {
 	public void refreshView() {
 		populateFields(objective);
 	}
+	
+	public int getLevel() throws Exception {
+		if(txtLevel.getText().length() != 0)
+		{
+			try{
+			return Integer.parseInt(txtLevel.getText());
+			}
+			catch(Exception e) {
+				throw new Exception("Level must be a number.");
+			}
+		}
+		
+		return 0;
+	}
 
 	
 	private void populateFields(Objective o) {
@@ -238,6 +252,10 @@ public class ViewObjective extends PanelView {
 			tableModel.addRow(row);
 		}
 
+	}
+
+	public Objective getObjective() {
+		return objective;
 	}
 
 

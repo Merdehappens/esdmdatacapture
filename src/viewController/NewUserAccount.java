@@ -21,7 +21,7 @@ public class NewUserAccount extends PanelView {
 	private JTextField txtUsername;
 	private JTextField txtEmail;
 	private JTextField txtPhone;
-	private JRadioButton rdbtnAdminTherapist;
+	private JRadioButton rdbtnAdmin;
 	private JRadioButton rdbtnGuardian;
 	private JRadioButton rdbtnTherapist;
 
@@ -87,27 +87,27 @@ public class NewUserAccount extends PanelView {
 		txtPhone.setColumns(10);
 		
 		rdbtnTherapist = new JRadioButton("Therapist");
-		rdbtnTherapist.setBounds(115, 249, 109, 23);
+		rdbtnTherapist.setBounds(131, 249, 109, 23);
 		add(rdbtnTherapist);
 		
 		rdbtnGuardian = new JRadioButton("Guardian");
 		rdbtnGuardian.setBounds(10, 249, 109, 23);
 		add(rdbtnGuardian);
 		
-		rdbtnAdminTherapist = new JRadioButton("Admin Therapist");
-		rdbtnAdminTherapist.setBounds(226, 249, 109, 23);
-		add(rdbtnAdminTherapist);
+		rdbtnAdmin = new JRadioButton("Admin");
+		rdbtnAdmin.setBounds(272, 249, 86, 23);
+		add(rdbtnAdmin);
 		
 		ButtonGroup b = new ButtonGroup();
 		b.add(rdbtnGuardian);
 		b.add(rdbtnTherapist);
-		b.add(rdbtnAdminTherapist);
+		b.add(rdbtnAdmin);
 
 	}
 	
 	public String getSelectedAccess()
 	{
-		if(rdbtnAdminTherapist.isSelected())
+		if(rdbtnAdmin.isSelected())
 		{
 			return "a";
 		}

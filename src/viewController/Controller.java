@@ -377,7 +377,6 @@ public class Controller extends JFrame {
 					show(sessionPanel, "logSessionData");
 				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
-					e.printStackTrace();
 				}
 
 			}
@@ -578,9 +577,13 @@ public class Controller extends JFrame {
 
 		changeEmail.saveListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				model.setEmail(changeEmail.getEmail());
-				show(accountPanel, "Account");
-				showMessage("Details successfully saved.");
+				try {
+					model.setEmail(changeEmail.getEmail());
+					show(accountPanel, "Account");
+					showMessage("Details successfully saved.");
+				} catch (Exception e) {
+					showMessage(e.getMessage());
+				}
 			}
 		});
 
@@ -715,14 +718,19 @@ public class Controller extends JFrame {
 		
 		viewObjective.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				try {
-					Objective o = viewObjective.saveObjective();
-					model.updateObject(o);
-					show(objectivePanel, "Objective");
-					showMessage("Objective successfully added");
-				} catch (Exception e) {
-					showMessage(e.getMessage());
-				}
+					try {
+						Objective objective = viewObjective.getObjective();
+						String name = viewObjective.getObjectiveName();
+						String description = viewObjective.getObjectiveDescription();
+						int level = viewObjective.getLevel();
+						String[][] steps = viewObjective.getSteps();
+						model.saveObjective(objective, name, description, level, steps);
+						show(objectivePanel, "Objective");
+						showMessage("Objective successfully added");
+					} catch (Exception e) {
+						showErrorMessage(e.getMessage());
+						e.printStackTrace();
+					}
 			}
 		});
 
@@ -730,7 +738,7 @@ public class Controller extends JFrame {
 		objectiveView.viewObjectives(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 
-				try {
+				try {					
 					viewObjective.setObjective(objectiveView
 							.getSelectedObjective());
 					show(objectivePanel, "viewObjective");
@@ -1085,7 +1093,7 @@ public class Controller extends JFrame {
 			else
 				label_tries = new JLabel("");
 
-			loginname = new JTextField(15);
+			loginname = new JTextField(25);
 			password = new JPasswordField();
 
 			Object[] array = { label_tries, label_loginname, loginname,
@@ -1157,14 +1165,6 @@ public class Controller extends JFrame {
 		
 		} catch (Exception e) {
 			showMessage(e.getMessage());
-		}
-	}
-	
-	private void printArray() {
-		System.out.println();
-		for(int i = 0; i <backList.size(); i++)
-		{
-			System.out.print(backList.get(i) + " - ");
 		}
 	}
 	
