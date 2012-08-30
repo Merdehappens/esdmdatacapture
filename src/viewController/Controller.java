@@ -336,7 +336,7 @@ public class Controller extends JFrame {
 		panelMap.put("newUserAccount", accountPanel);
 		
 		lblMessage = new JLabel("");
-		lblMessage.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblMessage.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblMessage.setBounds(87, 539, 829, 46);
 		contentPane.add(lblMessage);
 		
@@ -346,7 +346,7 @@ public class Controller extends JFrame {
 				goBack();
 			}
 		});
-		btnBack.setBounds(7, 539, 70, 25);
+		btnBack.setBounds(10, 547, 70, 25);
 		contentPane.add(btnBack);
 		btnBack.setEnabled(false);
 		
