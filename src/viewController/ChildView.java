@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 public class ChildView extends PanelView {
 
@@ -103,8 +104,13 @@ public class ChildView extends PanelView {
 		});
 		btnResetSearch.setBounds(804, 109, 146, 30);
 		add(btnResetSearch);
+		
+		TableColumnModel tblColModel = childTable.getColumnModel();
 
-		refreshView();
+		tblColModel.getColumn(0).setPreferredWidth(100);
+		tblColModel.getColumn(1).setPreferredWidth(500);
+		tblColModel.getColumn(2).setPreferredWidth(150);
+		tblColModel.getColumn(3).setPreferredWidth(150);
 
 	}
 
@@ -178,7 +184,7 @@ public class ChildView extends PanelView {
 
 		Object[] arr = { lblName, txtName, lblActive, cmbActive };
 
-		int res = JOptionPane.showConfirmDialog(null, arr, "Refine Search",
+		int res = JOptionPane.showConfirmDialog(this, arr, "Refine Search",
 				JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		if(res == 0)
 		{

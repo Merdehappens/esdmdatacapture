@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 public class ObjectiveView extends PanelView {
 
@@ -71,11 +72,18 @@ public class ObjectiveView extends PanelView {
 		objectiveTable.setModel(tableModel);
 
 		// sets the column names to the string array
-		String[] columnNames = new String[] { "ObjectiveID", "Name",
-				"Description", "Level", "Number of Steps" };
+		String[] columnNames = new String[] { "ID", "Name",
+				/*"Description",*/ "Level", "# Steps" };
 
 		tableModel.setColumnIdentifiers(columnNames);
 		
+		TableColumnModel tblColModel = objectiveTable.getColumnModel();
+		
+		tblColModel.getColumn(0).setPreferredWidth(50);
+		tblColModel.getColumn(1).setPreferredWidth(700);
+		tblColModel.getColumn(2).setPreferredWidth(50);
+		tblColModel.getColumn(3).setPreferredWidth(75);
+		//tblColModel.getColumn(4).setPreferredWidth(50);
 		refreshView();
 
 	}
@@ -131,13 +139,13 @@ public class ObjectiveView extends PanelView {
 		for (int i = 0; i < size; i++) {
 			Objective objective = objectives.get(i);
 
-			Object[] rowData = new Object[5];
+			Object[] rowData = new Object[4];//new Object[5];
 
 			rowData[0] = objective.getId();
 			rowData[1] = objective.getName();
-			rowData[2] = objective.getDescription();
-			rowData[3] = objective.getLevel();
-			rowData[4] = objective.getSteps().size();
+			//rowData[2] = objective.getDescription();
+			rowData[2] = objective.getLevel();
+			rowData[3] = objective.getSteps().size();
 
 			tableModel.addRow(rowData);
 

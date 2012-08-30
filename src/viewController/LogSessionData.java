@@ -332,7 +332,7 @@ public class LogSessionData extends PanelView {
 			this.getModel().addMark(session, child, objective, step, mark, day);
 		} catch (Exception e) {
 			JOptionPane
-					.showMessageDialog(null,
+					.showMessageDialog(this,
 							"Error: One or more items are not selected. This mark was not saved.");
 		}
 	}

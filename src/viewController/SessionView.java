@@ -132,12 +132,7 @@ public class SessionView extends PanelView {
 			Object[] row = new Object[4];
 			
 			Day temp = dayList.get(i);
-
-			Calendar c = Calendar.getInstance();
-			dateFormatter.format(c.getTime());
 			
-			temp.getDate();
-
 			row[0] = temp;
 			row[1] = temp.getRoom().getRoomName();
 			row[2] = temp.getChildren().size();
@@ -188,7 +183,7 @@ public class SessionView extends PanelView {
 				dateChooserTo, btnTodaysDate };
 
 		// Creates the option pane for the refine search screen
-		int res = JOptionPane.showConfirmDialog(null, arr, "Refine Search",
+		int res = JOptionPane.showConfirmDialog(this, arr, "Refine Search",
 				JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
 		// Refines the search based on what options were ticked in the refine search panel
