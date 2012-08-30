@@ -83,16 +83,18 @@ public class EditChild extends PanelView {
 		add(lblDateJoined);
 
 		txtName = new JTextField();
-		txtName.setBounds(66, 63, 205, 30);
+		txtName.setBounds(66, 63, 263, 30);
 		add(txtName);
 		txtName.setColumns(10);
 
 		dobChooser = new JDateChooser();
-		dobChooser.setBounds(87, 107, 184, 30);
+		dobChooser.setDateFormatString("dd/MM/yyyy");
+		dobChooser.setBounds(87, 107, 242, 30);
 		add(dobChooser);
 
 		dateJoinedChooser = new JDateChooser();
-		dateJoinedChooser.setBounds(87, 148, 184, 30);
+		dateJoinedChooser.setDateFormatString("dd/MM/yyyy");
+		dateJoinedChooser.setBounds(87, 148, 242, 30);
 		add(dateJoinedChooser);
 
 		btnSave = new JButton("Save");

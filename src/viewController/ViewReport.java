@@ -25,7 +25,6 @@ public class ViewReport extends PanelView {
 	private JTable tblSession;
 	private DefaultTableModel tableModel;
 	private Child child;
-	private JButton btnSave;
 	private JLabel lblChildName;
 	private JButton btnExport;
 	/**
@@ -50,27 +49,25 @@ public class ViewReport extends PanelView {
 		tblSession = new JTable();
 		String[] columnNames = new String[] { "Date", "Objective", "Step",
 				"Setting", "Mark", "Comments" };
-
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(66, 154, 835, 303);
 		add(scrollPane);
 		scrollPane.setViewportView(tblSession);
 
-		tableModel = new DefaultTableModel();
+		tableModel = new DefaultTableModel() {
+
+			public boolean isCellEditable(int row, int column) {
+			 return false;
+			}
+
+		};
 		tableModel.setColumnIdentifiers(columnNames);
-
 		tblSession.setModel(tableModel);
-
-		// Adds the Save button to the page.
-
-		btnSave = new JButton("Save");
-		btnSave.setBounds(44, 471, 89, 23);
-		add(btnSave);
 
 		// Adds the date chooser to the page
 
 		JDateChooser dateChooserTo = new JDateChooser();
-		dateChooserTo.setBounds(254, 108, 200, 35);
+		dateChooserTo.setBounds(529, 87, 200, 35);
 		add(dateChooserTo);
 
 		JLabel lblTo = new JLabel("To Date:");
@@ -79,24 +76,24 @@ public class ViewReport extends PanelView {
 		// Adds the second date chooser to the page
 
 		JDateChooser dateChooserFrom = new JDateChooser();
-		dateChooserFrom.setBounds(254, 61, 200, 35);
+		dateChooserFrom.setBounds(319, 87, 200, 35);
 		add(dateChooserFrom);
 		
 				JLabel lblFrom = new JLabel("From Date:");
 				dateChooserFrom.add(lblFrom, BorderLayout.WEST);
 
 		JLabel lblChild = new JLabel("Child: ");
-		lblChild.setBounds(10, 43, 44, 14);
+		lblChild.setBounds(10, 69, 44, 14);
 		add(lblChild);
 
 		lblChildName = new JLabel("");
-		lblChildName.setBounds(64, 43, 115, 14);
+		lblChildName.setBounds(64, 69, 115, 14);
 		add(lblChildName);
 		
 		// Creates a new button to export report to file
 
 		btnExport = new JButton("Export to File");
-		btnExport.setBounds(396, 468, 139, 26);
+		btnExport.setBounds(64, 468, 139, 26);
 		add(btnExport);
 
 	}
@@ -109,12 +106,7 @@ public class ViewReport extends PanelView {
 		Helper.exportCSV(f, tblSession);
 	}
 
-	// Adds the action listener that is parsed in on the save button
-
-	public void saveListener(ActionListener al) {
-		btnSave.addActionListener(al);
-	}
-	
+	// Adds the action listener that is parsed in on the export button	
 	public void exportListener(ActionListener al) {
 		btnExport.addActionListener(al);
 	}
