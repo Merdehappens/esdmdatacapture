@@ -47,11 +47,11 @@ public class AccountView extends PanelView {
 		btnNewUserAccount = new JButton("Create New User Account");
 		btnNewUserAccount.setBounds(20, 170, 200, 40);
 		add(btnNewUserAccount);
-		
+		/*
 		JButton btnViewAccount = new JButton("View Account");
 		btnViewAccount.setBounds(20, 221, 200, 40);
 		add(btnViewAccount);
-
+		 */
 	}
 
 	// Takes in an ActionListener and adds it to the change password button
