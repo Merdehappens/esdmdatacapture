@@ -279,49 +279,14 @@ public class ESDMModel {
     	
 
 
-    	
-    	
-
-    	
-    	String sqlUserAccountQry = ("Select useraccount.name, useraccount.access, useraccount.emailAddress," +
-    			"useraccount.password, useraccount.phoneNo, useraccount.username From UserAccount useraccount");
-    	query = session.createQuery(sqlUserAccountQry);
-    	
-    	Therapist ther;
-    	Guardian guar;
-    	String therCheck;
+    	qry = ("Select account from UserAccount account");
+    	query = session.createQuery(qry);
     	
     	for(Iterator it = query.iterate(); it.hasNext();)
     	{
-    		Object[] row = (Object[]) it.next();
-
-    		therCheck = (row[1]+"");
-    		if(!(therCheck.equals("g")))
-    		{
-    			ther = new Therapist();
-    			ther.setName(row[0]+"");
-    			ther.setAccess(therCheck);
-    			ther.setEmailAddress(row[2]+"");
-    			ther.setHashedPassword(row[3]+"");
-    			ther.setPhoneNo(row[4]+"");
-    			ther.setUsername(row[5]+"");
-    			userList.add(ther);
-    		}
-    		else
-    		{
-    			guar = new Guardian();
-    			guar.setName(row[0]+"");
-    			guar.setAccess(therCheck);
-    			guar.setEmailAddress(row[2]+"");
-    			guar.setHashedPassword(row[3]+"");
-    			guar.setPhoneNo(row[4]+"");
-    			guar.setUsername(row[5]+"");
-    			userList.add(guar);
-    		}
+    		UserAccount ua = (UserAccount) it.next();
+    		userList.add(ua);
     	}
-    	
-
-    	
     	
     
     }
@@ -343,6 +308,7 @@ public class ESDMModel {
         		if(BCrypt.checkpw(password, temp.getPassword()))
         		{
         			currentUser = temp;
+        			//TODO Session
         			return true;
         		}
         		else
@@ -395,7 +361,7 @@ public class ESDMModel {
     	
     	Therapist user = new Therapist(name, username, emailAddress);
     	user.setAccess(access);
-    	
+    	user.setPhoneNo(phoneNo);
     	user.setPassword(password);
     	
     	org.hibernate.Session session = factory.getCurrentSession();
@@ -429,6 +395,7 @@ public class ESDMModel {
 		Guardian user = new Guardian(name, username, emailAddress);
 		user.setAccess(access);
 		user.setPassword(password);
+		user.setPhoneNo(phoneNo);
 		userList.add(user);
 		
     	org.hibernate.Session session = factory.getCurrentSession();
