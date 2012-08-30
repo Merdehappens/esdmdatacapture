@@ -3,13 +3,29 @@ package system.model;
 
 
 
+import java.applet.AudioClip;
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.*;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineListener;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.sound.sampled.LineEvent.Type;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import system.helper.Helper;
+import system.helper.PlaySound;
+import system.helper.SimpleKey;
 import system.individuals.Child;
 import system.individuals.ChildObjective;
 import system.individuals.Guardian;
@@ -42,7 +58,8 @@ public class ESDMModel {
     
     public ESDMModel() throws MalformedURLException
     {
-        childList = new ArrayList<Child>();
+
+    	childList = new ArrayList<Child>();
         sessionList = new HashSet<Session>();
         objectiveList = new ArrayList<Objective>();
         markList = new HashSet<Mark>();
@@ -1034,21 +1051,40 @@ public class ESDMModel {
     	session.getTransaction().commit();
 	}
 	
+	
+	// Takes in any SimpleKey object. and plays the WAV file associated to that object.
+	// Runs in a thread so that you can still navigate around while file is playing
+	
+	public void playSound(SimpleKey object) throws Exception {
+
+		String filePath = object.getClass().getSimpleName();
+		File file = new File(".\\" + filePath + "\\" + object.getId() + ".wav");
+		
+		PlaySound ps = new PlaySound(file);
+		Thread thread = new Thread(ps);
+		thread.start();
+		
+	}
+	
+	// Takes in a child object and Objective object and removes that 
 	public void removeObjective(Child c, Objective o)
 	{
 		c.removeObjective(o);
-		// TODO Save 
+		// TODO Save to DB
 	}
+	
 	
 	public void incrementStep(Child c, Objective o) throws Exception {
 		c.incrementStep(o, 1);
-		// TODO SAve to dB
+		// TODO Save to DB
 	}
 
+	
 	public void decrementStep(Child c, Objective o) throws Exception {
 		c.incrementStep(o, -1);
-		// TODO SAve to dB
+		// TODO Save to DB
 	}
+	
 	
 	
 	public void setObjectiveType(Objective objective, ObjectiveType objectiveType) {
