@@ -1,5 +1,6 @@
 package viewController;
 
+import java.awt.Component;
 import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 
@@ -66,6 +67,8 @@ public class Controller extends JFrame {
 	private static final int yRes = 600;
 
 	private ESDMModel model;
+	
+	private Component parent;
 
 	private static JFrame loadingFrame;
 	private JPanel contentPane;
@@ -96,7 +99,6 @@ public class Controller extends JFrame {
 	private ChildView childViewGrid;
 	private ViewObjective viewObjective;
 	private JLabel lblMessage;
-	private LinkGuardian linkGuardian;
 	private String access;
 	private ChangeMark changeMark;
 	private AddGuardian addGuardian;
@@ -199,7 +201,7 @@ public class Controller extends JFrame {
 
 		setTitle("ESDM Data Capture");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, xRes, yRes);
+		setBounds(100, 100, 1024, 621);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -332,12 +334,9 @@ public class Controller extends JFrame {
 		accountPanel.add(newUserAccount, "newUserAccount");
 		panelMap.put("newUserAccount", accountPanel);
 		
-		linkGuardian = new LinkGuardian(model);
-		accountPanel.add(linkGuardian, "linkGuardian");
-		panelMap.put("linkGuardian", accountPanel);
-
 		lblMessage = new JLabel("");
-		lblMessage.setBounds(106, 538, 829, 24);
+		lblMessage.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblMessage.setBounds(87, 539, 829, 46);
 		contentPane.add(lblMessage);
 		
 		btnBack = new JButton("Back");
@@ -349,6 +348,8 @@ public class Controller extends JFrame {
 		btnBack.setBounds(7, 539, 70, 25);
 		contentPane.add(btnBack);
 		btnBack.setEnabled(false);
+		
+		parent = this;
 
 		// Show the login screen
 
@@ -540,7 +541,7 @@ public class Controller extends JFrame {
 					String temp = "Are you sure you wish to delete "
 							+ child.getName() + " ?";
 
-					int res = JOptionPane.showConfirmDialog(null, temp,
+					int res = JOptionPane.showConfirmDialog(parent, temp,
 							"Delete Child", JOptionPane.OK_CANCEL_OPTION,
 							JOptionPane.PLAIN_MESSAGE);
 
@@ -844,7 +845,7 @@ public class Controller extends JFrame {
 				String temp = "Are you sure you wish to save details for "
 						+ child.getName() + "\nWith ID: " + child + "?";
 
-				int res = JOptionPane.showConfirmDialog(null, temp,
+				int res = JOptionPane.showConfirmDialog(parent, temp,
 						"Save Details", JOptionPane.OK_CANCEL_OPTION,
 						JOptionPane.PLAIN_MESSAGE);
 				if (res == 0) {
@@ -939,12 +940,6 @@ public class Controller extends JFrame {
 			}
 		});
 		
-		linkGuardian.cancel(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(accountPanel, "Account");
-			}
-		});
-
 		tabbedPane.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 		
@@ -953,22 +948,27 @@ public class Controller extends JFrame {
 				case 0:
 					c = (CardLayout) homePanel.getLayout();
 					show(homePanel, "Home");
+					homeView.refreshView();
 					break;
 				case 1:
 					c = (CardLayout) sessionPanel.getLayout();
 					show(sessionPanel, "Session");
+					sessionView.refreshView();
 					break;
 				case 2:
 					c = (CardLayout) childPanel.getLayout();
 					show(childPanel, "Child");
+					childViewGrid.refreshView();
 					break;
 				case 3:
 					c = (CardLayout) objectivePanel.getLayout();
 					show(objectivePanel, "Objective");
+					objectiveView.refreshView();
 					break;
 				case 4:
 					c = (CardLayout) reportingPanel.getLayout();
 					show(reportingPanel, "Reporting");
+					reportingView.refreshView();
 					break;
 				case 5:
 					c = (CardLayout) accountPanel.getLayout();
@@ -1148,7 +1148,7 @@ public class Controller extends JFrame {
 
 	private void showErrorMessage(String message) {
 		showMessage(message);
-		JOptionPane.showMessageDialog(null, message);
+		JOptionPane.showMessageDialog(parent, message);
 	}
 	
 	public void saveMark() {

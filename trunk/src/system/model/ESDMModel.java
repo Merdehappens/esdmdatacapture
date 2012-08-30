@@ -17,6 +17,7 @@ import system.individuals.Therapist;
 import system.individuals.UserAccount;
 import system.marking.Mark;
 import system.marking.Objective;
+import system.marking.ObjectiveType;
 import system.marking.Step;
 import system.sessions.Day;
 import system.sessions.Session;
@@ -817,8 +818,7 @@ public class ESDMModel {
 
 	public void removeChild(Child child) {
 		child.setInactive();
-		
-		// TODO SAVE to dAtabase
+		updateObject(child);
 	}
 
 	
@@ -930,13 +930,6 @@ public class ESDMModel {
 	public String getCurrentAccess() {
 		return currentUser.getAccess();
 	}
-	
-	public void removeObjective(Child c, Objective o)
-	{
-		c.removeObjective(o);
-		
-		// TODO Save 
-	}
 
 	public void updateMark(Mark mark, Session session, Child child,
 			Calendar time, Objective objective, Step step, int markVal,
@@ -973,8 +966,8 @@ public class ESDMModel {
 			throw new Exception("Description field is empty.");
 		}
 		
-		objective.setDescription(name);
-		objective.setName(description);
+		objective.setName(name);
+		objective.setDescription(description);
 		objective.setLevel(level);
 		
 		objective.getStepsNo();
@@ -998,15 +991,7 @@ public class ESDMModel {
     	session.getTransaction().commit();
 	}
 
-	public void incrementStep(Child c, Objective o) throws Exception {
-		c.incrementStep(o, 1);
-		// TODO SAve to dB
-	}
 
-	public void decrementStep(Child c, Objective o) throws Exception {
-		c.incrementStep(o, -1);
-		// TODO SAve to dB
-	}
 
 	public void setMastered(Child c, Objective o) throws Exception {
 		c.setMastered(o, true);
@@ -1046,5 +1031,31 @@ public class ESDMModel {
     	session.getTransaction().commit();
 	}
 	
+	public void removeObjective(Child c, Objective o)
+	{
+		c.removeObjective(o);
+		// TODO Save 
+	}
 	
+	public void incrementStep(Child c, Objective o) throws Exception {
+		c.incrementStep(o, 1);
+		// TODO SAve to dB
+	}
+
+	public void decrementStep(Child c, Objective o) throws Exception {
+		c.incrementStep(o, -1);
+		// TODO SAve to dB
+	}
+	
+	
+	public void setObjectiveType(Objective objective, ObjectiveType objectiveType) {
+		//TODO Add Code Here
+	}
+	
+	public void addNewObjectiveType(String name) {
+		//TODO Add Code Here
+	}
+	
+	
+
 }

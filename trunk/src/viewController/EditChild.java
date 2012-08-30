@@ -227,7 +227,7 @@ public class EditChild extends PanelView {
 		try {
 			setChild(this.getModel().viewChild(childId));
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
 
