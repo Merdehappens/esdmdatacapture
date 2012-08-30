@@ -257,7 +257,7 @@ public class ESDMModel {
     		childList.add(c);
     	}
     	
-    	qry = ("Select day from Day day");
+    	qry = ("Select day from Day day order by day.date DESC");
     	query = session.createQuery(qry);
 
     	for(Iterator it = query.iterate(); it.hasNext();)

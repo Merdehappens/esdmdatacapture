@@ -26,6 +26,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
 import system.helper.Helper;
+import system.helper.MessageFade;
 import system.individuals.Child;
 import system.individuals.Guardian;
 import system.marking.Mark;
@@ -398,6 +399,7 @@ public class Controller extends JFrame {
 		
 		logSessionData.commitMarkListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
+				// TODO FIX
 				logSessionData.addMark();
 				showMessage("Mark added.");
 			}
@@ -406,6 +408,7 @@ public class Controller extends JFrame {
 		logSessionData
 				.addTimestampListener(new java.awt.event.ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
+						// TODO FIX
 						logSessionData.addTimestamp();
 						showMessage("Timestamp added.");
 					}
@@ -916,7 +919,6 @@ public class Controller extends JFrame {
 					model.decrementStep(c, o);
 					lblMessage.setText("");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					showMessage(e.getMessage());
 					e.printStackTrace();
 				}
@@ -1145,6 +1147,8 @@ public class Controller extends JFrame {
 
 	private void showMessage(String message) {
 		lblMessage.setText(message);
+		MessageFade mf = new MessageFade(lblMessage);
+		new Thread(mf).start();
 	}
 
 	private void showErrorMessage(String message) {
