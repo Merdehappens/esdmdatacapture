@@ -666,6 +666,7 @@ public class Controller extends JFrame {
 				{
 					Guardian g = (Guardian) model.getCurrentUser();
 					findChildReport.setChildren(g.getChildren());
+					System.out.println(g.getChildren().size());
 				}
 				else	
 				{
