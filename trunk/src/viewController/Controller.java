@@ -1152,8 +1152,8 @@ public class Controller extends JFrame {
 	}
 
 	private void showErrorMessage(String message) {
-		showMessage(message);
 		JOptionPane.showMessageDialog(parent, message);
+		showMessage(message);
 	}
 	
 	public void saveMark() {
@@ -1205,7 +1205,7 @@ public class Controller extends JFrame {
 		temp.show(panel, card);
 		lblMessage.setText("");
 		backList.add(card);
-		btnBack.setEnabled(true);		
+		btnBack.setEnabled(true);
 	}
 	
 	ArrayList<String> backList = new ArrayList<String>();
