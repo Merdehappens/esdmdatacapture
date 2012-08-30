@@ -816,6 +816,7 @@ public class Controller extends JFrame {
 								model.addChildGuardian(editChild.getChild(), addGuardian.getGuardian());
 							} catch (Exception e) {
 								showErrorMessage(e.getMessage());
+								e.printStackTrace();
 							}
 						}
 						else

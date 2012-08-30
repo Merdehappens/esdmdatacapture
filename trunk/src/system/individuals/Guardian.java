@@ -36,6 +36,7 @@ public class Guardian extends UserAccount {
     
     public Guardian(String name, String username, String emailAddress) {
 		super(name, username, emailAddress);
+		children = new ArrayList<Child>();
 	}
 
 	public void addChild(Child child)

@@ -1008,6 +1008,9 @@ public class ESDMModel {
 	}
 
 	public void addChildGuardian(Child child, Guardian guardian) throws Exception {
+		
+		System.out.println("Child: " + child.getId() + " Guardian: " + guardian.getId());
+		
 		ArrayList<Guardian> childsGuardians = new ArrayList<Guardian>(child.getGuardians());
 		for(int i = 0; i < childsGuardians.size(); i++)
 		{
