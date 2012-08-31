@@ -52,6 +52,10 @@ public class LogSessionData extends PanelView {
 	private DefaultListModel<Objective> objectiveModel;
 	private DefaultListModel<Step> stepModel;
 	private DefaultListModel<Mark> markModel;
+	private JLabel lblStep;
+	private JButton btnListenChild;
+	private JButton btnListenObjective;
+	private JButton btnListenSetting;
 
 
 	public LogSessionData() {
@@ -78,7 +82,7 @@ public class LogSessionData extends PanelView {
 		super.setTitle("Log Data");
 
 		btnSubmit = new JButton("Complete Data Logging");
-		btnSubmit.setBounds(322, 346, 154, 47);
+		btnSubmit.setBounds(454, 403, 223, 47);
 		add(btnSubmit);
 
 		lblSetting = new JLabel("Setting");
@@ -125,6 +129,12 @@ public class LogSessionData extends PanelView {
 		lstObjective.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lstObjective.setBounds(310, 94, 522, 174);
 		add(lstObjective);
+		
+		lstObjective.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0){
+				populateStep();
+			}
+		});
 
 		stepModel = new DefaultListModel<Step>();
 
@@ -142,11 +152,11 @@ public class LogSessionData extends PanelView {
 
 		btnCommitMark = new JButton("Commit Mark");
 		btnCommitMark.setMnemonic(KeyEvent.VK_J);
-		btnCommitMark.setBounds(10, 346, 154, 47);
+		btnCommitMark.setBounds(10, 403, 154, 47);
 		add(btnCommitMark);
 
 		btnAddTimestamp = new JButton("Add Timestamp");
-		btnAddTimestamp.setBounds(10, 404, 154, 47);
+		btnAddTimestamp.setBounds(171, 403, 154, 47);
 		add(btnAddTimestamp);
 
 		JButton btnSettingNext = new JButton(">");
@@ -241,7 +251,52 @@ public class LogSessionData extends PanelView {
 		});
 		btnMarkNext.setBounds(885, 270, 40, 40);
 		add(btnMarkNext);
+		
+		JLabel lblCurrStep = new JLabel("Step:");
+		lblCurrStep.setBounds(383, 361, 40, 14);
+		add(lblCurrStep);
+		
+		lblStep = new JLabel("");
+		lblStep.setBounds(428, 361, 498, 14);
+		add(lblStep);
+		
+		btnListenSetting = new JButton("Listen");
+		btnListenSetting.setBounds(41, 317, 89, 23);
+		add(btnListenSetting);
+		
+		btnListenChild = new JButton("Listen");
+		btnListenChild.setBounds(198, 321, 89, 23);
+		add(btnListenChild);
+		
+		btnListenObjective = new JButton("Listen");
+		btnListenObjective.setBounds(527, 327, 89, 23);
+		add(btnListenObjective);
 
+	}
+	
+	public void listenChildListener(ActionListener al)
+	{
+		btnListenChild.addActionListener(al);
+	}
+	
+	public void listenSettingListener(ActionListener al)
+	{
+		btnListenSetting.addActionListener(al);
+	}
+	
+	public void listenObjectiveListener(ActionListener al)
+	{
+		btnListenObjective.addActionListener(al);
+	}
+
+	protected void populateStep() {
+		if(lstObjective.getSelectedIndex() != -1)
+		{
+		Objective o = objectiveModel.getElementAt(lstObjective.getSelectedIndex());
+		Child c = childModel.get(lstChild.getSelectedIndex());
+		Step step = c.getCurrentStep(o);
+		lblStep.setText(step.getNo() + ": " + step.getDescription());
+		}
 	}
 
 	protected void setIndex(JList lst, DefaultListModel model, int i) {
@@ -359,5 +414,19 @@ public class LogSessionData extends PanelView {
 
 	public Day getDay() {
 		return day;
+	}
+	
+	public Child getSelectedChild() {
+		return childModel.getElementAt(lstChild.getSelectedIndex());
+		
+	}
+	
+	public Session getSelectedSession() {
+		return sessionModel.getElementAt(lstSession.getSelectedIndex());
+		
+	}
+	
+	public Objective getSelectedObjective() {
+		return objectiveModel.getElementAt(lstObjective.getSelectedIndex());
 	}
 }

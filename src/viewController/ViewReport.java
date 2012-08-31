@@ -87,7 +87,7 @@ public class ViewReport extends PanelView {
 		add(lblChild);
 
 		lblChildName = new JLabel("");
-		lblChildName.setBounds(64, 69, 115, 14);
+		lblChildName.setBounds(64, 69, 233, 14);
 		add(lblChildName);
 		
 		// Creates a new button to export report to file

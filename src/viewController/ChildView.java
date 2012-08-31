@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableRowSorter;
 
 public class ChildView extends PanelView {
 
@@ -63,8 +64,9 @@ public class ChildView extends PanelView {
 		scrollPane.setBounds(50, 150, 900, 300);
 		add(scrollPane);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-
+		
 		childTableModel = new DefaultTableModel();
+		TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(childTableModel);
 		childTable = new JTable() {
 
 			private static final long serialVersionUID = 6404756832838176556L;
@@ -83,6 +85,8 @@ public class ChildView extends PanelView {
 
 		childTable.setModel(childTableModel);
 
+		childTable.setRowSorter(sorter);
+		
 		btnRemoveChild = new JButton("Remove Child");
 		btnRemoveChild.setBounds(322, 109, 137, 30);
 		add(btnRemoveChild);

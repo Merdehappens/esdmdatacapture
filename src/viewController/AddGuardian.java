@@ -7,6 +7,8 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
@@ -19,6 +21,8 @@ import javax.swing.JTextField;
 import javax.swing.JList;
 
 import system.individuals.Guardian;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class AddGuardian extends JDialog {
 
@@ -59,17 +63,25 @@ public class AddGuardian extends JDialog {
 		}
 		
 		txtGuardianName = new JTextField();
-		txtGuardianName.setBounds(164, 66, 169, 20);
+		txtGuardianName.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				populateList(txtGuardianName.getText());
+			}
+		});
+		txtGuardianName.setBounds(164, 66, 169, 33);
 		contentPanel.add(txtGuardianName);
 		txtGuardianName.setColumns(10);
 		
-		JLabel lblSearchGuardianName = new JLabel("Search Guardian Name:");
-		lblSearchGuardianName.setBounds(40, 69, 128, 14);
+		JLabel lblSearchGuardianName = new JLabel("Search Guardian");
+		lblSearchGuardianName.setBounds(40, 69, 128, 30);
 		contentPanel.add(lblSearchGuardianName);
-		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(40, 110, 293, 195);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		contentPanel.add(scrollPane);
 		lstGuardian = new JList<Guardian>();
-		lstGuardian.setBounds(40, 110, 293, 195);
-		contentPanel.add(lstGuardian);
+		scrollPane.setViewportView(lstGuardian);
 		lstGuardian.setModel(new DefaultListModel<Guardian>());
 		
 
@@ -94,6 +106,7 @@ public class AddGuardian extends JDialog {
 		
 	}
 	
+
 	public void populateList(String search)
 	{
 		DefaultListModel<Guardian> listModel = (DefaultListModel<Guardian>) lstGuardian.getModel();
@@ -102,7 +115,7 @@ public class AddGuardian extends JDialog {
 		for(int i = 0; i < guardians.size(); i++)
 		{
 			Guardian g = guardians.get(i);
-			if(g.getName().toLowerCase().contains(search.toLowerCase()))
+			if(g.getUsername().toLowerCase().contains(search.toLowerCase()))
 			{
 				listModel.addElement(g);
 			}

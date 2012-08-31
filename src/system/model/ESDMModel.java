@@ -603,6 +603,14 @@ public class ESDMModel {
 		if(Helper.isValidEmailAddress(email))
 		{
 			currentUser.setEmailAddress(email);
+			//TODO DB
+			
+			org.hibernate.Session session = factory.openSession();
+			session.beginTransaction();
+			currentUser = (UserAccount) session.merge(currentUser);
+			session.save(currentUser);
+	    	session.getTransaction().commit();
+
 		}
 		else
 		{
@@ -1051,8 +1059,6 @@ public class ESDMModel {
 		c.incrementStep(o, -1);
 		// TODO Save to DB
 	}
-	
-	
 	
 	public void setObjectiveType(Objective objective, ObjectiveType objectiveType) {
 		//TODO Add Code Here
