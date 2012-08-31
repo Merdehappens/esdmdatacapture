@@ -28,7 +28,6 @@ public class ReviewSession extends PanelView {
 	private JLabel lblId;
 	private JLabel lblRoomName;
 	private JButton btnLogMarks;
-	private JButton btnSave;
 	private JButton btnExport;
 	private JButton btnEditMark;
 	
@@ -48,26 +47,6 @@ public class ReviewSession extends PanelView {
 		setLayout(null);
 
 		super.setTitle("Review Marks");
-
-		btnSave = new JButton("Save");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				saveMarks();
-			}
-		});
-		btnSave.setBounds(40, 454, 89, 23);
-		add(btnSave);
-
-		// Adds the reset button to the screen that when pressed calls
-		// Refresh view method
-		JButton btnReset = new JButton("Reset");
-		btnReset.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				refreshView();
-			}
-		});
-		btnReset.setBounds(139, 454, 105, 23);
-		add(btnReset);
 
 		// Adds a scroll pane to the screen for the table to go in
 		JScrollPane scrollPane = new JScrollPane();
@@ -168,23 +147,6 @@ public class ReviewSession extends PanelView {
 
 			tableModel.addRow(rowData);
 		}
-	}
-
-
-
-	private void saveMarks() {
-		// iterates through the table and saves the comments values
-		int size = tableModel.getRowCount();
-		for (int i = 0; i < size; i++) {
-			Mark m = (Mark) tableModel.getValueAt(i, 5);
-			m.setComments((String) tableModel.getValueAt(i, 7));
-		}
-
-	}
-
-	// Takes in an ActionListener and adds it to the save button
-	public void saveListener(ActionListener al) {
-		btnSave.addActionListener(al);
 	}
 	
 	public void exportListener(ActionListener al) {

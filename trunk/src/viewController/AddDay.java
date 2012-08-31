@@ -10,9 +10,11 @@ import system.sessions.Session;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 
 import java.awt.Dimension;
+import java.awt.dnd.DropTarget;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -74,6 +76,7 @@ public class AddDay extends PanelView {
 		dateChooser.setDateFormatString("dd/MM/yyyy");
 		dateChooser.setBounds(447, 65, 223, 29);
 		add(dateChooser);
+		
 
 		JLabel lblDate = new JLabel("Date:");
 		dateChooser.add(lblDate, BorderLayout.WEST);

@@ -337,7 +337,7 @@ public class Controller extends JFrame {
 		
 		lblMessage = new JLabel("");
 		lblMessage.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblMessage.setBounds(87, 539, 829, 46);
+		lblMessage.setBounds(87, 539, 842, 46);
 		contentPane.add(lblMessage);
 		
 		btnBack = new JButton("Back");
@@ -397,6 +397,39 @@ public class Controller extends JFrame {
 			}
 		});
 		
+		logSessionData.listenChildListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					model.playSound(logSessionData.getSelectedChild());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		logSessionData.listenObjectiveListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					model.playSound(logSessionData.getSelectedChild());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		logSessionData.listenSettingListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					model.playSound(logSessionData.getSelectedChild());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
 		logSessionData.commitMarkListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				// TODO FIX
@@ -421,12 +454,6 @@ public class Controller extends JFrame {
 			}
 		});
 
-		reviewSession.saveListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(sessionPanel, "Session");
-			}
-		});
-		
 		reviewSession.editMarksListener(new java.awt.event.ActionListener() {
 
 			public void actionPerformed(ActionEvent evt) {
@@ -587,6 +614,7 @@ public class Controller extends JFrame {
 					showMessage("Details successfully saved.");
 				} catch (Exception e) {
 					showMessage(e.getMessage());
+					e.printStackTrace();
 				}
 			}
 		});
@@ -847,22 +875,12 @@ public class Controller extends JFrame {
 				Calendar dob = (Calendar) childDetails[1];
 				Calendar dateJoined = (Calendar) childDetails[2];
 
-				String temp = "Are you sure you wish to save details for "
-						+ child.getName() + "\nWith ID: " + child + "?";
-
-				int res = JOptionPane.showConfirmDialog(parent, temp,
-						"Save Details", JOptionPane.OK_CANCEL_OPTION,
-						JOptionPane.PLAIN_MESSAGE);
-				if (res == 0) {
-					try {
+				try {
 						model.updateChild(child, name, dob, dateJoined);
 						showMessage("Details successfully saved.");
 					} catch (Exception e) {
 						showErrorMessage(e.getMessage());
 					}
-				} else {
-
-				}
 				editChild.refreshView();
 			}
 		});
