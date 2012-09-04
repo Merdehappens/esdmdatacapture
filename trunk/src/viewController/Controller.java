@@ -51,9 +51,9 @@ import javax.swing.JButton;
 
 //testing
 /**
- * @author Damian
- * 
- */
+* @author Damian
+* 
+*/
 public class Controller extends JFrame {
 
 	/**
@@ -903,7 +903,7 @@ public class Controller extends JFrame {
 				Child c = editChild.getChild();
 				Objective o = editChild.getSelectedObjective();
 				try {
-					model.setMastered(c, o);
+					model.setMastered(c, o, true);
 				} catch (Exception e) {
 					showMessage(e.getMessage());
 					e.printStackTrace();
