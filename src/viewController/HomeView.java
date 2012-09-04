@@ -4,7 +4,6 @@ import system.model.ESDMModel;
 import system.sessions.Day;
 import system.sessions.Session;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.util.ArrayList;

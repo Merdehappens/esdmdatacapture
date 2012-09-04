@@ -3,23 +3,10 @@ package system.model;
 
 
 
-import java.applet.AudioClip;
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.util.*;
-
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.LineEvent;
-import javax.sound.sampled.LineListener;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.sound.sampled.LineEvent.Type;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -102,15 +89,19 @@ public class ESDMModel {
 		factory = config.buildSessionFactory();
     }
     
+    // Is called when the program is closed. makes sure the session factory
+    // object gets closed properly.
     public void modelExit()
     {
     	factory.close();
     }
     
+    // returns the annotation configuration object
     public AnnotationConfiguration getConfig() {
 		return config;
 	}
 
+    // returns the session factory object
 	public SessionFactory getFactory() {
 		return factory;
 	}
@@ -172,7 +163,6 @@ public class ESDMModel {
     	return roomList;
     }
     
-    
     public Collection<Session> getSessionList() {
     	return sessionList;
     }
@@ -182,44 +172,26 @@ public class ESDMModel {
     }
     
     /* 
-     * Dummy database load until database is implemented
+     * Loads all data from the database
      */
     
     private void loadFromDatabase() throws Exception
     {
     	org.hibernate.Session session = factory.openSession();
-    /*  session.beginTransaction();
+/*      session.beginTransaction();
     	
       	Therapist user = new Therapist();
-        user.setUsername("temp");
-        user.tempSetPassword("temp");
-        user.setName("temp");
+        user.setUsername("david");
+        user.tempSetPassword("david");
+        user.setName("david");
         user.setAccess("a");
         userList.add(user);
        	session.save(user);
        	
-       	
-        Guardian guard = new Guardian();
-        guard.setUsername("guard");
-        guard.tempSetPassword("guard");
-        guard.setName("guard");
-        guard.setAccess("g");
-        userList.add(guard);
-       	session.save(guard);
-               
-
-        session.save(new Room("Room 1"));
-        session.save(new Room("Room 2"));
-        session.save(new Room("Room 3"));
-
-        session.save(new Session("Meals"));
-        session.save(new Session("Toilet"));
-        session.save(new Session("Group"));
-        session.save(new Session("One-On-One"));
     	
     	session.getTransaction().commit();
-
-*/    
+*/
+  
            	
     	String qry = ("Select sess from Session sess");
     	Query query = session.createQuery(qry);
@@ -304,12 +276,12 @@ public class ESDMModel {
         {
         	UserAccount temp = userList.get(i);
         	
-        	if(temp.getUsername() != null && temp.getUsername().equals(username))
+        	if(temp.getUsername() != null && temp.getUsername().equals(username) && !(temp.getAccess().equals("d")) )
         	{
         		if(BCrypt.checkpw(password, temp.getPassword()))
         		{
         			currentUser = temp;
-        			//TODO Session
+        			//TODO Sessions
         			return true;
         		}
         		else
@@ -343,6 +315,7 @@ public class ESDMModel {
     
     public Therapist newTherapist(String name, String username, String emailAddress, String phoneNo, String password, String access) throws Exception
     {
+    	// Checks that no strings are empty
     	if(name.length() == 0)
     	{
     		throw new Exception("Name field must be filled in.");
@@ -359,23 +332,26 @@ public class ESDMModel {
     	{
     		throw new Exception("Phone number field must be filled in.");
     	}
-    	
+    	// Creates new therapist object. sets the attributes to the values parsed in
     	Therapist user = new Therapist(name, username, emailAddress);
     	user.setAccess(access);
     	user.setPhoneNo(phoneNo);
     	user.setPassword(password);
     	
+    	// gets the current session and saves the new therapist to DB
     	org.hibernate.Session session = factory.getCurrentSession();
     	session.beginTransaction();
-    	
     	session.save(user);
     	session.getTransaction().commit();
-    	
+
+    	// Adds user to the model
+    	userList.add(user);
     	return user;
     }
     
 	public Guardian newGuardian(String name, String username, String emailAddress, String phoneNo, String password, String access) throws Exception
 	{
+    	// Checks that no strings are empty
 		if(name.length() == 0)
 		{
 			throw new Exception("Name field must be filled in.");
@@ -392,18 +368,21 @@ public class ESDMModel {
 		{
 			throw new Exception("Phone number field must be filled in.");
 		}
+    	// Creates new guardian object. sets the attributes to the values parsed in
 	
 		Guardian user = new Guardian(name, username, emailAddress);
 		user.setAccess(access);
 		user.setPassword(password);
 		user.setPhoneNo(phoneNo);
-		userList.add(user);
 		
+    	// gets the current session and saves the new guardian to DB
     	org.hibernate.Session session = factory.getCurrentSession();
     	session.beginTransaction();
-    	
     	session.save(user);
     	session.getTransaction().commit();
+    	
+    	// Adds user to the model
+		userList.add(user);
     	
 		return user;
 	}
@@ -445,6 +424,7 @@ public class ESDMModel {
     		throw new Exception("Date Of Birth is a required field.");
     	}
     	
+ /*   	TODO Decide on whether required or not
     	if(dateJoined != null)
     	{
     		if(dob.compareTo(dateJoined) > 0)
@@ -456,7 +436,7 @@ public class ESDMModel {
 		if(dob.compareTo(Calendar.getInstance()) > 0)
 		{
 			throw new Exception("Date of Birth cannot be after today");
-		}
+		}*/
     	
         Child child = new Child(name, dob, dateJoined);
        
@@ -679,7 +659,6 @@ public class ESDMModel {
 		{
 			throw new Exception("Session not Selected.");
 		}
-		
 		if(child == null)
 		{
 			throw new Exception("Child not Selected.");
@@ -815,7 +794,7 @@ public class ESDMModel {
 	}
 
 	
-	
+	// updates the values of the child to the values parsed in.
 	public void updateChild(Child child, String name, Calendar dob, Calendar dateJoined) throws Exception {
     	if(name.length() == 0)
     	{
@@ -827,7 +806,8 @@ public class ESDMModel {
     		throw new Exception("Date Of Birth is a required field.");
     	}
     	
-    	if(dateJoined != null)
+/* TODO validation not required?
+ *     	if(dateJoined != null)
     	{
     		if(dob.compareTo(dateJoined) > 0)
     		{
@@ -838,12 +818,13 @@ public class ESDMModel {
 		if(dob.compareTo(Calendar.getInstance()) > 0)
 		{
 			throw new Exception("Date of Birth cannot be after today");
-		}
-		
+		}*/
+				
 		child.setName(name);
 		child.setDob(dob);
 		child.setDateJoined(dateJoined);
 		
+		// updates the changes to the child object in the database
 		org.hibernate.Session session = factory.getCurrentSession();
     	session.beginTransaction();
     	child = (Child) session.merge(child);
@@ -852,7 +833,10 @@ public class ESDMModel {
 		
 	}
 
+	
+	// Takes in a child object and objective object and adds the objective to the child
 	public void addObjectiveChild(Child child, Objective objective) throws Exception {
+		// Checks that neither object is null
 		if(child == null || objective == null)	
 		{
 			throw new Exception("Child not selected.");
@@ -862,6 +846,7 @@ public class ESDMModel {
 			ArrayList<Objective> objList = new ArrayList<Objective>(child.getObjectives());
 			Objective obj = null;
 			int size = objList.size();
+			// iterating through a list of the childs objectives to find this objective
 			for(int i = 0; i < size; i++)
 			{
 				if(objList.get(i) == objective)
@@ -871,7 +856,7 @@ public class ESDMModel {
 				}
 			}
 			
-			
+			// if objective does exist for this child throw an exception
 			if(obj != null)
 			{
 				throw new Exception("This objective already exists for this child.");
@@ -892,6 +877,7 @@ public class ESDMModel {
 		
 	}
 	
+	// Returns a list of the guardians in the system
 	public ArrayList<Guardian> getGuardianList() {
 		ArrayList<Guardian> guardians = new ArrayList<Guardian>();
 		int size = userList.size();
@@ -906,7 +892,8 @@ public class ESDMModel {
 		return guardians;
 	}
 
-
+	// Returns the user account with the same username as the username
+	// parsed through
 	public UserAccount getUserAccount(String username) {
 		int size = userList.size();
 		for(int i = 0; i < size; i++)
@@ -920,10 +907,12 @@ public class ESDMModel {
 		return null;
 	}
 
+	// Returns the string access level of the currently logged in user
 	public String getCurrentAccess() {
 		return currentUser.getAccess();
 	}
 
+	// Takes in a mark and all details required for a mark
 	public void updateMark(Mark mark, Session session, Child child,
 			Calendar time, Objective objective, Step step, int markVal,
 			String comment) {
@@ -944,6 +933,9 @@ public class ESDMModel {
 		
 	}
 	
+	// Takes in objective, strings for name and description, int level, and a string array for steps.
+	// updates the details in the objective object with the ones parsed through and updates in
+	// Database
 	public void saveObjective(Objective objective, String name, String description, int level, String[][] steps) throws Exception
 	{
 		if(name.length() == 0)
@@ -963,7 +955,7 @@ public class ESDMModel {
 		objective.setDescription(description);
 		objective.setLevel(level);
 		
-		objective.getStepsNo();
+		// Iterates through the array setting the value of the steps to the values parsed through
 		int x = 1;
 		for(int i = 0; i < steps.length; i++)
 		{
@@ -977,6 +969,7 @@ public class ESDMModel {
 			s.setDescription(steps[i][1]);
 		}
 		
+		// Gets session object and saves the objective to the database
 		org.hibernate.Session session = factory.getCurrentSession();
     	session.beginTransaction();
     	objective = (Objective) session.merge(objective);
@@ -985,9 +978,10 @@ public class ESDMModel {
 	}
 
 
-
-	public void setMastered(Child c, Objective o) throws Exception {
-		c.setMastered(o, true);
+	// Takes in a boolean, child and objective object. if that objective exists in the child
+	// the value of mastered will be set to the value parsed through
+	public void setMastered(Child c, Objective o, boolean value) throws Exception {
+		c.setMastered(o, value);
 		updateObject(c);
 	}
 
@@ -1000,23 +994,24 @@ public class ESDMModel {
     	session.getTransaction().commit();
 	}
 
+	// Adds a guardian to a child
 	public void addChildGuardian(Child child, Guardian guardian) throws Exception {
 		
-		System.out.println("Child: " + child.getId() + " Guardian: " + guardian.getId());
-		
+		// Check if guardian already exists in this child.
 		ArrayList<Guardian> childsGuardians = new ArrayList<Guardian>(child.getGuardians());
 		for(int i = 0; i < childsGuardians.size(); i++)
 		{
-			
+			// if guardian exists throw an exception
 			if(childsGuardians.get(i).equals(guardian))
 			{
 				throw new Exception ("Guardian already exists for this child");
 			}
 		}
-		
+		// Adds guardian to child and child to guardian
 		guardian.addChild(child);
 		child.addGuardian(guardian);
 		
+		// Save both objects to database
 		org.hibernate.Session session = factory.getCurrentSession();
     	session.beginTransaction();
     	guardian = (Guardian) session.merge(guardian);
@@ -1030,7 +1025,6 @@ public class ESDMModel {
 	
 	// Takes in any SimpleKey object. and plays the WAV file associated to that object.
 	// Runs in a thread so that you can still navigate around while file is playing
-	
 	public void playSound(SimpleKey object) throws Exception {
 
 		String filePath = object.getClass().getSimpleName();
@@ -1050,25 +1044,38 @@ public class ESDMModel {
 	}
 	
 	
+	// Takes in a child object, an objective object and increments the 
+	// current step of that objective for that child (if exists in the 
+	// childs list of objectives)	
 	public void incrementStep(Child c, Objective o) throws Exception {
 		c.incrementStep(o, 1);
 		// TODO Save to DB
 	}
 
-	
+	// Takes in a child object, an objective object and decrements the 
+	// current step of that objective for that child (if exists in the
+	// childs list of objectives)
 	public void decrementStep(Child c, Objective o) throws Exception {
 		c.incrementStep(o, -1);
 		// TODO Save to DB
 	}
 	
+	// Takes in an objective and an objective type and sets the objective
+	// to the objectiveType parsed in.
 	public void setObjectiveType(Objective objective, ObjectiveType objectiveType) {
-		//TODO Add Code Here
+		//TODO Add Code Here -> LOW PRIORITY NOT SURE IF WILL BE IMPLEMENTED
 	}
 	
+	// Creates a new objective type object, adds it to the system
+	// and saves it to the database
 	public void addNewObjectiveType(String name) {
-		//TODO Add Code Here
+		//TODO Add Code Here -> LOW PRIORITY NOT SURE IF WILL BE IMPLEMENTED
 	}
 
+
+	// Takes in a string for the name of the room.
+	// Creates a new Room object with that name and 
+	// adds it to the database
 	public void addRoom(String name) {
 		Room room = new Room(name);
 
@@ -1081,6 +1088,17 @@ public class ESDMModel {
     	roomList.add(room);
 	}
 
+	
+	// Takes in a room object and a string for room name
+	// Updates the room objects name to the string and updates
+	// with the database
+	public void editRoom(Room room, String name) {
+		// TODO edit room
+	}
+
+	// Takes in a room object if it has no foreign constraints it is
+	// removed from the database and system. otherwise it throws
+	// an SQL exception
 	public void removeRoom(Room room) {
     	org.hibernate.Session session = factory.getCurrentSession();
     	session.beginTransaction();
@@ -1089,6 +1107,80 @@ public class ESDMModel {
     	
 		roomList.remove(room);
 	}
+	
+	// Takes in a name, creates a new session object with that name
+	// and adds it to the database and list
+	public void addSession(String name) {
+		
+	}
+	
+	// Takes in a session object and sets the name attribute to the string
+	// that is parsed in
+	public void updateSession(Session session, String description) throws Exception {
+
+		if(description.length() == 0)
+		{
+			throw new Exception("You must enter a value for description");
+		}
+		session.setDescription(description);
+		
+    	org.hibernate.Session dbSession = factory.getCurrentSession();
+    	dbSession.beginTransaction();
+    	dbSession.update(session);
+    	dbSession.getTransaction().commit();
+	}
+	
+	// Takes in a session object. if it has no foreign constraints it is
+	// removed from the database and system. otherwise it throws
+	// an SQL exception
+	public void removeSession(Session session) {
+    	org.hibernate.Session dbSession = factory.getCurrentSession();
+    	dbSession.beginTransaction();
+    	dbSession.delete(session);
+    	dbSession.getTransaction().commit();
+    	
+		sessionList.remove(session);
+	}
+	
+	// Takes in a user account and a boolean enabled, sets the user accounts
+	// access attribute to d (Disabled)
+	public void disableAccount(UserAccount u) {
+		u.setAccess("d");
+	}
+	
+	// Takes in 2 calendar objects and a child and retrieves all the marks associated
+	// with that child between the dates parsed through.
+	public ArrayList<Mark> getMarks(Calendar dateFrom, Calendar dateTo, Child c) throws Exception {
+		ArrayList<Mark> marks = new ArrayList<Mark>(c.getMarks());
+		ArrayList<Mark> newMarks = new ArrayList<Mark>();
+		if(dateFrom == null && dateTo == null)
+		{
+			return marks;
+		}
+		else if(dateFrom == null || dateTo == null)
+		{
+			throw new Exception("Must parse in valid date objects");
+		}
+		else
+		{
+			int size = marks.size();
+			for(int i = 0; i < size; i++)
+			{
+				Mark m = marks.get(i);
+				Calendar date = m.getTime();
+				
+				if(!date.before(dateFrom) && !date.after(dateTo))
+				{
+					newMarks.add(m);
+				}
+			
+			}
+		}
+		
+		
+		return null;
+	}
+	
 	
 	
 
