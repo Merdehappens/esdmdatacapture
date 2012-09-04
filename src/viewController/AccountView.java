@@ -13,6 +13,7 @@ public class AccountView extends PanelView {
 	private JButton btnChangePassword;
 	private JButton btnChangeEmailAddress;
 	private JButton btnNewUserAccount;
+	private JButton btnRooms;
 
 	public AccountView() {
 		super();
@@ -47,6 +48,10 @@ public class AccountView extends PanelView {
 		btnNewUserAccount = new JButton("Create New User Account");
 		btnNewUserAccount.setBounds(20, 170, 200, 40);
 		add(btnNewUserAccount);
+		
+		btnRooms = new JButton("Rooms");
+		btnRooms.setBounds(277, 170, 165, 40);
+		add(btnRooms);
 		/*
 		JButton btnViewAccount = new JButton("View Account");
 		btnViewAccount.setBounds(20, 221, 200, 40);
@@ -67,6 +72,10 @@ public class AccountView extends PanelView {
 	// Takes in an ActionListener and adds it to the new user button
 	public void newUserAccount(ActionListener al) {
 		btnNewUserAccount.addActionListener(al);
+	}
+	
+	public void roomsListener(ActionListener al) {
+		btnRooms.addActionListener(al);
 	}
 	
 
