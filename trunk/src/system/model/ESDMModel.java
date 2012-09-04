@@ -7,6 +7,7 @@ import java.applet.AudioClip;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.sql.SQLException;
 import java.util.*;
 
 import javax.sound.sampled.AudioFormat;
@@ -1066,6 +1067,27 @@ public class ESDMModel {
 	
 	public void addNewObjectiveType(String name) {
 		//TODO Add Code Here
+	}
+
+	public void addRoom(String name) {
+		Room room = new Room(name);
+
+    	org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
+    	
+    	session.save(room);
+    	session.getTransaction().commit();
+    	
+    	roomList.add(room);
+	}
+
+	public void removeRoom(Room room) {
+    	org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
+    	session.delete(room);
+    	session.getTransaction().commit();
+    	
+		roomList.remove(room);
 	}
 	
 	

@@ -106,6 +106,7 @@ public class Controller extends JFrame {
 	
 	private HashMap<String, JPanel> panelMap = new HashMap<String, JPanel>();
 	private JButton btnBack;
+	private RoomView roomView;
 
 	
 	public Controller() throws MalformedURLException {
@@ -334,6 +335,10 @@ public class Controller extends JFrame {
 		newUserAccount = new NewUserAccount();
 		accountPanel.add(newUserAccount, "newUserAccount");
 		panelMap.put("newUserAccount", accountPanel);
+		
+		roomView = new RoomView(model);
+		accountPanel.add(roomView, "roomView");
+		panelMap.put("roomView", accountPanel);
 		
 		lblMessage = new JLabel("");
 		lblMessage.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -959,6 +964,25 @@ public class Controller extends JFrame {
 		accountView.newUserAccount(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				show(accountPanel, "newUserAccount");
+			}
+		});
+		
+		accountView.roomsListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(accountPanel, "roomView");
+			}
+		});
+		
+		roomView.removeRoomListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try{
+				model.removeRoom(roomView.getSelectedRoom());
+				}
+				catch (Exception e)
+				{
+					showErrorMessage("Cannot remove this room. it exists in a day object");
+				}
+				roomView.refreshView();
 			}
 		});
 		
