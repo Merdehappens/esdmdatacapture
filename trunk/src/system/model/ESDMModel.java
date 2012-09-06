@@ -1147,38 +1147,7 @@ public class ESDMModel {
 		u.setAccess("d");
 	}
 	
-	// Takes in 2 calendar objects and a child and retrieves all the marks associated
-	// with that child between the dates parsed through.
-	public ArrayList<Mark> getMarks(Calendar dateFrom, Calendar dateTo, Child c) throws Exception {
-		ArrayList<Mark> marks = new ArrayList<Mark>(c.getMarks());
-		ArrayList<Mark> newMarks = new ArrayList<Mark>();
-		if(dateFrom == null && dateTo == null)
-		{
-			return marks;
-		}
-		else if(dateFrom == null || dateTo == null)
-		{
-			throw new Exception("Must parse in valid date objects");
-		}
-		else
-		{
-			int size = marks.size();
-			for(int i = 0; i < size; i++)
-			{
-				Mark m = marks.get(i);
-				Calendar date = m.getTime();
-				
-				if(!date.before(dateFrom) && !date.after(dateTo))
-				{
-					newMarks.add(m);
-				}
-			
-			}
-		}
-		
-		
-		return null;
-	}
+
 	
 	
 	
