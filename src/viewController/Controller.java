@@ -5,6 +5,7 @@ import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -48,6 +49,7 @@ import java.awt.event.WindowAdapter;
 
 import org.hibernate.exception.ConstraintViolationException;
 import javax.swing.JButton;
+import java.awt.Color;
 
 //testing
 /**
@@ -110,6 +112,7 @@ public class Controller extends JFrame {
 
 	
 	public Controller() throws MalformedURLException {
+		setBackground(new Color(175, 238, 238));
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent arg0) {
 				int answer = JOptionPane
@@ -205,6 +208,7 @@ public class Controller extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1024, 621);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -213,48 +217,59 @@ public class Controller extends JFrame {
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 
+
 		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tabbedPane.setBorder(null);
 
-		tabbedPane.setBounds(0, 0, 1008, 541);
+		tabbedPane.setBounds(0, 0, 1250, 541);
 		contentPane.add(tabbedPane);
 
 		// Add the 6 main panels to the program and then add them to the tabbed
 		// pane.
+		
+		String htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Home</body></html>";
 
+		
 		homePanel = new JPanel();
-		tabbedPane.addTab("Home", null, homePanel, null);
+		tabbedPane.addTab(htmlTab, null, homePanel, null);
 		homePanel.setLayout(new CardLayout(0, 0));
 
+		htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Session</body></html>";
 		sessionPanel = new JPanel();
-		tabbedPane.addTab("Session", null, sessionPanel, null);
+		tabbedPane.addTab(htmlTab, null, sessionPanel, null);
 		sessionPanel.setLayout(new CardLayout(0, 0));
 
+		htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Child</body></html>";
 		childPanel = new JPanel();
-		tabbedPane.addTab("Child", null, childPanel, null);
+		tabbedPane.addTab(htmlTab, null, childPanel, null);
 		childPanel.setLayout(new CardLayout(0, 0));
 
+		htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Objectives</body></html>";
 		objectivePanel = new JPanel();
-		tabbedPane.addTab("Objectives", null, objectivePanel, null);
+		tabbedPane.addTab(htmlTab, null, objectivePanel, null);
 		objectivePanel.setLayout(new CardLayout(0, 0));
 
+		htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Reporting</body></html>";
 		reportingPanel = new JPanel();
-		tabbedPane.addTab("Reporting", null, reportingPanel, null);
+		tabbedPane.addTab(htmlTab, null, reportingPanel, null);
 		reportingPanel.setLayout(new CardLayout(0, 0));
 
+		htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Account Management</body></html>";
 		accountPanel = new JPanel();
-		tabbedPane.addTab("Account Management", null, accountPanel, null);
+		tabbedPane.addTab(htmlTab, null, accountPanel, null);
 		accountPanel.setLayout(new CardLayout(0, 0));
 
 		// Add all the panels (Cards) to the Session Tab
 
 		homeView = new HomeView(model);
+		homeView.setBackground(UIManager.getColor("CheckBox.darkShadow"));
 		homePanel.add(homeView, "Home");
 		panelMap.put("Home", homePanel);
 
 		// Add all the panels (Cards) to the Session Tab
 		
 		sessionView = new SessionView(model);
+		homeView.setBackground(new Color(176, 196, 222));
 		sessionPanel.add(sessionView, "Session");
 		panelMap.put("Session", sessionPanel);
 
@@ -416,7 +431,7 @@ public class Controller extends JFrame {
 		logSessionData.listenObjectiveListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
-					model.playSound(logSessionData.getSelectedChild());
+					model.playSound(logSessionData.getSelectedObjective());
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -427,7 +442,7 @@ public class Controller extends JFrame {
 		logSessionData.listenSettingListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
-					model.playSound(logSessionData.getSelectedChild());
+					model.playSound(logSessionData.getSelectedSession());
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
