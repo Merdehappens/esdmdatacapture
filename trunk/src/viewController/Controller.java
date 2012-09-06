@@ -208,13 +208,15 @@ public class Controller extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1024, 621);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.LIGHT_GRAY);
+		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		// Set the main layout of the project (tabbed pane)
-
+		UIManager.put("nimbusBlueGrey", new Color(175, 238, 238));
+		UIManager.put("nimbusBase", new Color(150,230, 230));
+		UIManager.put("control", Color.white);
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 
 
@@ -262,14 +264,13 @@ public class Controller extends JFrame {
 		// Add all the panels (Cards) to the Session Tab
 
 		homeView = new HomeView(model);
-		homeView.setBackground(UIManager.getColor("CheckBox.darkShadow"));
 		homePanel.add(homeView, "Home");
 		panelMap.put("Home", homePanel);
 
 		// Add all the panels (Cards) to the Session Tab
 		
 		sessionView = new SessionView(model);
-		homeView.setBackground(new Color(176, 196, 222));
+		sessionView.setBackground(new Color(176, 196, 222));
 		sessionPanel.add(sessionView, "Session");
 		panelMap.put("Session", sessionPanel);
 
