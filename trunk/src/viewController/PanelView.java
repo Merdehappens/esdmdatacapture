@@ -50,9 +50,9 @@ public abstract class PanelView extends JPanel {
 	// Sets the title of the panel to be what is parsed through.
 	public void setTitle(String string) {
 		JLabel lblTitle = new JLabel(string);
-		lblTitle.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 20));
+		lblTitle.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 30));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(0, 10, 1008, 40);
+		lblTitle.setBounds(0, 20, 1008, 40);
 		add(lblTitle);
 	}
 

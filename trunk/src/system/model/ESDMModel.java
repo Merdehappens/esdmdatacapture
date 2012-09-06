@@ -11,6 +11,8 @@ import java.util.*;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.tool.hbm2ddl.SchemaExport;
+
 import system.helper.Helper;
 import system.helper.PlaySound;
 import system.helper.SimpleKey;
@@ -37,6 +39,7 @@ public class ESDMModel {
     private Set<Session> sessionList;
     private List<Objective> objectiveList;
     private List<UserAccount> userList;
+    private List<ObjectiveType> objectiveTypeList;
     private Set<Mark> markList;
     private List<Day> dayList;
     private List<Room> roomList;
@@ -54,6 +57,7 @@ public class ESDMModel {
         roomList = new ArrayList<Room>();
         dayList = new ArrayList<Day>();
         userList = new ArrayList<UserAccount>();
+        objectiveTypeList = new ArrayList<ObjectiveType>();
         currentUser = null;
         hibernateSetUp();
         try {
@@ -68,6 +72,7 @@ public class ESDMModel {
     {
     	config = new AnnotationConfiguration();
 		config.addAnnotatedClass(Step.class);
+		config.addAnnotatedClass(ObjectiveType.class);
 		config.addAnnotatedClass(Objective.class);
 		config.addAnnotatedClass(UserAccount.class);
 		config.addAnnotatedClass(Therapist.class);
@@ -78,7 +83,6 @@ public class ESDMModel {
 		config.addAnnotatedClass(Session.class);
 		config.addAnnotatedClass(ChildObjective.class);
 		config.addAnnotatedClass(Room.class);
-		//config.addAnnotatedClass(ObjectiveType.class);
 		config.configure("hibernate.cfg.xml");
 		
 		//new SchemaExport(config).create(true, true);
@@ -178,12 +182,12 @@ public class ESDMModel {
     private void loadFromDatabase() throws Exception
     {
     	org.hibernate.Session session = factory.openSession();
-/*      session.beginTransaction();
+   	/*session.beginTransaction();
     	
       	Therapist user = new Therapist();
-        user.setUsername("david");
-        user.tempSetPassword("david");
-        user.setName("david");
+        user.setUsername("temp");
+        user.tempSetPassword("temp");
+        user.setName("temp");
         user.setAccess("a");
         userList.add(user);
        	session.save(user);
@@ -318,19 +322,19 @@ public class ESDMModel {
     	// Checks that no strings are empty
     	if(name.length() == 0)
     	{
-    		throw new Exception("Name field must be filled in.");
+    		throw new MissingResourceException("10002: Name field must be filled in.", null, null);
     	}
     	if(username.length() == 0)
     	{
-    		throw new Exception("Username field must be filled in.");
+    		throw new MissingResourceException("10002: Username field must be filled in.", null, null);
     	}
     	if(emailAddress.length() == 0)
     	{
-    		throw new Exception("Email field must be filled in.");
+    		throw new MissingResourceException("10002: Email field must be filled in.", null, null);
     	}
     	if(phoneNo.length() == 0)
     	{
-    		throw new Exception("Phone number field must be filled in.");
+    		throw new MissingResourceException("10002: Phone number field must be filled in.", null, null);
     	}
     	// Creates new therapist object. sets the attributes to the values parsed in
     	Therapist user = new Therapist(name, username, emailAddress);
@@ -1062,13 +1066,22 @@ public class ESDMModel {
 	// Takes in an objective and an objective type and sets the objective
 	// to the objectiveType parsed in.
 	public void setObjectiveType(Objective objective, ObjectiveType objectiveType) {
-		//TODO Add Code Here -> LOW PRIORITY NOT SURE IF WILL BE IMPLEMENTED
+		objective.setType(objectiveType);
+		objectiveType.addObjective(objective);
+		// TODO save to DB
 	}
 	
 	// Creates a new objective type object, adds it to the system
 	// and saves it to the database
 	public void addNewObjectiveType(String name) {
-		//TODO Add Code Here -> LOW PRIORITY NOT SURE IF WILL BE IMPLEMENTED
+		ObjectiveType objType = new ObjectiveType(name);
+		objectiveTypeList.add(objType);
+		// TODO Save to DB
+	}
+	
+	public void setSessionTypeList(Session session, List<ObjectiveType> objTypeList) {
+		session.setObjectives(objTypeList);
+		// TODO Save to DB
 	}
 
 

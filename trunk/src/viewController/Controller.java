@@ -1,5 +1,6 @@
 package viewController;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
@@ -25,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.plaf.ColorUIResource;
 
 import system.helper.Helper;
 import system.helper.MessageFade;
@@ -44,12 +46,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.MissingResourceException;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 
 import org.hibernate.exception.ConstraintViolationException;
 import javax.swing.JButton;
 import java.awt.Color;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EtchedBorder;
+import java.awt.FlowLayout;
 
 //testing
 /**
@@ -109,21 +115,13 @@ public class Controller extends JFrame {
 	private HashMap<String, JPanel> panelMap = new HashMap<String, JPanel>();
 	private JButton btnBack;
 	private RoomView roomView;
+	private JButton btnExit;
 
 	
 	public Controller() throws MalformedURLException {
-		setBackground(new Color(175, 238, 238));
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent arg0) {
-				int answer = JOptionPane
-						.showConfirmDialog(null,
-								"Are you sure you want to quit?", "Quit",
-								JOptionPane.YES_NO_OPTION,
-								JOptionPane.QUESTION_MESSAGE);
-				if (answer == JOptionPane.YES_OPTION) {
-					exitProgram();
-				}
-
+				exitProgram();
 			}
 		});
 		setLookAndFeel();
@@ -137,8 +135,15 @@ public class Controller extends JFrame {
 	// called before program exits to make sure the database connection is closed correctly 
 	private void exitProgram()
 	{
-		model.modelExit();
-		System.exit(0);
+		int answer = JOptionPane
+				.showConfirmDialog(this,
+						"Are you sure you want to quit?", "Quit",
+						JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE);
+		if (answer == JOptionPane.YES_OPTION) {
+			model.modelExit();
+			System.exit(0);
+		}
 	}
 
 	
@@ -206,27 +211,26 @@ public class Controller extends JFrame {
 
 		setTitle("ESDM Data Capture");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1024, 621);
+		setBounds(100, 100, 1025, 663);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(30, 144, 255));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(new Color(180, 203, 235));
+		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new BorderLayout());
 
 		// Set the main layout of the project (tabbed pane)
-		UIManager.put("nimbusBlueGrey", new Color(175, 238, 238));
-		UIManager.put("nimbusBase", new Color(150,230, 230));
-		UIManager.put("control", new Color(176, 196, 222));
+
 		
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 
 
 		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tabbedPane.setBorder(null);
+		tabbedPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 
+		
 		tabbedPane.setBounds(0, 0, 1250, 541);
-		contentPane.add(tabbedPane);
+		contentPane.add(tabbedPane, BorderLayout.CENTER);
 
 		// Add the 6 main panels to the program and then add them to the tabbed
 		// pane.
@@ -243,7 +247,7 @@ public class Controller extends JFrame {
 		tabbedPane.addTab(htmlTab, null, sessionPanel, null);
 		sessionPanel.setLayout(new CardLayout(0, 0));
 
-		htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Child</body></html>";
+		htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Children</body></html>";
 		childPanel = new JPanel();
 		tabbedPane.addTab(htmlTab, null, childPanel, null);
 		childPanel.setLayout(new CardLayout(0, 0));
@@ -258,7 +262,7 @@ public class Controller extends JFrame {
 		tabbedPane.addTab(htmlTab, null, reportingPanel, null);
 		reportingPanel.setLayout(new CardLayout(0, 0));
 
-		htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Account Management</body></html>";
+		htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Administration</body></html>";
 		accountPanel = new JPanel();
 		tabbedPane.addTab(htmlTab, null, accountPanel, null);
 		accountPanel.setLayout(new CardLayout(0, 0));
@@ -272,7 +276,6 @@ public class Controller extends JFrame {
 		// Add all the panels (Cards) to the Session Tab
 		
 		sessionView = new SessionView(model);
-		sessionView.setBackground(new Color(176, 196, 222));
 		sessionPanel.add(sessionView, "Session");
 		panelMap.put("Session", sessionPanel);
 
@@ -358,10 +361,12 @@ public class Controller extends JFrame {
 		accountPanel.add(roomView, "roomView");
 		panelMap.put("roomView", accountPanel);
 		
-		lblMessage = new JLabel("");
-		lblMessage.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblMessage.setBounds(87, 539, 842, 46);
-		contentPane.add(lblMessage);
+		JPanel footer = new JPanel(null);
+		
+		contentPane.add(footer, BorderLayout.PAGE_END);
+		
+		footer.setBounds(20, 100, 200, 100);
+		footer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
@@ -369,9 +374,32 @@ public class Controller extends JFrame {
 				goBack();
 			}
 		});
-		btnBack.setBounds(10, 547, 70, 25);
-		contentPane.add(btnBack);
+		btnBack.setPreferredSize(new Dimension(90, 30));
+		footer.add(btnBack);
 		btnBack.setEnabled(false);
+		
+		
+		int width = this.getWidth();
+		width = width/2 + (width / 4);
+		lblMessage = new JLabel("");
+		lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMessage.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblMessage.setPreferredSize(new Dimension(width, 30));
+		footer.add(lblMessage);
+		
+		btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				exitProgram();
+			}
+		});
+		btnExit.setPreferredSize(new Dimension(90, 30));
+		footer.add(btnExit);
+
+		
+		
+		
+
 		
 		parent = this;
 
@@ -672,12 +700,13 @@ public class Controller extends JFrame {
 					show(accountPanel, "Account");
 					showErrorMessage("The password has been set to: " + pass + "."
 							+ "\nPlease note this down and inform the user.");
-				} catch(ConstraintViolationException e) 
-				{
+				} catch(ConstraintViolationException e) {
 					showErrorMessage("That username already exists");
-				}
-				catch (Exception e) {
+				} catch(MissingResourceException e) {	
 					showErrorMessage(e.getMessage());
+				} catch (Exception e) {
+					showErrorMessage("Undefined Error: 90001: " + e.getMessage());
+					
 				}
 
 
@@ -910,23 +939,26 @@ public class Controller extends JFrame {
 		
 		editChild.removeObjectiveListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				model.removeObjective(editChild.getChild(), editChild.getSelectedObjective());
+				try {
+					model.removeObjective(editChild.getChild(), editChild.getSelectedObjective());
 				editChild.refreshView();
 				showMessage("Successfully removed objective from child");
+				} catch (Exception e) {
+					showErrorMessage(e.getMessage());
+				}
 			}
 		});
 		
 		editChild.setMasteredListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				Child c = editChild.getChild();
-				Objective o = editChild.getSelectedObjective();
 				try {
+					Child c = editChild.getChild();
+					Objective o = editChild.getSelectedObjective();
 					model.setMastered(c, o, true);
+					editChild.refreshView();
 				} catch (Exception e) {
-					showMessage(e.getMessage());
-					e.printStackTrace();
+					showErrorMessage(e.getMessage());
 				}
-				editChild.refreshView();
 			}
 		});
 		
@@ -938,15 +970,13 @@ public class Controller extends JFrame {
 		
 		editChild.incrementStepListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				Child c = editChild.getChild();
-				Objective o = editChild.getSelectedObjective();
 				try {
+					Child c = editChild.getChild();
+					Objective o = editChild.getSelectedObjective();
 					model.incrementStep(c, o);
 					lblMessage.setText("");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					showMessage(e.getMessage());
-					e.printStackTrace();
+					showErrorMessage(e.getMessage());
 				}
 				editChild.refreshView();
 				
@@ -955,14 +985,13 @@ public class Controller extends JFrame {
 		
 		editChild.decrementStepListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				Child c = editChild.getChild();
-				Objective o = editChild.getSelectedObjective();
 				try {
+					Child c = editChild.getChild();
+					Objective o = editChild.getSelectedObjective();
 					model.decrementStep(c, o);
 					lblMessage.setText("");
 				} catch (Exception e) {
-					showMessage(e.getMessage());
-					e.printStackTrace();
+					showErrorMessage(e.getMessage());
 				}
 				editChild.refreshView();
 			}
@@ -1114,10 +1143,17 @@ public class Controller extends JFrame {
 	// Sets the look and feel of the user interface.
 
 	private void setLookAndFeel() {
+		
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
 					UIManager.setLookAndFeel(info.getClassName());
+					System.out.println("TEST");
+					UIManager.put("nimbusBlueGrey", new Color(195, 198, 205)); // Buttons and table headings
+					UIManager.put("nimbusBase", new Color(176,196, 222)); // Other
+				//	UIManager.put("control", new Color(176, 196, 222)); // Background
+					UIManager.put("control", new Color(220, 229, 255));
+
 					break;
 				}
 			}
@@ -1270,5 +1306,4 @@ public class Controller extends JFrame {
 	}
 	
 	ArrayList<String> backList = new ArrayList<String>();
-
 }

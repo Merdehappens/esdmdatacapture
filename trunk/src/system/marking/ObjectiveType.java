@@ -8,7 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import system.sessions.Session;
 
 @Entity
 public class ObjectiveType {
@@ -18,12 +23,18 @@ public class ObjectiveType {
 	private int id;
 	@Basic
 	private String name;
+	
     @OneToMany(targetEntity=Objective.class,
     		mappedBy="objType",
     		cascade=CascadeType.ALL,
-    		fetch=FetchType.EAGER)
-
+    		fetch=FetchType.LAZY)
 	private List<Objective> objectives;
+    
+    @ManyToMany
+    @JoinTable(name="SessionObjectiveType",
+    		joinColumns={@JoinColumn(name="ObjectiveID")},
+    		inverseJoinColumns={@JoinColumn(name="SessionID")})
+    private List<Session> sessions;
 	
 	public ObjectiveType()
 	{
@@ -59,6 +70,10 @@ public class ObjectiveType {
 	public List<Objective> getObjectives()
 	{
 		return objectives;
+	}
+
+	public void addObjective(Objective objective) {
+		objectives.add(objective);
 	}
 	
 }

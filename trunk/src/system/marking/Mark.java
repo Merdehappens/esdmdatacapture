@@ -4,7 +4,10 @@ package system.marking;
 
 import java.util.Calendar;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -20,6 +23,10 @@ public class Mark implements SimpleKey {
 	@Id
 	@GeneratedValue
     private int id;
+	
+	@Basic
+	private char type;
+	
 	@ManyToOne
 	@JoinColumn(name="child_id")
     private Child child;
@@ -98,6 +105,22 @@ public class Mark implements SimpleKey {
         this.step = step;
         this.therapist = therapist;
         this.time = time;
+        type = 'n';
+    }
+    
+    public Mark(int id, int mark, Child child, Therapist therapist, char type) {
+    	this.id = id;
+    	this.mark = mark;
+    	this.child = child;
+    	this.type = type;
+    	this.therapist = therapist;
+    }
+    
+    public Mark(int mark, Child child, Therapist therapist, char type) {
+    	this.mark = mark;
+    	this.child = child;
+    	this.type = type;
+    	this.therapist = therapist;
     }
     
     public Mark()
@@ -118,6 +141,7 @@ public class Mark implements SimpleKey {
 		this.day = day;
 		this.therapist = therapist;
 		time = Calendar.getInstance();
+		type = 'n';
 	}
 
 	public int getId()
@@ -131,18 +155,23 @@ public class Mark implements SimpleKey {
 
 	public String toString()
 	{
-		if(mark == 0)
-		{
-			return "/";
+		if(type == 'n') {
+			if(mark == 0)
+			{
+				return "/";
+			}
+			else if(mark > 0)
+			{
+				return "+";
+			}
+			else
+			{
+				return "-";
+			}
+		} else {
+			return "" + mark;
 		}
-		else if(mark > 0)
-		{
-			return "+";
-		}
-		else
-		{
-			return "-";
-		}
+		
 	}
 	
 	public void setComments(String comment)
@@ -174,6 +203,14 @@ public class Mark implements SimpleKey {
 	public void setStep(Step step) {
 		this.step = step;
 		objective = step.getObjective();
+	}
+	
+	public void setType(char type) {
+		this.type = type;
+	}
+	
+	public char getType() {
+		return type;
 	}
 	
 	
