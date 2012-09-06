@@ -1110,7 +1110,7 @@ public class ESDMModel {
 	// Takes in a name, creates a new session object with that name
 	// and adds it to the database and list
 	public void addSession(String name) {
-		
+		// TODO
 	}
 	
 	// Takes in a session object and sets the name attribute to the string
