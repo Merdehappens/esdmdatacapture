@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import system.model.ESDMModel;
+import java.awt.Color;
 
 public abstract class PanelView extends JPanel {
 
@@ -16,10 +17,18 @@ public abstract class PanelView extends JPanel {
 	private ESDMModel model;
 
 	public PanelView() {
+		initialise();
 		addShownListener();
 	}
 
+	private void initialise() {
+
+		setBackground(new Color(255, 255, 153));
+		setOpaque(true);
+	}
+
 	public PanelView(ESDMModel model) {
+		initialise();
 		addShownListener();
 		this.model = model;
 	}
@@ -48,7 +57,7 @@ public abstract class PanelView extends JPanel {
 	// Sets the title of the panel to be what is parsed through.
 	public void setTitle(String string) {
 		JLabel lblTitle = new JLabel(string);
-		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblTitle.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 20));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setBounds(0, 10, 1008, 40);
 		add(lblTitle);

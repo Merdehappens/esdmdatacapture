@@ -50,7 +50,7 @@ public class SessionView extends PanelView {
 		
 		// Adds view Day button to panel
 		btnViewDay = new JButton("View Day");
-		btnViewDay.setBounds(180, 109, 108, 30);
+		btnViewDay.setBounds(180, 75, 108, 30);
 		add(btnViewDay);
 
 		// Adds the reset search criteria button to the page and add action listener
@@ -61,7 +61,7 @@ public class SessionView extends PanelView {
 				refreshView();
 			}
 		});
-		btnReset.setBounds(799, 109, 151, 30);
+		btnReset.setBounds(799, 75, 151, 30);
 		add(btnReset);
 
 		// Adds refine search button to the screen that when clicked calls showRefineSearch method
@@ -71,12 +71,12 @@ public class SessionView extends PanelView {
 				showRefineSearch();
 			}
 		});
-		btnRefineSearch.setBounds(656, 109, 133, 30);
+		btnRefineSearch.setBounds(656, 75, 133, 30);
 		add(btnRefineSearch);
 
 		// Adds a scroll pane to the screen for the table to go in
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(50, 150, 900, 300);
+		scrollPane.setBounds(50, 116, 900, 426);
 		add(scrollPane);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
@@ -100,7 +100,7 @@ public class SessionView extends PanelView {
 		
 		// Adds the new day button to the screen
 		btnNewDay = new JButton("New Day");
-		btnNewDay.setBounds(50, 109, 120, 30);
+		btnNewDay.setBounds(50, 75, 120, 30);
 		add(btnNewDay);
 
 	}

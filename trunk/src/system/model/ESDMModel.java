@@ -584,7 +584,6 @@ public class ESDMModel {
 		if(Helper.isValidEmailAddress(email))
 		{
 			currentUser.setEmailAddress(email);
-			//TODO DB
 			
 			org.hibernate.Session session = factory.openSession();
 			session.beginTransaction();
@@ -1028,7 +1027,7 @@ public class ESDMModel {
 	public void playSound(SimpleKey object) throws Exception {
 
 		String filePath = object.getClass().getSimpleName();
-		File file = new File(".\\" + filePath + "\\" + object.getId() + ".wav");
+		File file = new File(filePath + "\\" + object.getId() + ".wav");
 		
 		PlaySound ps = new PlaySound(file);
 		Thread thread = new Thread(ps);
