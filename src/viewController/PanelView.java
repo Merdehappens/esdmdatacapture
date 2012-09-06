@@ -17,18 +17,11 @@ public abstract class PanelView extends JPanel {
 	private ESDMModel model;
 
 	public PanelView() {
-		initialise();
 		addShownListener();
 	}
 
-	private void initialise() {
-
-		setBackground(new Color(255, 255, 153));
-		setOpaque(true);
-	}
 
 	public PanelView(ESDMModel model) {
-		initialise();
 		addShownListener();
 		this.model = model;
 	}

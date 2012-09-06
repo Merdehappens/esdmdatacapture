@@ -216,7 +216,9 @@ public class Controller extends JFrame {
 		// Set the main layout of the project (tabbed pane)
 		UIManager.put("nimbusBlueGrey", new Color(175, 238, 238));
 		UIManager.put("nimbusBase", new Color(150,230, 230));
-		UIManager.put("control", Color.white);
+		UIManager.put("control", new Color(176, 196, 222));
+		
+
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 
 
