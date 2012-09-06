@@ -32,7 +32,7 @@ public class AccountView extends PanelView {
 
 		// Adds the title to the top of the screen.
 
-		super.setTitle("Account Management");
+		super.setTitle("Administration");
 
 		// Adds the change password button to the screen
 		btnChangePassword = new JButton("Change Password");

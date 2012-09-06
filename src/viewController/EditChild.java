@@ -219,8 +219,12 @@ public class EditChild extends PanelView {
 		btnSetMastered.addActionListener(al);
 	}
 	
-	public Objective getSelectedObjective()
+	public Objective getSelectedObjective() throws Exception
 	{
+		if(tblObjective.getSelectedRow() == -1)
+		{
+			throw new Exception("10001: There is no row selected");
+		}
 		return (Objective)tblObjectiveModel.getValueAt(tblObjective.getSelectedRow(), 0);
 		
 	}

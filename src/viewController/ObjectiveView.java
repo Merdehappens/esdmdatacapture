@@ -41,20 +41,20 @@ public class ObjectiveView extends PanelView {
 
 		// Creates 3 new buttons and adds them to the page
 		btnAddNewObjective = new JButton("Add New Objective");
-		btnAddNewObjective.setBounds(50, 109, 200, 30);
+		btnAddNewObjective.setBounds(50, 90, 200, 35);
 		add(btnAddNewObjective);
 
 		btnViewObjectives = new JButton("View Objectives");
-		btnViewObjectives.setBounds(260, 109, 200, 30);
+		btnViewObjectives.setBounds(260, 90, 200, 35);
 		add(btnViewObjectives);
 
 		btnAddObjectiveTo = new JButton("Add Objective to Child");
-		btnAddObjectiveTo.setBounds(470, 109, 200, 30);
+		btnAddObjectiveTo.setBounds(470, 90, 200, 35);
 		add(btnAddObjectiveTo);
 
 		// Creates a new scrollpane and adds it to the screen
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(50, 150, 900, 300);
+		scrollPane.setBounds(50, 135, 900, 390);
 		add(scrollPane);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		

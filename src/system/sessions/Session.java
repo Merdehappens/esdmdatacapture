@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import system.helper.SimpleKey;
 import system.marking.Mark;
 import system.marking.Objective;
+import system.marking.ObjectiveType;
 
 
 @Entity
@@ -27,11 +28,11 @@ public class Session implements SimpleKey {
 	@Column(name="SessionID")
 	private int id;
 	private String description;
-    @ManyToMany
-    @JoinTable(name="SessionObjective",
+	@ManyToMany
+    @JoinTable(name="SessionObjectiveType",
     		joinColumns={@JoinColumn(name="SessionID")},
     		inverseJoinColumns={@JoinColumn(name="ObjectiveID")})
-	private List<Objective> objectives;
+	private List<ObjectiveType> objectives;
     @ManyToMany
     @JoinTable(name="DaySession",
     		joinColumns={@JoinColumn(name="SessionID")},
@@ -50,14 +51,14 @@ public class Session implements SimpleKey {
     public Session(String description)
     {
         this.description = description;
-        objectives = new ArrayList<Objective>();
+        objectives = new ArrayList<ObjectiveType>();
     }
     
     public Session(int id, String description)
     {
         this.id = id;
         this.description = description;
-        objectives = new ArrayList<Objective>();
+        objectives = new ArrayList<ObjectiveType>();
     }
     
     public int getId()
@@ -70,7 +71,7 @@ public class Session implements SimpleKey {
     	return description;
     }
     
-    public List<Objective> getObjectives()
+    public List<ObjectiveType> getObjectives()
     {
     	return objectives;
     }
@@ -88,8 +89,8 @@ public class Session implements SimpleKey {
 		this.id = id;
 	}
 
-	public void setObjectives(List<Objective> objectives) {
-		this.objectives = objectives;
+	public void setObjectives(List<ObjectiveType> objTypeList) {
+		this.objectives = objTypeList;
 	}
 
 	public List<Day> getDays() {

@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
@@ -41,14 +42,9 @@ public class Objective implements SimpleKey  {
     		cascade=CascadeType.ALL,
     		fetch=FetchType.LAZY)
     private List<ChildObjective> children;
-    @ManyToMany
-    @JoinTable(name="SessionObjective",
-    		joinColumns={@JoinColumn(name="ObjectiveID")},
-    		inverseJoinColumns={@JoinColumn(name="SessionID")})
-    private List<Session> sessions;
-/*	@ManyToOne
-	@JoinColumn(name="objtype_ID")*/
-    @Transient
+
+	@ManyToOne
+	@JoinColumn(name="objtype_ID")
     private ObjectiveType objType;
     
     @OneToMany(targetEntity=Mark.class,
@@ -153,14 +149,6 @@ public class Objective implements SimpleKey  {
 
 	public void setLevel(int level) {
 		this.level = level;
-	}
-
-	public List<Session> getSessions() {
-		return sessions;
-	}
-
-	public void setSessions(List<Session> sessions) {
-		this.sessions = sessions;
 	}
     
     public List<ChildObjective> getChildren() {

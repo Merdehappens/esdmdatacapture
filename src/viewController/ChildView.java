@@ -1,5 +1,6 @@
 package viewController;
 
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -46,10 +47,10 @@ public class ChildView extends PanelView {
 
 		setLayout(null);
 
-		super.setTitle("Child");
+		super.setTitle("Children");
 
 		btnAddChild = new JButton("Add New Child");
-		btnAddChild.setBounds(50, 109, 126, 30);
+		btnAddChild.setBounds(50, 90, 126, 35);
 		add(btnAddChild);
 
 		btnEditChild = new JButton("Edit Child");
@@ -57,11 +58,11 @@ public class ChildView extends PanelView {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnEditChild.setBounds(186, 109, 126, 30);
+		btnEditChild.setBounds(186, 90, 126, 35);
 		add(btnEditChild);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(50, 150, 900, 300);
+		scrollPane.setBounds(50, 135, 900, 390);
 		add(scrollPane);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		
@@ -86,9 +87,11 @@ public class ChildView extends PanelView {
 		childTable.setModel(childTableModel);
 
 		childTable.setRowSorter(sorter);
+		childTable.setShowGrid(true);
+		childTable.setRowHeight(19);
 		
 		btnRemoveChild = new JButton("Remove Child");
-		btnRemoveChild.setBounds(322, 109, 137, 30);
+		btnRemoveChild.setBounds(322, 90, 137, 35);
 		add(btnRemoveChild);
 
 		JButton btnRefineSearch = new JButton("Refine Search");
@@ -97,7 +100,7 @@ public class ChildView extends PanelView {
 				showRefineSearch();
 			}
 		});
-		btnRefineSearch.setBounds(634, 109, 160, 30);
+		btnRefineSearch.setBounds(634, 90, 160, 35);
 		add(btnRefineSearch);
 
 		JButton btnResetSearch = new JButton("Reset Search");
@@ -106,7 +109,7 @@ public class ChildView extends PanelView {
 				populateTable(childList);
 			}
 		});
-		btnResetSearch.setBounds(804, 109, 146, 30);
+		btnResetSearch.setBounds(804, 90, 146, 35);
 		add(btnResetSearch);
 		
 		TableColumnModel tblColModel = childTable.getColumnModel();
