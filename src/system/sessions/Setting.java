@@ -22,39 +22,39 @@ import system.marking.ObjectiveType;
 
 
 @Entity
-public class Session implements SimpleKey {
+public class Setting implements SimpleKey {
 	@Id
 	@GeneratedValue
-	@Column(name="SessionID")
+	@Column(name="SettingID")
 	private int id;
 	private String description;
 	@ManyToMany
-    @JoinTable(name="SessionObjectiveType",
-    		joinColumns={@JoinColumn(name="SessionID")},
+    @JoinTable(name="SettingObjectiveType",
+    		joinColumns={@JoinColumn(name="SettingID")},
     		inverseJoinColumns={@JoinColumn(name="ObjectiveID")})
 	private List<ObjectiveType> objectives;
     @ManyToMany
-    @JoinTable(name="DaySession",
-    		joinColumns={@JoinColumn(name="SessionID")},
+    @JoinTable(name="DaySetting",
+    		joinColumns={@JoinColumn(name="SettingID")},
     		inverseJoinColumns={@JoinColumn(name="DayID")})
 	private List<Day> days;
     @OneToMany(targetEntity=Mark.class,
-    		mappedBy="session",
+    		mappedBy="setting",
     		cascade=CascadeType.ALL,
     		fetch=FetchType.LAZY)
     private List<Mark> marks;
     
-    public Session()
+    public Setting()
     {    
     }
     
-    public Session(String description)
+    public Setting(String description)
     {
         this.description = description;
         objectives = new ArrayList<ObjectiveType>();
     }
     
-    public Session(int id, String description)
+    public Setting(int id, String description)
     {
         this.id = id;
         this.description = description;

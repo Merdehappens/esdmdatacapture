@@ -13,7 +13,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class ReviewSession extends PanelView {
@@ -21,7 +20,7 @@ public class ReviewSession extends PanelView {
 
 	private static final long serialVersionUID = -271506336391846049L;
 	private Day day;
-	private JTable tblReview;
+	private MyJTable tblReview;
 	private DefaultTableModel tableModel;
 	private JLabel lblDate;
 	private JLabel lblId;
@@ -60,7 +59,7 @@ public class ReviewSession extends PanelView {
 		tableModel.setColumnIdentifiers(columnNames);
 		
 		// Creates the table and sets the table within the scrollpane
-		tblReview = new JTable(tableModel);
+		tblReview = new MyJTable(tableModel);
 		scrollPane.setViewportView(tblReview);
 
 		// Creates and adds labels to the screen
@@ -136,7 +135,7 @@ public class ReviewSession extends PanelView {
 			Object[] rowData = new Object[8];
 
 			rowData[0] = tempMark.getTherapist();
-			rowData[1] = tempMark.getSession();
+			rowData[1] = tempMark.getSetting();
 			rowData[2] = tempMark.getChild();
 			rowData[3] = tempMark.getObjective();
 			rowData[4] = tempMark.getStep();

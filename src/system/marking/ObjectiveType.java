@@ -13,7 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import system.sessions.Session;
+import system.sessions.Setting;
 
 @Entity
 public class ObjectiveType {
@@ -31,10 +31,10 @@ public class ObjectiveType {
 	private List<Objective> objectives;
     
     @ManyToMany
-    @JoinTable(name="SessionObjectiveType",
+    @JoinTable(name="SettingObjectiveType",
     		joinColumns={@JoinColumn(name="ObjectiveID")},
-    		inverseJoinColumns={@JoinColumn(name="SessionID")})
-    private List<Session> sessions;
+    		inverseJoinColumns={@JoinColumn(name="SettingID")})
+    private List<Setting> settings;
 	
 	public ObjectiveType()
 	{

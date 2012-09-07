@@ -27,7 +27,7 @@ import system.marking.Mark;
 import system.marking.Objective;
 import system.marking.Step;
 import system.sessions.Day;
-import system.sessions.Session;
+import system.sessions.Setting;
 import java.awt.event.ActionEvent;
 
 public class ChangeMark extends JDialog {
@@ -35,7 +35,7 @@ public class ChangeMark extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private int step;
 	private Calendar time;
-	private ArrayList<Session> sessions;
+	private ArrayList<Setting> settings;
 	private ArrayList<Objective> objectives;
 	private JComboBox<Mark> cmbMark;
 	private JComboBox<Child> cmbChild;
@@ -43,7 +43,7 @@ public class ChangeMark extends JDialog {
 	private JButton btnCancel;
 	private Mark mark;
 	private Day day;
-	private DefaultComboBoxModel<Session> cmbSessionModel;
+	private DefaultComboBoxModel<Setting> cmbSettingModel;
 	private DefaultComboBoxModel<Child> cmbChildModel;
 	private DefaultComboBoxModel<Objective> cmbObjectiveModel;
 	private JTextField txtStep;
@@ -79,12 +79,12 @@ public class ChangeMark extends JDialog {
 		
 
 		
-		JComboBox<Session> cmbSession = new JComboBox<Session>();
-		cmbSessionModel = new DefaultComboBoxModel<Session>();
-		cmbSession.setModel(cmbSessionModel);
+		JComboBox<Setting> cmbSetting = new JComboBox<Setting>();
+		cmbSettingModel = new DefaultComboBoxModel<Setting>();
+		cmbSetting.setModel(cmbSettingModel);
 		
-		cmbSession.setBounds(73, 74, 223, 28);
-		contentPanel.add(cmbSession);
+		cmbSetting.setBounds(73, 74, 223, 28);
+		contentPanel.add(cmbSetting);
 		
 		
 		
@@ -234,14 +234,14 @@ public class ChangeMark extends JDialog {
 		
 
 		// Iterate through all the sessions in the day and add them to combo box
-		sessions = new ArrayList<Session>(day.getSessions());
-		int size = sessions.size();
+		settings = new ArrayList<Setting>(day.getSettings());
+		int size = settings.size();
 		for(int i = 0; i < size; i++)
 		{
-			cmbSessionModel.addElement(sessions.get(i));
+			cmbSettingModel.addElement(settings.get(i));
 		}
 		// Set the selected item for the session box to be the one selected.
-		cmbSessionModel.setSelectedItem(mark.getSession());
+		cmbSettingModel.setSelectedItem(mark.getSetting());
 		
 		// Get all the children from the day. iterate through teh list adding all children
 		ArrayList<Child> children = new ArrayList<Child>(day.getChildren());
@@ -277,8 +277,8 @@ public class ChangeMark extends JDialog {
 		btnCancel.addActionListener(al);
 	}
 
-	public Session getSession() {
-		return (Session) cmbSessionModel.getSelectedItem();
+	public Setting getSetting() {
+		return (Setting) cmbSettingModel.getSelectedItem();
 	}
 
 	public Child getChild() {

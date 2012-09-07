@@ -81,13 +81,8 @@ public class SessionView extends PanelView {
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
 		// Creates a new JTable
-		tblSession = new JTable() {
-			private static final long serialVersionUID = 1L;
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-
-		};
+		tblSession = new MyJTable();
+		
 		scrollPane.setViewportView(tblSession);
 		
 		// Sets the name of the columns

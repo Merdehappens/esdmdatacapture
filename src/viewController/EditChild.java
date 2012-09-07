@@ -37,18 +37,18 @@ public class EditChild extends PanelView {
 	private JLabel txtId;
 	private JButton btnCancel;
 	private JButton btnSave;
-	private JTable table;
-	private JTable tblGuardian;
+	private MyJTable tblGuardian;
 	private DefaultTableModel tblGuardianModel;
 	private JLabel lblPicture;
-	private JTable tblObjective;
+	private MyJTable tblObjective;
 	private DefaultTableModel tblObjectiveModel;
 	private JButton btnSetMastered;
 	private JButton btnRemoveObjective;
 	private JButton btnIncrementStep;
 	private JButton btnDecrementStep;
 	private JButton btnAddObjective;
-	private JButton btnAddGuardian;
+	private JButton btnAddExistingGuardian;
+	private JButton btnAddNewGuardian;
 
 	/**
 	 * Create the panel.
@@ -99,7 +99,7 @@ public class EditChild extends PanelView {
 
 		btnSave = new JButton("Save");
 
-		btnSave.setBounds(10, 389, 89, 23);
+		btnSave.setBounds(10, 389, 89, 30);
 		add(btnSave);
 
 		JButton btnReset = new JButton("Reset");
@@ -108,11 +108,11 @@ public class EditChild extends PanelView {
 				refreshView();
 			}
 		});
-		btnReset.setBounds(109, 389, 105, 21);
+		btnReset.setBounds(109, 389, 105, 30);
 		add(btnReset);
 
 		btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(224, 389, 94, 21);
+		btnCancel.setBounds(224, 389, 105, 30);
 		add(btnCancel);
 
 		JLabel lblId = new JLabel("Id:");
@@ -127,7 +127,7 @@ public class EditChild extends PanelView {
 		scrollPane.setBounds(10, 189, 319, 150);
 		add(scrollPane);
 		
-		tblGuardian = new JTable();
+		tblGuardian = new MyJTable();
 		tblGuardianModel = new DefaultTableModel();
 		tblGuardian.setModel(tblGuardianModel);
 		scrollPane.setViewportView(tblGuardian);
@@ -140,7 +140,7 @@ public class EditChild extends PanelView {
 		scrlTable.setBounds(355, 63, 482, 316);
 		add(scrlTable);
 		
-		tblObjective = new JTable();
+		tblObjective = new MyJTable();
 		scrlTable.setViewportView(tblObjective);
 		
 		tblObjectiveModel = new DefaultTableModel();
@@ -152,36 +152,46 @@ public class EditChild extends PanelView {
 		
 		
 		btnAddObjective = new JButton("Add Objective");
-		btnAddObjective.setBounds(857, 66, 132, 23);
+		btnAddObjective.setBounds(857, 66, 132, 30);
 		add(btnAddObjective);
 
 		
 		btnSetMastered = new JButton("Set Mastered");
-		btnSetMastered.setBounds(857, 152, 132, 23);
+		btnSetMastered.setBounds(857, 152, 132, 30);
 		add(btnSetMastered);
 		
 		btnRemoveObjective = new JButton("Remove Objective");
-		btnRemoveObjective.setBounds(857, 111, 132, 23);
+		btnRemoveObjective.setBounds(857, 111, 132, 30);
 		add(btnRemoveObjective);
 		
 		btnIncrementStep = new JButton("Increment Step");
-		btnIncrementStep.setBounds(857, 273, 132, 23);
+		btnIncrementStep.setBounds(857, 273, 132, 30);
 		add(btnIncrementStep);
 		
 		btnDecrementStep = new JButton("Decrement Step");
-		btnDecrementStep.setBounds(857, 316, 132, 23);
+		btnDecrementStep.setBounds(857, 316, 132, 30);
 		add(btnDecrementStep);
 		
-		btnAddGuardian = new JButton("Add Guardian");
-		btnAddGuardian.setBounds(10, 350, 139, 23);
-		add(btnAddGuardian);
+		btnAddExistingGuardian = new JButton("Add Existing Guardian");
+		btnAddExistingGuardian.setBounds(10, 350, 154, 30);
+		add(btnAddExistingGuardian);
+		
+		btnAddNewGuardian = new JButton("Add New Guardian");
+		btnAddNewGuardian.setBounds(175, 350, 154, 30);
+		add(btnAddNewGuardian);
 		String[] guardianColIdentifiers = {"Name", "Phone Number", "Email Address"};
 		tblGuardianModel.setColumnIdentifiers(guardianColIdentifiers);
 	}
 	
+	// Takes in an ActionListener and adds it to the Add New Guardian button
+	public void addNewGuardianListener(ActionListener al) {
+		btnAddNewGuardian.addActionListener(al);
+	}
+	
+	
 	// Takes in an ActionListener and adds it to the Add Guardian button
-	public void addGuardianListener(ActionListener al) {
-		btnAddGuardian.addActionListener(al);
+	public void addExistingGuardianListener(ActionListener al) {
+		btnAddExistingGuardian.addActionListener(al);
 	}
 
 	// Takes in an ActionListener and adds it to the Save Child button

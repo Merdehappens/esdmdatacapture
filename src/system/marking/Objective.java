@@ -20,7 +20,7 @@ import javax.persistence.Transient;
 
 import system.helper.SimpleKey;
 import system.individuals.ChildObjective;
-import system.sessions.Session;
+import system.sessions.Setting;
 
 @Entity
 public class Objective implements SimpleKey  {

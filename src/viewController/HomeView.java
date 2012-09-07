@@ -2,7 +2,7 @@ package viewController;
 
 import system.model.ESDMModel;
 import system.sessions.Day;
-import system.sessions.Session;
+import system.sessions.Setting;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -63,7 +63,7 @@ public class HomeView extends PanelView {
 		Calendar currDay = Calendar.getInstance();
 		ArrayList<Day> dayList = new ArrayList<Day>(this.getModel().getDays(currDay, currDay));
 		String sessions = "";
-		ArrayList<Session> sessionList;
+		ArrayList<Setting> settingList;
 		int size = dayList.size();
 		if(size == 0)
 		{
@@ -75,10 +75,10 @@ public class HomeView extends PanelView {
 			for(int i = 0; i < dayList.size(); i++)
 			{
 				sessions = sessions + dayList.get(i).getRoom() + ":<br>";
-				sessionList = new ArrayList<Session>(dayList.get(i).getSessions());
-				for(int x = 0; x < sessionList.size(); x++)
+				settingList = new ArrayList<Setting>(dayList.get(i).getSettings());
+				for(int x = 0; x < settingList.size(); x++)
 				{
-					sessions = sessions + sessionList.get(x) + "<br>";
+					sessions = sessions + settingList.get(x) + "<br>";
 				}
 				sessions = sessions + "<br>";
 			}

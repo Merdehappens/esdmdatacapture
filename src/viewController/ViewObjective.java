@@ -50,18 +50,18 @@ public class ViewObjective extends PanelView {
 		// Sets the title of the page.
 		super.setTitle("View Objective");
 		JLabel lblName = new JLabel("Objective Name");
-		lblName.setBounds(10, 43, 130, 35);
+		lblName.setBounds(10, 88, 130, 35);
 		add(lblName);
 
 		JLabel lblDescription = new JLabel("Objective Description");
 		lblDescription.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDescription.setBounds(10, 102, 345, 14);
+		lblDescription.setBounds(10, 147, 345, 14);
 		add(lblDescription);
 
 		// Adds the text field for the name
 
 		txtObjectiveName = new JTextField();
-		txtObjectiveName.setBounds(114, 43, 563, 30);
+		txtObjectiveName.setBounds(114, 88, 563, 30);
 		add(txtObjectiveName);
 		txtObjectiveName.setColumns(10);
 
@@ -69,7 +69,7 @@ public class ViewObjective extends PanelView {
 		// Adds the save button to the page
 
 		btnSave = new JButton("Save");
-		btnSave.setBounds(21, 383, 89, 23);
+		btnSave.setBounds(21, 428, 89, 23);
 		add(btnSave);
 
 		// adds the reset button to the page
@@ -80,32 +80,32 @@ public class ViewObjective extends PanelView {
 				refreshView();
 			}
 		});
-		btnReset.setBounds(120, 383, 105, 21);
+		btnReset.setBounds(120, 428, 105, 21);
 		add(btnReset);
 
 		// Adds the cancel button to the page
 
 		btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(235, 383, 94, 21);
+		btnCancel.setBounds(235, 428, 94, 21);
 		add(btnCancel);
 
 		// Adds the objective description text field to the page
 
 		txtObjectiveDescription = new JTextArea();
-		txtObjectiveDescription.setBounds(10, 127, 345, 244);
+		txtObjectiveDescription.setBounds(10, 172, 345, 244);
 		add(txtObjectiveDescription);
 		txtObjectiveDescription.setLineWrap(true);
 		txtObjectiveDescription.setWrapStyleWord(true);
 
 		JLabel lblCurrentSteps = new JLabel("Steps (In Order)");
 		lblCurrentSteps.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCurrentSteps.setBounds(394, 102, 467, 14);
+		lblCurrentSteps.setBounds(394, 147, 467, 14);
 		add(lblCurrentSteps);
 
 		// Adds a scroll pane for the JTable to go in
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(394, 127, 478, 279);
+		scrollPane.setBounds(394, 172, 478, 279);
 		add(scrollPane);
 
 		// Adds a table for the steps and sets the column names
@@ -127,11 +127,11 @@ public class ViewObjective extends PanelView {
 		
 		txtLevel = new JTextField();
 		txtLevel.setColumns(10);
-		txtLevel.setBounds(730, 43, 119, 30);
+		txtLevel.setBounds(730, 88, 119, 30);
 		add(txtLevel);
 		
 		JLabel lblLevel = new JLabel("Level:");
-		lblLevel.setBounds(687, 43, 65, 30);
+		lblLevel.setBounds(687, 88, 65, 30);
 		add(lblLevel);
 
 		// Sets the preferred width of the columns in the table

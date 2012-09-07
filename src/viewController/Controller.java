@@ -38,7 +38,7 @@ import system.marking.Step;
 import system.model.ESDMModel;
 import system.model.Room;
 import system.sessions.Day;
-import system.sessions.Session;
+import system.sessions.Setting;
 
 
 import java.net.MalformedURLException;
@@ -112,6 +112,7 @@ public class Controller extends JFrame {
 	private ChangeMark changeMark;
 	private AddGuardian addGuardian;
 	private ChooseObjective chooseObjective;
+	private AddNewGuardian addNewGuardian;
 	
 	private HashMap<String, JPanel> panelMap = new HashMap<String, JPanel>();
 	private JButton btnBack;
@@ -422,12 +423,12 @@ public class Controller extends JFrame {
 
 				ArrayList<Child> children = addDay.getChildren();
 				Room room = addDay.getRoom();
-				ArrayList<Session> sessions = addDay.getSessions();
+				ArrayList<Setting> settings = addDay.getSettings();
 				Calendar date = addDay.getDate();
 
 				try {
 					logSessionData.setDay(model.addDay(date, children, room,
-							sessions));
+							settings));
 					show(sessionPanel, "logSessionData");
 				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
@@ -474,7 +475,7 @@ public class Controller extends JFrame {
 		logSessionData.listenSettingListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
-					model.playSound(logSessionData.getSelectedSession());
+					model.playSound(logSessionData.getSelectedSetting());
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -914,8 +915,74 @@ public class Controller extends JFrame {
 			}
 		});
 	
+		editChild.addNewGuardianListener(new java.awt.event.ActionListener() {
+			
+
+			public void actionPerformed(ActionEvent arg0) {
+				addNewGuardian = new AddNewGuardian();
+				
+				addNewGuardian.saveButtonListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						addNewGuardian.setVisible(false);
+						try {
+							String name = addNewGuardian.getName();
+							String username = addNewGuardian.getUsername();
+							String email = addNewGuardian.getEmail();
+							String phone = addNewGuardian.getPhone();
+							String password = Helper.generateRandomString(8);
+							Guardian g = model.newGuardian(name, username, email, phone, password, "g");
+							Child c = editChild.getChild();
+							model.addChildGuardian(c, g);
+							editChild.refreshView();
+						} catch (NullPointerException e) {
+							e.printStackTrace();
+							showErrorMessage(e.getMessage());
+						}
+						catch (Exception e) {
+							e.printStackTrace();
+							showErrorMessage(e.getMessage());
+						}
+						
+					}
+				});
+				
+				addNewGuardian.cancelButtonListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						addNewGuardian.setVisible(false);
+					}
+				});
+				
+				addNewGuardian.setModalityType(ModalityType.APPLICATION_MODAL);
+				addNewGuardian.setVisible(true);
+				
+				
+				/*				chooseObjective = new ChooseObjective(model.getObjectiveList());
+				
+				chooseObjective.saveButtonListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						chooseObjective.setVisible(false);
+						Objective obj = chooseObjective.getObjective();
+						show(objectivePanel, "addObjective");
+						try{
+						addObjective.setName(obj.getName());
+						addObjective.setDescription(obj.getDescription());
+						addObjective.setLevel(obj.getLevel());
+						addObjective.setSteps(obj.getSteps());
+						} catch(NullPointerException e) {
+							showErrorMessage("10003: No Objective is selected");
+						}
+					}
+				});
+
+				
+			*/
+				
+				
+				
+			}
+		});
 		
-		editChild.addGuardianListener(new java.awt.event.ActionListener() {
+		editChild.addExistingGuardianListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				// TODO Add guardian
@@ -938,6 +1005,12 @@ public class Controller extends JFrame {
 							showMessage("No Guardian Selected.");
 						}
 						editChild.refreshView();
+					}
+				});
+				
+				addGuardian.cancelButtonListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						addGuardian.setVisible(false);
 					}
 				});
 			
@@ -1161,8 +1234,9 @@ public class Controller extends JFrame {
 		Calendar dob = addChild.getDob();
 		Calendar dateJoined = addChild.getDateJoined();
 		try {
-			model.addChild(name, dob, dateJoined);
-			show(childPanel, "Child");
+			Child c = model.addChild(name, dob, dateJoined);
+			editChild.setChild(c);
+			show(childPanel, "editChild");
 			showMessage(name + " has been successfully added to the system.");
 		} catch (Exception e) {
 			showErrorMessage(e.getMessage());
@@ -1285,7 +1359,7 @@ public class Controller extends JFrame {
 	
 	public void saveMark() {
 		try {
-		Session session = changeMark.getSession();
+		Setting setting = changeMark.getSetting();
 		Child child = changeMark.getChild();
 		Calendar time = changeMark.getTime();
 		Objective objective = changeMark.getObjective();
@@ -1293,7 +1367,7 @@ public class Controller extends JFrame {
 		int markVal = changeMark.getIntMark();
 		String comment = changeMark.getComment();
 		
-		model.updateMark(changeMark.getMark(), session, child, time, objective, step, markVal, comment);
+		model.updateMark(changeMark.getMark(), setting, child, time, objective, step, markVal, comment);
 		
 		} catch (Exception e) {
 			showMessage(e.getMessage());

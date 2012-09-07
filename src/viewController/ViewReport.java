@@ -32,7 +32,7 @@ public class ViewReport extends PanelView {
 
 	private static final long serialVersionUID = 7874110638597279843L;
 	private JScrollPane scrollPane;
-	private JTable tblSession;
+	private MyJTable tblSession;
 	private DefaultTableModel tableModel;
 	private Child child;
 	private JLabel lblChildName;
@@ -77,7 +77,7 @@ public class ViewReport extends PanelView {
 
 		sorter = new TableRowSorter<DefaultTableModel>(tableModel);
 
-		tblSession = new JTable(tableModel);
+		tblSession = new MyJTable(tableModel);
 		scrollPane.setViewportView(tblSession);
 
 		tblSession.setRowSorter(sorter);
@@ -170,8 +170,8 @@ public class ViewReport extends PanelView {
 				if (mark.getStep() != null) {
 					rowData[2] = mark.getStep().getNo();
 				}
-				if (mark.getSession() != null) {
-					rowData[3] = mark.getSession();
+				if (mark.getSetting() != null) {
+					rowData[3] = mark.getSetting();
 				}
 				rowData[4] = mark.toString();
 				rowData[5] = mark.getComment();

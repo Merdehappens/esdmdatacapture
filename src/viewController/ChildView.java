@@ -26,7 +26,7 @@ public class ChildView extends PanelView {
 	private JButton btnAddChild;
 	private JButton btnEditChild;
 	private JButton btnRemoveChild;
-	private JTable childTable;
+	private MyJTable childTable;
 	private DefaultTableModel childTableModel;
 	private ArrayList<Child> childList;
 	private JScrollPane scrollPane;
@@ -68,15 +68,7 @@ public class ChildView extends PanelView {
 		
 		childTableModel = new DefaultTableModel();
 		TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(childTableModel);
-		childTable = new JTable() {
-
-			private static final long serialVersionUID = 6404756832838176556L;
-
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-
-		};
+		childTable = new MyJTable();
 		scrollPane.setViewportView(childTable);
 
 		String[] columnNames = new String[] { "ChildID", "Name",
@@ -87,8 +79,6 @@ public class ChildView extends PanelView {
 		childTable.setModel(childTableModel);
 
 		childTable.setRowSorter(sorter);
-		childTable.setShowGrid(true);
-		childTable.setRowHeight(19);
 		
 		btnRemoveChild = new JButton("Remove Child");
 		btnRemoveChild.setBounds(322, 90, 137, 35);

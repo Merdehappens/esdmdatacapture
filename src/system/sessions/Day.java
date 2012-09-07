@@ -43,10 +43,10 @@ public class Day implements SimpleKey {
     private Room room;
     // ^ ^ ^ "room" set to Transient, as I believe Room is no longer used
     @ManyToMany
-    @JoinTable(name="DaySession",
+    @JoinTable(name="DaySetting",
     		joinColumns={@JoinColumn(name="DayID")},
-    		inverseJoinColumns={@JoinColumn(name="SessionID")})
-    private List<Session> sessions;
+    		inverseJoinColumns={@JoinColumn(name="SettingID")})
+    private List<Setting> settings;
     private boolean template;
     @OneToMany(targetEntity=Mark.class,
     		mappedBy="day",
@@ -57,16 +57,16 @@ public class Day implements SimpleKey {
     public Day()
     {
     	children = new ArrayList<Child>();
-    	sessions = new ArrayList<Session>();
+    	settings = new ArrayList<Setting>();
         marks = new ArrayList<Mark>();
     }
 
-    public Day(ArrayList<Child> children, Calendar date, int id, ArrayList<Session> sessions) {
+    public Day(ArrayList<Child> children, Calendar date, int id, ArrayList<Setting> settings) {
         this.children = children;
         this.date = date;
         setDateTime();
         this.id = id;
-        this.sessions = sessions;
+        this.settings = settings;
         marks = new ArrayList<Mark>();
     }
     
@@ -84,7 +84,7 @@ public class Day implements SimpleKey {
         setDateTime();
         marks = new ArrayList<Mark>();
         children = new ArrayList<Child>();
-        sessions = new ArrayList<Session>();
+        settings = new ArrayList<Setting>();
     }
         
     public Day(Calendar date, int id)
@@ -94,7 +94,7 @@ public class Day implements SimpleKey {
         this.id = id;
         marks = new ArrayList<Mark>();
         children = new ArrayList<Child>();
-        sessions = new ArrayList<Session>();
+        settings = new ArrayList<Setting>();
     }
     
     public Day(Calendar date, Room room)
@@ -104,7 +104,7 @@ public class Day implements SimpleKey {
     	this.room = room;
     	marks = new ArrayList<Mark>();
     	children = new ArrayList<Child>();
-    	sessions = new ArrayList<Session>();
+    	settings = new ArrayList<Setting>();
     }
     
     public void addMark(Mark mark)
@@ -132,9 +132,9 @@ public class Day implements SimpleKey {
     	return room;
     }
     
-    public Collection<Session> getSessions()
+    public Collection<Setting> getSettings()
     {
-    	return sessions;
+    	return settings;
    
     }
 
@@ -165,9 +165,9 @@ public class Day implements SimpleKey {
 	        children.add(child);
 	}
 	
-	public void addSession(Session session)
+	public void addSetting(Setting setting)
 	{
-		sessions.add(session);
+		settings.add(setting);
 
 	}
 
@@ -183,8 +183,8 @@ public class Day implements SimpleKey {
 		this.date = date;
 	}
 
-	public void setSessions(List<Session> sessions) {
-		this.sessions = sessions;
+	public void setSettings(List<Setting> settings) {
+		this.settings = settings;
 	}
 
 	public void setMarks(List<Mark> marks) {
