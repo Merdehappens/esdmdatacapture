@@ -2,6 +2,7 @@ package viewController;
 
 import javax.swing.JButton;
 
+import system.marking.Step;
 import system.model.ESDMModel;
 
 import javax.swing.JLabel;
@@ -12,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JTextArea;
 import javax.swing.JTable;
@@ -32,6 +35,7 @@ public class AddObjective extends PanelView {
 	private DefaultTableModel tableModel;
 	private JTextArea txtObjectiveDescription;
 	private JTextField txtLevel;
+	private JButton btnCreateFromTemplate;
 
 	/**
 	 * Create the panel.
@@ -172,6 +176,10 @@ public class AddObjective extends PanelView {
 		txtLevel.setBounds(628, 66, 119, 30);
 		add(txtLevel);
 		txtLevel.setColumns(10);
+		
+		btnCreateFromTemplate = new JButton("Create from Template");
+		btnCreateFromTemplate.setBounds(757, 66, 169, 30);
+		add(btnCreateFromTemplate);
 
 		// Sets the column widths
 		tblStep.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -194,6 +202,11 @@ public class AddObjective extends PanelView {
 
 	}
 
+	// Takes in an ActionListener and adds it to the create from template button
+	public void templateListener(ActionListener al) {
+		btnCreateFromTemplate.addActionListener(al);
+	}
+	
 	// Takes in an ActionListener and adds it to the submit button
 
 	public void submitListener(ActionListener al) {
@@ -272,5 +285,37 @@ public class AddObjective extends PanelView {
 
 		String[] row = new String[] { "", "" };
 		tableModel.addRow(row);
+	}
+	
+	public void setName(String name) {
+		txtObjectiveName.setText(name);
+	}
+	
+	public void setLevel(int level) {
+		txtLevel.setText("" + level);
+	}
+	
+	public void setDescription(String description) {
+		txtObjectiveDescription.setText(description);
+	}
+	
+	public void setSteps(List<Step> stepsList) {
+
+		while (tblStep.getRowCount() > 0) {
+			tableModel.removeRow(0);
+		}
+		
+		ArrayList<Step> steps = new ArrayList<Step>(stepsList);
+		
+		for(int i = 0; i < steps.size(); i++)
+		{
+			Object[] row = new Object[2];
+			Step s = steps.get(i);
+			
+			row[0] = s.getCode();
+			row[1] = s.getDescription();
+			
+			tableModel.addRow(row);
+		}
 	}
 }

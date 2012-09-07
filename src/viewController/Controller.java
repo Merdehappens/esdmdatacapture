@@ -111,6 +111,7 @@ public class Controller extends JFrame {
 	private String access;
 	private ChangeMark changeMark;
 	private AddGuardian addGuardian;
+	private ChooseObjective chooseObjective;
 	
 	private HashMap<String, JPanel> panelMap = new HashMap<String, JPanel>();
 	private JButton btnBack;
@@ -723,6 +724,35 @@ public class Controller extends JFrame {
 	}
 
 	public void initObjectiveButtonListeners() {
+		
+		addObjective.templateListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				chooseObjective = new ChooseObjective(model.getObjectiveList());
+				
+				chooseObjective.saveButtonListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						chooseObjective.setVisible(false);
+						Objective obj = chooseObjective.getObjective();
+						show(objectivePanel, "addObjective");
+						try{
+						addObjective.setName(obj.getName());
+						addObjective.setDescription(obj.getDescription());
+						addObjective.setLevel(obj.getLevel());
+						addObjective.setSteps(obj.getSteps());
+						} catch(NullPointerException e) {
+							showErrorMessage("10003: No Objective is selected");
+						}
+					}
+				});
+
+				chooseObjective.setModalityType(ModalityType.APPLICATION_MODAL);
+				chooseObjective.setVisible(true);
+			
+				
+				
+			}
+		});
+		
 		addObjective.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				addObjective();
