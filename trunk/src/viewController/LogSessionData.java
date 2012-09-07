@@ -21,7 +21,7 @@ import system.marking.Objective;
 import system.marking.Step;
 import system.model.ESDMModel;
 import system.sessions.Day;
-import system.sessions.Session;
+import system.sessions.Setting;
 
 public class LogSessionData extends PanelView {
 	/**
@@ -35,7 +35,7 @@ public class LogSessionData extends PanelView {
 	private JLabel lblMark;
 	private JButton btnCommitMark;
 	private JButton btnAddTimestamp;
-	private JList<Session> lstSession;
+	private JList<Setting> lstSetting;
 	private JList<Child> lstChild;
 	private JList<Objective> lstObjective;
 	private JList<Mark> lstMark;
@@ -47,7 +47,7 @@ public class LogSessionData extends PanelView {
 	private JButton btnMarkPrevious;
 	private JButton btnMarkNext;
 
-	private DefaultListModel<Session> sessionModel;
+	private DefaultListModel<Setting> settingModel;
 	private DefaultListModel<Child> childModel;
 	private DefaultListModel<Objective> objectiveModel;
 	private DefaultListModel<Step> stepModel;
@@ -105,11 +105,11 @@ public class LogSessionData extends PanelView {
 		lblMark.setBounds(842, 65, 83, 14);
 		add(lblMark);
 
-		sessionModel = new DefaultListModel<Session>();
-		lstSession = new JList<Session>(sessionModel);
-		lstSession.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lstSession.setBounds(10, 94, 154, 174);
-		add(lstSession);
+		settingModel = new DefaultListModel<Setting>();
+		lstSetting = new JList<Setting>(settingModel);
+		lstSetting.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lstSetting.setBounds(10, 94, 154, 174);
+		add(lstSetting);
 
 		childModel = new DefaultListModel<Child>();
 		lstChild = new JList<Child>(childModel);
@@ -164,7 +164,7 @@ public class LogSessionData extends PanelView {
 
 		btnSettingNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				setIndex(lstSession, sessionModel, 1);
+				setIndex(lstSetting, settingModel, 1);
 			}
 		});
 		btnSettingNext.setBounds(90, 270, 40, 40);
@@ -174,7 +174,7 @@ public class LogSessionData extends PanelView {
 		btnSettingPrevious.setMnemonic(KeyEvent.VK_Z);
 		btnSettingPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setIndex(lstSession, sessionModel, -1);
+				setIndex(lstSetting, settingModel, -1);
 			}
 
 		});
@@ -330,7 +330,7 @@ public class LogSessionData extends PanelView {
 	}
 
 	public void clearLists() {
-		sessionModel.clear();
+		settingModel.clear();
 		childModel.clear();
 		objectiveModel.clear();
 		stepModel.clear();
@@ -352,15 +352,15 @@ public class LogSessionData extends PanelView {
 	}
 
 	public void setDayView() {
-		sessionModel.clear();
+		settingModel.clear();
 		childModel.clear();
 
-		ArrayList<Session> settings = new ArrayList<Session>(day.getSessions());
+		ArrayList<Setting> settings = new ArrayList<Setting>(day.getSettings());
 		ArrayList<Child> children = new ArrayList<Child>(day.getChildren());
 
 		int size = settings.size();
 		for (int i = 0; i < size; i++) {
-			sessionModel.addElement(settings.get(i));
+			settingModel.addElement(settings.get(i));
 		}
 
 		size = children.size();
@@ -378,13 +378,13 @@ public class LogSessionData extends PanelView {
 
 	public void addMark() {
 		try {
-			Session session = sessionModel.get(lstSession.getSelectedIndex());
+			Setting setting = settingModel.get(lstSetting.getSelectedIndex());
 			Child child = childModel.get(lstChild.getSelectedIndex());
 			Objective objective = objectiveModel.get(lstObjective
 					.getSelectedIndex());
 			Step step = child.getCurrentStep(objective);
 			int mark = markModel.get(lstMark.getSelectedIndex()).getMark();
-			this.getModel().addMark(session, child, objective, step, mark, day);
+			this.getModel().addMark(setting, child, objective, step, mark, day);
 		} catch (Exception e) {
 			JOptionPane
 					.showMessageDialog(this,
@@ -393,19 +393,19 @@ public class LogSessionData extends PanelView {
 	}
 
 	public void addTimestamp() {
-		Session session = null;
+		Setting setting = null;
 		Child child = null;
 		Objective objective = null;
 		Step step = null;
 		int mark = 0;
 
-		if (lstSession.getSelectedIndex() != -1) {
-			session = sessionModel.get(lstSession.getSelectedIndex());
+		if (lstSetting.getSelectedIndex() != -1) {
+			setting = settingModel.get(lstSetting.getSelectedIndex());
 		}
 
 		try {
 			child = childModel.get(lstChild.getSelectedIndex());
-			this.getModel().addTimestamp(session, child, objective, step, mark,
+			this.getModel().addTimestamp(setting, child, objective, step, mark,
 					day);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -421,8 +421,8 @@ public class LogSessionData extends PanelView {
 		
 	}
 	
-	public Session getSelectedSession() {
-		return sessionModel.getElementAt(lstSession.getSelectedIndex());
+	public Setting getSelectedSetting() {
+		return settingModel.getElementAt(lstSetting.getSelectedIndex());
 		
 	}
 	

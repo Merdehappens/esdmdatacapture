@@ -16,7 +16,7 @@ import system.helper.SimpleKey;
 import system.individuals.Child;
 import system.individuals.Therapist;
 import system.sessions.Day;
-import system.sessions.Session;
+import system.sessions.Setting;
 
 @Entity
 public class Mark implements SimpleKey {
@@ -35,8 +35,8 @@ public class Mark implements SimpleKey {
 	@JoinColumn(name="day_id")
     private Day day;
 	@ManyToOne
-	@JoinColumn(name="session_id")
-    private Session session;
+	@JoinColumn(name="setting_id")
+    private Setting setting;
 	@ManyToOne
 	@JoinColumn(name="objective_id")
     private Objective objective;
@@ -63,8 +63,8 @@ public class Mark implements SimpleKey {
 		return day;
 	}
 
-	public Session getSession() {
-		return session;
+	public Setting getSetting() {
+		return setting;
 	}
 
 	public Objective getObjective() {
@@ -96,12 +96,12 @@ public class Mark implements SimpleKey {
 	 * Creates a new mark object with the time that is parsed through
 	 */
 
-    public Mark(int id, Child child, Objective objective, int mark, Session session, 
+    public Mark(int id, Child child, Objective objective, int mark, Setting setting, 
     					Step step, Therapist therapist, Calendar time) {
         this.id = id;
         this.child = child;
         this.mark = mark;
-        this.session = session;
+        this.setting = setting;
         this.step = step;
         this.therapist = therapist;
         this.time = time;
@@ -131,9 +131,9 @@ public class Mark implements SimpleKey {
 	 * Creates a new mark object with the time set to current system time
 	 */
     
-	public Mark(Session session, Child child, Objective objective,
+	public Mark(Setting setting, Child child, Objective objective,
 			Step step, int mark, Therapist therapist, Day day) {
-		this.session = session;
+		this.setting = setting;
 		this.child = child;
 		this.objective = objective;
 		this.step = step;
@@ -179,8 +179,8 @@ public class Mark implements SimpleKey {
 		this.comment = comment;
 	}
 
-	public void setSession(Session session) {
-		this.session = session;
+	public void setSetting(Setting setting) {
+		this.setting = setting;
 	}
 
 	public void setChild(Child child) {

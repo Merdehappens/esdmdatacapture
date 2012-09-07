@@ -26,7 +26,7 @@ import system.marking.Objective;
 import system.marking.ObjectiveType;
 import system.marking.Step;
 import system.sessions.Day;
-import system.sessions.Session;
+import system.sessions.Setting;
 
 
 
@@ -36,7 +36,7 @@ import BCrypt.BCrypt;
 public class ESDMModel {
     
     private List<Child> childList;
-    private Set<Session> sessionList;
+    private Set<Setting> settingList;
     private List<Objective> objectiveList;
     private List<UserAccount> userList;
     private List<ObjectiveType> objectiveTypeList;
@@ -51,7 +51,7 @@ public class ESDMModel {
     {
 
     	childList = new ArrayList<Child>();
-        sessionList = new HashSet<Session>();
+        settingList = new HashSet<Setting>();
         objectiveList = new ArrayList<Objective>();
         markList = new HashSet<Mark>();
         roomList = new ArrayList<Room>();
@@ -80,7 +80,7 @@ public class ESDMModel {
 		config.addAnnotatedClass(Child.class);
 		config.addAnnotatedClass(Mark.class);
 		config.addAnnotatedClass(Day.class);
-		config.addAnnotatedClass(Session.class);
+		config.addAnnotatedClass(Setting.class);
 		config.addAnnotatedClass(ChildObjective.class);
 		config.addAnnotatedClass(Room.class);
 		config.configure("hibernate.cfg.xml");
@@ -167,8 +167,8 @@ public class ESDMModel {
     	return roomList;
     }
     
-    public Collection<Session> getSessionList() {
-    	return sessionList;
+    public Collection<Setting> getSettingList() {
+    	return settingList;
     }
     
     public List<Objective> getObjectiveList() {
@@ -182,7 +182,7 @@ public class ESDMModel {
     private void loadFromDatabase() throws Exception
     {
     	org.hibernate.Session session = factory.openSession();
-   	/*session.beginTransaction();
+/*   	session.beginTransaction();
     	
       	Therapist user = new Therapist();
         user.setUsername("temp");
@@ -194,16 +194,16 @@ public class ESDMModel {
        	
     	
     	session.getTransaction().commit();
-*/
-  
+
+  */
            	
-    	String qry = ("Select sess from Session sess");
+    	String qry = ("Select sess from Setting sess");
     	Query query = session.createQuery(qry);
     	
     	for(Iterator it = query.iterate(); it.hasNext();)
     	{
-    		Session s = (Session) it.next();
-    		sessionList.add(s);
+    		Setting s = (Setting) it.next();
+    		settingList.add(s);
     	}
     	
     	qry = ("Select room from Room room");
@@ -475,7 +475,7 @@ public class ESDMModel {
 	 * objects and adds them to that Day
 	 */
 	
-	public Day addDay(Calendar date, ArrayList<Child> children, Room room, ArrayList<Session> sessions) throws Exception
+	public Day addDay(Calendar date, ArrayList<Child> children, Room room, ArrayList<Setting> settings) throws Exception
 	{
 		if(date == null)
 		{
@@ -485,7 +485,7 @@ public class ESDMModel {
 		{
 			throw new Exception("No children have been selected for this day.");
 		}
-		if(sessions == null || sessions.size() == 0)
+		if(settings == null || settings.size() == 0)
 		{
 			throw new Exception("No sessions have been selected for this day.");
 		}
@@ -496,10 +496,10 @@ public class ESDMModel {
 		{
 			day.addChildren(children.get(i)); //adds selected children to this day
 		}
-		size = sessions.size();
+		size = settings.size();
 		for (int x = 0; x < size; x++)
 		{
-			day.addSession(sessions.get(x));
+			day.addSetting(settings.get(x));
 		}
 		dayList.add(day);
     	org.hibernate.Session session = factory.getCurrentSession();
@@ -656,9 +656,9 @@ public class ESDMModel {
 	 * Adds a new mark to the system.
 	 */
 	
-	public void addMark(Session session, Child child, Objective objective, Step step, int mark, Day day) throws Exception
+	public void addMark(Setting setting, Child child, Objective objective, Step step, int mark, Day day) throws Exception
 	{
-		if(session == null)
+		if(setting == null)
 		{
 			throw new Exception("Session not Selected.");
 		}
@@ -682,7 +682,7 @@ public class ESDMModel {
 			throw new Exception("Mark not selected.");
 		}
 		
-		Mark tempMark = new Mark(session, child, objective, step, mark, (Therapist)currentUser, day);
+		Mark tempMark = new Mark(setting, child, objective, step, mark, (Therapist)currentUser, day);
 		day.addMark(tempMark);
 		child.addMark(tempMark);
 		markList.add(tempMark);    	
@@ -696,10 +696,10 @@ public class ESDMModel {
 		
 	}
 	
-	public void addTimestamp(Session session, Child child, Objective objective, Step step, int mark, Day day) throws Exception
+	public void addTimestamp(Setting setting, Child child, Objective objective, Step step, int mark, Day day) throws Exception
 	{
 		Therapist t = (Therapist)currentUser;
-		Mark tempMark = new Mark(session, child, objective, step, mark, t, day);
+		Mark tempMark = new Mark(setting, child, objective, step, mark, t, day);
 		tempMark.setComments("Timestamp Logged.");
 		day.addMark(tempMark);
 		child.addMark(tempMark);
@@ -858,7 +858,7 @@ public class ESDMModel {
 					break;
 				}
 			}
-			
+			ChildObjective co = null;
 			// if objective does exist for this child throw an exception
 			if(obj != null)
 			{
@@ -866,17 +866,18 @@ public class ESDMModel {
 			}
 			else
 			{
-				child.addObjective(objective);
+				co = new ChildObjective(objective, child);
+				child.addChildObjective(co);
+				objective.addChild(co);
 			}
-		}
 		
-    	org.hibernate.Session session = factory.getCurrentSession();
+		
+			org.hibernate.Session session = factory.getCurrentSession();
 
-    	session.beginTransaction();
-    	child = (Child) session.merge(child);
-    	session.save(child);
-    	session.getTransaction().commit();
-
+    		session.beginTransaction();
+    		session.save(co);
+    		session.getTransaction().commit();
+		}
 		
 	}
 	
@@ -916,11 +917,11 @@ public class ESDMModel {
 	}
 
 	// Takes in a mark and all details required for a mark
-	public void updateMark(Mark mark, Session session, Child child,
+	public void updateMark(Mark mark, Setting setting, Child child,
 			Calendar time, Objective objective, Step step, int markVal,
 			String comment) {
 		
-		mark.setSession(session);
+		mark.setSetting(setting);
 		mark.setChild(child);
 		mark.setTime(time);
 		mark.setObjective(objective);
@@ -1010,8 +1011,7 @@ public class ESDMModel {
 				throw new Exception ("Guardian already exists for this child");
 			}
 		}
-		// Adds guardian to child and child to guardian
-		guardian.addChild(child);
+		// Adds guardian to child and child to guardian\
 		child.addGuardian(guardian);
 		
 		// Save both objects to database
@@ -1079,8 +1079,8 @@ public class ESDMModel {
 		// TODO Save to DB
 	}
 	
-	public void setSessionTypeList(Session session, List<ObjectiveType> objTypeList) {
-		session.setObjectives(objTypeList);
+	public void setSettingTypeList(Setting setting, List<ObjectiveType> objTypeList) {
+		setting.setObjectives(objTypeList);
 		// TODO Save to DB
 	}
 
@@ -1120,44 +1120,53 @@ public class ESDMModel {
 		roomList.remove(room);
 	}
 	
-	// Takes in a name, creates a new session object with that name
-	// and adds it to the database and list
-	public void addSession(String name) {
-		// TODO
-	}
+
 	
 	// Takes in a session object and sets the name attribute to the string
 	// that is parsed in
-	public void updateSession(Session session, String description) throws Exception {
+	public void updateSetting(Setting setting, String description) throws Exception {
 
 		if(description.length() == 0)
 		{
 			throw new Exception("You must enter a value for description");
 		}
-		session.setDescription(description);
+		setting.setDescription(description);
 		
-    	org.hibernate.Session dbSession = factory.getCurrentSession();
-    	dbSession.beginTransaction();
-    	dbSession.update(session);
-    	dbSession.getTransaction().commit();
+    	org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
+    	session.update(setting);
+    	session.getTransaction().commit();
 	}
 	
 	// Takes in a session object. if it has no foreign constraints it is
 	// removed from the database and system. otherwise it throws
 	// an SQL exception
-	public void removeSession(Session session) {
-    	org.hibernate.Session dbSession = factory.getCurrentSession();
-    	dbSession.beginTransaction();
-    	dbSession.delete(session);
-    	dbSession.getTransaction().commit();
+	public void removeSetting(Setting setting) {
+    	org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
+    	session.delete(setting);
+    	session.getTransaction().commit();
     	
-		sessionList.remove(session);
+		settingList.remove(setting);
 	}
 	
 	// Takes in a user account and a boolean enabled, sets the user accounts
 	// access attribute to d (Disabled)
 	public void disableAccount(UserAccount u) {
 		u.setAccess("d");
+	}
+
+	// Takes in a name, creates a new setting object with that name
+	// and adds it to the database and list
+	public void addSetting(String name) {
+		Setting s = new Setting(name);
+		
+    	org.hibernate.Session dbSession = factory.getCurrentSession();
+    	dbSession.beginTransaction();
+    	dbSession.save(s);
+    	dbSession.getTransaction().commit();
+    	
+    	settingList.add(s);
 	}
 	
 

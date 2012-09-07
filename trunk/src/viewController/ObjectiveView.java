@@ -20,7 +20,7 @@ public class ObjectiveView extends PanelView {
 	private JButton btnViewObjectives;
 	private JButton btnAddObjectiveTo;
 	private ArrayList<Objective> objectives;
-	private JTable objectiveTable;
+	private MyJTable objectiveTable;
 	private DefaultTableModel tableModel;
 
 	public ObjectiveView() {
@@ -60,14 +60,7 @@ public class ObjectiveView extends PanelView {
 		
 		// creates a new table model, and table and adds the table to the scroll pane
 		tableModel = new DefaultTableModel();
-		objectiveTable = new JTable() {
-
-			private static final long serialVersionUID = 8081316035031635743L;
-
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
+		objectiveTable = new MyJTable();
 		scrollPane.setViewportView(objectiveTable);
 		objectiveTable.setModel(tableModel);
 

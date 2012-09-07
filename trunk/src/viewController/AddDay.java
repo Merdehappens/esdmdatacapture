@@ -5,7 +5,7 @@ import javax.swing.JButton;
 import system.individuals.Child;
 import system.model.ESDMModel;
 import system.model.Room;
-import system.sessions.Session;
+import system.sessions.Setting;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -41,13 +41,13 @@ public class AddDay extends PanelView {
 	private JPanel childPanel;
 	private JScrollPane childScrollPane;
 	private JComboBox<Room> cmbRoom;
-	private JList<Session> lstCurrentSession;
-	private JList<Session> lstSession;
+	private JList<Setting> lstCurrentSetting;
+	private JList<Setting> lstSetting;
 	private Object[][] tglbtn;
 	private JDateChooser dateChooser;
 	private ComboBoxModel<Room> cmbModel;
 
-	private DefaultListModel<Session> listModel;
+	private DefaultListModel<Setting> listModel;
 	private JButton btnRemove;
 
 	public AddDay() {
@@ -117,39 +117,39 @@ public class AddDay extends PanelView {
 		childScrollPane.setViewportView(childPanel);
 
 		// Creates 3 labels
-		JLabel lblSessions = new JLabel("Sessions");
-		lblSessions.setBounds(403, 133, 133, 14);
-		lblSessions.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblSessions);
+		JLabel lblSettings = new JLabel("Settings");
+		lblSettings.setBounds(403, 133, 133, 14);
+		lblSettings.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblSettings);
 
-		JLabel lblCurrentSessionsinOrder = new JLabel("Current Sessions(In Order)");
-		lblCurrentSessionsinOrder.setBounds(581, 133, 154, 14);
-		lblCurrentSessionsinOrder.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblCurrentSessionsinOrder);
+		JLabel lblCurrentSettingsinOrder = new JLabel("Current Settings(In Order)");
+		lblCurrentSettingsinOrder.setBounds(581, 133, 154, 14);
+		lblCurrentSettingsinOrder.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblCurrentSettingsinOrder);
 		
 		JLabel lblRoom = new JLabel("Room:");
 		lblRoom.setBounds(403, 430, 46, 14);
 		add(lblRoom);
 
 		// Creates a new list and populates it with all the sessions in the model 
-		lstSession = new JList<Session>(new Vector<Session>(this.getModel()
-				.getSessionList()));
-		lstSession.setBounds(403, 158, 133, 240);
-		add(lstSession);
+		lstSetting = new JList<Setting>(new Vector<Setting>(this.getModel()
+				.getSettingList()));
+		lstSetting.setBounds(403, 158, 133, 240);
+		add(lstSetting);
 
 		
 
 		// Creates a new empty list for the chosen sessions to go in
-		listModel = new DefaultListModel<Session>();
-		lstCurrentSession = new JList<Session>(listModel);
-		lstCurrentSession.setBounds(591, 158, 143, 240);
-		add(lstCurrentSession);
+		listModel = new DefaultListModel<Setting>();
+		lstCurrentSetting = new JList<Setting>(listModel);
+		lstCurrentSetting.setBounds(591, 158, 143, 240);
+		add(lstCurrentSetting);
 
 		// Creates the add button which when pressed adds the chosen element in to the current session list
 		JButton btnAdd = new JButton(">");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				listModel.addElement((Session) lstSession.getSelectedValue());
+				listModel.addElement((Setting) lstSetting.getSelectedValue());
 			}
 		});
 		btnAdd.setBounds(546, 210, 43, 29);
@@ -159,9 +159,9 @@ public class AddDay extends PanelView {
 		btnRemove = new JButton("<");
 		btnRemove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(lstCurrentSession.getSelectedIndex() >= 0)
+				if(lstCurrentSetting.getSelectedIndex() >= 0)
 				{
-					listModel.remove(lstCurrentSession.getSelectedIndex());
+					listModel.remove(lstCurrentSetting.getSelectedIndex());
 				}
 			}
 		});
@@ -255,9 +255,9 @@ public class AddDay extends PanelView {
 	// Swaps the items in the list up or down depending on the number parsed through
 	// Positive is down the list (higher index) negative is up the list (lower index)
 	private void swapButton(int i) {
-		int index = lstCurrentSession.getSelectedIndex();
+		int index = lstCurrentSetting.getSelectedIndex();
 		if (index >= 0) {
-			Session temp = (Session) listModel.remove(index);
+			Setting temp = (Setting) listModel.remove(index);
 
 			index = index + i;
 
@@ -301,15 +301,15 @@ public class AddDay extends PanelView {
 	}
 
 	// Returns the sessions that are selected in the list in order
-	public ArrayList<Session> getSessions() {
-		ArrayList<Session> session = new ArrayList<Session>();
+	public ArrayList<Setting> getSettings() {
+		ArrayList<Setting> setting = new ArrayList<Setting>();
 
 		int size = listModel.getSize();
 		for (int i = 0; i < size; i++) {
-			session.add(listModel.get(i));
+			setting.add(listModel.get(i));
 		}
 
-		return session;
+		return setting;
 	}
 
 	// Returns the selected date

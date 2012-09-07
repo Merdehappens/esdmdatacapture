@@ -12,6 +12,7 @@ import system.helper.Helper;
 import system.individuals.Child;
 import system.model.ESDMModel;
 import system.model.Room;
+import system.sessions.Setting;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -21,23 +22,23 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 
-public class RoomView extends PanelView {
+public class SettingView extends PanelView {
 
 	private static final long serialVersionUID = -4321169254400022059L;
-	private JButton btnAddRoom;
-	private JButton btnRemoveRoom;
-	private MyJTable tblRoom;
-	private DefaultTableModel tblmdlRoom;
-	private ArrayList<Room> roomList;
+	private JButton btnAddSetting;
+	private MyJTable tblSetting;
+	private DefaultTableModel tblmdlSetting;
+	private ArrayList<Setting> settingList;
 	private JScrollPane scrollPane;
+	private JButton btnRemoveSetting;
 
-	public RoomView() {
+	public SettingView() {
 		super();
 		initialise();
 
 	}
 
-	public RoomView(ESDMModel model) {
+	public SettingView(ESDMModel model) {
 		super(model);
 		initialise();
 	}
@@ -49,52 +50,52 @@ public class RoomView extends PanelView {
 
 		super.setTitle("Rooms");
 
-		btnAddRoom = new JButton("Add New Room");
-		btnAddRoom.addActionListener(new ActionListener() {
+		btnAddSetting = new JButton("Add New Setting");
+		btnAddSetting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				addRoom();
+				addSetting();
 			}
 
 
 		});
-		btnAddRoom.setBounds(50, 109, 126, 30);
-		add(btnAddRoom);
+		btnAddSetting.setBounds(50, 109, 126, 30);
+		add(btnAddSetting);
 
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(50, 150, 900, 300);
 		add(scrollPane);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		
-		tblmdlRoom = new DefaultTableModel();
-		TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(tblmdlRoom);
-		tblRoom = new MyJTable();
+		tblmdlSetting = new DefaultTableModel();
+		TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(tblmdlSetting);
+		tblSetting = new MyJTable();
 		
-		scrollPane.setViewportView(tblRoom);
+		scrollPane.setViewportView(tblSetting);
 
 		String[] columnNames = new String[] { "ID", "Name" };
 
-		tblmdlRoom.setColumnIdentifiers(columnNames);
+		tblmdlSetting.setColumnIdentifiers(columnNames);
 
-		tblRoom.setModel(tblmdlRoom);
+		tblSetting.setModel(tblmdlSetting);
 
-		tblRoom.setRowSorter(sorter);
+		tblSetting.setRowSorter(sorter);
 		
-		btnRemoveRoom = new JButton("Remove Room");
-		btnRemoveRoom.setBounds(322, 109, 137, 30);
-		add(btnRemoveRoom);
+		btnRemoveSetting = new JButton("Remove Setting");
+		btnRemoveSetting.setBounds(322, 109, 137, 30);
+		add(btnRemoveSetting);
 		
-		TableColumnModel tblColModel = tblRoom.getColumnModel();
+		TableColumnModel tblColModel = tblSetting.getColumnModel();
 
 		tblColModel.getColumn(0).setPreferredWidth(100);
 		tblColModel.getColumn(1).setPreferredWidth(500);
 
 	}
 	
-	private void addRoom() {
-		String name = JOptionPane.showInputDialog(null, "Please enter the name of the new room");
+	private void addSetting() {
+		String name = JOptionPane.showInputDialog(null, "Please enter the name of the new setting.");
 		if(name != null)
 		{
-			this.getModel().addRoom(name);
+			this.getModel().addSetting(name);
 		}
 		refreshView();
 	}
@@ -105,34 +106,34 @@ public class RoomView extends PanelView {
 	}
 
 	private void populateTable() {
-		roomList = new ArrayList<Room>(this.getModel().getRoomList());
-		while (tblmdlRoom.getRowCount() > 0) {
-			tblmdlRoom.removeRow(0);
+		settingList = new ArrayList<Setting>(this.getModel().getSettingList());
+		while (tblmdlSetting.getRowCount() > 0) {
+			tblmdlSetting.removeRow(0);
 		}
 
-		int size = roomList.size();
+		int size = settingList.size();
 		for (int i = 0; i < size; i++) {
-			Room tempRoom = roomList.get(i);
+			Setting setting = settingList.get(i);
 			
 
 			Object[] rowData = new Object[2];
-			rowData[0] = tempRoom.getId();
-			rowData[1] = tempRoom;
+			rowData[0] = setting.getId();
+			rowData[1] = setting.getDescription();
 
-			tblmdlRoom.addRow(rowData);
+			tblmdlSetting.addRow(rowData);
 
 		}
 	}
 
 
 	// Takes in an ActionListener and adds it to the Remove Child button
-	public void removeRoomListener(ActionListener al) {
-		btnRemoveRoom.addActionListener(al);
+	public void removeSettingListener(ActionListener al) {
+		btnRemoveSetting.addActionListener(al);
 	}
 	
-	public Room getSelectedRoom()
+	public Room getSelectedSetting()
 	{
-		return (Room) tblmdlRoom.getValueAt(tblRoom.getSelectedRow(), 1);
+		return (Room) tblmdlSetting.getValueAt(tblSetting.getSelectedRow(), 1);
 	}
 
 }
