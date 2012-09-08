@@ -809,8 +809,8 @@ public class ESDMModel {
     		throw new Exception("Date Of Birth is a required field.");
     	}
     	
-/* TODO validation not required?
- *     	if(dateJoined != null)
+
+     	if(dateJoined != null)
     	{
     		if(dob.compareTo(dateJoined) > 0)
     		{
@@ -821,7 +821,7 @@ public class ESDMModel {
 		if(dob.compareTo(Calendar.getInstance()) > 0)
 		{
 			throw new Exception("Date of Birth cannot be after today");
-		}*/
+		}
 				
 		child.setName(name);
 		child.setDob(dob);
@@ -1043,7 +1043,15 @@ public class ESDMModel {
 	public void removeObjective(Child c, Objective o)
 	{
 		c.removeObjective(o);
-		// TODO Save to DB
+		
+		//TODO Check removing objective correctly
+        org.hibernate.Session session = factory.getCurrentSession();
+        session.beginTransaction();
+        c = (Child) session.merge(c);
+        o = (Objective) session.merge(o);
+        session.save(c);
+        session.save(o);
+        session.getTransaction().commit();
 	}
 	
 	
