@@ -117,6 +117,8 @@ public class Controller extends JFrame {
 	private HashMap<String, JPanel> panelMap = new HashMap<String, JPanel>();
 	private JButton btnBack;
 	private RoomView roomView;
+	private SettingView settingView;
+	private ObjectiveTypeView objectiveTypeView;
 	private JButton btnExit;
 
 	
@@ -192,6 +194,7 @@ public class Controller extends JFrame {
 						public void windowClosing(WindowEvent arg0) {
 							System.exit(0);
 						}
+						
 					});
 
 				} catch (Exception e) {
@@ -362,6 +365,14 @@ public class Controller extends JFrame {
 		roomView = new RoomView(model);
 		accountPanel.add(roomView, "roomView");
 		panelMap.put("roomView", accountPanel);
+		
+		settingView = new SettingView(model);
+		accountPanel.add(settingView, "settingView");
+		panelMap.put("settingView", accountPanel);
+
+		objectiveTypeView = new ObjectiveTypeView(model);
+		accountPanel.add(objectiveTypeView, "objectiveTypeView");
+		panelMap.put("objectiveTypeView", accountPanel);
 		
 		JPanel footer = new JPanel(null);
 		
@@ -1123,6 +1134,32 @@ public class Controller extends JFrame {
 			}
 		});
 		
+		accountView.objectiveTypeListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(accountPanel, "objectiveTypeView");
+			}
+		});
+		
+		
+		accountView.settingListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(accountPanel, "settingView");
+			}
+		});
+		
+		settingView.removeSettingListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try{
+					model.removeSetting(settingView.getSelectedSetting());
+				}
+				catch (Exception e)
+				{
+					showErrorMessage("Cannot remove this room. it exists in a day object");
+				}
+				roomView.refreshView();
+			}
+		});
+		
 		roomView.removeRoomListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try{
@@ -1135,6 +1172,8 @@ public class Controller extends JFrame {
 				roomView.refreshView();
 			}
 		});
+		
+		
 		
 		tabbedPane.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {

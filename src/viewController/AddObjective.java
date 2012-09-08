@@ -251,7 +251,7 @@ public class AddObjective extends PanelView {
 			return Integer.parseInt(txtLevel.getText());
 			}
 			catch(Exception e) {
-				throw new Exception("Level must be a number.");
+				throw new IllegalArgumentException("Level must be a number.");
 			}
 		}
 		

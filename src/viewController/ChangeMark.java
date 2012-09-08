@@ -305,7 +305,7 @@ public class ChangeMark extends JDialog {
 			}
 			catch(Exception e)
 			{
-				throw new Exception("Step is in incorrect format."); 
+				throw new IllegalArgumentException("Step is not a number."); 
 			}
 		}
 		else

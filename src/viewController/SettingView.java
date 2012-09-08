@@ -48,7 +48,7 @@ public class SettingView extends PanelView {
 
 		setLayout(null);
 
-		super.setTitle("Rooms");
+		super.setTitle("Settings");
 
 		btnAddSetting = new JButton("Add New Setting");
 		btnAddSetting.addActionListener(new ActionListener() {
@@ -131,9 +131,9 @@ public class SettingView extends PanelView {
 		btnRemoveSetting.addActionListener(al);
 	}
 	
-	public Room getSelectedSetting()
+	public Setting getSelectedSetting()
 	{
-		return (Room) tblmdlSetting.getValueAt(tblSetting.getSelectedRow(), 1);
+		return (Setting) tblmdlSetting.getValueAt(tblSetting.getSelectedRow(), 1);
 	}
 
 }

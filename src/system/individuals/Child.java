@@ -3,6 +3,7 @@ package system.individuals;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.MissingResourceException;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -143,7 +144,7 @@ public class Child implements SimpleKey {
 	public void incrementStep(Objective o, int num) throws Exception {
 		// If the int isn't either + or - 1 exception is thrown
 		if (num != 1 && num != -1) {
-			throw new Exception("The number parsed through was not valid");
+			throw new IllegalArgumentException("The number parsed through was not valid");
 		}
 		int size = objectives.size();
 		boolean x = false;
@@ -165,7 +166,7 @@ public class Child implements SimpleKey {
 
 	public void setName(String name) throws Exception {
 		if (name.equals("")) {
-			throw (new Exception("The child's name cannot be empty."));
+			throw new IllegalArgumentException("The child's name cannot be empty.");
 		}
 		this.name = name;
 	}
