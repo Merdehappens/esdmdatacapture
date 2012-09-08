@@ -206,6 +206,15 @@ public class ESDMModel {
     		settingList.add(s);
     	}
     	
+    	qry = ("Select objType from ObjectiveType objType");
+    	query = session.createQuery(qry);
+    	
+    	for(Iterator it = query.iterate(); it.hasNext();)
+    	{
+    		ObjectiveType ot = (ObjectiveType) it.next();
+    		objectiveTypeList.add(ot);
+    	}
+    	
     	qry = ("Select room from Room room");
     	query = session.createQuery(qry);
     	
@@ -358,19 +367,19 @@ public class ESDMModel {
     	// Checks that no strings are empty
 		if(name.length() == 0)
 		{
-			throw new Exception("Name field must be filled in.");
+			throw new IllegalArgumentException("Name field must be filled in.");
 		}
 		if(username.length() == 0)
 		{
-			throw new Exception("Username field must be filled in.");
+			throw new IllegalArgumentException("Username field must be filled in.");
 		}
 		if(emailAddress.length() == 0)
 		{
-			throw new Exception("Email field must be filled in.");
+			throw new IllegalArgumentException("Email field must be filled in.");
 		}
 		if(phoneNo.length() == 0)
 		{
-			throw new Exception("Phone number field must be filled in.");
+			throw new IllegalArgumentException("Phone number field must be filled in.");
 		}
     	// Creates new guardian object. sets the attributes to the values parsed in
 	
@@ -1076,15 +1085,26 @@ public class ESDMModel {
 	public void setObjectiveType(Objective objective, ObjectiveType objectiveType) {
 		objective.setType(objectiveType);
 		objectiveType.addObjective(objective);
-		// TODO save to DB
+
+		org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
+    	objective = (Objective) session.merge(objective);
+    	session.update(objective);
+    	session.getTransaction().commit();
+		
 	}
 	
 	// Creates a new objective type object, adds it to the system
 	// and saves it to the database
-	public void addNewObjectiveType(String name) {
+	public void addObjectiveType(String name) {
 		ObjectiveType objType = new ObjectiveType(name);
-		objectiveTypeList.add(objType);
-		// TODO Save to DB
+		
+		org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
+    	session.save(objType);
+    	session.getTransaction().commit();
+    	
+    	objectiveTypeList.add(objType);
 	}
 	
 	public void setSettingTypeList(Setting setting, List<ObjectiveType> objTypeList) {
@@ -1175,6 +1195,10 @@ public class ESDMModel {
     	dbSession.getTransaction().commit();
     	
     	settingList.add(s);
+	}
+
+	public Collection<ObjectiveType> getObjectiveTypeList() {
+		return objectiveTypeList;
 	}
 	
 

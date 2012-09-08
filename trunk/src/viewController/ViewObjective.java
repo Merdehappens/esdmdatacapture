@@ -144,10 +144,10 @@ public class ViewObjective extends PanelView {
 	
 	public Objective saveObjective() throws Exception {
 		if(txtObjectiveDescription.getText().length() == 0){
-			throw new Exception("Description field is not filled in.");			
+			throw new IllegalArgumentException("Description field is not filled in.");			
 		}
 		if(txtObjectiveName.getText().length() == 0){
-			throw new Exception("Name field is not filled in.");
+			throw new IllegalArgumentException("Name field is not filled in.");
 		}
 		
 		objective.setDescription(txtObjectiveDescription.getText());
@@ -225,7 +225,7 @@ public class ViewObjective extends PanelView {
 			return Integer.parseInt(txtLevel.getText());
 			}
 			catch(Exception e) {
-				throw new Exception("Level must be a number.");
+				throw new IllegalArgumentException("Level must be a number.");
 			}
 		}
 		

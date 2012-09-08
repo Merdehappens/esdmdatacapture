@@ -95,7 +95,7 @@ public class UserAccount {
     public void setPassword(String password) throws Exception {
     	if(!(Helper.checkPasswordLength(password)))
     	{
-    		throw new Exception("Password is not enough letters");
+    		throw new IllegalArgumentException("Password is not enough letters");
     	}
     	this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
