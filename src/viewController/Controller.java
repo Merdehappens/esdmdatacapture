@@ -927,8 +927,6 @@ public class Controller extends JFrame {
 		});
 	
 		editChild.addNewGuardianListener(new java.awt.event.ActionListener() {
-			
-
 			public void actionPerformed(ActionEvent arg0) {
 				addNewGuardian = new AddNewGuardian();
 				
@@ -944,6 +942,8 @@ public class Controller extends JFrame {
 							Guardian g = model.newGuardian(name, username, email, phone, password, "g");
 							Child c = editChild.getChild();
 							model.addChildGuardian(c, g);
+							showErrorMessage("The initial password has been set to: " + password +
+									". Please note this down and inform the user");
 							editChild.refreshView();
 						} catch (NullPointerException e) {
 							e.printStackTrace();
