@@ -30,6 +30,7 @@ public class RoomView extends PanelView {
 	private DefaultTableModel tblmdlRoom;
 	private ArrayList<Room> roomList;
 	private JScrollPane scrollPane;
+	private JButton btnEditRoom;
 
 	public RoomView() {
 		super();
@@ -41,6 +42,8 @@ public class RoomView extends PanelView {
 		super(model);
 		initialise();
 	}
+	
+	
 
 	// Initialises all the graphical components on the page.
 	private void initialise() {
@@ -83,12 +86,36 @@ public class RoomView extends PanelView {
 		btnRemoveRoom.setBounds(322, 109, 137, 30);
 		add(btnRemoveRoom);
 		
+		btnEditRoom = new JButton("Edit Room");
+		btnEditRoom.setBounds(182, 109, 130, 30);
+		add(btnEditRoom);
+		
 		TableColumnModel tblColModel = tblRoom.getColumnModel();
 
 		tblColModel.getColumn(0).setPreferredWidth(100);
 		tblColModel.getColumn(1).setPreferredWidth(500);
 
 	}
+	
+	public void editRoomListener(ActionListener al) {
+		btnEditRoom.addActionListener(al);
+	}
+	
+	public void editRoom() throws Exception {
+		Room r;
+		try{
+		r = getSelectedRoom();
+		} catch (Exception e) {
+			throw new Exception("No room was selected");
+		}
+		String name = JOptionPane.showInputDialog(null, "Please enter the NEW name of the room.");
+		if(name != null)
+		{
+			this.getModel().editRoom(r, name);
+		}
+		refreshView();		
+	}
+	
 	
 	private void addRoom() {
 		String name = JOptionPane.showInputDialog(null, "Please enter the name of the new room");

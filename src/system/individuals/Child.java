@@ -258,29 +258,18 @@ public class Child implements SimpleKey {
 		return objectives;
 	}
 
-	public boolean removeObjective(Objective o, SessionFactory factory) {
-		boolean removed = false;
+	public ChildObjective removeObjective(Objective o) {
+		ChildObjective co = null;
 		int size = objectives.size();
 		for (int i = 0; i < size; i++) {
 			if (objectives.get(i).getObjective() == o) {
-				deleteChildObjective(objectives.get(i), factory);
-				objectives.remove(i);
-				removed = true;
+				co = objectives.remove(i);
 				o.removeChild(this);
 				break;
 			}
 		}
-		return removed;
+		return co;
 
-	}
-	
-	public void deleteChildObjective(ChildObjective co, SessionFactory factory)
-	{
-        org.hibernate.Session session = factory.getCurrentSession();
-        session.beginTransaction();
-        session.delete(co);
-        session.getTransaction().commit();
-        //session.close();
 	}
 
 	public void setMastered(Objective o, boolean b) throws Exception {

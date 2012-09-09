@@ -118,7 +118,7 @@ public class ObjectiveTypeView extends PanelView {
 
 			Object[] rowData = new Object[2];
 			rowData[0] = objectiveType.getId();
-			rowData[1] = objectiveType.getName();
+			rowData[1] = objectiveType;
 
 			tblmdlType.addRow(rowData);
 

@@ -31,6 +31,7 @@ public class SettingView extends PanelView {
 	private ArrayList<Setting> settingList;
 	private JScrollPane scrollPane;
 	private JButton btnRemoveSetting;
+	private JButton btnEditSetting;
 
 	public SettingView() {
 		super();
@@ -84,11 +85,19 @@ public class SettingView extends PanelView {
 		btnRemoveSetting.setBounds(322, 109, 137, 30);
 		add(btnRemoveSetting);
 		
+		btnEditSetting = new JButton("Edit Setting");
+		btnEditSetting.setBounds(186, 109, 115, 30);
+		add(btnEditSetting);
+		
 		TableColumnModel tblColModel = tblSetting.getColumnModel();
 
 		tblColModel.getColumn(0).setPreferredWidth(100);
 		tblColModel.getColumn(1).setPreferredWidth(500);
 
+	}
+	
+	public void editSettingListener(ActionListener al) {
+		btnEditSetting.addActionListener(al);
 	}
 	
 	private void addSetting() {
@@ -98,6 +107,21 @@ public class SettingView extends PanelView {
 			this.getModel().addSetting(name);
 		}
 		refreshView();
+	}
+	
+	public void editSetting() throws Exception {
+		Setting s;
+		try{
+		s = getSelectedSetting();
+		} catch (Exception e) {
+			throw new Exception("No setting was selected");
+		}
+		String name = JOptionPane.showInputDialog(null, "Please enter the NEW name of the setting.");
+		if(name != null)
+		{
+			this.getModel().updateSetting(s, name);
+		}
+		refreshView();		
 	}
 
 	// Overrides the refreshView method in PanelView and refreshes the view of this panel
@@ -118,7 +142,7 @@ public class SettingView extends PanelView {
 
 			Object[] rowData = new Object[2];
 			rowData[0] = setting.getId();
-			rowData[1] = setting.getDescription();
+			rowData[1] = setting;
 
 			tblmdlSetting.addRow(rowData);
 
@@ -135,5 +159,4 @@ public class SettingView extends PanelView {
 	{
 		return (Setting) tblmdlSetting.getValueAt(tblSetting.getSelectedRow(), 1);
 	}
-
 }
