@@ -47,6 +47,10 @@ public class ObjectiveType {
 		objectives = new ArrayList<Objective>();		
 	}
 	
+	public String toString() {
+		return name;
+	}
+	
 	public int getId()
 	{
 		return id;

@@ -1140,6 +1140,18 @@ public class Controller extends JFrame {
 			}
 		});
 		
+		objectiveTypeView.removeObjectiveTypeListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					model.removeObjectiveType(objectiveTypeView.getSelectedObjectiveType());
+					objectiveTypeView.refreshView();
+					System.out.println("REMOVE");
+				} catch (Exception e) {
+					showErrorMessage(e.getMessage());
+					e.printStackTrace();
+				}
+			}
+		});
 		
 		accountView.settingListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -1147,14 +1159,39 @@ public class Controller extends JFrame {
 			}
 		});
 		
+		settingView.editSettingListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					settingView.editSetting();
+					settingView.refreshView();
+				} catch (Exception e) {
+					showErrorMessage(e.getMessage());
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		roomView.editRoomListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					roomView.editRoom();
+					roomView.refreshView();
+				} catch (Exception e) {
+					showErrorMessage(e.getMessage());
+					e.printStackTrace();
+				}
+			}
+		});
+		
 		settingView.removeSettingListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try{
 					model.removeSetting(settingView.getSelectedSetting());
-				}
-				catch (Exception e)
-				{
-					showErrorMessage("Cannot remove this room. it exists in a day object");
+					settingView.refreshView();
+				} catch (ArrayIndexOutOfBoundsException e) {
+					showErrorMessage("No setting was selected.");
+				} catch (Exception e) {
+					showErrorMessage(e.getMessage());
 				}
 				roomView.refreshView();
 			}
@@ -1167,7 +1204,8 @@ public class Controller extends JFrame {
 				}
 				catch (Exception e)
 				{
-					showErrorMessage("Cannot remove this room. it exists in a day object");
+					e.printStackTrace();
+					showErrorMessage(e.getMessage());
 				}
 				roomView.refreshView();
 			}

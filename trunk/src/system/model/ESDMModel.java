@@ -4,6 +4,7 @@ package system.model;
 
 
 import java.io.File;
+import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.util.*;
@@ -437,7 +438,6 @@ public class ESDMModel {
     		throw new Exception("Date Of Birth is a required field.");
     	}
     	
-    	//TODO Decide on whether required or not
     	if(dateJoined != null)
     	{
     		if(dob.compareTo(dateJoined) > 0)
@@ -871,7 +871,7 @@ public class ESDMModel {
 			// if objective does exist for this child throw an exception
 			if(obj != null)
 			{
-				throw new Exception("This objective already exists for this child.");
+				throw new IllegalArgumentException("This objective already exists for this child.");
 			}
 			else
 			{
@@ -1051,14 +1051,11 @@ public class ESDMModel {
 	// Takes in a child object and Objective object and removes that 
 	public void removeObjective(Child c, Objective o)
 	{
-		c.removeObjective(o, factory);
-		
+		ChildObjective co = c.removeObjective(o);
+		//TODO Check removing objective correctly
         org.hibernate.Session session = factory.getCurrentSession();
         session.beginTransaction();
-        c = (Child) session.merge(c);
-        o = (Objective) session.merge(o);
-        session.save(c);
-        session.save(o);
+        session.delete(co);
         session.getTransaction().commit();
 	}
 	
@@ -1108,6 +1105,20 @@ public class ESDMModel {
     	objectiveTypeList.add(objType);
 	}
 	
+	public void removeObjectiveType(ObjectiveType objType) {
+
+		boolean temp = objectiveTypeList.remove(objType);
+		org.hibernate.Session session = factory.getCurrentSession();
+		session.beginTransaction();
+		objType = (ObjectiveType) session.merge(objType);
+		session.delete(objType);
+		session.getTransaction().commit();
+		
+		
+		
+		System.out.println("Successfully?: " + temp);
+	}
+	
 	public void setSettingTypeList(Setting setting, List<ObjectiveType> objTypeList) {
 		setting.setObjectives(objTypeList);
 		updateObject(setting);
@@ -1123,7 +1134,6 @@ public class ESDMModel {
 
     	org.hibernate.Session session = factory.getCurrentSession();
     	session.beginTransaction();
-    	
     	session.save(room);
     	session.getTransaction().commit();
     	
@@ -1135,19 +1145,45 @@ public class ESDMModel {
 	// Updates the room objects name to the string and updates
 	// with the database
 	public void editRoom(Room room, String name) {
-		// TODO edit room
+		if(name.length() == 0)
+		{
+			throw new IllegalArgumentException("Name cannot be null.");
+		}
+		room.setRoomName(name);
+		
+    	org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
+    	room = (Room) session.merge(room);
+    	session.update(room);
+    	session.getTransaction().commit();
 	}
 
 	// Takes in a room object if it has no foreign constraints it is
 	// removed from the database and system. otherwise it throws
 	// an SQL exception
 	public void removeRoom(Room room) {
-    	org.hibernate.Session session = factory.getCurrentSession();
-    	session.beginTransaction();
-    	session.delete(room);
-    	session.getTransaction().commit();
+		
+		org.hibernate.Session session = factory.getCurrentSession();
+		session.beginTransaction();
+		
+		String qry = ("Select count(*) from Day day where day.roomId = " + room.getId());
+		Query query = session.createSQLQuery(qry);
+    	BigInteger s = (BigInteger) query.uniqueResult();
+    	System.out.println(s.intValue());
     	
-		roomList.remove(room);
+    	if(s.intValue() == 0)
+    	{
+    		roomList.remove(room);
+        	session.delete(room);
+        	session.getTransaction().commit();
+    	}
+    	else
+    	{
+    		throw new IllegalArgumentException("Unable to delete this room as it exists in a day object");
+    	}
+		
+    	
+    	
 	}
 	
 
@@ -1164,6 +1200,7 @@ public class ESDMModel {
 		
     	org.hibernate.Session session = factory.getCurrentSession();
     	session.beginTransaction();
+    	setting = (Setting) session.merge(setting);
     	session.update(setting);
     	session.getTransaction().commit();
 	}
@@ -1172,18 +1209,43 @@ public class ESDMModel {
 	// removed from the database and system. otherwise it throws
 	// an SQL exception
 	public void removeSetting(Setting setting) {
+	
+
     	org.hibernate.Session session = factory.getCurrentSession();
     	session.beginTransaction();
-    	session.delete(setting);
+    	
+		String qry = ("Select count(*) from DaySetting ds where ds.SettingID = " + setting.getId());
+		Query query = session.createSQLQuery(qry);
+    	BigInteger s = (BigInteger) query.uniqueResult();
+    	
+    	if(s.intValue() == 0)
+    	{
+    		settingList.remove(setting);
+    		setting = (Setting) session.merge(setting);
+    		session.delete(setting);
+    		
+    	}
+    	else
+    	{
+    		throw new IllegalArgumentException("Setting cannot be deleted as it is in a day object.");
+    	}
+    	
     	session.getTransaction().commit();
     	
-		settingList.remove(setting);
 	}
 	
 	// Takes in a user account and a boolean enabled, sets the user accounts
 	// access attribute to d (Disabled)
 	public void disableAccount(UserAccount u) {
+		
 		u.setAccess("d");
+		
+    	org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
+    	u = (UserAccount) session.merge(u);
+    	session.update(u);
+    	session.getTransaction().commit();
+		
 	}
 
 	// Takes in a name, creates a new setting object with that name
