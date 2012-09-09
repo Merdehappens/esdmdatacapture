@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import system.helper.SimpleKey;
+import system.individuals.Child;
 import system.individuals.ChildObjective;
 import system.sessions.Setting;
 
@@ -187,6 +188,20 @@ public class Objective implements SimpleKey  {
 	public void setId(int id)
 	{
 		this.id = id;
+	}
+	
+	public boolean removeChild(Child c) {
+		boolean removed = false;
+		int size = children.size();
+		for (int i = 0; i < size; i++) {
+			if (children.get(i).getChild() == c) {
+				children.remove(i);
+				removed = true;
+				break;
+			}
+		}
+		return removed;
+
 	}
 	
     

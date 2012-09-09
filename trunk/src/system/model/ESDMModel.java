@@ -437,7 +437,7 @@ public class ESDMModel {
     		throw new Exception("Date Of Birth is a required field.");
     	}
     	
- /*   	TODO Decide on whether required or not
+    	//TODO Decide on whether required or not
     	if(dateJoined != null)
     	{
     		if(dob.compareTo(dateJoined) > 0)
@@ -449,7 +449,7 @@ public class ESDMModel {
 		if(dob.compareTo(Calendar.getInstance()) > 0)
 		{
 			throw new Exception("Date of Birth cannot be after today");
-		}*/
+		}
     	
         Child child = new Child(name, dob, dateJoined);
        
@@ -1051,9 +1051,8 @@ public class ESDMModel {
 	// Takes in a child object and Objective object and removes that 
 	public void removeObjective(Child c, Objective o)
 	{
-		c.removeObjective(o);
+		c.removeObjective(o, factory);
 		
-		//TODO Check removing objective correctly
         org.hibernate.Session session = factory.getCurrentSession();
         session.beginTransaction();
         c = (Child) session.merge(c);
@@ -1069,7 +1068,8 @@ public class ESDMModel {
 	// childs list of objectives)	
 	public void incrementStep(Child c, Objective o) throws Exception {
 		c.incrementStep(o, 1);
-		// TODO Save to DB
+		updateObject(c);
+		updateObject(o);
 	}
 
 	// Takes in a child object, an objective object and decrements the 
@@ -1077,7 +1077,8 @@ public class ESDMModel {
 	// childs list of objectives)
 	public void decrementStep(Child c, Objective o) throws Exception {
 		c.incrementStep(o, -1);
-		// TODO Save to DB
+		updateObject(c);
+		updateObject(o);
 	}
 	
 	// Takes in an objective and an objective type and sets the objective
@@ -1109,7 +1110,8 @@ public class ESDMModel {
 	
 	public void setSettingTypeList(Setting setting, List<ObjectiveType> objTypeList) {
 		setting.setObjectives(objTypeList);
-		// TODO Save to DB
+		updateObject(setting);
+		//TODO Check Setting Type List in DB
 	}
 
 

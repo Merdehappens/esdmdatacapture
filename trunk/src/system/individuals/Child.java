@@ -19,6 +19,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.swing.ImageIcon;
 
+import org.hibernate.SessionFactory;
+
 import system.helper.SimpleKey;
 import system.marking.Mark;
 import system.marking.Objective;
@@ -256,18 +258,29 @@ public class Child implements SimpleKey {
 		return objectives;
 	}
 
-	public boolean removeObjective(Objective o) {
+	public boolean removeObjective(Objective o, SessionFactory factory) {
 		boolean removed = false;
 		int size = objectives.size();
 		for (int i = 0; i < size; i++) {
 			if (objectives.get(i).getObjective() == o) {
+				deleteChildObjective(objectives.get(i), factory);
 				objectives.remove(i);
 				removed = true;
+				o.removeChild(this);
 				break;
 			}
 		}
 		return removed;
 
+	}
+	
+	public void deleteChildObjective(ChildObjective co, SessionFactory factory)
+	{
+        org.hibernate.Session session = factory.getCurrentSession();
+        session.beginTransaction();
+        session.delete(co);
+        session.getTransaction().commit();
+        //session.close();
 	}
 
 	public void setMastered(Objective o, boolean b) throws Exception {
