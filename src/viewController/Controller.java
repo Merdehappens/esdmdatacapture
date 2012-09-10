@@ -120,6 +120,7 @@ public class Controller extends JFrame {
 	private SettingView settingView;
 	private ObjectiveTypeView objectiveTypeView;
 	private JButton btnExit;
+	
 
 	
 	public Controller() throws MalformedURLException {
@@ -466,7 +467,6 @@ public class Controller extends JFrame {
 				try {
 					model.playSound(logSessionData.getSelectedChild());
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -477,7 +477,6 @@ public class Controller extends JFrame {
 				try {
 					model.playSound(logSessionData.getSelectedObjective());
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -488,7 +487,6 @@ public class Controller extends JFrame {
 				try {
 					model.playSound(logSessionData.getSelectedSetting());
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -522,7 +520,6 @@ public class Controller extends JFrame {
 
 			public void actionPerformed(ActionEvent evt) {
 				
-				// TODO Change Mark
 				Mark mark = reviewSession.getSelectedMark();
 				Day day = reviewSession.getDay();
 				changeMark = new ChangeMark();
@@ -995,8 +992,7 @@ public class Controller extends JFrame {
 		
 		editChild.addExistingGuardianListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				// TODO Add guardian
+			
 				addGuardian = new AddGuardian(model.getGuardianList());
 				
 				addGuardian.saveButtonListener(new java.awt.event.ActionListener() {

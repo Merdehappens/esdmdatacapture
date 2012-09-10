@@ -168,17 +168,17 @@ public class AddObjective extends PanelView {
 		btnDown.setBounds(877, 275, 60, 40);
 		add(btnDown);
 		
-		JLabel lblLevel = new JLabel("Level:");
+		JLabel lblLevel = new JLabel("Level #");
 		lblLevel.setBounds(585, 66, 65, 30);
 		add(lblLevel);
 		
 		txtLevel = new JTextField();
-		txtLevel.setBounds(628, 66, 119, 30);
+		txtLevel.setBounds(628, 66, 59, 30);
 		add(txtLevel);
 		txtLevel.setColumns(10);
 		
 		btnCreateFromTemplate = new JButton("Create from Template");
-		btnCreateFromTemplate.setBounds(757, 66, 169, 30);
+		btnCreateFromTemplate.setBounds(697, 68, 169, 30);
 		add(btnCreateFromTemplate);
 
 		// Sets the column widths

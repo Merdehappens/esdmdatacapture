@@ -22,6 +22,8 @@ import system.marking.Step;
 import system.model.ESDMModel;
 import system.sessions.Day;
 import system.sessions.Setting;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 public class LogSessionData extends PanelView {
 	/**
@@ -56,6 +58,10 @@ public class LogSessionData extends PanelView {
 	private JButton btnListenChild;
 	private JButton btnListenObjective;
 	private JButton btnListenSetting;
+	private JButton btnBehaviourPrevious;
+	private JButton btnBehaviourNext;
+	private DefaultListModel<Integer> behaviourModel;
+	private JList<Integer> lstBehaviour;
 
 
 	public LogSessionData() {
@@ -82,7 +88,7 @@ public class LogSessionData extends PanelView {
 		super.setTitle("Log Data");
 
 		btnSubmit = new JButton("Complete Data Logging");
-		btnSubmit.setBounds(454, 403, 223, 47);
+		btnSubmit.setBounds(10, 471, 223, 47);
 		add(btnSubmit);
 
 		lblSetting = new JLabel("Setting");
@@ -271,7 +277,42 @@ public class LogSessionData extends PanelView {
 		btnListenObjective = new JButton("Listen");
 		btnListenObjective.setBounds(527, 327, 89, 23);
 		add(btnListenObjective);
-
+		
+		btnBehaviourPrevious = new JButton("<");
+		btnBehaviourPrevious.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setIndex(lstBehaviour, behaviourModel, -1);
+			}
+		});
+		btnBehaviourPrevious.setMnemonic(KeyEvent.VK_1);
+		btnBehaviourPrevious.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnBehaviourPrevious.setBounds(842, 474, 40, 40);
+		add(btnBehaviourPrevious);
+		
+		btnBehaviourNext = new JButton(">");
+		btnBehaviourNext.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setIndex(lstBehaviour, behaviourModel, 1);
+			}
+		});
+		btnBehaviourNext.setMnemonic(KeyEvent.VK_0);
+		btnBehaviourNext.setBounds(892, 474, 40, 40);
+		add(btnBehaviourNext);
+		
+		JScrollPane scrpnebehaviour = new JScrollPane();
+		scrpnebehaviour.setBounds(842, 321, 89, 142);
+		add(scrpnebehaviour);
+		
+		behaviourModel = new DefaultListModel<Integer>();
+		lstBehaviour = new JList<Integer>(behaviourModel);
+		scrpnebehaviour.setViewportView(lstBehaviour);
+		
+		behaviourModel.addElement(new Integer(1));
+		behaviourModel.addElement(new Integer(2));
+		behaviourModel.addElement(new Integer(3));
+		behaviourModel.addElement(new Integer(4));
+		behaviourModel.addElement(new Integer(5));
+		behaviourModel.addElement(new Integer(6));
 	}
 	
 	public void listenChildListener(ActionListener al)

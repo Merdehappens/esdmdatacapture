@@ -346,6 +346,7 @@ public class ESDMModel {
     	{
     		throw new MissingResourceException("10002: Phone number field must be filled in.", null, null);
     	}
+    	
     	// Creates new therapist object. sets the attributes to the values parsed in
     	Therapist user = new Therapist(name, username, emailAddress);
     	user.setAccess(access);

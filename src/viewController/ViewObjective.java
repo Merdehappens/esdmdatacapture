@@ -130,7 +130,7 @@ public class ViewObjective extends PanelView {
 		txtLevel.setBounds(730, 88, 119, 30);
 		add(txtLevel);
 		
-		JLabel lblLevel = new JLabel("Level:");
+		JLabel lblLevel = new JLabel("Level #");
 		lblLevel.setBounds(687, 88, 65, 30);
 		add(lblLevel);
 
