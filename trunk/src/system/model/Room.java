@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import system.helper.SimpleKey;
 
 @Entity
-public class Room implements SimpleKey {
+public class Room {
 	@Id
 	@GeneratedValue
 	private int id;

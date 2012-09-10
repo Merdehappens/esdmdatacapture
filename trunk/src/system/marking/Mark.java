@@ -155,7 +155,9 @@ public class Mark implements SimpleKey {
 
 	public String toString()
 	{
-		if(type == 'n') {
+		if(type == 'b') {
+			return "" + mark;
+		} else {	
 			if(mark == 0)
 			{
 				return "/";
@@ -168,8 +170,6 @@ public class Mark implements SimpleKey {
 			{
 				return "-";
 			}
-		} else {
-			return "" + mark;
 		}
 		
 	}
