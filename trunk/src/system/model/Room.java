@@ -8,17 +8,18 @@ import system.helper.SimpleKey;
 
 @Entity
 public class Room {
-	@Id
+	/*@Id
 	@GeneratedValue
-	private int id;
+	private int id;*/
+	@Id
 	private String roomName;
 	
-	public Room(int id, String roomName)
+	/*public Room(int id, String roomName)
 	{
 		
 		this.id = id;
 		this.roomName = roomName;
-	}
+	}*/
 	
 	public Room()
 	{
@@ -35,7 +36,7 @@ public class Room {
 		return roomName;
 	}
 	
-	public int getId()
+	/*public int getId()
 	{
 		return id;
 	}
@@ -43,7 +44,7 @@ public class Room {
 	public void setId(int id)
 	{
 		this.id = id;
-	}
+	}*/
 	
 	public String getRoomName()
 	{

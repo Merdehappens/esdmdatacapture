@@ -74,7 +74,8 @@ public class RoomView extends PanelView {
 		
 		scrollPane.setViewportView(tblRoom);
 
-		String[] columnNames = new String[] { "ID", "Name" };
+		//String[] columnNames = new String[] { "ID", "Name" };
+		String[] columnNames = new String[] { "Name" };
 
 		tblmdlRoom.setColumnIdentifiers(columnNames);
 
@@ -92,8 +93,9 @@ public class RoomView extends PanelView {
 		
 		TableColumnModel tblColModel = tblRoom.getColumnModel();
 
-		tblColModel.getColumn(0).setPreferredWidth(100);
-		tblColModel.getColumn(1).setPreferredWidth(500);
+		/*tblColModel.getColumn(0).setPreferredWidth(100);
+		tblColModel.getColumn(1).setPreferredWidth(500);*/
+		tblColModel.getColumn(0).setPreferredWidth(600);
 
 	}
 	
@@ -142,9 +144,9 @@ public class RoomView extends PanelView {
 			Room tempRoom = roomList.get(i);
 			
 
-			Object[] rowData = new Object[2];
-			rowData[0] = tempRoom.getId();
-			rowData[1] = tempRoom;
+			Object[] rowData = new Object[1];
+			//rowData[0] = tempRoom.getId();
+			rowData[0] = tempRoom;
 
 			tblmdlRoom.addRow(rowData);
 

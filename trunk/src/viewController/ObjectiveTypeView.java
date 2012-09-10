@@ -72,7 +72,8 @@ public class ObjectiveTypeView extends PanelView {
 		
 		scrollPane.setViewportView(tblType);
 
-		String[] columnNames = new String[] { "ID", "Name" };
+		//String[] columnNames = new String[] { "ID", "Name" };
+		String[] columnNames = new String[] { "Name" };
 
 		tblmdlType.setColumnIdentifiers(columnNames);
 
@@ -86,8 +87,9 @@ public class ObjectiveTypeView extends PanelView {
 		
 		TableColumnModel tblColModel = tblType.getColumnModel();
 
-		tblColModel.getColumn(0).setPreferredWidth(100);
-		tblColModel.getColumn(1).setPreferredWidth(500);
+		/*tblColModel.getColumn(0).setPreferredWidth(100);
+		tblColModel.getColumn(1).setPreferredWidth(500);*/
+		tblColModel.getColumn(0).setPreferredWidth(600);
 
 	}
 	
@@ -116,9 +118,9 @@ public class ObjectiveTypeView extends PanelView {
 			ObjectiveType objectiveType = otList.get(i);
 			
 
-			Object[] rowData = new Object[2];
-			rowData[0] = objectiveType.getId();
-			rowData[1] = objectiveType;
+			Object[] rowData = new Object[1];
+			//rowData[0] = objectiveType.getId();
+			rowData[0] = objectiveType;
 
 			tblmdlType.addRow(rowData);
 
