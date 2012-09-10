@@ -183,9 +183,9 @@ public class ESDMModel {
     private void loadFromDatabase() throws Exception
     {
     	org.hibernate.Session session = factory.openSession();
-/*   	session.beginTransaction();
+     	session.beginTransaction();
     	
-      	Therapist user = new Therapist();
+      	/*Therapist user = new Therapist();
         user.setUsername("temp");
         user.tempSetPassword("temp");
         user.setName("temp");
@@ -194,9 +194,7 @@ public class ESDMModel {
        	session.save(user);
        	
     	
-    	session.getTransaction().commit();
-
-  */
+    	session.getTransaction().commit();*/
            	
     	String qry = ("Select sess from Setting sess");
     	Query query = session.createQuery(qry);
@@ -1167,7 +1165,7 @@ public class ESDMModel {
 		org.hibernate.Session session = factory.getCurrentSession();
 		session.beginTransaction();
 		
-		String qry = ("Select count(*) from Day day where day.roomId = " + room.getId());
+		String qry = ("Select count(*) from Day day where day.roomId = " + room.getRoomName());
 		Query query = session.createSQLQuery(qry);
     	BigInteger s = (BigInteger) query.uniqueResult();
     	System.out.println(s.intValue());

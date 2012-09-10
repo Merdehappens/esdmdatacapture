@@ -18,10 +18,10 @@ import system.sessions.Setting;
 @Entity
 public class ObjectiveType {
 	
-	@Id
+	/*@Id
 	@GeneratedValue
-	private int id;
-	@Basic
+	private int id;*/
+	@Id
 	private String name;
 	
     @OneToMany(targetEntity=Objective.class,
@@ -51,7 +51,7 @@ public class ObjectiveType {
 		return name;
 	}
 	
-	public int getId()
+	/*public int getId()
 	{
 		return id;
 	}
@@ -59,7 +59,7 @@ public class ObjectiveType {
 	public void setId(int id)
 	{
 		this.id = id;
-	}
+	}*/
 	
 	public String getName()
 	{
