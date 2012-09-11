@@ -850,7 +850,7 @@ public class ESDMModel {
 		// Checks that neither object is null
 		if(child == null || objective == null)	
 		{
-			throw new Exception("Child not selected.");
+			throw new IllegalArgumentException("Child or Objective not selected.");
 		}
 		else
 		{
