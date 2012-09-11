@@ -737,6 +737,7 @@ public class Controller extends JFrame {
 		addObjective.templateListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				chooseObjective = new ChooseObjective(model.getObjectiveList());
+				chooseObjective.setSaveText("Save");
 				
 				chooseObjective.saveButtonListener(new java.awt.event.ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
@@ -962,31 +963,7 @@ public class Controller extends JFrame {
 				
 				addNewGuardian.setModalityType(ModalityType.APPLICATION_MODAL);
 				addNewGuardian.setVisible(true);
-				
-				
-				/*				chooseObjective = new ChooseObjective(model.getObjectiveList());
-				
-				chooseObjective.saveButtonListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(ActionEvent evt) {
-						chooseObjective.setVisible(false);
-						Objective obj = chooseObjective.getObjective();
-						show(objectivePanel, "addObjective");
-						try{
-						addObjective.setName(obj.getName());
-						addObjective.setDescription(obj.getDescription());
-						addObjective.setLevel(obj.getLevel());
-						addObjective.setSteps(obj.getSteps());
-						} catch(NullPointerException e) {
-							showErrorMessage("10003: No Objective is selected");
-						}
-					}
-				});
 
-				
-			*/
-				
-				
-				
 			}
 		});
 		
@@ -1024,6 +1001,32 @@ public class Controller extends JFrame {
 				addGuardian.setModalityType(ModalityType.APPLICATION_MODAL);
 				addGuardian.setVisible(true);
 				
+			}
+		});
+		
+		editChild.addObjectiveListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {			
+				
+				chooseObjective = new ChooseObjective(model.getObjectiveList());
+				chooseObjective.setSaveText("Add");
+			
+				chooseObjective.saveButtonListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						chooseObjective.setVisible(false);
+						try{
+							model.addObjectiveChild(editChild.getChild(), chooseObjective.getObjective());
+						} catch(Exception e) {
+							showErrorMessage(e.getMessage());
+						} 
+						finally{
+							editChild.refreshView();
+						}
+					}
+				});
+
+				chooseObjective.setModalityType(ModalityType.APPLICATION_MODAL);
+				chooseObjective.setVisible(true);
+			
 			}
 		});
 		

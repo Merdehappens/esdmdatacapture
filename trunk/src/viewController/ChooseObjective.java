@@ -141,4 +141,8 @@ public class ChooseObjective extends JDialog {
 	public Objective getObjective() {
 		return lstObjective.getSelectedValue();
 	}
+
+	public void setSaveText(String text) {
+		btnSave.setText(text);
+	}
 }
