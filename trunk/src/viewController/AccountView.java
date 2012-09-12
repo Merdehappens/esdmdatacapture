@@ -16,6 +16,7 @@ public class AccountView extends PanelView {
 	private JButton btnRooms;
 	private JButton btnSetting;
 	private JButton btnObjectiveType;
+	private JButton btnUserAccounts;
 
 	public AccountView() {
 		super();
@@ -68,6 +69,10 @@ public class AccountView extends PanelView {
 		btnViewAccount.setBounds(20, 221, 200, 40);
 		add(btnViewAccount);
 		 */
+		
+		btnUserAccounts = new JButton("User Accounts");
+		btnUserAccounts.setBounds(277, 330, 165, 40);
+		add(btnUserAccounts);
 	}
 
 	// Takes in an ActionListener and adds it to the change password button
@@ -95,6 +100,10 @@ public class AccountView extends PanelView {
 	
 	public void objectiveTypeListener(ActionListener al) {
 		btnObjectiveType.addActionListener(al);
+	}
+	
+	public void userAccountsListener(ActionListener al) {
+		btnUserAccounts.addActionListener(al);
 	}
 	
 

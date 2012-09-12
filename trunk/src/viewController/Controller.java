@@ -113,6 +113,7 @@ public class Controller extends JFrame {
 	private AddGuardian addGuardian;
 	private ChooseObjective chooseObjective;
 	private AddNewGuardian addNewGuardian;
+	private UserAccountView userAccountView;
 	
 	private HashMap<String, JPanel> panelMap = new HashMap<String, JPanel>();
 	private JButton btnBack;
@@ -374,6 +375,10 @@ public class Controller extends JFrame {
 		objectiveTypeView = new ObjectiveTypeView(model);
 		accountPanel.add(objectiveTypeView, "objectiveTypeView");
 		panelMap.put("objectiveTypeView", accountPanel);
+		
+		userAccountView = new UserAccountView(model);
+		accountPanel.add(userAccountView, "userAccountView");
+		panelMap.put("userAccountView", accountPanel);
 		
 		JPanel footer = new JPanel(null);
 		
@@ -1136,6 +1141,12 @@ public class Controller extends JFrame {
 		accountView.objectiveTypeListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				show(accountPanel, "objectiveTypeView");
+			}
+		});
+		
+		accountView.userAccountsListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(accountPanel, "userAccountView");
 			}
 		});
 		
