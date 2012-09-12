@@ -1,61 +1,6 @@
 package viewController;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dialog.ModalityType;
-import java.awt.Dimension;
-
-import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTabbedPane;
-import java.awt.CardLayout;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.plaf.ColorUIResource;
-
-import system.helper.Helper;
-import system.helper.MessageFade;
-import system.individuals.Child;
-import system.individuals.Guardian;
-import system.marking.Mark;
-import system.marking.Objective;
-import system.marking.Step;
-import system.model.ESDMModel;
-import system.model.Room;
-import system.sessions.Day;
-import system.sessions.Setting;
-
-
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.MissingResourceException;
-import java.awt.Font;
-import java.awt.event.WindowAdapter;
-
-import org.hibernate.exception.ConstraintViolationException;
-import javax.swing.JButton;
-import java.awt.Color;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EtchedBorder;
-import java.awt.FlowLayout;
 
 //testing
 /**
@@ -438,17 +383,33 @@ public class Controller extends JFrame {
 		addDay.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 
+				try {
+				
 				ArrayList<Child> children = addDay.getChildren();
 				Room room = addDay.getRoom();
 				ArrayList<Setting> settings = addDay.getSettings();
 				Calendar date = addDay.getDate();
-
-				try {
-					logSessionData.setDay(model.addDay(date, children, room,
-							settings));
+				boolean exists = model.dayExists(room, date);
+			
+				int res = 0;
+				if(exists)
+				{
+					res = JOptionPane.showConfirmDialog(null, "Another day already exists for this date in this room. are you sure you wish to proceed?", "Add New Day", JOptionPane.YES_NO_OPTION);
+				}
+				System.out.println("RES " + res);
+				if(res == 0)
+				{
+					logSessionData.setDay(model.addDay(date, children, room, settings));
 					show(sessionPanel, "logSessionData");
+				}
+				else
+				{
+					show(sessionPanel, "Session");
+				}
+				
 				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
+					e.printStackTrace();
 				}
 
 			}
@@ -518,6 +479,22 @@ public class Controller extends JFrame {
 			public void actionPerformed(ActionEvent evt) {
 				reviewSession.setDay(logSessionData.getDay());
 				show(sessionPanel, "reviewSession");
+			}
+		});
+		
+		logSessionData.saveBehaviourMarkListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				
+				try {				
+					Day day = logSessionData.getDay();
+					Child child = logSessionData.getSelectedChild();
+					int markInt = logSessionData.getSelectedBehaviourMark();
+					model.addBehaviouralMark(day, child, markInt);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					showMessage("Unable to save the behavioural mark");
+					e.printStackTrace();
+				}
 			}
 		});
 

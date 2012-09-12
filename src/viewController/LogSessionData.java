@@ -24,6 +24,7 @@ import system.sessions.Day;
 import system.sessions.Setting;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.JToggleButton;
 
 public class LogSessionData extends PanelView {
 	/**
@@ -62,6 +63,7 @@ public class LogSessionData extends PanelView {
 	private JButton btnBehaviourNext;
 	private DefaultListModel<Integer> behaviourModel;
 	private JList<Integer> lstBehaviour;
+	private JButton btnSaveBehaviouralMark;
 
 
 	public LogSessionData() {
@@ -307,12 +309,20 @@ public class LogSessionData extends PanelView {
 		lstBehaviour = new JList<Integer>(behaviourModel);
 		scrpnebehaviour.setViewportView(lstBehaviour);
 		
+		btnSaveBehaviouralMark = new JButton("Save Behavioural Mark");
+		btnSaveBehaviouralMark.setBounds(667, 415, 165, 48);
+		add(btnSaveBehaviouralMark);
+		
 		behaviourModel.addElement(new Integer(1));
 		behaviourModel.addElement(new Integer(2));
 		behaviourModel.addElement(new Integer(3));
 		behaviourModel.addElement(new Integer(4));
 		behaviourModel.addElement(new Integer(5));
 		behaviourModel.addElement(new Integer(6));
+	}
+	
+	public void saveBehaviourMarkListener(ActionListener al) {
+		btnSaveBehaviouralMark.addActionListener(al);
 	}
 	
 	public void listenChildListener(ActionListener al)
@@ -469,5 +479,9 @@ public class LogSessionData extends PanelView {
 	
 	public Objective getSelectedObjective() {
 		return objectiveModel.getElementAt(lstObjective.getSelectedIndex());
+	}
+
+	public int getSelectedBehaviourMark() {
+		return behaviourModel.getElementAt(lstBehaviour.getSelectedIndex());
 	}
 }
