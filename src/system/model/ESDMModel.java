@@ -1265,6 +1265,9 @@ public class ESDMModel {
 	}
 	
 
+    public List<UserAccount> getUserList() {
+		return userList;
+	}
 	
 	
 	
