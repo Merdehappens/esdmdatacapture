@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -54,6 +55,9 @@ public class Objective implements SimpleKey  {
     		fetch=FetchType.LAZY)
     private List<Mark> marks;
     
+    @Basic
+    boolean hidden;
+    
 
 	public void setType(ObjectiveType objType)
 	{
@@ -70,6 +74,7 @@ public class Objective implements SimpleKey  {
         steps = new ArrayList<Step>();
         children = new ArrayList<ChildObjective>();
         marks = new ArrayList<Mark>();
+        hidden = false;
     }
     
     public Objective(Collection<Step> c)
@@ -77,6 +82,7 @@ public class Objective implements SimpleKey  {
         steps = new ArrayList<Step>(c);
         children = new ArrayList<ChildObjective>();
         marks = new ArrayList<Mark>();
+        hidden = false;
     }
     
     public Objective(String name, String description, int level)
@@ -87,6 +93,7 @@ public class Objective implements SimpleKey  {
     	steps = new ArrayList<Step>();
     	children = new ArrayList<ChildObjective>();
     	marks = new ArrayList<Mark>();
+    	hidden = false;
     }
     
     public void addMark(Mark mark)
