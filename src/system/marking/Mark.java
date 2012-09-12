@@ -116,11 +116,12 @@ public class Mark implements SimpleKey {
     	this.therapist = therapist;
     }
     
-    public Mark(int mark, Child child, Therapist therapist, char type) {
+    public Mark(int mark, Child child, Therapist therapist, char type, Day day) {
     	this.mark = mark;
     	this.child = child;
     	this.type = type;
     	this.therapist = therapist;
+    	this.day = day;
     }
     
     public Mark()

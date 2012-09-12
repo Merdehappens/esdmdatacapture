@@ -689,11 +689,14 @@ public class ESDMModel {
 		{
 			throw new Exception("Mark not selected.");
 		}
+		Therapist therapist = (Therapist) currentUser;
 		
-		Mark tempMark = new Mark(setting, child, objective, step, mark, (Therapist)currentUser, day);
+		
+		Mark tempMark = new Mark(setting, child, objective, step, mark, therapist, day);
 		day.addMark(tempMark);
 		child.addMark(tempMark);
 		markList.add(tempMark);    	
+		therapist.addMark(tempMark);
 
 		org.hibernate.Session dbSession = factory.getCurrentSession();
     	dbSession.beginTransaction();
@@ -1051,7 +1054,6 @@ public class ESDMModel {
 	public void removeObjective(Child c, Objective o)
 	{
 		ChildObjective co = c.removeObjective(o);
-		//TODO Check removing objective correctly
         org.hibernate.Session session = factory.getCurrentSession();
         session.beginTransaction();
         session.delete(co);
@@ -1263,12 +1265,59 @@ public class ESDMModel {
 	public Collection<ObjectiveType> getObjectiveTypeList() {
 		return objectiveTypeList;
 	}
-	
 
-    public List<UserAccount> getUserList() {
+	
+	public void addBehaviouralMark(Day day, Child child, int markInt) throws Exception
+	{
+		if(child == null)
+		{
+			throw new Exception("Child not Selected.");
+		}
+		
+		if(markInt < 0 || markInt > 6)
+		{
+			throw new Exception("Mark not selected.");
+		}
+		Therapist therapist = (Therapist) currentUser;
+		
+		Mark tempMark = new Mark(markInt, child, therapist, 'b', day);
+		
+		child.addMark(tempMark);
+		markList.add(tempMark);    	
+		therapist.addMark(tempMark);
+		day.addMark(tempMark);
+
+		org.hibernate.Session dbSession = factory.getCurrentSession();
+    	dbSession.beginTransaction();
+    	dbSession.save(tempMark);
+    	dbSession.getTransaction().commit();
+	}
+
+	public boolean dayExists(Room room, Calendar date) {
+
+    	org.hibernate.Session session = factory.getCurrentSession();
+    	session.beginTransaction();
+    	date = Helper.setCalendarTimeNull(date);
+
+    	String qry = "Select day from Day day WHERE day.room = \'" + room + "\'" + "ORDER BY day.date";
+    	Query query = session.createQuery(qry);
+    	
+    	for(Iterator it = query.iterate(); it.hasNext();)
+    	{
+    		Day day = (Day) it.next();
+    		if(day.getDate().equals(date))
+    		{
+    	    	session.getTransaction().commit();
+    			return true;
+    		}
+    	}
+    	session.getTransaction().commit();
+    	return false;
+	}
+
+	public List<UserAccount> getUserList() {
 		return userList;
 	}
-	
 	
 	
 
