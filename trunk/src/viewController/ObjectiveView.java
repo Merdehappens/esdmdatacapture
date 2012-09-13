@@ -9,9 +9,13 @@ import java.util.ArrayList;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.RowFilter;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.RowFilter.ComparisonType;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableRowSorter;
+import java.awt.event.ActionEvent;
 
 public class ObjectiveView extends PanelView {
 
@@ -22,6 +26,9 @@ public class ObjectiveView extends PanelView {
 	private ArrayList<Objective> objectives;
 	private MyJTable objectiveTable;
 	private DefaultTableModel tableModel;
+	private JButton btnResetSearch;
+	private JButton btnRefineSearch;
+	private TableRowSorter<DefaultTableModel> sorter;
 
 	public ObjectiveView() {
 		super();
@@ -49,7 +56,7 @@ public class ObjectiveView extends PanelView {
 		add(btnViewObjectives);
 
 		btnAddObjectiveTo = new JButton("Add Objective to Child");
-		btnAddObjectiveTo.setBounds(470, 90, 200, 35);
+		btnAddObjectiveTo.setBounds(470, 90, 186, 35);
 		add(btnAddObjectiveTo);
 
 		// Creates a new scrollpane and adds it to the screen
@@ -63,6 +70,25 @@ public class ObjectiveView extends PanelView {
 		objectiveTable = new MyJTable();
 		scrollPane.setViewportView(objectiveTable);
 		objectiveTable.setModel(tableModel);
+		
+
+		sorter = new TableRowSorter<DefaultTableModel>(tableModel);
+		objectiveTable.setRowSorter(sorter);
+		
+		
+		
+		btnRefineSearch = new JButton("Refine Search");
+		btnRefineSearch.setBounds(666, 90, 142, 35);
+		add(btnRefineSearch);
+		
+		btnResetSearch = new JButton("Reset Search");
+		btnResetSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				resetSearch();
+			}
+		});
+		btnResetSearch.setBounds(818, 90, 142, 35);
+		add(btnResetSearch);
 
 		// sets the column names to the string array
 		String[] columnNames = new String[] { "ID", "Name",
@@ -79,6 +105,7 @@ public class ObjectiveView extends PanelView {
 		//tblColModel.getColumn(4).setPreferredWidth(50);
 		refreshView();
 
+		
 	}
 
 	// Takes in an ActionListener and adds it to the Add New Objective button
@@ -96,10 +123,36 @@ public class ObjectiveView extends PanelView {
 	public void addObjectiveToChild(ActionListener al) {
 		btnAddObjectiveTo.addActionListener(al);
 	}
+	
+	// Takes in an action listener and adds it to the refine search button
+	public void refineSearch(ActionListener al) {
+		btnRefineSearch.addActionListener(al);
+	}
+	
+	public void resetSearch() {
+		sorter = new TableRowSorter<DefaultTableModel>(tableModel);
+		objectiveTable.setRowSorter(sorter);
+	}
+	
+	public void setSearchVariables(String name, int level) {
+
+		ArrayList<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>();
+
+		filters.add(RowFilter.regexFilter("(?i).*" + name + ".*"));
+		
+		if(level != 0)
+		{
+			filters.add(RowFilter.numberFilter(ComparisonType.EQUAL, level, 2));
+		}
+		
+		sorter.setRowFilter(RowFilter.andFilter(filters));
+		
+	}
 
 	// Overrides the refreshView method in PanelView and refreshes the view of this panel
 	public void refreshView() {
 		populateTable();
+		resetSearch();
 	}
 
 	// Returns the objective for the row that is selected

@@ -116,6 +116,7 @@ public class ESDMModel {
      */
 
     public List<Child> getChildList() {
+    	
         return childList;
     }
     
@@ -1282,6 +1283,8 @@ public class ESDMModel {
 		Therapist therapist = (Therapist) currentUser;
 		
 		Mark tempMark = new Mark(markInt, child, therapist, 'b', day);
+		Calendar timestamp = Calendar.getInstance();
+		tempMark.setTime(timestamp);
 		
 		child.addMark(tempMark);
 		markList.add(tempMark);    	
