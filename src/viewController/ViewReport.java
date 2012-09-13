@@ -180,6 +180,7 @@ public class ViewReport extends PanelView {
 
 			}
 
+			
 			ArrayList<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>();
 
 			Calendar dateFrom = dateChooserFrom.getCalendar();
@@ -205,7 +206,7 @@ public class ViewReport extends PanelView {
 				filters.add(RowFilter.dateFilter(ComparisonType.AFTER,
 						dateFrom.getTime()));
 			}
-
+			
 			sorter.setRowFilter(RowFilter.andFilter(filters));
 		}
 

@@ -7,6 +7,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import javax.swing.RowFilter.ComparisonType;
 import javax.swing.ScrollPaneConstants;
 
 import system.helper.Helper;
@@ -30,6 +32,7 @@ public class ChildView extends PanelView {
 	private DefaultTableModel childTableModel;
 	private ArrayList<Child> childList;
 	private JScrollPane scrollPane;
+	private TableRowSorter<DefaultTableModel> sorter;
 
 	public ChildView() {
 		super();
@@ -67,7 +70,7 @@ public class ChildView extends PanelView {
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		
 		childTableModel = new DefaultTableModel();
-		TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(childTableModel);
+		sorter = new TableRowSorter<DefaultTableModel>(childTableModel);
 		childTable = new MyJTable();
 		scrollPane.setViewportView(childTable);
 
@@ -113,8 +116,15 @@ public class ChildView extends PanelView {
 
 	// Overrides the refreshView method in PanelView and refreshes the view of this panel
 	public void refreshView() {
-		childList = (ArrayList<Child>) this.getModel().getChildList(true);
+		childList = (ArrayList<Child>) this.getModel().getChildList();
 		populateTable(childList);
+		resetSearch();
+	}
+
+	private void resetSearch() {
+		
+		sorter.setRowFilter(RowFilter.regexFilter("Active", 4));
+
 	}
 
 	private void populateTable(ArrayList<Child> childs) {
@@ -185,36 +195,31 @@ public class ChildView extends PanelView {
 				JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		if(res == 0)
 		{
-			ArrayList<Child> fullChildList = new ArrayList<Child>(this.getModel()
-					.getChildList());
-			ArrayList<Child> showChildList = new ArrayList<Child>();
-
-			int size = fullChildList.size();
-			for (int i = 0; i < size; i++) {
-				Child tempChild = fullChildList.get(i);
-				String name = tempChild.getName();
-
-				if (name.toLowerCase().contains(txtName.getText().toLowerCase())) {
-					int index = cmbActive.getSelectedIndex();
-					if (index == 2) {
-						showChildList.add(tempChild);
-					} else if (index == 1) {
-						if (tempChild.getActive() == false) {
-							showChildList.add(tempChild);
-						}
-					} else {
-						if (tempChild.getActive() == true) {
-							showChildList.add(tempChild);
-						}
-					}
-				}
-			}
-			populateTable(showChildList);
+			System.out.println(cmbActive.getSelectedItem());
+			setSearchVariables(txtName.getText(), (String) cmbActive.getSelectedItem());
 		}
-		else
-		{
-			populateTable(childList);
-		}
+		
 	}
+	
+	
+	
+	
+	public void setSearchVariables(String name, String active) {
+
+		ArrayList<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>();
+
+		filters.add(RowFilter.regexFilter("(?i).*" + name + ".*"));
+
+		if(active.equals("Both"))
+		{
+		} else {
+			filters.add(RowFilter.regexFilter(active, 4));
+		}
+		
+		
+		sorter.setRowFilter(RowFilter.andFilter(filters));
+		
+	}
+	
 
 }

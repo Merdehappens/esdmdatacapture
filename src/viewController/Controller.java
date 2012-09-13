@@ -882,6 +882,40 @@ public class Controller extends JFrame {
 		});
 
 
+		objectiveView.refineSearch(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				
+				JLabel lblText = new JLabel("Text:");
+				JTextField txtText = new JTextField(25);;
+
+				JLabel lblLevel = new JLabel("Level:");
+				JTextField txtLevel = new JTextField(3);;
+				
+
+				Object[] array = { lblText, txtText, lblLevel, txtLevel };
+
+				int res = JOptionPane.showConfirmDialog(null, array, "Refine Search",
+						JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				
+				if(res == 0)
+				{
+					int lvl;
+					if(txtLevel.getText().length() == 0) {
+						lvl = 0;
+					}
+					else {
+						lvl = Integer.parseInt(txtLevel.getText()); 
+					}
+			
+					objectiveView.setSearchVariables(txtText.getText(), lvl);
+				} else
+				{
+					objectiveView.refreshView();
+				}
+				
+			}
+		});
+		
 		objectiveView.viewObjectives(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 
