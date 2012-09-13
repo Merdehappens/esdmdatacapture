@@ -871,6 +871,7 @@ public class Controller extends JFrame {
 						int level = viewObjective.getLevel();
 						String[][] steps = viewObjective.getSteps();
 						model.saveObjective(objective, name, description, level, steps);
+						objective.setHidden(viewObjective.getHidden());
 						show(objectivePanel, "Objective");
 						showMessage("Objective successfully added");
 					} catch (Exception e) {

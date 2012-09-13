@@ -185,16 +185,15 @@ public class ESDMModel {
     	org.hibernate.Session session = factory.openSession();
      	session.beginTransaction();
     	
-      	/*Therapist user = new Therapist();
+ /*     	Therapist user = new Therapist();
         user.setUsername("temp");
         user.tempSetPassword("temp");
         user.setName("temp");
         user.setAccess("a");
         userList.add(user);
-       	session.save(user);
+       	session.save(user);*/
        	
-    	
-    	session.getTransaction().commit();*/
+
            	
     	String qry = ("Select sess from Setting sess");
     	Query query = session.createQuery(qry);
@@ -273,6 +272,8 @@ public class ESDMModel {
     		userList.add(ua);
     	}
     	
+
+    	session.getTransaction().commit();
     
     }
     

@@ -18,6 +18,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+import javax.swing.JCheckBox;
 
 public class ViewObjective extends PanelView {
 
@@ -31,6 +32,7 @@ public class ViewObjective extends PanelView {
 	private JTextArea txtObjectiveDescription;
 	private Objective objective;
 	private JTextField txtLevel;
+	private JCheckBox chckbxHidden;
 
 
 	public ViewObjective() {
@@ -133,6 +135,11 @@ public class ViewObjective extends PanelView {
 		JLabel lblLevel = new JLabel("Level #");
 		lblLevel.setBounds(687, 88, 65, 30);
 		add(lblLevel);
+		
+		chckbxHidden = new JCheckBox("Hide Objective");
+		chckbxHidden.setHorizontalAlignment(SwingConstants.RIGHT);
+		chckbxHidden.setBounds(753, 458, 119, 23);
+		add(chckbxHidden);
 
 		// Sets the preferred width of the columns in the table
 
@@ -257,6 +264,8 @@ public class ViewObjective extends PanelView {
 	public Objective getObjective() {
 		return objective;
 	}
-
-
+	
+	public boolean getHidden() {
+		return chckbxHidden.isSelected();
+	}
 }
