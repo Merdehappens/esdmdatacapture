@@ -210,6 +210,10 @@ public class Objective implements SimpleKey  {
 		return removed;
 
 	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
 	
     
 }
