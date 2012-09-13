@@ -265,7 +265,7 @@ public class LogSessionData extends PanelView {
 		add(lblCurrStep);
 		
 		lblStep = new JLabel("");
-		lblStep.setBounds(428, 361, 498, 14);
+		lblStep.setBounds(428, 361, 498, 21);
 		add(lblStep);
 		
 		btnListenSetting = new JButton("Listen");
@@ -448,14 +448,21 @@ public class LogSessionData extends PanelView {
 		Child child = null;
 		Objective objective = null;
 		Step step = null;
-		int mark = 0;
+		int mark = 999;
 
 		if (lstSetting.getSelectedIndex() != -1) {
 			setting = settingModel.get(lstSetting.getSelectedIndex());
 		}
 
 		try {
+			if(lstChild.getSelectedIndex() == -1)
+			{
+				child = null;
+			}
+			else
+			{
 			child = childModel.get(lstChild.getSelectedIndex());
+			}
 			this.getModel().addTimestamp(setting, child, objective, step, mark,
 					day);
 		} catch (Exception e) {

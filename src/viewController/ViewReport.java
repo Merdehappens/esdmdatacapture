@@ -120,7 +120,7 @@ public class ViewReport extends PanelView {
 
 		// Creates a new button to export report to file
 
-		btnExport = new JButton("Export to File");
+		btnExport = new JButton("Save to File");
 		btnExport.setBounds(64, 468, 139, 26);
 		add(btnExport);
 

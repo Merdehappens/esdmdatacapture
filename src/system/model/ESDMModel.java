@@ -540,15 +540,15 @@ public class ESDMModel {
 		//create objective with these steps
 		if(name.length() == 0)
 		{
-			throw new Exception("Name field is empty.");
+			throw new Exception("The name field is empty.");
 		}
 		if(level == 0)
 		{
-			throw new Exception("Level field is empty.");
+			throw new Exception("The level field is empty.");
 		}
 		if(description.length() == 0)
 		{
-			throw new Exception("Description field is empty.");
+			throw new Exception("The description field is empty.");
 		}
 		if(steps.length == 0)
 		{
@@ -711,11 +711,17 @@ public class ESDMModel {
 	
 	public void addTimestamp(Setting setting, Child child, Objective objective, Step step, int mark, Day day) throws Exception
 	{
+		
 		Therapist t = (Therapist)currentUser;
+
 		Mark tempMark = new Mark(setting, child, objective, step, mark, t, day);
+
+		
 		tempMark.setComments("Timestamp Logged.");
 		day.addMark(tempMark);
-		child.addMark(tempMark);
+		if(child != null) {
+			child.addMark(tempMark);
+		}
 		markList.add(tempMark);
 		t.addMark(tempMark);
 		

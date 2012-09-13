@@ -716,28 +716,31 @@ public class Controller extends JFrame {
 				String pass = Helper.generateRandomString(8);
 				
 				String access = newUserAccount.getSelectedAccess();
-				
-
-				try {
-					if(access.equals(guardianAccess))
-					{
-						model.newGuardian(name, username, emailAddress, phoneNo, pass, access);
+				if(access.equals("false"))
+				{
+					showErrorMessage("You must select access level.");
+				}
+				else
+				{
+					try {
+						if(access.equals(guardianAccess))
+						{
+							model.newGuardian(name, username, emailAddress, phoneNo, pass, access);
+						}
+						else
+						{
+							model.newTherapist(name, username, emailAddress, phoneNo, pass, access);
+						}
+						show(accountPanel, "Account");
+						showErrorMessage("The password has been set to: " + pass + "."
+								+ "\nPlease note this down and inform the user.");
+					} catch(ConstraintViolationException e) {
+						showErrorMessage("That username already exists");
+					} catch(MissingResourceException e) {	
+						showErrorMessage(e.getMessage());
+					} catch (Exception e) {
+						showErrorMessage("Undefined Error: 90001: " + e.getMessage());
 					}
-					else
-					{
-						model.newTherapist(name, username, emailAddress, phoneNo, pass, access);
-						
-					}
-					show(accountPanel, "Account");
-					showErrorMessage("The password has been set to: " + pass + "."
-							+ "\nPlease note this down and inform the user.");
-				} catch(ConstraintViolationException e) {
-					showErrorMessage("That username already exists");
-				} catch(MissingResourceException e) {	
-					showErrorMessage(e.getMessage());
-				} catch (Exception e) {
-					showErrorMessage("Undefined Error: 90001: " + e.getMessage());
-					
 				}
 
 

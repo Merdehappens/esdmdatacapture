@@ -115,9 +115,13 @@ public class NewUserAccount extends PanelView {
 		{
 			return "n";
 		}
-		else
+		else if(rdbtnGuardian.isSelected())
 		{
 			return "g";
+		}
+		else
+		{
+			return "false";
 		}
 		
 	}
@@ -160,8 +164,17 @@ public class NewUserAccount extends PanelView {
 		txtPhone.setText("");
 	}
 
+	private void resetCheckButtons() {
+		rdbtnTherapist.setSelected(false);
+		rdbtnGuardian.setSelected(false);
+		rdbtnAdmin.setSelected(false);
+	}
+	
 	// Overrides the refreshView method in PanelView and refreshes the view of this panel
 	public void refreshView() {
 		resetTextFields();
+		resetCheckButtons();
+		
 	}
+
 }

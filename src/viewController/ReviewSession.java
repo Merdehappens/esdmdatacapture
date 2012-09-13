@@ -92,7 +92,7 @@ public class ReviewSession extends PanelView {
 		btnLogMarks.setBounds(631, 454, 260, 23);
 		add(btnLogMarks);
 		
-		btnExport = new JButton("Export to CSV");
+		btnExport = new JButton("Save to File");
 		btnExport.setBounds(438, 454, 170, 23);
 		add(btnExport);
 		
