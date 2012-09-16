@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.SwingConstants;
+import javax.swing.JButton;
 
 public class HomeView extends PanelView {
 
@@ -45,15 +46,39 @@ public class HomeView extends PanelView {
 		JLabel lblSessionsOrganised = new JLabel("Sessions organised for today:");
 		lblSessionsOrganised.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSessionsOrganised.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblSessionsOrganised.setBounds(10, 200, 1003, 21);
+		lblSessionsOrganised.setBounds(186, 200, 641, 21);
 		add(lblSessionsOrganised);
 		
 		lblSessionList = new JLabel("");
 		lblSessionList.setVerticalAlignment(SwingConstants.TOP);
 		lblSessionList.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSessionList.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblSessionList.setBounds(10, 232, 1003, 281);
+		lblSessionList.setBounds(196, 232, 631, 281);
 		add(lblSessionList);
+		
+		JButton btnObjectives = new JButton("Objectives");
+		btnObjectives.setBounds(849, 250, 164, 40);
+		add(btnObjectives);
+		
+		JButton btnReporting = new JButton("Reporting");
+		btnReporting.setBounds(849, 301, 164, 40);
+		add(btnReporting);
+		
+		JButton btnAccounts = new JButton("Accounts");
+		btnAccounts.setBounds(849, 352, 164, 40);
+		add(btnAccounts);
+		
+		JButton btnChildren = new JButton("Children");
+		btnChildren.setBounds(846, 403, 167, 40);
+		add(btnChildren);
+		
+		JButton btnCreateSession = new JButton("Create Session");
+		btnCreateSession.setBounds(10, 259, 164, 103);
+		add(btnCreateSession);
+		
+		JButton btnReviewPastSessions = new JButton("Review Past Sessions");
+		btnReviewPastSessions.setBounds(10, 373, 164, 48);
+		add(btnReviewPastSessions);
 		super.setTitle("Homepage");
 	}
 
