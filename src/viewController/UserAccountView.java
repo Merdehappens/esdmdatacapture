@@ -22,6 +22,7 @@ public class UserAccountView extends PanelView {
 	private ArrayList<UserAccount> accounts;
 	private MyJTable userAccountTable;
 	private DefaultTableModel tableModel;
+	private JButton btnHome;
 
 	public UserAccountView() {
 		super();
@@ -63,6 +64,10 @@ public class UserAccountView extends PanelView {
 		userAccountTable = new MyJTable();
 		scrollPane.setViewportView(userAccountTable);
 		userAccountTable.setModel(tableModel);
+		
+		btnHome = new JButton("Home");
+		btnHome.setBounds(20, 536, 89, 23);
+		add(btnHome);
 
 		// sets the column names to the string array
 		String[] columnNames = new String[] { "Account", "Name",
@@ -84,6 +89,10 @@ public class UserAccountView extends PanelView {
 	// Takes in an ActionListener and adds it to the Add New Objective button
 	public void addNewObjective(ActionListener al) {
 		btnAddNewUserAccount.addActionListener(al);
+	}
+	
+	public void homeListener(ActionListener al) {
+		btnHome.addActionListener(al);
 	}
 
 	// Takes in an ActionListener and adds it to the View Objectives button

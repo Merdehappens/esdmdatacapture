@@ -10,6 +10,7 @@ public class ReportingView extends PanelView {
 	private static final long serialVersionUID = -970035637832481957L;
 
 	JButton btnViewReport;
+	JButton btnHome;
 
 	public ReportingView() {
 		super();
@@ -32,6 +33,10 @@ public class ReportingView extends PanelView {
 		btnViewReport = new JButton("View Report");
 		btnViewReport.setBounds(20, 70, 200, 40);
 		add(btnViewReport);
+		
+		btnHome = new JButton("Home");
+		btnHome.setBounds(20, 500, 89, 23);
+		add(btnHome);
 
 	}
 
@@ -39,10 +44,13 @@ public class ReportingView extends PanelView {
 	public void viewReportListener(ActionListener al) {
 		btnViewReport.addActionListener(al);
 	}
+	
+	public void homeListener(ActionListener al) {
+		btnHome.addActionListener(al);
+	}
 
 	// Overrides the refreshView method in PanelView and refreshes the view of this panel
 	public void refreshView() {
 
 	}
-
 }

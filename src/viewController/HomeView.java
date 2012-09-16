@@ -19,6 +19,10 @@ public class HomeView extends PanelView {
 	private JLabel lblName;
 	private JLabel lblSessionList;
 	private JButton btnReviewPastSessions;
+	private JButton btnObjectives;
+	private JButton btnAccounts;
+	private JButton btnReporting;
+	private JButton btnChildren;
 
 	public HomeView() {
 		initialise();
@@ -58,19 +62,19 @@ public class HomeView extends PanelView {
 		lblSessionList.setBounds(196, 232, 631, 281);
 		add(lblSessionList);
 		
-		JButton btnObjectives = new JButton("Objectives");
+		btnObjectives = new JButton("Objectives");
 		btnObjectives.setBounds(849, 250, 164, 40);
 		add(btnObjectives);
 		
-		JButton btnReporting = new JButton("Reporting");
+		btnReporting = new JButton("Reporting");
 		btnReporting.setBounds(849, 301, 164, 40);
 		add(btnReporting);
 		
-		JButton btnAccounts = new JButton("Accounts");
+		btnAccounts = new JButton("Accounts");
 		btnAccounts.setBounds(849, 352, 164, 40);
 		add(btnAccounts);
 		
-		JButton btnChildren = new JButton("Children");
+		btnChildren = new JButton("Children");
 		btnChildren.setBounds(846, 403, 167, 40);
 		add(btnChildren);
 		
@@ -87,6 +91,22 @@ public class HomeView extends PanelView {
 	
 	public void reviewPastSessionsListener(ActionListener al) {
 		btnReviewPastSessions.addActionListener(al);
+	}
+	
+	public void objectivesListener(ActionListener al) {
+		btnObjectives.addActionListener(al);
+	}
+	
+	public void accountsListener(ActionListener al) {
+		btnAccounts.addActionListener(al);
+	}
+	
+	public void reportingListener(ActionListener al) {
+		btnReporting.addActionListener(al);
+	}
+	
+	public void childListener(ActionListener al) {
+		btnChildren.addActionListener(al);
 	}
 
 	// Overrides the refreshView method in PanelView and refreshes the view of this panel

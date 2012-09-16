@@ -422,7 +422,61 @@ public class Controller extends JFrame {
 		
 		homeView.reviewPastSessionsListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(esdmPanel, "sessionView");
+				show(esdmPanel, "Session");
+			}
+		});
+		
+		homeView.objectivesListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Objective");
+			}
+		});
+		
+		homeView.accountsListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "userAccountView");
+			}
+		});
+		
+		homeView.reportingListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Reporting");
+			}
+		});
+		
+		homeView.childListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Child");
+			}
+		});
+		
+		reportingView.homeListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Home");
+			}
+		});
+		
+		userAccountView.homeListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Home");
+			}
+		});
+		
+		childViewGrid.homeListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Home");
+			}
+		});
+		
+		sessionView.homeListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Home");
+			}
+		});
+		
+		objectiveView.homeListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Home");
 			}
 		});
 
