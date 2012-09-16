@@ -6,6 +6,7 @@ import system.sessions.Setting;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -17,6 +18,7 @@ public class HomeView extends PanelView {
 	private static final long serialVersionUID = -4031028574687279686L;
 	private JLabel lblName;
 	private JLabel lblSessionList;
+	private JButton btnReviewPastSessions;
 
 	public HomeView() {
 		initialise();
@@ -76,10 +78,15 @@ public class HomeView extends PanelView {
 		btnCreateSession.setBounds(10, 259, 164, 103);
 		add(btnCreateSession);
 		
-		JButton btnReviewPastSessions = new JButton("Review Past Sessions");
+		btnReviewPastSessions = new JButton("Review Past Sessions");
 		btnReviewPastSessions.setBounds(10, 373, 164, 48);
 		add(btnReviewPastSessions);
+		
 		super.setTitle("Homepage");
+	}
+	
+	public void reviewPastSessionsListener(ActionListener al) {
+		btnReviewPastSessions.addActionListener(al);
 	}
 
 	// Overrides the refreshView method in PanelView and refreshes the view of this panel

@@ -419,6 +419,12 @@ public class Controller extends JFrame {
 	// And determine what should be done in the case of a button press.
 
 	public void initSessionButtonListeners() {
+		
+		homeView.reviewPastSessionsListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "sessionView");
+			}
+		});
 
 		addDay.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
