@@ -32,6 +32,7 @@ public class SettingView extends PanelView {
 	private JScrollPane scrollPane;
 	private JButton btnRemoveSetting;
 	private JButton btnEditSetting;
+	private JButton btnHome;
 
 	public SettingView() {
 		super();
@@ -89,6 +90,10 @@ public class SettingView extends PanelView {
 		btnEditSetting.setBounds(186, 109, 115, 30);
 		add(btnEditSetting);
 		
+		btnHome = new JButton("Home");
+		btnHome.setBounds(20, 536, 89, 23);
+		add(btnHome);
+		
 		TableColumnModel tblColModel = tblSetting.getColumnModel();
 
 		tblColModel.getColumn(0).setPreferredWidth(100);
@@ -98,6 +103,10 @@ public class SettingView extends PanelView {
 	
 	public void editSettingListener(ActionListener al) {
 		btnEditSetting.addActionListener(al);
+	}
+	
+	public void homeListener(ActionListener al) {
+		btnHome.addActionListener(al);
 	}
 	
 	private void addSetting() {
