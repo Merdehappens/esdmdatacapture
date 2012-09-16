@@ -186,10 +186,10 @@ public class ESDMModel {
     	org.hibernate.Session session = factory.openSession();
      	session.beginTransaction();
     	
- /*     	Therapist user = new Therapist();
+      	/*Therapist user = new Therapist();
         user.setUsername("temp");
         user.tempSetPassword("temp");
-        user.setName("temp");
+        user.setName("Temporary User");
         user.setAccess("a");
         userList.add(user);
        	session.save(user);*/

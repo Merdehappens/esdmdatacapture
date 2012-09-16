@@ -64,13 +64,14 @@ public class Controller extends JFrame {
 	private Component parent;
 
 	private static JFrame loadingFrame;
-	private JPanel contentPane;
+	private JPanel esdmPanel;
+	/*private JPanel contentPane;
 	private JPanel homePanel;
 	private JPanel sessionPanel;
 	private JPanel childPanel;
 	private JPanel objectivePanel;
 	private JPanel reportingPanel;
-	private JPanel accountPanel;
+	private JPanel accountPanel;*/
 	private JTabbedPane tabbedPane;
 	private EditChild editChild;
 	private FindChild findChildReport;
@@ -203,11 +204,11 @@ public class Controller extends JFrame {
 		setTitle("ESDM Data Capture");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1025, 663);
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(180, 203, 235));
+		esdmPanel = new JPanel();
+		esdmPanel.setBackground(new Color(180, 203, 235));
 		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout());
+		setContentPane(esdmPanel);
+		esdmPanel.setLayout(new BorderLayout());
 
 		// Set the main layout of the project (tabbed pane)
 
@@ -221,7 +222,7 @@ public class Controller extends JFrame {
 
 		
 		tabbedPane.setBounds(0, 0, 1250, 541);
-		contentPane.add(tabbedPane, BorderLayout.CENTER);
+		esdmPanel.add(tabbedPane, BorderLayout.CENTER);
 
 		// Add the 6 main panels to the program and then add them to the tabbed
 		// pane.
@@ -229,11 +230,11 @@ public class Controller extends JFrame {
 		String htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Home</body></html>";
 
 		
-		homePanel = new JPanel();
-		tabbedPane.addTab(htmlTab, null, homePanel, null);
-		homePanel.setLayout(new CardLayout(0, 0));
+		esdmPanel = new JPanel();
+		tabbedPane.addTab(htmlTab, null, esdmPanel, null);
+		esdmPanel.setLayout(new CardLayout(0, 0));
 
-		htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Session</body></html>";
+		/*htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Session</body></html>";
 		sessionPanel = new JPanel();
 		tabbedPane.addTab(htmlTab, null, sessionPanel, null);
 		sessionPanel.setLayout(new CardLayout(0, 0));
@@ -256,117 +257,117 @@ public class Controller extends JFrame {
 		htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Administration</body></html>";
 		accountPanel = new JPanel();
 		tabbedPane.addTab(htmlTab, null, accountPanel, null);
-		accountPanel.setLayout(new CardLayout(0, 0));
+		accountPanel.setLayout(new CardLayout(0, 0));*/
 
 		// Add all the panels (Cards) to the Session Tab
 
 		homeView = new HomeView(model);
-		homePanel.add(homeView, "Home");
-		panelMap.put("Home", homePanel);
+		esdmPanel.add(homeView, "Home");
+		panelMap.put("Home", esdmPanel);
 
 		// Add all the panels (Cards) to the Session Tab
 		
 		sessionView = new SessionView(model);
-		sessionPanel.add(sessionView, "Session");
-		panelMap.put("Session", sessionPanel);
+		esdmPanel.add(sessionView, "Session");
+		panelMap.put("Session", esdmPanel);
 
 		addDay = new AddDay(model);
-		sessionPanel.add(addDay, "addDay");
-		panelMap.put("addDay", sessionPanel);
+		esdmPanel.add(addDay, "addDay");
+		panelMap.put("addDay", esdmPanel);
 
 		reviewSession = new ReviewSession();
-		sessionPanel.add(reviewSession, "reviewSession");
-		panelMap.put("reviewSession", sessionPanel);
+		esdmPanel.add(reviewSession, "reviewSession");
+		panelMap.put("reviewSession", esdmPanel);
 
 		logSessionData = new LogSessionData(model);
-		sessionPanel.add(logSessionData, "logSessionData");
-		panelMap.put("logSessionData", sessionPanel);
+		esdmPanel.add(logSessionData, "logSessionData");
+		panelMap.put("logSessionData", esdmPanel);
 
 		// Add all the panels (Cards) to the Child Tab
 
 		childViewGrid = new ChildView(model);
-		childPanel.add(childViewGrid, "Child");
-		panelMap.put("Child", childPanel);
+		esdmPanel.add(childViewGrid, "Child");
+		panelMap.put("Child", esdmPanel);
 
 		addChild = new AddChild(model);
-		childPanel.add(addChild, "addChild");
-		panelMap.put("addChild", childPanel);
+		esdmPanel.add(addChild, "addChild");
+		panelMap.put("addChild", esdmPanel);
 
 		editChild = new EditChild();
-		childPanel.add(editChild, "editChild");
-		panelMap.put("editChild", childPanel);
+		esdmPanel.add(editChild, "editChild");
+		panelMap.put("editChild", esdmPanel);
 
 
 		// Add all the panels (Cards) to the Objectives Tab
 
 		objectiveView = new ObjectiveView(model);
-		objectivePanel.add(objectiveView, "Objective");
-		panelMap.put("Objective", objectivePanel);
+		esdmPanel.add(objectiveView, "Objective");
+		panelMap.put("Objective", esdmPanel);
 
 		addObjectiveChild = new AddObjectiveChild(model);
-		objectivePanel.add(addObjectiveChild, "addObjectiveChild");
-		panelMap.put("addObjectiveChild", objectivePanel);
+		esdmPanel.add(addObjectiveChild, "addObjectiveChild");
+		panelMap.put("addObjectiveChild", esdmPanel);
 
 		viewObjective = new ViewObjective(model);
-		objectivePanel.add(viewObjective, "viewObjective");
-		panelMap.put("viewObjective", objectivePanel);
+		esdmPanel.add(viewObjective, "viewObjective");
+		panelMap.put("viewObjective", esdmPanel);
 
 		addObjective = new AddObjective();
-		objectivePanel.add(addObjective, "addObjective");
-		panelMap.put("addObjective", objectivePanel);
+		esdmPanel.add(addObjective, "addObjective");
+		panelMap.put("addObjective", esdmPanel);
 
 		// Add all the panels (Cards) to the Reporting Tab
 
 		reportingView = new ReportingView();
-		reportingPanel.add(reportingView, "Reporting");
-		panelMap.put("Reporting", reportingPanel);
+		esdmPanel.add(reportingView, "Reporting");
+		panelMap.put("Reporting", esdmPanel);
 
 		findChildReport = new FindChild(model);
-		reportingPanel.add(findChildReport, "findChildReport");
-		panelMap.put("findChildReport", reportingPanel);
+		esdmPanel.add(findChildReport, "findChildReport");
+		panelMap.put("findChildReport", esdmPanel);
 
 		viewReport = new ViewReport();
-		reportingPanel.add(viewReport, "viewReport");
-		panelMap.put("viewReport", reportingPanel);
+		esdmPanel.add(viewReport, "viewReport");
+		panelMap.put("viewReport", esdmPanel);
 		
 
 		// Add all the panels (Cards) to the Accounts Tab
 
 		accountView = new AccountView();
-		accountPanel.add(accountView, "Account");
-		panelMap.put("Account", accountPanel);
+		esdmPanel.add(accountView, "Account");
+		panelMap.put("Account", esdmPanel);
 
 		changeEmail = new UpdateDetails();
-		accountPanel.add(changeEmail, "changeEmail");
-		panelMap.put("changeEmail", accountPanel);
+		esdmPanel.add(changeEmail, "changeEmail");
+		panelMap.put("changeEmail", esdmPanel);
 
 		changePassword = new ChangePassword();
-		accountPanel.add(changePassword, "changePassword");
-		panelMap.put("changePassword", accountPanel);
+		esdmPanel.add(changePassword, "changePassword");
+		panelMap.put("changePassword", esdmPanel);
 
 		newUserAccount = new NewUserAccount();
-		accountPanel.add(newUserAccount, "newUserAccount");
-		panelMap.put("newUserAccount", accountPanel);
+		esdmPanel.add(newUserAccount, "newUserAccount");
+		panelMap.put("newUserAccount", esdmPanel);
 		
 		roomView = new RoomView(model);
-		accountPanel.add(roomView, "roomView");
-		panelMap.put("roomView", accountPanel);
+		esdmPanel.add(roomView, "roomView");
+		panelMap.put("roomView", esdmPanel);
 		
 		settingView = new SettingView(model);
-		accountPanel.add(settingView, "settingView");
-		panelMap.put("settingView", accountPanel);
+		esdmPanel.add(settingView, "settingView");
+		panelMap.put("settingView", esdmPanel);
 
 		objectiveTypeView = new ObjectiveTypeView(model);
-		accountPanel.add(objectiveTypeView, "objectiveTypeView");
-		panelMap.put("objectiveTypeView", accountPanel);
+		esdmPanel.add(objectiveTypeView, "objectiveTypeView");
+		panelMap.put("objectiveTypeView", esdmPanel);
 		
 		userAccountView = new UserAccountView(model);
-		accountPanel.add(userAccountView, "userAccountView");
-		panelMap.put("userAccountView", accountPanel);
+		esdmPanel.add(userAccountView, "userAccountView");
+		panelMap.put("userAccountView", esdmPanel);
 		
 		JPanel footer = new JPanel(null);
 		
-		contentPane.add(footer, BorderLayout.PAGE_END);
+		esdmPanel.add(footer, BorderLayout.PAGE_END);
 		
 		footer.setBounds(20, 100, 200, 100);
 		footer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -439,11 +440,13 @@ public class Controller extends JFrame {
 				if(res == 0)
 				{
 					logSessionData.setDay(model.addDay(date, children, room, settings));
-					show(sessionPanel, "logSessionData");
+					//show(sessionPanel, "logSessionData");
+					show(esdmPanel, "logSessionData");
 				}
 				else
 				{
-					show(sessionPanel, "Session");
+					//show(sessionPanel, "Session");
+					show(esdmPanel, "Session");
 				}
 				
 				} catch (Exception e) {
@@ -457,13 +460,15 @@ public class Controller extends JFrame {
 		
 		sessionView.newDay(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(sessionPanel, "addDay");
+				//show(sessionPanel, "addDay");
+				show(esdmPanel, "addDay");
 			}
 		});
 
 		addDay.cancelListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(sessionPanel, "Session");
+				//show(sessionPanel, "Session");
+				show(esdmPanel, "Session");
 			}
 		});
 		
@@ -517,7 +522,8 @@ public class Controller extends JFrame {
 		logSessionData.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				reviewSession.setDay(logSessionData.getDay());
-				show(sessionPanel, "reviewSession");
+				//show(sessionPanel, "reviewSession");
+				show(esdmPanel, "reviewSession");
 			}
 		});
 		
@@ -586,7 +592,8 @@ public class Controller extends JFrame {
 				try {
 
 					reviewSession.setDay(sessionView.getDay());
-					show(sessionPanel, "reviewSession");
+					//show(sessionPanel, "reviewSession");
+					show(esdmPanel, "reviewSession");
 				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
 				}
@@ -596,7 +603,8 @@ public class Controller extends JFrame {
 		reviewSession.logMarksListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				logSessionData.setDay(reviewSession.getDay());
-				show(sessionPanel, "logSessionData");
+				//show(sessionPanel, "logSessionData");
+				show(esdmPanel, "logSessionData");
 			}
 		});
 
@@ -612,21 +620,24 @@ public class Controller extends JFrame {
 
 		addChild.cancelListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(childPanel, "Child");
+				//show(childPanel, "Child");
+				show(esdmPanel, "Child");
 			}
 		});
 
 
 		addObjectiveChild.cancelListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(ActionEvent evt) {
-					show(childPanel, "Child");
+					//show(childPanel, "Child");
+					show(esdmPanel, "Child");
 				}
 			});
 				
 
 		childViewGrid.addChildListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(childPanel, "addChild");
+				//show(childPanel, "addChild");
+				show(esdmPanel, "addChild");
 			}
 		});
 		
@@ -636,7 +647,8 @@ public class Controller extends JFrame {
 
 				try {
 					editChild.setChild(childViewGrid.getSelectedChild());
-					show(childPanel, "editChild");
+					//show(childPanel, "editChild");
+					show(esdmPanel, "editChild");
 				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
 				}
@@ -684,7 +696,8 @@ public class Controller extends JFrame {
 
 		changePassword.cancel(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(accountPanel, "Account");
+				//show(accountPanel, "Account");
+				show(esdmPanel, "Account");
 			}
 		});
 
@@ -692,7 +705,8 @@ public class Controller extends JFrame {
 			public void actionPerformed(ActionEvent evt) {
 				try {
 					model.setEmail(changeEmail.getEmail());
-					show(accountPanel, "Account");
+					//show(accountPanel, "Account");
+					show(esdmPanel, "Account");
 					showMessage("Details successfully saved.");
 				} catch (Exception e) {
 					showMessage(e.getMessage());
@@ -703,7 +717,8 @@ public class Controller extends JFrame {
 
 		changeEmail.cancel(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(accountPanel, "Account");
+				//show(accountPanel, "Account");
+				show(esdmPanel, "Account");
 			}
 		});
 		
@@ -731,7 +746,8 @@ public class Controller extends JFrame {
 						{
 							model.newTherapist(name, username, emailAddress, phoneNo, pass, access);
 						}
-						show(accountPanel, "Account");
+						//show(accountPanel, "Account");
+						show(esdmPanel, "Account");
 						showErrorMessage("The password has been set to: " + pass + "."
 								+ "\nPlease note this down and inform the user.");
 					} catch(ConstraintViolationException e) {
@@ -749,7 +765,8 @@ public class Controller extends JFrame {
 
 		newUserAccount.cancel(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(accountPanel, "Account");
+				//show(accountPanel, "Account");
+				show(esdmPanel, "Account");
 			}
 		});
 			
@@ -767,7 +784,8 @@ public class Controller extends JFrame {
 					public void actionPerformed(ActionEvent evt) {
 						chooseObjective.setVisible(false);
 						Objective obj = chooseObjective.getObjective();
-						show(objectivePanel, "addObjective");
+						//show(objectivePanel, "addObjective");
+						show(esdmPanel, "addObjective");
 						try{
 						addObjective.setName(obj.getName());
 						addObjective.setDescription(obj.getDescription());
@@ -795,7 +813,8 @@ public class Controller extends JFrame {
 
 		addObjective.cancelListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(objectivePanel, "Objective");
+				//show(objectivePanel, "Objective");
+				show(esdmPanel, "Objective");
 			}
 		});
 		
@@ -804,7 +823,8 @@ public class Controller extends JFrame {
 	public void initReportingButtonListeners() {
 		reportingView.viewReportListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(reportingPanel, "findChildReport");
+				//show(reportingPanel, "findChildReport");
+				show(esdmPanel, "findChildReport");
 				findChildReport.setDestination(viewReport);
 				if(access.equals(guardianAccess))
 				{
@@ -843,7 +863,8 @@ public class Controller extends JFrame {
 
 		findChildReport.cancelListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(reportingPanel, "Reporting");
+				//show(reportingPanel, "Reporting");
+				show(esdmPanel, "Reporting");
 			}
 		});
 
@@ -861,7 +882,8 @@ public class Controller extends JFrame {
 
 		viewObjective.cancelListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(objectivePanel, "Objective");
+				//show(objectivePanel, "Objective");
+				show(esdmPanel, "Objective");
 			}
 		});
 		
@@ -875,7 +897,8 @@ public class Controller extends JFrame {
 						String[][] steps = viewObjective.getSteps();
 						model.saveObjective(objective, name, description, level, steps);
 						objective.setHidden(viewObjective.getHidden());
-						show(objectivePanel, "Objective");
+						//show(objectivePanel, "Objective");
+						show(esdmPanel, "Objective");
 						showMessage("Objective successfully added");
 					} catch (Exception e) {
 						showErrorMessage(e.getMessage());
@@ -925,7 +948,8 @@ public class Controller extends JFrame {
 				try {					
 					viewObjective.setObjective(objectiveView
 							.getSelectedObjective());
-					show(objectivePanel, "viewObjective");
+					//show(objectivePanel, "viewObjective");
+					show(esdmPanel, "viewObjective");
 				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
 				}
@@ -937,7 +961,8 @@ public class Controller extends JFrame {
 				try {
 					addObjectiveChild.setObjective(objectiveView
 							.getSelectedObjective());
-					show(objectivePanel, "addObjectiveChild");
+					//show(objectivePanel, "addObjectiveChild");
+					show(esdmPanel, "addObjectiveChild");
 				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
 					e.printStackTrace();
@@ -954,7 +979,8 @@ public class Controller extends JFrame {
 
 				try {
 					model.addObjectiveChild(child, objective);
-					show(objectivePanel, "Objective");
+					//show(objectivePanel, "Objective");
+					show(esdmPanel, "Objective");
 					showMessage("Objective successfully added to "
 							+ child.getName() + " .");
 				} catch (Exception e) {
@@ -967,19 +993,22 @@ public class Controller extends JFrame {
 
 		addObjectiveChild.cancelListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(objectivePanel, "Objective");
+				//show(objectivePanel, "Objective");
+				show(esdmPanel, "Objective");
 			}
 		});
 
 		objectiveView.addNewObjective(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(objectivePanel, "addObjective");
+				//show(objectivePanel, "addObjective");
+				show(esdmPanel, "addObjective");
 			}
 		});
 
 		editChild.cancelListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(childPanel, "Child");
+				//show(childPanel, "Child");
+				show(esdmPanel, "Child");
 			}
 		});
 	
@@ -1170,37 +1199,43 @@ public class Controller extends JFrame {
 		});
 		accountView.changeEmailAddress(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(accountPanel, "changeEmail");
+				//show(accountPanel, "changeEmail");
+				show(esdmPanel, "changeEmail");
 			}
 		});
 
 		accountView.changePassword(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(accountPanel, "changePassword");
+				//show(accountPanel, "changePassword");
+				show(esdmPanel, "changePassword");
 			}
 		});
 		
 		accountView.newUserAccount(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(accountPanel, "newUserAccount");
+				//show(accountPanel, "newUserAccount");
+				show(esdmPanel, "newUserAccount");
 			}
 		});
 		
 		accountView.roomsListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(accountPanel, "roomView");
+				//show(accountPanel, "roomView");
+				show(esdmPanel, "roomView");
 			}
 		});
 		
 		accountView.objectiveTypeListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(accountPanel, "objectiveTypeView");
+				//show(accountPanel, "objectiveTypeView");
+				show(esdmPanel, "objectiveTypeView");
 			}
 		});
 		
 		accountView.userAccountsListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(accountPanel, "userAccountView");
+				//show(accountPanel, "userAccountView");
+				show(esdmPanel, "userAccountView");
 			}
 		});
 		
@@ -1219,7 +1254,8 @@ public class Controller extends JFrame {
 		
 		accountView.settingListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(accountPanel, "settingView");
+				//show(accountPanel, "settingView");
+				show(esdmPanel, "settingView");
 			}
 		});
 		
@@ -1282,6 +1318,35 @@ public class Controller extends JFrame {
 				CardLayout c;
 				switch(tabbedPane.getSelectedIndex()) {
 				case 0:
+					c = (CardLayout) esdmPanel.getLayout();
+					show(esdmPanel, "Home");
+					homeView.refreshView();
+					break;
+				case 1:
+					c = (CardLayout) esdmPanel.getLayout();
+					show(esdmPanel, "Session");
+					sessionView.refreshView();
+					break;
+				case 2:
+					c = (CardLayout) esdmPanel.getLayout();
+					show(esdmPanel, "Child");
+					childViewGrid.refreshView();
+					break;
+				case 3:
+					c = (CardLayout) esdmPanel.getLayout();
+					show(esdmPanel, "Objective");
+					objectiveView.refreshView();
+					break;
+				case 4:
+					c = (CardLayout) esdmPanel.getLayout();
+					show(esdmPanel, "Reporting");
+					reportingView.refreshView();
+					break;
+				case 5:
+					c = (CardLayout) esdmPanel.getLayout();
+					show(esdmPanel, "Account");
+					break;
+				/*case 0:
 					c = (CardLayout) homePanel.getLayout();
 					show(homePanel, "Home");
 					homeView.refreshView();
@@ -1309,7 +1374,7 @@ public class Controller extends JFrame {
 				case 5:
 					c = (CardLayout) accountPanel.getLayout();
 					show(accountPanel, "Account");
-					break;
+					break;*/
 				}
 			}
 		});
@@ -1325,7 +1390,8 @@ public class Controller extends JFrame {
 			String[][] steps = addObjective.getSteps();
 			
 			model.addObjective(name, description, steps, level);
-			show(objectivePanel, "Objective");
+			//show(objectivePanel, "Objective");
+			show(esdmPanel, "Objective");
 			showMessage("Objective successfully added to system.");
 		} catch (Exception e) {
 			showErrorMessage(e.getMessage());
@@ -1337,7 +1403,8 @@ public class Controller extends JFrame {
 			String[] arr = changePassword.getNewPassword();
 			model.changePassword(changePassword.getOldPassword(), arr[0],
 					arr[1]);
-			show(accountPanel, "Account");
+			//show(accountPanel, "Account");
+			show(esdmPanel, "Account");
 			showMessage("Your password has been successfully changed.");
 		} catch (Exception e) {
 			showErrorMessage(e.getMessage());
@@ -1363,7 +1430,8 @@ public class Controller extends JFrame {
 		}
 		p.setChild(findChildReport.getSelectedChild());
 		p.refreshTable();
-		show(reportingPanel, "viewReport");
+		//show(reportingPanel, "viewReport");
+		show(esdmPanel, "viewReport");
 	}
 
 	// Adds a child to the model then shows the EditChild panel with all those
@@ -1376,7 +1444,8 @@ public class Controller extends JFrame {
 		try {
 			Child c = model.addChild(name, dob, dateJoined);
 			editChild.setChild(c);
-			show(childPanel, "editChild");
+			//show(childPanel, "editChild");
+			show(esdmPanel, "editChild");
 			showMessage(name + " has been successfully added to the system.");
 		} catch (Exception e) {
 			showErrorMessage(e.getMessage());
