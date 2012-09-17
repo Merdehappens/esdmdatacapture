@@ -10,14 +10,20 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
 
 public class HomeView extends PanelView {
 
 	private static final long serialVersionUID = -4031028574687279686L;
 	private JLabel lblName;
-	private JLabel lblSessionList;
+	//private JLabel lblSessionList;
+	private JScrollPane scrollPane;
+	private JTable tblSession;
+	private DefaultTableModel tableModel;
 	private JButton btnReviewPastSessions;
 	private JButton btnObjectives;
 	private JButton btnAccounts;
@@ -55,12 +61,12 @@ public class HomeView extends PanelView {
 		lblSessionsOrganised.setBounds(186, 200, 641, 21);
 		add(lblSessionsOrganised);
 		
-		lblSessionList = new JLabel("");
+		/*lblSessionList = new JLabel("");
 		lblSessionList.setVerticalAlignment(SwingConstants.TOP);
 		lblSessionList.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSessionList.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblSessionList.setBounds(196, 232, 631, 281);
-		add(lblSessionList);
+		add(lblSessionList);*/
 		
 		btnObjectives = new JButton("Objectives");
 		btnObjectives.setBounds(849, 250, 164, 40);
@@ -85,6 +91,22 @@ public class HomeView extends PanelView {
 		btnReviewPastSessions = new JButton("Review Past Sessions");
 		btnReviewPastSessions.setBounds(10, 373, 164, 48);
 		add(btnReviewPastSessions);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(196, 232, 631, 340);
+		add(scrollPane);
+		
+		// Creates a new JTable
+		tblSession = new MyJTable();		
+		scrollPane.setViewportView(tblSession);
+		
+		// Sets the name of the columns
+		String[] columnNames = new String[] { "SessionID", "Room Name", "No of children" };
+		tableModel = new DefaultTableModel();
+		tableModel.setColumnIdentifiers(columnNames);
+		
+		// Sets the model of the table to the new DefaultTableModel
+		tblSession.setModel(tableModel);
 		
 		super.setTitle("Homepage");
 	}
@@ -112,7 +134,7 @@ public class HomeView extends PanelView {
 	// Overrides the refreshView method in PanelView and refreshes the view of this panel
 	public void refreshView() {
 		lblName.setText(this.getModel().getCurrentUser().getName());
-		Calendar currDay = Calendar.getInstance();
+		/*Calendar currDay = Calendar.getInstance();
 		ArrayList<Day> dayList = new ArrayList<Day>(this.getModel().getDays(currDay, currDay));
 		String sessions = "";
 		ArrayList<Setting> settingList;
@@ -136,6 +158,6 @@ public class HomeView extends PanelView {
 			}
 			sessions = sessions + "</p></html>";
 		}
-		lblSessionList.setText(sessions);
+		lblSessionList.setText(sessions);*/
 	}
 }
