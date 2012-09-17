@@ -427,6 +427,18 @@ public class Controller extends JFrame {
 				show(esdmPanel, "Home");
 			}
 		});
+		
+		viewReport.homeListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Home");
+			}
+		});
+		
+		viewReport.backToSelectListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "findChildReport");
+			}
+		});
 
 		addDay.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
