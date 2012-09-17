@@ -101,11 +101,11 @@ public class Controller extends JFrame {
 	private UserAccountView userAccountView;
 	
 	private HashMap<String, JPanel> panelMap = new HashMap<String, JPanel>();
-	private JButton btnBack;
 	private RoomView roomView;
 	private SettingView settingView;
 	private ObjectiveTypeView objectiveTypeView;
 	private JButton btnExit;
+	private JPanel mainPanel;
 	
 
 	
@@ -204,60 +204,14 @@ public class Controller extends JFrame {
 		setTitle("ESDM Data Capture");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1025, 663);
-		esdmPanel = new JPanel();
-		esdmPanel.setBackground(new Color(180, 203, 235));
-		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(esdmPanel);
-		esdmPanel.setLayout(new BorderLayout());
 
+		mainPanel = new JPanel(new BorderLayout());
 		// Set the main layout of the project (tabbed pane)
-
-		
-
-		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-
-
-		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tabbedPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-
-		
-		tabbedPane.setBounds(0, 0, 1250, 541);
-		esdmPanel.add(tabbedPane, BorderLayout.CENTER);
-
-		// Add the 6 main panels to the program and then add them to the tabbed
-		// pane.
-		
-		String htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Home</body></html>";
-
+		setContentPane(mainPanel);
 		
 		esdmPanel = new JPanel();
-		tabbedPane.addTab(htmlTab, null, esdmPanel, null);
 		esdmPanel.setLayout(new CardLayout(0, 0));
-
-		/*htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Session</body></html>";
-		sessionPanel = new JPanel();
-		tabbedPane.addTab(htmlTab, null, sessionPanel, null);
-		sessionPanel.setLayout(new CardLayout(0, 0));
-
-		htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Children</body></html>";
-		childPanel = new JPanel();
-		tabbedPane.addTab(htmlTab, null, childPanel, null);
-		childPanel.setLayout(new CardLayout(0, 0));
-
-		htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Objectives</body></html>";
-		objectivePanel = new JPanel();
-		tabbedPane.addTab(htmlTab, null, objectivePanel, null);
-		objectivePanel.setLayout(new CardLayout(0, 0));
-
-		htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Reporting</body></html>";
-		reportingPanel = new JPanel();
-		tabbedPane.addTab(htmlTab, null, reportingPanel, null);
-		reportingPanel.setLayout(new CardLayout(0, 0));
-
-		htmlTab = "<html><body leftmargin=25 topmargin=8 marginwidth=25 marginheight=5>Administration</body></html>";
-		accountPanel = new JPanel();
-		tabbedPane.addTab(htmlTab, null, accountPanel, null);
-		accountPanel.setLayout(new CardLayout(0, 0));*/
+		mainPanel.add(esdmPanel, BorderLayout.CENTER);
 
 		// Add all the panels (Cards) to the Session Tab
 
@@ -265,6 +219,7 @@ public class Controller extends JFrame {
 		esdmPanel.add(homeView, "Home");
 		panelMap.put("Home", esdmPanel);
 
+		
 		// Add all the panels (Cards) to the Session Tab
 		
 		sessionView = new SessionView(model);
@@ -365,22 +320,13 @@ public class Controller extends JFrame {
 		esdmPanel.add(userAccountView, "userAccountView");
 		panelMap.put("userAccountView", esdmPanel);
 		
+		
 		JPanel footer = new JPanel(null);
 		
-		esdmPanel.add(footer, BorderLayout.PAGE_END);
+		mainPanel.add(footer, BorderLayout.PAGE_END);
 		
 		footer.setBounds(20, 100, 200, 100);
 		footer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		btnBack = new JButton("Back");
-		btnBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				goBack();
-			}
-		});
-		btnBack.setPreferredSize(new Dimension(90, 30));
-		footer.add(btnBack);
-		btnBack.setEnabled(false);
 		
 		
 		int width = this.getWidth();
@@ -391,7 +337,7 @@ public class Controller extends JFrame {
 		lblMessage.setPreferredSize(new Dimension(width, 30));
 		footer.add(lblMessage);
 		
-		btnExit = new JButton("Exit");
+		btnExit = new JButton("Log Out");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				exitProgram();
@@ -412,6 +358,8 @@ public class Controller extends JFrame {
 		showLogin();
 		homeView.refreshView();
 		backList.add("Home");
+		
+		show(esdmPanel, "Home");
 	}
 
 	// This function calls the functions from within each view class that
@@ -1371,73 +1319,6 @@ public class Controller extends JFrame {
 			}
 		});
 		
-		
-		tabbedPane.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-		
-				CardLayout c;
-				switch(tabbedPane.getSelectedIndex()) {
-				case 0:
-					c = (CardLayout) esdmPanel.getLayout();
-					show(esdmPanel, "Home");
-					homeView.refreshView();
-					break;
-				case 1:
-					c = (CardLayout) esdmPanel.getLayout();
-					show(esdmPanel, "Session");
-					sessionView.refreshView();
-					break;
-				case 2:
-					c = (CardLayout) esdmPanel.getLayout();
-					show(esdmPanel, "Child");
-					childViewGrid.refreshView();
-					break;
-				case 3:
-					c = (CardLayout) esdmPanel.getLayout();
-					show(esdmPanel, "Objective");
-					objectiveView.refreshView();
-					break;
-				case 4:
-					c = (CardLayout) esdmPanel.getLayout();
-					show(esdmPanel, "Reporting");
-					reportingView.refreshView();
-					break;
-				case 5:
-					c = (CardLayout) esdmPanel.getLayout();
-					show(esdmPanel, "Account");
-					break;
-				/*case 0:
-					c = (CardLayout) homePanel.getLayout();
-					show(homePanel, "Home");
-					homeView.refreshView();
-					break;
-				case 1:
-					c = (CardLayout) sessionPanel.getLayout();
-					show(sessionPanel, "Session");
-					sessionView.refreshView();
-					break;
-				case 2:
-					c = (CardLayout) childPanel.getLayout();
-					show(childPanel, "Child");
-					childViewGrid.refreshView();
-					break;
-				case 3:
-					c = (CardLayout) objectivePanel.getLayout();
-					show(objectivePanel, "Objective");
-					objectiveView.refreshView();
-					break;
-				case 4:
-					c = (CardLayout) reportingPanel.getLayout();
-					show(reportingPanel, "Reporting");
-					reportingView.refreshView();
-					break;
-				case 5:
-					c = (CardLayout) accountPanel.getLayout();
-					show(accountPanel, "Account");
-					break;*/
-				}
-			}
-		});
 
 	}
 
@@ -1643,39 +1524,11 @@ public class Controller extends JFrame {
 		}
 	}
 	
-	public void goBack() {
-		try{
-		int size = backList.size() - 1;
-		backList.remove(size);	
-		System.out.println(size);
-		String card = backList.remove(size - 1);
-		JPanel panel = panelMap.get(card);
-		show(panel, card);
-		if(tabbedPane.getSelectedComponent() != panel)
-		{
-			tabbedPane.setSelectedComponent(panel);
-			backList.remove(backList.size() - 1);
-		}
-			
-		}
-		catch(Exception e)
-		{
-			showErrorMessage("There is not any history any further");
-		}
-		
-		if(backList.size() <= 1)
-		{
-			btnBack.setEnabled(false);
-		}
-		
-	}
-	
 	private void show(JPanel panel, String card) {
 		CardLayout temp = (CardLayout) panel.getLayout();
 		temp.show(panel, card);
 		lblMessage.setText("");
 		backList.add(card);
-		btnBack.setEnabled(true);
 	}
 	
 	ArrayList<String> backList = new ArrayList<String>();
