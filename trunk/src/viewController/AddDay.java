@@ -226,11 +226,15 @@ public class AddDay extends PanelView {
 			tglbtn[i][1] = child;
 			
 			
-			ToolTipManager.sharedInstance().setInitialDelay(0);
 			
-			String name = child.getName();			
+			
+			String name = child.getName();
+			String buttonName = name.substring(name.lastIndexOf(' '));
+			name = name.substring(0, name.lastIndexOf(' '));
+			name = "<html><center>" +name + "</br>" + buttonName + "</center></html>";
+			
 			tempButton = new JToggleButton(name);
-			tempButton.setToolTipText(name);
+			tempButton.setToolTipText(child.getName());
 			tempButton.setBounds(10 + (100 * i) - s, x, 100, 100);
 			tglbtn[i][0] = tempButton;
 			childPanel.add(tempButton);
