@@ -218,7 +218,10 @@ public class ChangeMark extends JDialog {
 	}
 
 	private void setSteps(Mark mark) {
-		txtStep.setText(mark.getStep().getNo());
+		if(mark.getStep() != null)
+		{
+			txtStep.setText(mark.getStep().getNo());
+		}
 	}
 
 	public void refreshView(Mark mark, Day day)
