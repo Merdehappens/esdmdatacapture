@@ -19,7 +19,6 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class EditChild extends PanelView {
@@ -271,9 +270,6 @@ public class EditChild extends PanelView {
 		dateJoinedChooser.setCalendar(child.getDateJoined());
 		txtId.setText(child.getId()+"");
 		txtName.setText(child.getName());
-
-		
-		lblPicture.setIcon(child.getPicture());
 		
 		populateTable();
 	}

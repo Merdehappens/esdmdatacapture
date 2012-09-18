@@ -532,7 +532,7 @@ public class ESDMModel {
 	 *        steps[1][0] is the code of the second step, step [1][1] is the description of the second step. and so on.
 	 */
 	
-	public void addObjective(String name, String description, String[][] steps, int level) throws Exception
+	public void addObjective(String name, String description, String[][] steps, int level, ObjectiveType objType) throws Exception
 	{
 	
 		//iterate through string
@@ -559,6 +559,7 @@ public class ESDMModel {
     	session.beginTransaction();
 		
 		Objective o = new Objective(name, description, level);
+		o.setType(objType);
 		for (int i = 0; i < steps.length; i++)
 		{
 			if(steps[i][0].length() == 0 || steps[i][1].length() == 0)
@@ -959,7 +960,7 @@ public class ESDMModel {
 	// Takes in objective, strings for name and description, int level, and a string array for steps.
 	// updates the details in the objective object with the ones parsed through and updates in
 	// Database
-	public void saveObjective(Objective objective, String name, String description, int level, String[][] steps) throws Exception
+	public void saveObjective(Objective objective, String name, String description, int level, String[][] steps, ObjectiveType objType, boolean hidden) throws Exception
 	{
 		if(name.length() == 0)
 		{
@@ -973,11 +974,16 @@ public class ESDMModel {
 		{
 			throw new Exception("Description field is empty.");
 		}
+		if(objType == null)
+		{
+			throw new Exception("Type must be selected.");
+		}
 		
 		objective.setName(name);
 		objective.setDescription(description);
 		objective.setLevel(level);
-		
+		objective.setHidden(hidden);
+		objective.setType(objType);
 		// Iterates through the array setting the value of the steps to the values parsed through
 		int x = 1;
 		for(int i = 0; i < steps.length; i++)

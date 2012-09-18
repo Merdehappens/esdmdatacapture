@@ -46,8 +46,6 @@ public class Child implements SimpleKey {
 	@ManyToMany
 	@JoinTable(name = "DayChild", joinColumns = { @JoinColumn(name = "ChildID") }, inverseJoinColumns = { @JoinColumn(name = "DayID") })
 	private List<Day> days;
-	@Transient
-	private ImageIcon picture;
 	@Basic
 	private String pictureLink;
 	private boolean active;
@@ -88,9 +86,6 @@ public class Child implements SimpleKey {
 		this.marks = marks;
 	}
 
-	public void setPicture(ImageIcon picture) {
-		this.picture = picture;
-	}
 
 	public void setActive(boolean active) {
 		this.active = active;
@@ -202,18 +197,11 @@ public class Child implements SimpleKey {
 	 * URL and sets the childs picture to be the picture that the URL points to
 	 */
 
-	public void setPictureLink(String pictureLink) {
-		this.pictureLink = pictureLink;
-		picture = new ImageIcon(pictureLink);
-	}
 
 	public final String getPictureLink() {
 		return pictureLink;
 	}
 
-	public final ImageIcon getPicture() {
-		return picture;
-	}
 
 	public String toString() {
 		return name;

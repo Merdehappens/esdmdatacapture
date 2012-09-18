@@ -2,6 +2,7 @@ package viewController;
 
 import javax.swing.JButton;
 
+import system.marking.ObjectiveType;
 import system.marking.Step;
 import system.model.ESDMModel;
 
@@ -21,6 +22,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.JScrollPane;
+import javax.swing.JComboBox;
 
 public class AddObjective extends PanelView {
 	/**
@@ -36,6 +38,7 @@ public class AddObjective extends PanelView {
 	private JTextArea txtObjectiveDescription;
 	private JTextField txtLevel;
 	private JButton btnCreateFromTemplate;
+	private JComboBox<ObjectiveType> cmbbxType;
 
 	/**
 	 * Create the panel.
@@ -64,7 +67,7 @@ public class AddObjective extends PanelView {
 
 		JLabel lblDateOfBirth = new JLabel("Objective Description");
 		lblDateOfBirth.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDateOfBirth.setBounds(10, 112, 345, 14);
+		lblDateOfBirth.setBounds(10, 157, 345, 14);
 		add(lblDateOfBirth);
 
 		JLabel lblCurrentSteps = new JLabel("Current Steps (In Order)");
@@ -79,13 +82,13 @@ public class AddObjective extends PanelView {
 		txtObjectiveName.setColumns(10);
 
 		txtObjectiveDescription = new JTextArea();
-		txtObjectiveDescription.setBounds(10, 137, 345, 178);
+		txtObjectiveDescription.setBounds(10, 182, 345, 178);
 		add(txtObjectiveDescription);
 		txtObjectiveDescription.setLineWrap(true);
 		
 		// Adds submit button to the page
 		btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(21, 347, 89, 23);
+		btnSubmit.setBounds(21, 392, 89, 23);
 		add(btnSubmit);
 
 		// Adds reset button to page and adds action listener to it that
@@ -96,12 +99,12 @@ public class AddObjective extends PanelView {
 				refreshView();
 			}
 		});
-		btnReset.setBounds(120, 347, 105, 21);
+		btnReset.setBounds(120, 392, 105, 21);
 		add(btnReset);
 
 		// Adds a cancel button to the page.
 		btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(235, 347, 94, 21);
+		btnCancel.setBounds(235, 392, 94, 21);
 		add(btnCancel);
 		
 		// Adds the scroll pane for the table
@@ -180,6 +183,14 @@ public class AddObjective extends PanelView {
 		btnCreateFromTemplate = new JButton("Create from Template");
 		btnCreateFromTemplate.setBounds(697, 68, 169, 30);
 		add(btnCreateFromTemplate);
+		
+		JLabel lblObjectiveType = new JLabel("Objective Type");
+		lblObjectiveType.setBounds(10, 112, 90, 23);
+		add(lblObjectiveType);
+		
+		cmbbxType = new JComboBox<ObjectiveType>();
+		cmbbxType.setBounds(124, 112, 230, 23);
+		add(cmbbxType);
 
 		// Sets the column widths
 		tblStep.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -224,6 +235,17 @@ public class AddObjective extends PanelView {
 		txtObjectiveName.setText("");
 		txtObjectiveDescription.setText("");
 		txtLevel.setText("");
+	}
+
+	private void populateTypeBox() {
+
+		cmbbxType.removeAllItems();
+		
+		ArrayList<ObjectiveType> objTypes = new ArrayList<ObjectiveType>(this.getModel().getObjectiveTypeList());
+		for(int i = 0; i < objTypes.size(); i++)
+		{
+			cmbbxType.addItem(objTypes.get(i));
+		}
 	}
 
 	// Swaps the selected row either up or down by the value specified in i
@@ -275,6 +297,7 @@ public class AddObjective extends PanelView {
 	public void refreshView() {
 		resetForm();
 		resetTable();
+		populateTypeBox();
 	}
 	
 	// Resets the table to be blank with just 1 row in them
@@ -317,5 +340,9 @@ public class AddObjective extends PanelView {
 			
 			tableModel.addRow(row);
 		}
+	}
+
+	public ObjectiveType getObjectiveType() {
+		return (ObjectiveType)cmbbxType.getSelectedItem();
 	}
 }

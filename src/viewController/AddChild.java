@@ -27,8 +27,6 @@ public class AddChild extends PanelView {
 	private JButton btnCancel;
 	private JDateChooser dateJoinedChooser;
 	private JDateChooser dobChooser;
-	private File picture;
-	private JLabel lblPicture;
 
 
 	public AddChild() {
@@ -46,7 +44,6 @@ public class AddChild extends PanelView {
 	// Initialises all the graphical components on the page.
 
 	private void initialise() {
-		picture = null;
 
 		setLayout(null);
 		// Sets the title of the screen
@@ -99,31 +96,6 @@ public class AddChild extends PanelView {
 		
 
 
-		// Adds a new button that when pressed makes a new File Chooser dialog
-		// open So that the user can choose a picture to upload for this child.
-
-		JButton btnSelectPictureTo = new JButton("Select Picture to Add");
-		btnSelectPictureTo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.showOpenDialog(null);
-
-				picture = fileChooser.getSelectedFile();
-
-				ImageIcon temp = new ImageIcon(picture.getAbsolutePath());
-				lblPicture.setIcon(temp);
-			}
-		});
-		btnSelectPictureTo.setBounds(364, 69, 144, 27);
-		add(btnSelectPictureTo);
-
-		// Adds a new Label that will hold the picture chosen for the child.
-
-		lblPicture = new JLabel("");
-		lblPicture.setBounds(355, 78, 153, 114);
-		add(lblPicture);
-
 	}
 
 	// Returns the text inside the text box for name
@@ -157,7 +129,6 @@ public class AddChild extends PanelView {
 		Date tempDate = null;
 		dateJoinedChooser.setDate(tempDate);
 		dobChooser.setDate(tempDate);
-		lblPicture.setIcon(null);
 	}
 
 	// Overrides the refreshView method in PanelView and refreshes the view of this panel
