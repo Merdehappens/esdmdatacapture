@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.MissingResourceException;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -41,6 +43,7 @@ import system.individuals.Child;
 import system.individuals.Guardian;
 import system.marking.Mark;
 import system.marking.Objective;
+import system.marking.ObjectiveType;
 import system.marking.Step;
 import system.model.ESDMModel;
 import system.model.Room;
@@ -267,7 +270,7 @@ public class Controller extends JFrame {
 		esdmPanel.add(viewObjective, "viewObjective");
 		panelMap.put("viewObjective", esdmPanel);
 
-		addObjective = new AddObjective();
+		addObjective = new AddObjective(model);
 		esdmPanel.add(addObjective, "addObjective");
 		panelMap.put("addObjective", esdmPanel);
 
@@ -367,6 +370,12 @@ public class Controller extends JFrame {
 	// And determine what should be done in the case of a button press.
 
 	public void initSessionButtonListeners() {
+		
+		homeView.administrationListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Account");
+			}
+		});
 		
 		homeView.reviewPastSessionsListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -918,7 +927,9 @@ public class Controller extends JFrame {
 						String description = viewObjective.getObjectiveDescription();
 						int level = viewObjective.getLevel();
 						String[][] steps = viewObjective.getSteps();
-						model.saveObjective(objective, name, description, level, steps);
+						ObjectiveType objType = viewObjective.getObjectiveType();
+						boolean hidden = viewObjective.getHidden();
+						model.saveObjective(objective, name, description, level, steps, objType, hidden);
 						objective.setHidden(viewObjective.getHidden());
 						//show(objectivePanel, "Objective");
 						show(esdmPanel, "Objective");
@@ -935,13 +946,24 @@ public class Controller extends JFrame {
 			public void actionPerformed(ActionEvent evt) {
 				
 				JLabel lblText = new JLabel("Text:");
-				JTextField txtText = new JTextField(25);;
+				JTextField txtText = new JTextField(25);
 
 				JLabel lblLevel = new JLabel("Level:");
-				JTextField txtLevel = new JTextField(3);;
+				JTextField txtLevel = new JTextField(2);
+				
+				JLabel lblType = new JLabel("Type:");
+				JComboBox<ObjectiveType> type = new JComboBox<ObjectiveType>();
+				
+				ArrayList<ObjectiveType> typeList = new ArrayList<ObjectiveType>(model.getObjectiveTypeList());
+				type.addItem(null);
+				for(int i = 0; i < typeList.size(); i++)
+				{
+					type.addItem(typeList.get(i));
+				}
+				
 				
 
-				Object[] array = { lblText, txtText, lblLevel, txtLevel };
+				Object[] array = { lblText, txtText, lblLevel, txtLevel, lblType, type };
 
 				int res = JOptionPane.showConfirmDialog(null, array, "Refine Search",
 						JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
@@ -956,7 +978,8 @@ public class Controller extends JFrame {
 						lvl = Integer.parseInt(txtLevel.getText()); 
 					}
 			
-					objectiveView.setSearchVariables(txtText.getText(), lvl);
+					objectiveView.setSearchVariables(txtText.getText(), lvl, 
+							(ObjectiveType) type.getSelectedItem());
 				} else
 				{
 					objectiveView.refreshView();
@@ -1344,12 +1367,14 @@ public class Controller extends JFrame {
 			String description = addObjective.getObjectiveDescription();
 			int level = addObjective.getLevel();
 			String[][] steps = addObjective.getSteps();
+			ObjectiveType objType = addObjective.getObjectiveType();
 			
-			model.addObjective(name, description, steps, level);
+			model.addObjective(name, description, steps, level, objType);
 			//show(objectivePanel, "Objective");
 			show(esdmPanel, "Objective");
 			showMessage("Objective successfully added to system.");
 		} catch (Exception e) {
+			e.printStackTrace();
 			showErrorMessage(e.getMessage());
 		}
 	}

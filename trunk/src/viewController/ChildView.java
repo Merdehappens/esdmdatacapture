@@ -182,8 +182,9 @@ public class ChildView extends PanelView {
 	public Child getSelectedChild() throws Exception {
 		Child child;
 		try {
-			child = (Child) childTableModel.getValueAt(
-					childTable.getSelectedRow(), 1);
+			child = (Child) childTableModel.getValueAt
+					(childTable.convertRowIndexToModel(childTable.getSelectedRow()), 1);
+			
 		} catch (Exception e) {
 			throw new Exception("You must select a child first.");
 		}

@@ -3,9 +3,11 @@ package viewController;
 import javax.swing.JButton;
 
 import system.marking.Objective;
+import system.marking.ObjectiveType;
 import system.marking.Step;
 import system.model.ESDMModel;
 
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -32,7 +34,8 @@ public class ViewObjective extends PanelView {
 	private JTextArea txtObjectiveDescription;
 	private Objective objective;
 	private JTextField txtLevel;
-	private JCheckBox chckbxHidden;
+	private JComboBox<ObjectiveType> cmbbxType;
+	private JLabel lblObjectiveType;
 
 
 	public ViewObjective() {
@@ -57,7 +60,7 @@ public class ViewObjective extends PanelView {
 
 		JLabel lblDescription = new JLabel("Objective Description");
 		lblDescription.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDescription.setBounds(10, 147, 345, 14);
+		lblDescription.setBounds(10, 177, 345, 14);
 		add(lblDescription);
 
 		// Adds the text field for the name
@@ -94,7 +97,7 @@ public class ViewObjective extends PanelView {
 		// Adds the objective description text field to the page
 
 		txtObjectiveDescription = new JTextArea();
-		txtObjectiveDescription.setBounds(10, 172, 345, 244);
+		txtObjectiveDescription.setBounds(10, 202, 345, 214);
 		add(txtObjectiveDescription);
 		txtObjectiveDescription.setLineWrap(true);
 		txtObjectiveDescription.setWrapStyleWord(true);
@@ -136,10 +139,13 @@ public class ViewObjective extends PanelView {
 		lblLevel.setBounds(687, 88, 65, 30);
 		add(lblLevel);
 		
-		chckbxHidden = new JCheckBox("Hide Objective");
-		chckbxHidden.setHorizontalAlignment(SwingConstants.RIGHT);
-		chckbxHidden.setBounds(753, 458, 119, 23);
-		add(chckbxHidden);
+		cmbbxType = new JComboBox<ObjectiveType>();
+		cmbbxType.setBounds(125, 143, 230, 23);
+		add(cmbbxType);
+		
+		lblObjectiveType = new JLabel("Objective Type");
+		lblObjectiveType.setBounds(10, 143, 105, 23);
+		add(lblObjectiveType);
 
 		// Sets the preferred width of the columns in the table
 
@@ -245,6 +251,8 @@ public class ViewObjective extends PanelView {
 		txtObjectiveName.setText(o.getName());
 		txtObjectiveDescription.setText(o.getDescription());
 		txtLevel.setText(Integer.toString(o.getLevel()));
+
+		populateTypeBox(o.getType());
 		// removes all current rows from the table
 		while (tableModel.getRowCount() > 0) {
 			tableModel.removeRow(0);
@@ -261,11 +269,28 @@ public class ViewObjective extends PanelView {
 
 	}
 
+	private void populateTypeBox(ObjectiveType type) {
+		
+		cmbbxType.removeAllItems();
+		
+		ArrayList<ObjectiveType> objTypes = new ArrayList<ObjectiveType>(this.getModel().getObjectiveTypeList());
+		for(int i = 0; i < objTypes.size(); i++)
+		{
+			cmbbxType.addItem(objTypes.get(i));
+		}
+		
+		cmbbxType.setSelectedItem(type);
+	}
+
 	public Objective getObjective() {
 		return objective;
 	}
 	
 	public boolean getHidden() {
-		return chckbxHidden.isSelected();
+		return false;
+	}
+
+	public ObjectiveType getObjectiveType() {
+		return (ObjectiveType) cmbbxType.getSelectedItem();
 	}
 }

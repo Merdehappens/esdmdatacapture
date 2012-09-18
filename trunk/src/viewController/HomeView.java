@@ -29,6 +29,7 @@ public class HomeView extends PanelView {
 	private JButton btnAccounts;
 	private JButton btnReporting;
 	private JButton btnChildren;
+	private JButton btnAdministration;
 
 	public HomeView() {
 		initialise();
@@ -91,7 +92,7 @@ public class HomeView extends PanelView {
 		btnReviewPastSessions = new JButton("Review Past Sessions");
 		btnReviewPastSessions.setBounds(10, 373, 164, 48);
 		add(btnReviewPastSessions);
-		
+
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(196, 232, 631, 340);
 		add(scrollPane);
@@ -108,6 +109,11 @@ public class HomeView extends PanelView {
 		// Sets the model of the table to the new DefaultTableModel
 		tblSession.setModel(tableModel);
 		
+		btnAdministration = new JButton("Administration");
+		btnAdministration.setBounds(849, 454, 167, 40);
+		add(btnAdministration);
+		
+
 		super.setTitle("Homepage");
 	}
 	
@@ -119,6 +125,9 @@ public class HomeView extends PanelView {
 		btnObjectives.addActionListener(al);
 	}
 	
+	public void administrationListener(ActionListener al) {
+		btnAdministration.addActionListener(al);
+	}
 	public void accountsListener(ActionListener al) {
 		btnAccounts.addActionListener(al);
 	}
