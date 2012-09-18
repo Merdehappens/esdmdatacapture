@@ -323,7 +323,6 @@ public class Controller extends JFrame {
 		esdmPanel.add(userAccountView, "userAccountView");
 		panelMap.put("userAccountView", esdmPanel);
 		
-		
 		JPanel footer = new JPanel(null);
 		
 		mainPanel.add(footer, BorderLayout.PAGE_END);
@@ -370,6 +369,14 @@ public class Controller extends JFrame {
 	// And determine what should be done in the case of a button press.
 
 	public void initSessionButtonListeners() {
+		
+		
+		homeView.logDataListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "logSessionData");
+				logSessionData.setDay(homeView.getSelectedDay());
+			}
+		});
 		
 		homeView.administrationListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -603,6 +610,12 @@ public class Controller extends JFrame {
 							showMessage("No mark selected.");
 						}
 						reviewSession.refreshView();
+					}
+				});
+				
+				changeMark.cancelButtonListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						changeMark.setVisible(false);
 					}
 				});
 				

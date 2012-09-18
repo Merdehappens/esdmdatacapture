@@ -135,7 +135,7 @@ public class ObjectiveTypeView extends PanelView {
 	
 	public ObjectiveType getSelectedObjectiveType()
 	{
-		return (ObjectiveType) tblmdlType.getValueAt(tblType.getSelectedRow(), 1);
+		return (ObjectiveType) tblmdlType.getValueAt(tblType.getSelectedRow(), 0);
 	}
 
 }
