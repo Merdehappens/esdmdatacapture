@@ -53,7 +53,7 @@ public class FindChild extends PanelView {
 		super.setTitle("Select Child");
 
 		btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(10, 332, 89, 23);
+		btnSubmit.setBounds(342, 406, 89, 23);
 		add(btnSubmit);
 
 		btnReset = new JButton("Reset");
@@ -65,11 +65,11 @@ public class FindChild extends PanelView {
 			}
 		});
 
-		btnReset.setBounds(101, 332, 97, 23);
+		btnReset.setBounds(433, 406, 97, 23);
 		add(btnReset);
 
 		btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(200, 332, 89, 23);
+		btnCancel.setBounds(532, 406, 89, 23);
 		add(btnCancel);
 
 		childListModel = new DefaultListModel<Child>();
@@ -77,11 +77,11 @@ public class FindChild extends PanelView {
 		JLabel lblSelectChild = new JLabel(
 				"Select the Child that you wish to view marks of:");
 		lblSelectChild.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSelectChild.setBounds(10, 93, 295, 14);
+		lblSelectChild.setBounds(342, 167, 295, 14);
 		add(lblSelectChild);
 
 		JLabel lblSearchChild = new JLabel("Search Child:");
-		lblSearchChild.setBounds(27, 31, 77, 30);
+		lblSearchChild.setBounds(359, 105, 77, 30);
 		add(lblSearchChild);
 
 		txtChildName = new JTextField();
@@ -92,12 +92,12 @@ public class FindChild extends PanelView {
 			}
 		});
 
-		txtChildName.setBounds(100, 31, 162, 30);
+		txtChildName.setBounds(432, 105, 162, 30);
 		add(txtChildName);
 		txtChildName.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 115, 312, 197);
+		scrollPane.setBounds(342, 189, 312, 197);
 		add(scrollPane);
 		
 				childList = new JList<Child>(childListModel);

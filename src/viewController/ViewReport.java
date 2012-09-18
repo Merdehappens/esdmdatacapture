@@ -42,6 +42,7 @@ public class ViewReport extends PanelView {
 	private JDateChooser dateChooserTo;
 	private JButton btnHome;
 	private JButton btnBackToSelect;
+	private JButton btnResetDates;
 
 	/**
 	 * Create the panel.
@@ -133,6 +134,26 @@ public class ViewReport extends PanelView {
 		btnBackToSelect = new JButton("Back to Select");
 		btnBackToSelect.setBounds(119, 536, 117, 23);
 		add(btnBackToSelect);
+		
+		JButton btnToday = new JButton("Today");
+		btnToday.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dateChooserFrom.setDate(Calendar.getInstance().getTime());
+				dateChooserTo.setDate(Calendar.getInstance().getTime());
+			}
+		});
+		btnToday.setBounds(169, 87, 117, 35);
+		add(btnToday);
+		
+		btnResetDates = new JButton("Reset Dates");
+		btnResetDates.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dateChooserFrom.setDate(null);
+				dateChooserTo.setDate(null);
+			}
+		});
+		btnResetDates.setBounds(784, 87, 117, 35);
+		add(btnResetDates);
 
 	}
 

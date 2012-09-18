@@ -388,7 +388,18 @@ public class Controller extends JFrame {
 		
 		homeView.reportingListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(esdmPanel, "Reporting");
+				
+				show(esdmPanel, "findChildReport");
+				findChildReport.setDestination(viewReport);
+				if(access.equals(guardianAccess))
+				{
+					Guardian g = (Guardian) model.getCurrentUser();
+					findChildReport.setChildren(g.getChildren());
+				}
+				else	
+				{
+					findChildReport.setChildren(model.getChildList(true));
+				}
 			}
 		});
 		
@@ -841,21 +852,13 @@ public class Controller extends JFrame {
 	}
 
 	public void initReportingButtonListeners() {
+		
+		// TODO
+		
 		reportingView.viewReportListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				//show(reportingPanel, "findChildReport");
-				show(esdmPanel, "findChildReport");
-				findChildReport.setDestination(viewReport);
-				if(access.equals(guardianAccess))
-				{
-					Guardian g = (Guardian) model.getCurrentUser();
-					findChildReport.setChildren(g.getChildren());
-					System.out.println(g.getChildren().size());
-				}
-				else	
-				{
-					findChildReport.setChildren(model.getChildList(true));
-				}
+
 			}
 		});
 		
