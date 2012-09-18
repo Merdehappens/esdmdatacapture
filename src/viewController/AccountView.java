@@ -10,13 +10,11 @@ public class AccountView extends PanelView {
 
 
 	private static final long serialVersionUID = -7002494511986322397L;
-	private JButton btnChangePassword;
-	private JButton btnChangeEmailAddress;
-	private JButton btnNewUserAccount;
 	private JButton btnRooms;
 	private JButton btnSetting;
 	private JButton btnObjectiveType;
 	private JButton btnUserAccounts;
+	private JButton btnHome;
 
 	public AccountView() {
 		super();
@@ -37,32 +35,18 @@ public class AccountView extends PanelView {
 
 		super.setTitle("Administration");
 
-		// Adds the change password button to the screen
-		btnChangePassword = new JButton("Change Password");
-		btnChangePassword.setBounds(20, 70, 200, 40);
-		add(btnChangePassword);
-
-		// Adds the change email address button to the screen
-		btnChangeEmailAddress = new JButton("Change Email Address");
-		btnChangeEmailAddress.setBounds(20, 120, 200, 40);
-		add(btnChangeEmailAddress);
-
-		// Adds the New user account button to the screen
-		btnNewUserAccount = new JButton("Create New User Account");
-		btnNewUserAccount.setBounds(20, 170, 200, 40);
-		add(btnNewUserAccount);
 		
 		btnRooms = new JButton("Rooms");
-		btnRooms.setBounds(277, 170, 165, 40);
+		btnRooms.setBounds(20, 120, 165, 40);
 		add(btnRooms);
 		
 		btnSetting = new JButton("Settings");
-		btnSetting.setBounds(277, 230, 165, 40);
+		btnSetting.setBounds(20, 171, 165, 40);
 		add(btnSetting);
 		
 		
 		btnObjectiveType = new JButton("Objective Types");
-		btnObjectiveType.setBounds(277, 280, 165, 40);
+		btnObjectiveType.setBounds(20, 222, 165, 40);
 		add(btnObjectiveType);
 		/*
 		JButton btnViewAccount = new JButton("View Account");
@@ -71,12 +55,16 @@ public class AccountView extends PanelView {
 		 */
 		
 		btnUserAccounts = new JButton("User Accounts");
-		btnUserAccounts.setBounds(277, 330, 165, 40);
+		btnUserAccounts.setBounds(20, 273, 165, 40);
 		add(btnUserAccounts);
+		
+		btnHome = new JButton("Home");
+		btnHome.setBounds(20, 536, 89, 23);
+		add(btnHome);
 	}
 
 	// Takes in an ActionListener and adds it to the change password button
-	public void changePassword(ActionListener al) {
+	/*public void changePassword(ActionListener al) {
 		btnChangePassword.addActionListener(al);
 	}
 
@@ -88,7 +76,7 @@ public class AccountView extends PanelView {
 	// Takes in an ActionListener and adds it to the new user button
 	public void newUserAccount(ActionListener al) {
 		btnNewUserAccount.addActionListener(al);
-	}
+	}*/
 	
 	public void roomsListener(ActionListener al) {
 		btnRooms.addActionListener(al);
@@ -106,15 +94,19 @@ public class AccountView extends PanelView {
 		btnUserAccounts.addActionListener(al);
 	}
 	
+	public void homeListener(ActionListener al) {
+		btnHome.addActionListener(al);
+	}
+	
 
 	// Overrides the refreshView method in PanelView and refreshes the view of this panel
 	public void refreshView() {
 	}
 
 	public void setAccess(String string) {
-		if(!string.equals("a"))
+		/*if(!string.equals("a"))
 		{
 			btnNewUserAccount.setEnabled(false);
-		}
+		}*/
 	}
 }
