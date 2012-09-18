@@ -461,9 +461,71 @@ public class Controller extends JFrame {
 			}
 		});
 		
+		objectiveTypeView.homeListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Home");
+			}
+		});
+		
+		accountView.homeListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Home");
+			}
+		});
+		
+		settingView.homeListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Home");
+			}
+		});
+		
+		roomView.homeListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Home");
+			}
+		});
+		
+		reviewSession.homeListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Home");
+			}
+		});
+		
+		// Listeners to link back to admin screen
+		
+		objectiveTypeView.backToAdminListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Account");
+			}
+		});
+		
+		userAccountView.backToAdminListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Account");
+			}
+		});
+		
+		settingView.backToAdminListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Account");
+			}
+		});
+		
+		roomView.backToAdminListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Account");
+			}
+		});
+		
 		viewReport.backToSelectListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				show(esdmPanel, "findChildReport");
+			}
+		});
+		
+		reviewSession.reviewSessionsListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "Session");
 			}
 		});
 
@@ -909,7 +971,7 @@ public class Controller extends JFrame {
 		findChildReport.cancelListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				//show(reportingPanel, "Reporting");
-				show(esdmPanel, "Reporting");
+				show(esdmPanel, "Home");
 			}
 		});
 
@@ -1256,7 +1318,8 @@ public class Controller extends JFrame {
 				editChild.refreshView();
 			}
 		});
-		accountView.changeEmailAddress(new java.awt.event.ActionListener() {
+		
+		/*accountView.changeEmailAddress(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				//show(accountPanel, "changeEmail");
 				show(esdmPanel, "changeEmail");
@@ -1275,7 +1338,7 @@ public class Controller extends JFrame {
 				//show(accountPanel, "newUserAccount");
 				show(esdmPanel, "newUserAccount");
 			}
-		});
+		});*/
 		
 		accountView.roomsListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {

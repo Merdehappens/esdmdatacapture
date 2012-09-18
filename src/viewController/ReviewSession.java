@@ -28,6 +28,8 @@ public class ReviewSession extends PanelView {
 	private JButton btnLogMarks;
 	private JButton btnExport;
 	private JButton btnEditMark;
+	private JButton btnHome;
+	private JButton btnReviewSessions;
 	
 
 	public ReviewSession() {
@@ -99,6 +101,14 @@ public class ReviewSession extends PanelView {
 		btnEditMark = new JButton("Edit Mark");
 		btnEditMark.setBounds(254, 454, 139, 23);
 		add(btnEditMark);
+		
+		btnHome = new JButton("Home");
+		btnHome.setBounds(20, 536, 89, 23);
+		add(btnHome);
+		
+		btnReviewSessions = new JButton("Review Sessions");
+		btnReviewSessions.setBounds(119, 536, 125, 23);
+		add(btnReviewSessions);
 
 		// Sets the column widths 
 		tblReview.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -159,6 +169,14 @@ public class ReviewSession extends PanelView {
 	// Takes in an ActionListener and adds it to the edit mark button
 	public void editMarksListener(ActionListener al) {
 		btnEditMark.addActionListener(al);
+	}
+	
+	public void homeListener(ActionListener al) {
+		btnHome.addActionListener(al);
+	}
+	
+	public void reviewSessionsListener(ActionListener al) {
+		btnReviewSessions.addActionListener(al);
 	}
 
 	// Sets the day to the day parsed through

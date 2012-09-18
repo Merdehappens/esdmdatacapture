@@ -31,6 +31,8 @@ public class ObjectiveTypeView extends PanelView {
 	private DefaultTableModel tblmdlType;
 	private JScrollPane scrollPane;
 	private ArrayList<ObjectiveType> otList;
+	private JButton btnHome;
+	private JButton btnBackToAdministration;
 
 	public ObjectiveTypeView() {
 		super();
@@ -85,6 +87,14 @@ public class ObjectiveTypeView extends PanelView {
 		btnRemoveObjectiveType.setBounds(322, 109, 137, 30);
 		add(btnRemoveObjectiveType);
 		
+		btnHome = new JButton("Home");
+		btnHome.setBounds(20, 536, 89, 23);
+		add(btnHome);
+		
+		btnBackToAdministration = new JButton("Back to Administration");
+		btnBackToAdministration.setBounds(119, 536, 165, 23);
+		add(btnBackToAdministration);
+		
 		TableColumnModel tblColModel = tblType.getColumnModel();
 
 		/*tblColModel.getColumn(0).setPreferredWidth(100);
@@ -137,5 +147,12 @@ public class ObjectiveTypeView extends PanelView {
 	{
 		return (ObjectiveType) tblmdlType.getValueAt(tblType.getSelectedRow(), 0);
 	}
-
+	
+	public void homeListener(ActionListener al) {
+		btnHome.addActionListener(al);
+	}
+	
+	public void backToAdminListener(ActionListener al) {
+		btnBackToAdministration.addActionListener(al);
+	}
 }

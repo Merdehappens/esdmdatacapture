@@ -23,6 +23,7 @@ public class UserAccountView extends PanelView {
 	private MyJTable userAccountTable;
 	private DefaultTableModel tableModel;
 	private JButton btnHome;
+	private JButton btnBackToAdministration;
 
 	public UserAccountView() {
 		super();
@@ -68,6 +69,10 @@ public class UserAccountView extends PanelView {
 		btnHome = new JButton("Home");
 		btnHome.setBounds(20, 536, 89, 23);
 		add(btnHome);
+		
+		btnBackToAdministration = new JButton("Back to Administration");
+		btnBackToAdministration.setBounds(119, 536, 165, 23);
+		add(btnBackToAdministration);
 
 		// sets the column names to the string array
 		String[] columnNames = new String[] { "Account", "Name",
@@ -93,6 +98,10 @@ public class UserAccountView extends PanelView {
 	
 	public void homeListener(ActionListener al) {
 		btnHome.addActionListener(al);
+	}
+	
+	public void backToAdminListener(ActionListener al) {
+		btnBackToAdministration.addActionListener(al);
 	}
 
 	// Takes in an ActionListener and adds it to the View Objectives button
