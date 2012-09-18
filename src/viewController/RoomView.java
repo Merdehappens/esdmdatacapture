@@ -145,7 +145,6 @@ public class RoomView extends PanelView {
 			
 
 			Object[] rowData = new Object[1];
-			//rowData[0] = tempRoom.getId();
 			rowData[0] = tempRoom;
 
 			tblmdlRoom.addRow(rowData);
@@ -161,7 +160,7 @@ public class RoomView extends PanelView {
 	
 	public Room getSelectedRoom()
 	{
-		return (Room) tblmdlRoom.getValueAt(tblRoom.getSelectedRow(), 1);
+		return (Room) tblmdlRoom.getValueAt(tblRoom.getSelectedRow(), 0);
 	}
 
 }

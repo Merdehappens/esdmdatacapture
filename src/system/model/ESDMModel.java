@@ -1297,7 +1297,7 @@ public class ESDMModel {
 		Mark tempMark = new Mark(markInt, child, therapist, 'b', day);
 		Calendar timestamp = Calendar.getInstance();
 		tempMark.setTime(timestamp);
-		
+		tempMark.setComments("Behavioural Mark");
 		child.addMark(tempMark);
 		markList.add(tempMark);    	
 		therapist.addMark(tempMark);

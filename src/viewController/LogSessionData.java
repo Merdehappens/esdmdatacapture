@@ -425,6 +425,7 @@ public class LogSessionData extends PanelView {
 	public void refreshView() {
 		clearLists();
 		setDayView();
+
 	}
 
 	public void addMark() {
@@ -491,4 +492,5 @@ public class LogSessionData extends PanelView {
 	public int getSelectedBehaviourMark() {
 		return behaviourModel.getElementAt(lstBehaviour.getSelectedIndex());
 	}
+
 }

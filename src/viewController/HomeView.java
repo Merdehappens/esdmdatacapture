@@ -15,12 +15,12 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import java.awt.Color;
 
 public class HomeView extends PanelView {
 
 	private static final long serialVersionUID = -4031028574687279686L;
 	private JLabel lblName;
-	//private JLabel lblSessionList;
 	private JScrollPane scrollPane;
 	private JTable tblSession;
 	private DefaultTableModel tableModel;
@@ -30,6 +30,8 @@ public class HomeView extends PanelView {
 	private JButton btnReporting;
 	private JButton btnChildren;
 	private JButton btnAdministration;
+	private JLabel lblSessionList;
+	private JButton btnLogData;
 
 	public HomeView() {
 		initialise();
@@ -62,39 +64,38 @@ public class HomeView extends PanelView {
 		lblSessionsOrganised.setBounds(186, 200, 641, 21);
 		add(lblSessionsOrganised);
 		
-		/*lblSessionList = new JLabel("");
-		lblSessionList.setVerticalAlignment(SwingConstants.TOP);
-		lblSessionList.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSessionList.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblSessionList.setBounds(196, 232, 631, 281);
-		add(lblSessionList);*/
+		
 		
 		btnObjectives = new JButton("Objectives");
-		btnObjectives.setBounds(849, 250, 164, 40);
+		btnObjectives.setBounds(813, 249, 164, 40);
 		add(btnObjectives);
 		
 		btnReporting = new JButton("Reporting");
-		btnReporting.setBounds(849, 301, 164, 40);
+		btnReporting.setBounds(813, 300, 164, 40);
 		add(btnReporting);
 		
 		btnAccounts = new JButton("Accounts");
-		btnAccounts.setBounds(849, 352, 164, 40);
+		btnAccounts.setBounds(813, 351, 164, 40);
 		add(btnAccounts);
 		
 		btnChildren = new JButton("Children");
-		btnChildren.setBounds(846, 403, 167, 40);
+		btnChildren.setBounds(810, 402, 167, 40);
 		add(btnChildren);
 		
 		JButton btnCreateSession = new JButton("Create Session");
-		btnCreateSession.setBounds(10, 259, 164, 103);
+		btnCreateSession.setBounds(35, 258, 164, 103);
 		add(btnCreateSession);
 		
 		btnReviewPastSessions = new JButton("Review Past Sessions");
-		btnReviewPastSessions.setBounds(10, 373, 164, 48);
+		btnReviewPastSessions.setBounds(35, 372, 164, 48);
 		add(btnReviewPastSessions);
+		
+		btnAdministration = new JButton("Administration");
+		btnAdministration.setBounds(813, 453, 167, 40);
+		add(btnAdministration);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(196, 232, 631, 340);
+		scrollPane.setBounds(257, 232, 496, 297);
 		add(scrollPane);
 		
 		// Creates a new JTable
@@ -102,19 +103,30 @@ public class HomeView extends PanelView {
 		scrollPane.setViewportView(tblSession);
 		
 		// Sets the name of the columns
-		String[] columnNames = new String[] { "SessionID", "Room Name", "No of children" };
+		String[] columnNames = new String[] { "SessionID", "Room Name", "No of children", "Setting" };
 		tableModel = new DefaultTableModel();
 		tableModel.setColumnIdentifiers(columnNames);
 		
 		// Sets the model of the table to the new DefaultTableModel
 		tblSession.setModel(tableModel);
 		
-		btnAdministration = new JButton("Administration");
-		btnAdministration.setBounds(849, 454, 167, 40);
-		add(btnAdministration);
+		lblSessionList = new JLabel("");
+		lblSessionList.setForeground(Color.RED);
+		lblSessionList.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSessionList.setBounds(402, 175, 202, 14);
+		add(lblSessionList);
+		
+		btnLogData = new JButton("Log data for selected session");
+		btnLogData.setBounds(257, 538, 496, 32);
+		add(btnLogData);
+
 		
 
 		super.setTitle("Homepage");
+	}
+	
+	public void logDataListener(ActionListener al) {
+		btnLogData.addActionListener(al);
 	}
 	
 	public void reviewPastSessionsListener(ActionListener al) {
@@ -142,11 +154,16 @@ public class HomeView extends PanelView {
 
 	// Overrides the refreshView method in PanelView and refreshes the view of this panel
 	public void refreshView() {
+		while(tableModel.getRowCount() > 0)
+		{
+			tableModel.removeRow(0);
+		}
+		
 		lblName.setText(this.getModel().getCurrentUser().getName());
-		/*Calendar currDay = Calendar.getInstance();
+		
+		Calendar currDay = Calendar.getInstance();
 		ArrayList<Day> dayList = new ArrayList<Day>(this.getModel().getDays(currDay, currDay));
 		String sessions = "";
-		ArrayList<Setting> settingList;
 		int size = dayList.size();
 		if(size == 0)
 		{
@@ -154,19 +171,34 @@ public class HomeView extends PanelView {
 		}
 		else
 		{
-			sessions = "<html> <p align='center'>";
 			for(int i = 0; i < dayList.size(); i++)
 			{
-				sessions = sessions + dayList.get(i).getRoom() + ":<br>";
-				settingList = new ArrayList<Setting>(dayList.get(i).getSettings());
+				Object[] rowData = new Object[4];
+				Day day = dayList.get(i);
+				
+				rowData[0] = day;
+				rowData[1] = day.getRoom();
+				rowData[2] = day.getChildren().size();
+				
+				ArrayList<Setting> settingList = new ArrayList<Setting>(day.getSettings());
+				
 				for(int x = 0; x < settingList.size(); x++)
 				{
-					sessions = sessions + settingList.get(x) + "<br>";
+					rowData[3] = settingList.get(x);
+					tableModel.addRow(rowData);
 				}
-				sessions = sessions + "<br>";
+				
 			}
-			sessions = sessions + "</p></html>";
 		}
-		lblSessionList.setText(sessions);*/
+		
+		lblSessionList.setText(sessions);
+	}
+
+	public Setting getSelectedSetting() {
+		return (Setting) tableModel.getValueAt(tblSession.getSelectedRow(), 3);
+	}
+
+	public Day getSelectedDay() {
+		return (Day) tableModel.getValueAt(tblSession.getSelectedRow(), 0);
 	}
 }
