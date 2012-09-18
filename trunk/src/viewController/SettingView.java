@@ -33,6 +33,7 @@ public class SettingView extends PanelView {
 	private JButton btnRemoveSetting;
 	private JButton btnEditSetting;
 	private JButton btnHome;
+	private JButton btnBackToAdministration;
 
 	public SettingView() {
 		super();
@@ -94,6 +95,10 @@ public class SettingView extends PanelView {
 		btnHome.setBounds(20, 536, 89, 23);
 		add(btnHome);
 		
+		btnBackToAdministration = new JButton("Back to Administration");
+		btnBackToAdministration.setBounds(119, 536, 165, 23);
+		add(btnBackToAdministration);
+		
 		TableColumnModel tblColModel = tblSetting.getColumnModel();
 
 		tblColModel.getColumn(0).setPreferredWidth(100);
@@ -107,6 +112,10 @@ public class SettingView extends PanelView {
 	
 	public void homeListener(ActionListener al) {
 		btnHome.addActionListener(al);
+	}
+	
+	public void backToAdminListener(ActionListener al) {
+		btnBackToAdministration.addActionListener(al);
 	}
 	
 	private void addSetting() {
