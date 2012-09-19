@@ -73,7 +73,7 @@ public class AddDay extends PanelView {
 		// Initialises and adds a new date chooser to the panel
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("dd/MM/yyyy");
-		dateChooser.setBounds(447, 65, 223, 29);
+		dateChooser.setBounds(512, 93, 223, 29);
 		add(dateChooser);
 		
 
