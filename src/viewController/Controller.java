@@ -668,12 +668,21 @@ public class Controller extends JFrame {
 						.saveButtonListener(new java.awt.event.ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								changeMark.setVisible(false);
+								try{
+									
+								
 								if (reviewSession.getSelectedMark() != null) {
 									saveMark();
 								} else {
 									showMessage("No mark selected.");
 								}
 								reviewSession.refreshView();
+								showMessage("Mark successfully saved");
+								}
+								catch(Exception e) {
+									e.printStackTrace();
+									showMessage(e.getMessage());
+								}
 							}
 						});
 
@@ -684,9 +693,15 @@ public class Controller extends JFrame {
 							}
 						});
 
-				changeMark.refreshView(mark, day);
-				changeMark.setModalityType(ModalityType.APPLICATION_MODAL);
-				changeMark.setVisible(true);
+				if(mark != null)
+				{
+					changeMark.refreshView(mark, day);
+					changeMark.setModalityType(ModalityType.APPLICATION_MODAL);
+					changeMark.setVisible(true);
+				}
+				else {
+					showErrorMessage("20001: No mark is selected.");
+				}
 
 			}
 		});
@@ -1592,8 +1607,7 @@ public class Controller extends JFrame {
 		showMessage(message);
 	}
 
-	public void saveMark() {
-		try {
+	public void saveMark() throws Exception {
 			Setting setting = changeMark.getSetting();
 			Child child = changeMark.getChild();
 			Calendar time = changeMark.getTime();
@@ -1604,10 +1618,6 @@ public class Controller extends JFrame {
 
 			model.updateMark(changeMark.getMark(), setting, child, time,
 					objective, step, markVal, comment);
-
-		} catch (Exception e) {
-			showMessage(e.getMessage());
-		}
 	}
 
 	private void show(JPanel panel, String card) {
