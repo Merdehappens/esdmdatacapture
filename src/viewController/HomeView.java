@@ -31,6 +31,7 @@ public class HomeView extends PanelView {
 	private JButton btnChildren;
 	private JButton btnAdministration;
 	private JButton btnLogData;
+	private JButton btnCreateSession;
 
 	public HomeView() {
 		initialise();
@@ -81,7 +82,7 @@ public class HomeView extends PanelView {
 		btnChildren.setBounds(810, 402, 167, 40);
 		add(btnChildren);
 		
-		JButton btnCreateSession = new JButton("Create Session");
+		btnCreateSession = new JButton("Create Session");
 		btnCreateSession.setBounds(35, 258, 164, 103);
 		add(btnCreateSession);
 		
@@ -116,6 +117,10 @@ public class HomeView extends PanelView {
 		
 
 		super.setTitle("Homepage");
+	}
+
+	public void createSessionListener(ActionListener al) {
+		btnCreateSession.addActionListener(al);
 	}
 	
 	public void logDataListener(ActionListener al) {

@@ -378,6 +378,12 @@ public class Controller extends JFrame {
 				show(esdmPanel, "Objective");
 			}
 		});
+		
+		homeView.createSessionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "addDay");
+			}
+		});
 
 		homeView.accountsListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
