@@ -562,9 +562,13 @@ public class ESDMModel {
 		o.setType(objType);
 		for (int i = 0; i < steps.length; i++)
 		{
-			if(steps[i][0].length() == 0 || steps[i][1].length() == 0)
+			if(steps[i][0].length() == 0 )
 			{
-				throw new Exception("One of the steps isn't completely filled.");
+				throw new Exception("One of the codes isn't filled in.");
+			}
+			if(steps[i][1].length() == 0 )
+			{
+				throw new Exception("One of the steps isn't filled in.");
 			}
 			String no = (i + 1) + "";
 			Step step = new Step(no, steps[i][0], steps[i][1]);//retrieves info from 2D array and makes a new step
@@ -939,13 +943,21 @@ public class ESDMModel {
 	// Takes in a mark and all details required for a mark
 	public void updateMark(Mark mark, Setting setting, Child child,
 			Calendar time, Objective objective, Step step, int markVal,
-			String comment) {
+			String comment) throws Exception {
+		
+		if(objective != null) {
+			if(step == null)
+			{
+				throw new Exception("Mark must have step filled in.");
+			}
+			mark.setObjective(objective);
+			mark.setStep(step);
+		}
+		
 		
 		mark.setSetting(setting);
 		mark.setChild(child);
 		mark.setTime(time);
-		mark.setObjective(objective);
-		mark.setStep(step);
 		mark.setMark(markVal);
 		mark.setComments(comment);
 		

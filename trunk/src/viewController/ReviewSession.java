@@ -34,7 +34,6 @@ public class ReviewSession extends PanelView {
 
 	public ReviewSession() {
 		initialise();
-
 	}
 
 	public ReviewSession(ESDMModel model) {
@@ -117,8 +116,8 @@ public class ReviewSession extends PanelView {
 		tblReview.getColumnModel().getColumn(3).setPreferredWidth(40);
 		tblReview.getColumnModel().getColumn(4).setPreferredWidth(20);
 		tblReview.getColumnModel().getColumn(5).setPreferredWidth(5);
-		tblReview.getColumnModel().getColumn(6).setPreferredWidth(30);
-		tblReview.getColumnModel().getColumn(7).setPreferredWidth(300);
+		tblReview.getColumnModel().getColumn(6).setPreferredWidth(40);
+		tblReview.getColumnModel().getColumn(7).setPreferredWidth(280);
 
 	}
 

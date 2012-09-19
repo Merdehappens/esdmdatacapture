@@ -65,7 +65,7 @@ public class ChangeMark extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			JLabel lblSession = new JLabel("Session");
+			JLabel lblSession = new JLabel("Session:");
 			lblSession.setBounds(10, 74, 53, 28);
 			contentPanel.add(lblSession);
 		}
@@ -102,7 +102,7 @@ public class ChangeMark extends JDialog {
 
 		
 		
-		JLabel lblObjective = new JLabel("Objective");
+		JLabel lblObjective = new JLabel("Objective:");
 		lblObjective.setBounds(10, 150, 53, 25);
 		contentPanel.add(lblObjective);
 		
@@ -116,7 +116,7 @@ public class ChangeMark extends JDialog {
 		
 		
 		
-		JLabel lblStep = new JLabel("Step");
+		JLabel lblStep = new JLabel("Step:");
 		lblStep.setBounds(10, 200, 46, 14);
 		contentPanel.add(lblStep);
 		
@@ -134,8 +134,8 @@ public class ChangeMark extends JDialog {
 		contentPanel.add(timeSpinner);
 		
 		
-		JLabel lblMark = new JLabel("Mark");
-		lblMark.setBounds(179, 200, 46, 14);
+		JLabel lblMark = new JLabel("Mark:");
+		lblMark.setBounds(179, 197, 46, 28);
 		contentPanel.add(lblMark);
 		
 		cmbMark = new JComboBox<Mark>();
@@ -152,11 +152,11 @@ public class ChangeMark extends JDialog {
 		txtComments.setLineWrap(true);
 		txtComments.setWrapStyleWord(true);
 		
-		JLabel lblChild = new JLabel("Child");
+		JLabel lblChild = new JLabel("Child:");
 		lblChild.setBounds(10, 116, 53, 25);
 		contentPanel.add(lblChild);
 		
-		JLabel lblHhmmss = new JLabel("hh:mm:ss");
+		JLabel lblHhmmss = new JLabel("Time Marked");
 		lblHhmmss.setBounds(366, 58, 82, 14);
 		contentPanel.add(lblHhmmss);
 	
