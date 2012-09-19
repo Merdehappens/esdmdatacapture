@@ -41,6 +41,7 @@ import system.helper.Helper;
 import system.helper.MessageFade;
 import system.individuals.Child;
 import system.individuals.Guardian;
+import system.individuals.UserAccount;
 import system.marking.Mark;
 import system.marking.Objective;
 import system.marking.ObjectiveType;
@@ -338,10 +339,9 @@ public class Controller extends JFrame {
 		// Show the login screen
 
 		showLogin();
-		homeView.refreshView();
 		backList.add("Home");
 
-		show(esdmPanel, "Home");
+		homeView.refreshView();
 	}
 
 	// This function calls the functions from within each view class that
@@ -381,7 +381,18 @@ public class Controller extends JFrame {
 
 		homeView.accountsListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(esdmPanel, "userAccountView");
+
+				String access = model.getCurrentAccess();
+				
+				if(access.equals("g"))
+				{
+					editAccount.setUser(model.getCurrentUser());
+					show(esdmPanel, "editAccount");
+					
+				} else
+				{
+					show(esdmPanel, "userAccountView");
+				}
 			}
 		});
 
@@ -408,6 +419,26 @@ public class Controller extends JFrame {
 		reportingView.homeListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				show(esdmPanel, "Home");
+			}
+		});
+		
+		userAccountView.resetPasswordListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				
+				UserAccount u = null;
+				try {
+					
+					u = userAccountView.getSelectedAccount();			
+					String name = JOptionPane.showInputDialog(null, "Please enter the password you wish to set.");
+					if(name != null)
+					{
+						model.setPassword(u, name);
+					}
+					showMessage("Successfully changed password.");
+				} catch (Exception e) {
+					showMessage(e.getMessage());
+				}
+				
 			}
 		});
 
@@ -521,16 +552,62 @@ public class Controller extends JFrame {
 		
 		userAccountView.viewUser(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(esdmPanel, "editAccount");
+				try {
+					editAccount.setUser(userAccountView.getSelectedAccount());
+					show(esdmPanel, "editAccount");
+				} catch (Exception e) {
+					showErrorMessage(e.getMessage());
+				}
 			}
 		});
 		
 		editAccount.cancelListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(esdmPanel, "userAccountView");
+				if(access.equals("g"))
+				{
+				
+					show(esdmPanel, "Home");
+					
+				} else
+				{
+					show(esdmPanel, "userAccountView");
+				}
 			}
 		});
 
+		editAccount.changePasswordListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				
+				JLabel lblPassword = new JLabel("Old Password:");
+				
+				JTextField txtPassword = new JPasswordField();
+
+				JLabel lblNewPassword = new JLabel("New Password:");
+				JTextField txtNewPassword = new JPasswordField();
+
+				JLabel lblNewPassword2 = new JLabel("Confirm New Password:");
+				JTextField txtNewPassword2 = new JPasswordField();
+				
+				Object[] array = { lblPassword, txtPassword, lblNewPassword, 
+						txtNewPassword, lblNewPassword2, txtNewPassword2 };
+
+				int res = JOptionPane.showConfirmDialog(null, array,
+						"Change Password", JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.PLAIN_MESSAGE);
+
+				if (res == 0) {
+					try {
+						model.changePassword(txtPassword.getText(),
+								txtNewPassword.getText(), txtNewPassword2.getText());
+					} catch (Exception e) {
+						showErrorMessage(e.getMessage());
+						e.printStackTrace();
+					}
+				}
+				
+			}
+		});
+		
 		addDay.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 
