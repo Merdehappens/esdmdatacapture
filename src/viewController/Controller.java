@@ -66,12 +66,6 @@ public class Controller extends JFrame {
 
 	private static JFrame loadingFrame;
 	private JPanel esdmPanel;
-	/*
-	 * private JPanel contentPane; private JPanel homePanel; private JPanel
-	 * sessionPanel; private JPanel childPanel; private JPanel objectivePanel;
-	 * private JPanel reportingPanel; private JPanel accountPanel;
-	 */
-	private JTabbedPane tabbedPane;
 	private EditChild editChild;
 	private FindChild findChildReport;
 	private SessionView sessionView;
@@ -417,6 +411,13 @@ public class Controller extends JFrame {
 				show(esdmPanel, "Home");
 			}
 		});
+		
+		userAccountView.viewUser(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				// TODO View User screen.
+				
+			}
+		});
 
 		childViewGrid.homeListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -608,7 +609,6 @@ public class Controller extends JFrame {
 
 		logSessionData.commitMarkListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				// TODO FIX
 				logSessionData.addMark();
 				showMessage("Mark added.");
 			}
@@ -617,7 +617,6 @@ public class Controller extends JFrame {
 		logSessionData
 				.addTimestampListener(new java.awt.event.ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
-						// TODO FIX
 						logSessionData.addTimestamp();
 						showMessage("Timestamp added.");
 					}
@@ -626,7 +625,6 @@ public class Controller extends JFrame {
 		logSessionData.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				reviewSession.setDay(logSessionData.getDay());
-				// show(sessionPanel, "reviewSession");
 				show(esdmPanel, "reviewSession");
 			}
 		});
@@ -642,7 +640,6 @@ public class Controller extends JFrame {
 									.getSelectedBehaviourMark();
 							model.addBehaviouralMark(day, child, markInt);
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
 							showMessage("Unable to save the behavioural mark");
 							e.printStackTrace();
 						}
@@ -921,14 +918,6 @@ public class Controller extends JFrame {
 
 	public void initReportingButtonListeners() {
 
-		// TODO
-
-		reportingView.viewReportListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				// show(reportingPanel, "findChildReport");
-
-			}
-		});
 
 		viewReport.exportListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -1585,9 +1574,6 @@ public class Controller extends JFrame {
 		} else if (access.equals(therapistAccess)) {
 
 		} else if (access.equals(guardianAccess)) {
-			tabbedPane.setEnabledAt(1, false);
-			tabbedPane.setEnabledAt(2, false);
-			tabbedPane.setEnabledAt(3, false);
 			accountView.setAccess(guardianAccess);
 		}
 	}

@@ -103,6 +103,10 @@ public class UserAccountView extends PanelView {
 	public void backToAdminListener(ActionListener al) {
 		btnBackToAdministration.addActionListener(al);
 	}
+	
+	public void viewUser(ActionListener al) {
+		btnViewUserAccount.addActionListener(al);
+	}
 
 
 	// Takes in an ActionListener and adds it to the Add Objective To Child
