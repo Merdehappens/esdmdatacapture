@@ -92,6 +92,7 @@ public class Controller extends JFrame {
 	private ChooseObjective chooseObjective;
 	private AddNewGuardian addNewGuardian;
 	private UserAccountView userAccountView;
+	private EditAccount editAccount;
 
 	private HashMap<String, JPanel> panelMap = new HashMap<String, JPanel>();
 	private RoomView roomView;
@@ -303,6 +304,10 @@ public class Controller extends JFrame {
 		userAccountView = new UserAccountView(model);
 		esdmPanel.add(userAccountView, "userAccountView");
 		panelMap.put("userAccountView", esdmPanel);
+		
+		editAccount = new EditAccount(model);
+		esdmPanel.add(editAccount, "editAccount");
+		panelMap.put("editAccount", esdmPanel);
 
 		JPanel footer = new JPanel(null);
 
@@ -482,13 +487,6 @@ public class Controller extends JFrame {
 					}
 				});
 
-		userAccountView
-				.backToAdminListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(ActionEvent evt) {
-						show(esdmPanel, "Account");
-					}
-				});
-
 		userAccountView.addNewUser(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				System.out.println("YES");
@@ -520,6 +518,18 @@ public class Controller extends JFrame {
 						show(esdmPanel, "Session");
 					}
 				});
+		
+		userAccountView.viewUser(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "editAccount");
+			}
+		});
+		
+		editAccount.cancelListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				show(esdmPanel, "userAccountView");
+			}
+		});
 
 		addDay.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -863,7 +873,7 @@ public class Controller extends JFrame {
 
 		newUserAccount.cancel(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				show(esdmPanel, "Account");
+				show(esdmPanel, "userAccountView");
 			}
 		});
 
@@ -1323,13 +1333,6 @@ public class Controller extends JFrame {
 			public void actionPerformed(ActionEvent evt) {
 				// show(accountPanel, "objectiveTypeView");
 				show(esdmPanel, "objectiveTypeView");
-			}
-		});
-
-		accountView.userAccountsListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				// show(accountPanel, "userAccountView");
-				show(esdmPanel, "userAccountView");
 			}
 		});
 

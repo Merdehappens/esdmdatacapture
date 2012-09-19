@@ -13,7 +13,6 @@ public class AccountView extends PanelView {
 	private JButton btnRooms;
 	private JButton btnSetting;
 	private JButton btnObjectiveType;
-	private JButton btnUserAccounts;
 	private JButton btnHome;
 
 	public AccountView() {
@@ -48,15 +47,6 @@ public class AccountView extends PanelView {
 		btnObjectiveType = new JButton("Objective Types");
 		btnObjectiveType.setBounds(20, 222, 165, 40);
 		add(btnObjectiveType);
-		/*
-		JButton btnViewAccount = new JButton("View Account");
-		btnViewAccount.setBounds(20, 221, 200, 40);
-		add(btnViewAccount);
-		 */
-		
-		btnUserAccounts = new JButton("User Accounts");
-		btnUserAccounts.setBounds(20, 273, 165, 40);
-		add(btnUserAccounts);
 		
 		btnHome = new JButton("Home");
 		btnHome.setBounds(20, 536, 89, 23);
@@ -88,10 +78,6 @@ public class AccountView extends PanelView {
 	
 	public void objectiveTypeListener(ActionListener al) {
 		btnObjectiveType.addActionListener(al);
-	}
-	
-	public void userAccountsListener(ActionListener al) {
-		btnUserAccounts.addActionListener(al);
 	}
 	
 	public void homeListener(ActionListener al) {

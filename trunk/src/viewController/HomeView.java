@@ -102,7 +102,7 @@ public class HomeView extends PanelView {
 		scrollPane.setViewportView(tblSession);
 		
 		// Sets the name of the columns
-		String[] columnNames = new String[] { "SessionID", "Room Name", "No of children", "Setting" };
+		String[] columnNames = new String[] { "Day ID", "Room Name", "No of children", "Setting" };
 		tableModel = new DefaultTableModel();
 		tableModel.setColumnIdentifiers(columnNames);
 		
