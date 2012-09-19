@@ -30,7 +30,6 @@ public class HomeView extends PanelView {
 	private JButton btnReporting;
 	private JButton btnChildren;
 	private JButton btnAdministration;
-	private JLabel lblSessionList;
 	private JButton btnLogData;
 
 	public HomeView() {
@@ -110,12 +109,6 @@ public class HomeView extends PanelView {
 		// Sets the model of the table to the new DefaultTableModel
 		tblSession.setModel(tableModel);
 		
-		lblSessionList = new JLabel("");
-		lblSessionList.setForeground(Color.RED);
-		lblSessionList.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSessionList.setBounds(402, 175, 202, 14);
-		add(lblSessionList);
-		
 		btnLogData = new JButton("Log data for selected session");
 		btnLogData.setBounds(257, 538, 496, 32);
 		add(btnLogData);
@@ -163,15 +156,9 @@ public class HomeView extends PanelView {
 		
 		Calendar currDay = Calendar.getInstance();
 		ArrayList<Day> dayList = new ArrayList<Day>(this.getModel().getDays(currDay, currDay));
-		String sessions = "";
+
 		int size = dayList.size();
-		if(size == 0)
-		{
-			sessions = "There are no sessions organised for today.";
-		}
-		else
-		{
-			for(int i = 0; i < dayList.size(); i++)
+			for(int i = 0; i < size; i++)
 			{
 				Object[] rowData = new Object[4];
 				Day day = dayList.get(i);
@@ -191,14 +178,14 @@ public class HomeView extends PanelView {
 			}
 		}
 		
-		lblSessionList.setText(sessions);
-	}
+	
 
 	public Setting getSelectedSetting() {
 		return (Setting) tableModel.getValueAt(tblSession.getSelectedRow(), 3);
 	}
 
-	public Day getSelectedDay() {
+	public Day getSelectedDay() throws ArrayIndexOutOfBoundsException {
+	
 		return (Day) tableModel.getValueAt(tblSession.getSelectedRow(), 0);
 	}
 }

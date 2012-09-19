@@ -49,6 +49,7 @@ public class AddDay extends PanelView {
 
 	private DefaultListModel<Setting> listModel;
 	private JButton btnRemove;
+	private DefaultListModel<Setting> settingModel;
 
 	public AddDay() {
 		super();
@@ -132,8 +133,8 @@ public class AddDay extends PanelView {
 		add(lblRoom);
 
 		// Creates a new list and populates it with all the sessions in the model 
-		lstSetting = new JList<Setting>(new Vector<Setting>(this.getModel()
-				.getSettingList()));
+		settingModel = new DefaultListModel<Setting>();
+		lstSetting = new JList<Setting>(settingModel);
 		lstSetting.setBounds(403, 158, 133, 240);
 		add(lstSetting);
 
@@ -204,6 +205,13 @@ public class AddDay extends PanelView {
 		// Removes all children from panel
 		childPanel.removeAll();
 		
+		ArrayList<Setting> settings = new ArrayList<Setting>(this.getModel().getSettingList());
+		settingModel.removeAllElements();
+		for(int i = 0; i < settings.size(); i++)
+		{
+			settingModel.addElement(settings.get(i));
+		}
+		
 		ArrayList<Child> temp = (ArrayList<Child>) this.getModel()
 				.getChildList(true);
 
@@ -229,10 +237,12 @@ public class AddDay extends PanelView {
 			
 			
 			String name = child.getName();
+			if(name.lastIndexOf(' ') != -1)
+			{
 			String buttonName = name.substring(name.lastIndexOf(' '));
 			name = name.substring(0, name.lastIndexOf(' '));
 			name = "<html><center>" +name + "</br>" + buttonName + "</center></html>";
-			
+			}
 			tempButton = new JToggleButton(name);
 			tempButton.setToolTipText(child.getName());
 			tempButton.setBounds(10 + (100 * i) - s, x, 100, 100);
