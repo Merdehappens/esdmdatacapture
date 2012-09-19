@@ -23,6 +23,7 @@ public class UserAccountView extends PanelView {
 	private MyJTable userAccountTable;
 	private DefaultTableModel tableModel;
 	private JButton btnHome;
+	private JButton btnResetPassword;
 
 	public UserAccountView() {
 		super();
@@ -68,6 +69,10 @@ public class UserAccountView extends PanelView {
 		btnHome = new JButton("Home");
 		btnHome.setBounds(20, 536, 89, 23);
 		add(btnHome);
+		
+		btnResetPassword = new JButton("Reset Password");
+		btnResetPassword.setBounds(470, 90, 200, 35);
+		add(btnResetPassword);
 
 		// sets the column names to the string array
 		String[] columnNames = new String[] { "Account", "Name",
@@ -91,6 +96,10 @@ public class UserAccountView extends PanelView {
 		btnAddNewUserAccount.addActionListener(al);
 	}
 	
+	public void resetPasswordListener(ActionListener al) {
+		btnResetPassword.addActionListener(al);
+	}
+	
 	public void homeListener(ActionListener al) {
 		btnHome.addActionListener(al);
 	}
@@ -109,6 +118,16 @@ public class UserAccountView extends PanelView {
 	// Overrides the refreshView method in PanelView and refreshes the view of this panel
 	public void refreshView() {
 		populateTable();
+		if(this.getModel().getCurrentUser() != null)
+		{
+			if(this.getModel().getCurrentAccess().equals("a"))
+			{
+				btnResetPassword.setVisible(true);
+			} else
+			{
+				btnResetPassword.setVisible(false);	
+			}
+		}
 	}
 
 	// Returns the objective for the row that is selected
@@ -119,7 +138,7 @@ public class UserAccountView extends PanelView {
 			account = (UserAccount) accounts.get(userAccountTable
 					.getSelectedRow());
 		} catch (Exception e) {
-			throw new Exception("You must select an objective first.");
+			throw new Exception("You must select an account first.");
 		}
 
 		return account;

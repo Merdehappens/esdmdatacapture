@@ -1346,6 +1346,16 @@ public class ESDMModel {
 	public List<UserAccount> getUserList() {
 		return userList;
 	}
+
+	public void setPassword(UserAccount u, String name) throws Exception {
+		u.setPassword(name);
+		
+		org.hibernate.Session dbSession = factory.getCurrentSession();
+    	dbSession.beginTransaction();
+    	u = (UserAccount) dbSession.merge(u);
+    	dbSession.update(u);
+    	dbSession.getTransaction().commit();
+	}
 	
 	
 
