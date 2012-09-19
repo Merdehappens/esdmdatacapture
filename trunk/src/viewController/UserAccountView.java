@@ -92,7 +92,7 @@ public class UserAccountView extends PanelView {
 	}
 
 	// Takes in an ActionListener and adds it to the Add New Objective button
-	public void addNewObjective(ActionListener al) {
+	public void addNewUser(ActionListener al) {
 		btnAddNewUserAccount.addActionListener(al);
 	}
 	
@@ -104,10 +104,6 @@ public class UserAccountView extends PanelView {
 		btnBackToAdministration.addActionListener(al);
 	}
 
-	// Takes in an ActionListener and adds it to the View Objectives button
-	/*public void viewUserAccount(ActionListener al) {
-		btnViewUserAccount.addActionListener(al);
-	}*/
 
 	// Takes in an ActionListener and adds it to the Add Objective To Child
 	// button
