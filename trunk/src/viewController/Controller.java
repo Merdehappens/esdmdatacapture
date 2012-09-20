@@ -1691,6 +1691,7 @@ public class Controller extends JFrame {
 	}
 
 	public void saveMark() throws Exception {
+		try{
 			Setting setting = changeMark.getSetting();
 			Child child = changeMark.getChild();
 			Calendar time = changeMark.getTime();
@@ -1701,6 +1702,10 @@ public class Controller extends JFrame {
 
 			model.updateMark(changeMark.getMark(), setting, child, time,
 					objective, step, markVal, comment);
+		} catch(Exception e) {
+			e.printStackTrace();
+			showErrorMessage("Mark was not saved as one of the fields wasn't correctly filled");
+		}
 	}
 
 	private void show(JPanel panel, String card) {

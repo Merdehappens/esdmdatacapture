@@ -962,9 +962,10 @@ public class ESDMModel {
 		mark.setComments(comment);
 		
     	org.hibernate.Session dbSession = factory.getCurrentSession();
-
     	dbSession.beginTransaction();
-    	dbSession.save(mark);
+
+    	mark = (Mark) dbSession.merge(mark);
+    	dbSession.update(mark);
     	dbSession.getTransaction().commit();
 		
 	}
