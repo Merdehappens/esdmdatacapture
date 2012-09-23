@@ -32,7 +32,7 @@ public class ObjectiveType {
     
     @ManyToMany
     @JoinTable(name="SettingObjectiveType",
-    		joinColumns={@JoinColumn(name="ObjectiveID")},
+    		joinColumns={@JoinColumn(name="ObjectiveTypeID")},
     		inverseJoinColumns={@JoinColumn(name="SettingID")})
     private List<Setting> settings;
 	

@@ -31,7 +31,7 @@ public class Setting implements SimpleKey {
 	@ManyToMany
     @JoinTable(name="SettingObjectiveType",
     		joinColumns={@JoinColumn(name="SettingID")},
-    		inverseJoinColumns={@JoinColumn(name="ObjectiveID")})
+    		inverseJoinColumns={@JoinColumn(name="ObjectiveTypeID")})
 	private List<ObjectiveType> objectives;
     @ManyToMany
     @JoinTable(name="DaySetting",
