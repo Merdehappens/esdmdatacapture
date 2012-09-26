@@ -26,11 +26,21 @@ public class UserAccount {
     @Basic
     private String access;
     
+    /**
+     * Creates a user account object and sets the access to n
+     */
     public UserAccount()
     {
     	access = "n";
     }
     
+    /**
+     * Creates a user account object, sets the name email and username to the
+     * strings passed through and sets access to n
+     * @param name
+     * @param username
+     * @param emailAddress
+     */
     public UserAccount(String name, String username, String emailAddress) {
 		this.name = name;
 		this.username = username;
@@ -38,20 +48,36 @@ public class UserAccount {
 		access = "n";
 	}
     
+    /**
+     * Returns the access attribute for this UserAccount object.
+     * @return access
+     */
     public String getAccess()
     {
     	return access;
     }
     
+    /**
+     * Sets the access attribute for this UserAccount.
+     * @param access
+     */
     public void setAccess(String access)
     {
     	this.access = access;
     }
 
+    /**
+     * Returns the phone number attribute for this UserAccount
+     * @return phoneNo
+     */
     public String getPhoneNo() {
         return phoneNo;
     }
 
+    /**
+     * Sets the phone number attribute to the String passed through.
+     * @param phoneNo
+     */
     public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
     }
