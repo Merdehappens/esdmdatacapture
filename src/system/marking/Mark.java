@@ -23,10 +23,8 @@ public class Mark implements SimpleKey {
 	@Id
 	@GeneratedValue
     private int id;
-	
 	@Basic
 	private char type;
-	
 	@ManyToOne
 	@JoinColumn(name="child_id")
     private Child child;
@@ -40,7 +38,6 @@ public class Mark implements SimpleKey {
 	@ManyToOne
 	@JoinColumn(name="objective_id")
     private Objective objective;
-    // ^ ^ ^ Transient, as database model does not have connection between Mark and Objective
 	@ManyToOne
 	@JoinColumn(name="step_id")
     private Step step;
@@ -50,64 +47,48 @@ public class Mark implements SimpleKey {
 	
     private Calendar time;
     private String comment;
-    
-    public Child getChild() {
-		return child;
-	}
-
-	public int getMark() {
-		return mark;
-	}
-
-	public Day getDay() {
-		return day;
-	}
-
-	public Setting getSetting() {
-		return setting;
-	}
-
-	public Objective getObjective() {
-		return objective;
-	}
-
-	public Step getStep() {
-		return step;
-	}
-
-	public Therapist getTherapist() {
-		return therapist;
-	}
-
-	public Calendar getTime() {
-		return time;
-	}
-
-	public String getComment() {
-		return comment;
-	}
-
-	public Mark(int i)
+   
+    /**
+     * Creates the mark object with the int parsed through
+     * @param mark
+     */
+    public Mark(int i)
 	{
 		mark = i;
 	}
 	
-	/*
-	 * Creates a new mark object with the time that is parsed through
-	 */
-
-    public Mark(int id, Child child, Objective objective, int mark, Setting setting, 
-    					Step step, Therapist therapist, Calendar time) {
-        this.id = id;
-        this.child = child;
-        this.mark = mark;
-        this.setting = setting;
-        this.step = step;
-        this.therapist = therapist;
-        this.time = time;
-        type = 'n';
-    }
+    /**
+     * Creates a mark object with the attributes passed through. sets type to 'n' (normal)
+     * @param setting
+     * @param child
+     * @param objective
+     * @param step
+     * @param mark
+     * @param therapist
+     * @param day
+     * @param time
+     */
+	public Mark(Setting setting, Child child, Objective objective,
+			Step step, int mark, Therapist therapist, Day day, Calendar time) {
+		this.setting = setting;
+		this.child = child;
+		this.objective = objective;
+		this.step = step;
+		this.mark = mark;
+		this.day = day;
+		this.therapist = therapist;
+		this.time = time;
+		type = 'n';
+	}
     
+	/**
+	 * Creates a mark object with the attributes passed through
+	 * @param id
+	 * @param mark
+	 * @param child
+	 * @param therapist
+	 * @param type
+	 */
     public Mark(int id, int mark, Child child, Therapist therapist, char type) {
     	this.id = id;
     	this.mark = mark;
@@ -116,6 +97,14 @@ public class Mark implements SimpleKey {
     	this.therapist = therapist;
     }
     
+    /**
+     * Creates a mark object with the attributes passed through
+     * @param mark
+     * @param child
+     * @param therapist
+     * @param type
+     * @param day
+     */
     public Mark(int mark, Child child, Therapist therapist, char type, Day day) {
     	this.mark = mark;
     	this.child = child;
@@ -124,36 +113,173 @@ public class Mark implements SimpleKey {
     	this.day = day;
     }
     
+    /**
+     * Creates a mark object with all the attributes set to null
+     */
     public Mark()
     {
     }
     
-	/*
-	 * Creates a new mark object with the time set to current system time
-	 */
-    
-	public Mark(Setting setting, Child child, Objective objective,
-			Step step, int mark, Therapist therapist, Day day) {
-		this.setting = setting;
-		this.child = child;
-		this.objective = objective;
-		this.step = step;
-		this.mark = mark;
-		this.day = day;
-		this.therapist = therapist;
-		time = Calendar.getInstance();
-		type = 'n';
+    /**
+     * Returns the child attribute inside the mark object
+     * @return child
+     */
+    public Child getChild() {
+		return child;
 	}
 
+    /**
+     * Returns the actual mark int for this mark.
+     * @return mark
+     */
+	public int getMark() {
+		return mark;
+	}
+	
+	/**
+	 * Returns the day attribute in the mark object.
+	 * @return day
+	 */
+	public Day getDay() {
+		return day;
+	}
+
+	/**
+	 * Returns the setting attribute in the mark object.
+	 * @return setting
+	 */
+	public Setting getSetting() {
+		return setting;
+	}
+
+	/**
+	 * Returns the objective attribute in the mark object.
+	 * @return objective
+	 */
+	public Objective getObjective() {
+		return objective;
+	}
+
+	/**
+	 * Returns the step attribute in the mark object.
+	 * @return step
+	 */
+	public Step getStep() {
+		return step;
+	}
+
+	/**
+	 * Returns the therapist attribute in the mark object
+	 * @return therapist
+	 */
+	public Therapist getTherapist() {
+		return therapist;
+	}
+
+	/**
+	 * Returns the time attribute in the mark object
+	 * @return time
+	 */
+	public Calendar getTime() {
+		return time;
+	}
+
+	/**
+	 * Returns the comment attribute in the mark object
+	 * @return comment
+	 */
+	public String getComment() {
+		return comment;
+	}
+
+	/**
+	 * Returns the ID attribute in the mark object
+	 * @return id
+	 */
 	public int getId()
     {
         return id;
     }
 	
+	/**
+	 * Sets the id attribute to the integer passed through
+	 * @param id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	/**
+	 * Sets the comment attribute in the object to the String passed through
+	 * @param comment
+	 */
+	public void setComments(String comment)
+	{
+		this.comment = comment;
+	}
 
+	/**
+	 * Sets the setting attribute to the setting passed through
+	 * @param setting
+	 */
+	public void setSetting(Setting setting) {
+		this.setting = setting;
+	}
+
+	/**
+	 * Sets the child attribute to the child passed through.
+	 * @param child
+	 */
+	public void setChild(Child child) {
+		this.child = child;
+	}
+
+	/**
+	 * Sets the time attribute to the Calendar passed through.
+	 * @param time
+	 */
+	public void setTime(Calendar time) {
+		this.time = time;
+	}
+
+	/**
+	 * sets the objective attribute to the Objective passed through.
+	 * @param objective
+	 */
+	public void setObjective(Objective objective) {
+		this.objective = objective;
+	}
+	
+	/**
+	 * Sets the mark attribute to the Integer passed through
+	 * @param mark
+	 */
+	public void setMark(int mark)
+	{
+		this.mark = mark;
+	}
+
+	public void setStep(Step step) {
+		this.step = step;
+		objective = step.getObjective();
+	}
+	
+	/**
+	 * Sets the type attribute to the char passed through.
+	 * @param type
+	 */
+	public void setType(char type) {
+		this.type = type;
+	}
+	
+	/**
+	 * Returns the type attribute
+	 * @return type
+	 */
+	public char getType() {
+		return type;
+	}
+	
 	public String toString()
 	{
 		if(type == 'b') {
@@ -173,45 +299,6 @@ public class Mark implements SimpleKey {
 			}
 		}
 		
-	}
-	
-	public void setComments(String comment)
-	{
-		this.comment = comment;
-	}
-
-	public void setSetting(Setting setting) {
-		this.setting = setting;
-	}
-
-	public void setChild(Child child) {
-		this.child = child;
-	}
-
-	public void setTime(Calendar time) {
-		this.time = time;
-	}
-
-	public void setObjective(Objective objective) {
-		this.objective = objective;
-	}
-	
-	public void setMark(int mark)
-	{
-		this.mark = mark;
-	}
-
-	public void setStep(Step step) {
-		this.step = step;
-		objective = step.getObjective();
-	}
-	
-	public void setType(char type) {
-		this.type = type;
-	}
-	
-	public char getType() {
-		return type;
 	}
 	
 	
