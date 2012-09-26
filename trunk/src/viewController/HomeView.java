@@ -67,19 +67,19 @@ public class HomeView extends PanelView {
 		
 		
 		btnObjectives = new JButton("Objectives");
-		btnObjectives.setBounds(813, 249, 164, 40);
+		btnObjectives.setBounds(813, 250, 170, 40);
 		add(btnObjectives);
 		
 		btnReporting = new JButton("Reporting");
-		btnReporting.setBounds(813, 300, 164, 40);
+		btnReporting.setBounds(813, 300, 170, 40);
 		add(btnReporting);
 		
 		btnAccounts = new JButton("Accounts");
-		btnAccounts.setBounds(813, 351, 164, 40);
+		btnAccounts.setBounds(813, 350, 170, 40);
 		add(btnAccounts);
 		
 		btnChildren = new JButton("Children");
-		btnChildren.setBounds(810, 402, 167, 40);
+		btnChildren.setBounds(813, 400, 170, 40);
 		add(btnChildren);
 		
 		btnCreateSession = new JButton("Create Session");
@@ -91,7 +91,7 @@ public class HomeView extends PanelView {
 		add(btnReviewPastSessions);
 		
 		btnAdministration = new JButton("Administration");
-		btnAdministration.setBounds(813, 453, 167, 40);
+		btnAdministration.setBounds(813, 450, 170, 40);
 		add(btnAdministration);
 
 		scrollPane = new JScrollPane();
