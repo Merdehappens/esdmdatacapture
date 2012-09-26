@@ -44,10 +44,17 @@ public class Setting implements SimpleKey {
     		fetch=FetchType.LAZY)
     private List<Mark> marks;
     
+    /**
+     * Creates a new Setting object
+     */
     public Setting()
     {    
     }
     
+    /**
+     * 
+     * @param description
+     */
     public Setting(String description)
     {
         this.description = description;
