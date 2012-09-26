@@ -39,7 +39,7 @@ public class UserAccountView extends PanelView {
 	private void initialise() {
 		setLayout(null);
 		// Sets the title of the page
-		super.setTitle("UserAccount");
+		super.setTitle("User Account");
 
 		// Creates 3 new buttons and adds them to the page
 		btnAddNewUserAccount = new JButton("Add New User Account");
