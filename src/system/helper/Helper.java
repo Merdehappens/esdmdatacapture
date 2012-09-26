@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 public class Helper {
 
 	/**
-	 * Parse in Collection and a Key to search that collection with. Searchs
+	 * Parse in Collection and a Key to search that collection with. Searches
 	 * through collection and Returns the first item with that specific key.
 	 * 
 	 */
