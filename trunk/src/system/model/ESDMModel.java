@@ -698,8 +698,10 @@ public class ESDMModel {
 		}
 		Therapist therapist = (Therapist) currentUser;
 		
+
+		Calendar time = Calendar.getInstance();
 		
-		Mark tempMark = new Mark(setting, child, objective, step, mark, therapist, day);
+		Mark tempMark = new Mark(setting, child, objective, step, mark, therapist, day, time);
 		day.addMark(tempMark);
 		child.addMark(tempMark);
 		markList.add(tempMark);    	
@@ -719,7 +721,8 @@ public class ESDMModel {
 		
 		Therapist t = (Therapist)currentUser;
 
-		Mark tempMark = new Mark(setting, child, objective, step, mark, t, day);
+		Calendar time = Calendar.getInstance();
+		Mark tempMark = new Mark(setting, child, objective, step, mark, t, day, time);
 
 		
 		tempMark.setComments("Timestamp Logged.");

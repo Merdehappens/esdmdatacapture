@@ -43,17 +43,19 @@ public class Step {
     		fetch=FetchType.LAZY)
     private List<Mark> marks;
 
-
+    /**
+     * Creates a new Step object
+     */
 	public Step()
-    {
+	{
     }
     
-    public Step(int id, String description)
-    {
-        this.id = id;
-        this.description = description;
-    }
-    
+    /**
+     * Creates a new step object with the No, Code and Description passed through
+     * @param no
+     * @param code
+     * @param description
+     */
     public Step(String no, String code, String description)
     {
     	this.no = no;
@@ -61,68 +63,115 @@ public class Step {
     	this.description = description;
     }
     
+    /**
+     * Sets the objective of this Step to the one passed through
+     * @param objective
+     */
     public void setObjective(Objective objective)
     {
     	this.objective = objective;
     }
     
+    /**
+     * Returns the objective for this step
+     * @return objective
+     */
     final public Objective getObjective()
     {
     	return objective;
     }
     
+    /**
+     * Sets the ID of the step to the String passed through.
+     * @param id
+     */
     public void setId(int id)
     {
         this.id = id;
     }
     
+    /**
+     * Sets the description of the step to the String passed through.
+     * @param description
+     */
     public void setDescription(String description)
     {
         this.description = description;
     }
     
+    /**
+     * Sets the Number of the step to the String passed through.
+     * @param no
+     */
     public void setNo(String no)
     {
     	this.no = no;
     }
     
+    /**
+     * Sets the code of the Step to the String passed through.
+     * @param code
+     */
     public void setCode(String code)
     {
     	this.code = code;
     }
     
+    /**
+     * Returns the description of this step.
+     * @return description
+     */
     public String getDescription()
     {
         return description;
     }
     
+    /**
+     * Returns the ID of this Step
+     * @return id
+     */
     public int getId()
     {
         return id;
     }
     
+    /**
+     * Returns the code of this Step
+     * @return code
+     */
     public String getCode()
     {
     	return code;
     }
     
+    /**
+     * Returns the Number of this step
+     * @return number
+     */
     public String getNo()
     {
     	return no;
     }
     
-    public String toString()
-    {
-    	return no;
-    }
-
+    /**
+     * Returns the list of marks for this step
+     * @return marksList
+     */
 	public List<Mark> getMarks() {
 		return marks;
 	}
 
+	/**
+	 * Sets the list of marks to the one passed through.
+	 * @param marks
+	 */
 	public void setMarks(List<Mark> marks) {
 		this.marks = marks;
 	}
-	
+
+    public String toString()
+    {
+    	return no;
+    }
 	
 }
