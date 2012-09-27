@@ -53,7 +53,7 @@ public class Helper {
 
 	}
 
-	/*
+	/**
 	 * Parses in a calendar Object. sets time to null and then returns Calendar
 	 * object
 	 */
@@ -67,7 +67,7 @@ public class Helper {
 		return c;
 	}
 
-	/*
+	/**
 	 * Returns a string representation of a calendar object in DD/MM/YY format
 	 */
 
@@ -79,11 +79,15 @@ public class Helper {
 		}
 		return null;
 	}
-
-	// Takes in a file and a Table.
-	// Writes the data from table into the file that has been created.
-	// File can be interpreted by any program that opens .CSV files (OpenOffice,
-	// Microsoft Excel)
+ 
+	/**
+	 * Takes in a file and a Table.
+	 * Writes the data from table into the file that has been created.
+	 * File can be interpreted by any program that opens .CSV files (OpenOffice, Microsoft Excel)
+	 * @param f
+	 * @param table
+	 * @throws Exception
+	 */
 	public static void exportCSV(File f, JTable table) throws Exception {
 		if (f != null) {
 			// Creates new printwriter to this file
@@ -112,8 +116,13 @@ public class Helper {
 
 	}
 
-	// Creates a file chooser and lets you choose any file to save (for CSV
-	// output files)
+	// 
+	
+	/**
+	 * Creates a file chooser and lets you choose any file to save (for CSV output files)
+	 * @return
+	 * @throws Exception
+	 */
 	public static File chooseFile() throws Exception {
 		JFileChooser fc = new JFileChooser();
 
@@ -137,9 +146,14 @@ public class Helper {
 		}
 	}
 
-	// Takes in a string and checks that the length is greater than the length
-	// we've specified for Password (6 chars)
-	// Returns boolean true or false
+	// 
+	
+	/**
+	 * Takes in a string and checks that the length is greater than the length
+	 * we've specified for Password (6 chars) 
+	 * @param s
+	 * @return boolean
+	 */
 	public static boolean checkPasswordLength(String s) {
 		if (s.length() >= 6) {
 			return true;
@@ -147,6 +161,11 @@ public class Helper {
 		return false;
 	}
 
+	/**
+	 * Checks if the string passed through meets the requirements for an email address.
+	 * @param email
+	 * @return
+	 */
 	public static boolean isValidEmailAddress(String email) {
 
 		String regEx = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b";

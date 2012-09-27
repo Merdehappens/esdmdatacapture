@@ -52,7 +52,7 @@ public class Setting implements SimpleKey {
     }
     
     /**
-     * 
+     * Creates a new setting object with the description passed through
      * @param description
      */
     public Setting(String description)
@@ -61,6 +61,11 @@ public class Setting implements SimpleKey {
         objectives = new ArrayList<ObjectiveType>();
     }
     
+    /**
+     * Creates a new setting object with the description and ID passed through
+     * @param id
+     * @param description
+     */
     public Setting(int id, String description)
     {
         this.id = id;
@@ -68,53 +73,91 @@ public class Setting implements SimpleKey {
         objectives = new ArrayList<ObjectiveType>();
     }
     
+    /**
+     * Returns the id associated with this setting.
+     */
     public int getId()
     {
         return id;
     }
     
-    public String toString()
-    {
-    	return description;
-    }
-    
+    /**
+     * Returns the list of objectives associated with this setting
+     * @return objectives
+     */
     public List<ObjectiveType> getObjectives()
     {
     	return objectives;
     }
 
+    /**
+     * Returns the description of the setting
+     * @return description
+     */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * Sets the description of the setting to the String passed through.
+	 * @param description
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-
+	/**
+	 * Sets the id of the setting to the int passed through.
+	 * @param id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * Sets the objectives list to the one passed through
+	 * @param objTypeList
+	 */
 	public void setObjectives(List<ObjectiveType> objTypeList) {
 		this.objectives = objTypeList;
 	}
 
+	/**
+	 * Returns all days this setting is in
+	 * @return
+	 */
 	public List<Day> getDays() {
 		return days;
 	}
 
+	/**
+	 * sets the list of days that this setting is a part of
+	 * @param days
+	 */
 	public void setDays(List<Day> days) {
 		this.days = days;
 	}
 
+	/**
+	 * Returns a list of all marks for this setting
+	 * @return markList
+	 */
 	public List<Mark> getMarks() {
 		return marks;
 	}
 
+	/**
+	 * sets the list of marks associated with this setting
+	 * @param marks
+	 */
 	public void setMarks(List<Mark> marks) {
 		this.marks = marks;
 	}
+
+    public String toString()
+    {
+    	return description;
+    }
     
     
 }
