@@ -55,13 +55,6 @@ public class RoomView extends PanelView {
 		super.setTitle("Rooms");
 
 		btnAddRoom = new JButton("Add New Room");
-		btnAddRoom.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				addRoom();
-			}
-
-
-		});
 		btnAddRoom.setBounds(50, 109, 126, 30);
 		add(btnAddRoom);
 
@@ -108,6 +101,9 @@ public class RoomView extends PanelView {
 		tblColModel.getColumn(0).setPreferredWidth(600);
 
 	}
+	public void addRoomListener(ActionListener al) {
+		btnAddRoom.addActionListener(al);
+	}
 	
 	public void editRoomListener(ActionListener al) {
 		btnEditRoom.addActionListener(al);
@@ -137,11 +133,14 @@ public class RoomView extends PanelView {
 	}
 	
 	
-	private void addRoom() {
+	public void addRoom() throws Exception {
 		String name = JOptionPane.showInputDialog(null, "Please enter the name of the new room");
-		if(name != null)
+		name = name.trim();
+		if(name != null && name.length() != 0)
 		{
 			this.getModel().addRoom(name);
+		} else {
+			throw new Exception("Room name must be entered.");
 		}
 		refreshView();
 	}

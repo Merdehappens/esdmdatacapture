@@ -114,16 +114,18 @@ public class Helper {
 
 	// Creates a file chooser and lets you choose any file to save (for CSV
 	// output files)
-	public static File chooseFile() {
+	public static File chooseFile() throws Exception {
 		JFileChooser fc = new JFileChooser();
 
 		int returnVal = fc.showSaveDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			// Gets the selected path
+			System.out.println(fc.getSelectedFile().getName());
 			String path = fc.getSelectedFile().getAbsolutePath();
-
+			
 			// Checks that the filepath ends in .csv. if it doesn't it appends
 			// .csv to the end of the filepath
+			
 			if (path.lastIndexOf(".csv") == -1) {
 				path = path + ".csv";
 			}

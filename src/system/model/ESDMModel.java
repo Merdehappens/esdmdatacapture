@@ -540,7 +540,7 @@ public class ESDMModel {
 		//create objective with these steps
 		if(name.length() == 0)
 		{
-			throw new Exception("The name field is empty.");
+			throw new Exception("The Name Field is empty.");
 		}
 		if(level == 0)
 		{
@@ -980,19 +980,19 @@ public class ESDMModel {
 	{
 		if(name.length() == 0)
 		{
-			throw new Exception("Name field is empty.");
+			throw new Exception("The name field is empty.");
 		}
 		if(level == 0)
 		{
-			throw new Exception("Level field is empty.");
+			throw new Exception("The level field is empty.");
 		}
 		if(description.length() == 0)
 		{
-			throw new Exception("Description field is empty.");
+			throw new Exception("The description field is empty.");
 		}
 		if(objType == null)
 		{
-			throw new Exception("Type must be selected.");
+			throw new Exception("The type must be selected.");
 		}
 		
 		objective.setName(name);
@@ -1197,7 +1197,7 @@ public class ESDMModel {
 		org.hibernate.Session session = factory.getCurrentSession();
 		session.beginTransaction();
 		
-		String qry = ("Select count(*) from Day day where day.roomId = " + room.getRoomName());
+		String qry = ("Select count(*) from Day day where day.roomId = \"" + room.getRoomName() + "\"");
 		Query query = session.createSQLQuery(qry);
     	BigInteger s = (BigInteger) query.uniqueResult();
     	System.out.println(s.intValue());
@@ -1359,6 +1359,30 @@ public class ESDMModel {
     	u = (UserAccount) dbSession.merge(u);
     	dbSession.update(u);
     	dbSession.getTransaction().commit();
+	}
+
+	public void editObjectiveType(ObjectiveType objType, String name) throws Exception  {
+		objType.setName(name);
+
+		org.hibernate.Session dbSession = factory.getCurrentSession();
+    	dbSession.beginTransaction();
+    	objType = (ObjectiveType) dbSession.merge(objType);
+    	dbSession.update(objType);
+    	dbSession.getTransaction().commit();
+	}
+
+	public void setUserDetails(UserAccount u, String name, String ph,
+			String email) throws Exception  {
+		
+		u.setName(name);
+		u.setPhoneNo(ph);
+		u.setEmailAddress(email);
+		
+		org.hibernate.Session dbSession = factory.getCurrentSession();
+    	dbSession.beginTransaction();
+    	u = (UserAccount) dbSession.merge(u);
+    	dbSession.update(u);
+    	dbSession.getTransaction().commit();		
 	}
 	
 	

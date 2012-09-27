@@ -56,19 +56,19 @@ public class AddChild extends PanelView {
 
 		// Adds text fields to screen
 		txtName = new JTextField();
-		txtName.setBounds(43, 66, 294, 30);
+		txtName.setBounds(43, 66, 357, 30);
 		add(txtName);
 		txtName.setColumns(10);
 
 		dobChooser = new JDateChooser();
-		dobChooser.setBounds(10, 107, 327, 30);
+		dobChooser.setBounds(10, 107, 390, 30);
 		add(dobChooser);
 		
 				JLabel lblDateOfBirth = new JLabel("Date Of Birth");
 				dobChooser.add(lblDateOfBirth, BorderLayout.WEST);
 
 		dateJoinedChooser = new JDateChooser();
-		dateJoinedChooser.setBounds(10, 146, 327, 30);
+		dateJoinedChooser.setBounds(10, 146, 390, 30);
 		add(dateJoinedChooser);
 		
 				JLabel lblDateJoined = new JLabel("Date Joined");

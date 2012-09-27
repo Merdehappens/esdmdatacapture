@@ -12,9 +12,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.MissingResourceException;
 
@@ -454,12 +457,6 @@ public class Controller extends JFrame {
 			}
 		});
 		
-		userAccountView.viewUser(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				// TODO View User screen.
-				
-			}
-		});
 
 		childViewGrid.homeListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -490,6 +487,18 @@ public class Controller extends JFrame {
 				show(esdmPanel, "Home");
 			}
 		});
+		
+		objectiveTypeView.addObjectiveTypeListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					objectiveTypeView.addObjectiveType();
+					objectiveTypeView.refreshView();
+					showMessage("This objective was successfully added");
+				} catch (Exception e) {
+					showErrorMessage(e.getMessage());
+				}
+			}
+		});
 
 		accountView.homeListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -506,6 +515,16 @@ public class Controller extends JFrame {
 		roomView.homeListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				show(esdmPanel, "Home");
+			}
+		});
+		
+		roomView.addRoomListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					roomView.addRoom();
+				} catch (Exception e) {
+					showMessage(e.getMessage());
+				}
 			}
 		});
 
@@ -548,6 +567,36 @@ public class Controller extends JFrame {
 				show(esdmPanel, "findChildReport");
 			}
 		});
+		
+		viewReport.dateFromListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent arg0) {
+				Date dateFrom = viewReport.getDateFrom();
+				Date dateTo = viewReport.getDateTo();
+				if(dateFrom != null && dateTo != null) {
+					System.out.println("TEST");
+					if(dateTo.before(dateFrom)) {
+						showErrorMessage("Date to cannot be before Date from.");
+						viewReport.setDateFrom(dateTo);
+					}
+				}
+				viewReport.refreshView();
+			}
+		});
+		
+		viewReport.dateToListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent arg0) {
+				Date dateFrom = viewReport.getDateFrom();
+				Date dateTo = viewReport.getDateTo();
+				if(dateFrom != null && dateTo != null) {
+					System.out.println("TEST");
+					if(dateTo.before(dateFrom)) {
+						showErrorMessage("Date to cannot be before Date from.");
+						viewReport.setDateTo(dateFrom);
+					}
+				}
+				viewReport.refreshView();
+			}
+		});
 
 		reviewSession
 				.reviewSessionsListener(new java.awt.event.ActionListener() {
@@ -578,6 +627,25 @@ public class Controller extends JFrame {
 				{
 					show(esdmPanel, "userAccountView");
 				}
+			}
+		});
+		
+		editAccount.saveAccountListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				UserAccount u = editAccount.getAccount();
+				
+				String name = editAccount.getUserName();
+				String ph = editAccount.getPhoneNumber();
+				String email = editAccount.getEmail();
+				
+				try {
+					model.setUserDetails(u, name, ph, email);
+					show(esdmPanel, "userAccountView");
+					showMessage("Successfully changed details.");
+				} catch (Exception e) {
+					showErrorMessage(e.getMessage());
+				}
+				
 			}
 		});
 
@@ -1002,6 +1070,12 @@ public class Controller extends JFrame {
 								}
 							}
 						});
+				
+				chooseObjective.cancelButtonListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						chooseObjective.setVisible(false);
+					}
+				});
 
 				chooseObjective.setModalityType(ModalityType.APPLICATION_MODAL);
 				chooseObjective.setVisible(true);
@@ -1086,9 +1160,8 @@ public class Controller extends JFrame {
 					model.saveObjective(objective, name, description, level,
 							steps, objType, hidden);
 					objective.setHidden(viewObjective.getHidden());
-					// show(objectivePanel, "Objective");
 					show(esdmPanel, "Objective");
-					showMessage("Objective successfully added");
+					showMessage("Objective successfully saved.");
 				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
 					e.printStackTrace();
@@ -1320,7 +1393,12 @@ public class Controller extends JFrame {
 								}
 							}
 						});
-
+				chooseObjective.cancelButtonListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						chooseObjective.setVisible(false);
+					}
+				});
+				
 				chooseObjective.setModalityType(ModalityType.APPLICATION_MODAL);
 				chooseObjective.setVisible(true);
 
@@ -1337,6 +1415,7 @@ public class Controller extends JFrame {
 
 				try {
 					model.updateChild(child, name, dob, dateJoined);
+					show(esdmPanel, "Child");
 					showMessage("Details successfully saved.");
 				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
@@ -1498,11 +1577,13 @@ public class Controller extends JFrame {
 			public void actionPerformed(ActionEvent evt) {
 				try {
 					model.removeRoom(roomView.getSelectedRoom());
+					roomView.refreshView();
+					showMessage("Room successfully removed");
 				} catch (Exception e) {
 					e.printStackTrace();
 					showErrorMessage(e.getMessage());
 				}
-				roomView.refreshView();
+				
 			}
 		});
 

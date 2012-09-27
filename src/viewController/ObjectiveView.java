@@ -54,7 +54,7 @@ public class ObjectiveView extends PanelView {
 		btnAddNewObjective.setBounds(50, 90, 200, 35);
 		add(btnAddNewObjective);
 
-		btnViewObjectives = new JButton("View Objectives");
+		btnViewObjectives = new JButton("View Objective");
 		btnViewObjectives.setBounds(260, 90, 200, 35);
 		add(btnViewObjectives);
 

@@ -38,7 +38,6 @@ public class EditChild extends PanelView {
 	private JButton btnSave;
 	private MyJTable tblGuardian;
 	private DefaultTableModel tblGuardianModel;
-	private JLabel lblPicture;
 	private MyJTable tblObjective;
 	private DefaultTableModel tblObjectiveModel;
 	private JButton btnSetMastered;
@@ -82,23 +81,23 @@ public class EditChild extends PanelView {
 		add(lblDateJoined);
 
 		txtName = new JTextField();
-		txtName.setBounds(66, 63, 263, 30);
+		txtName.setBounds(66, 63, 331, 30);
 		add(txtName);
 		txtName.setColumns(10);
 
 		dobChooser = new JDateChooser();
 		dobChooser.setDateFormatString("dd/MM/yyyy");
-		dobChooser.setBounds(87, 107, 242, 30);
+		dobChooser.setBounds(87, 107, 310, 30);
 		add(dobChooser);
 
 		dateJoinedChooser = new JDateChooser();
 		dateJoinedChooser.setDateFormatString("dd/MM/yyyy");
-		dateJoinedChooser.setBounds(87, 148, 242, 30);
+		dateJoinedChooser.setBounds(87, 148, 310, 30);
 		add(dateJoinedChooser);
 
 		btnSave = new JButton("Save");
 
-		btnSave.setBounds(10, 389, 89, 30);
+		btnSave.setBounds(46, 389, 89, 30);
 		add(btnSave);
 
 		JButton btnReset = new JButton("Reset");
@@ -107,11 +106,11 @@ public class EditChild extends PanelView {
 				refreshView();
 			}
 		});
-		btnReset.setBounds(109, 389, 105, 30);
+		btnReset.setBounds(145, 389, 105, 30);
 		add(btnReset);
 
 		btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(224, 389, 105, 30);
+		btnCancel.setBounds(260, 389, 105, 30);
 		add(btnCancel);
 
 		JLabel lblId = new JLabel("Id:");
@@ -123,7 +122,7 @@ public class EditChild extends PanelView {
 		add(txtId);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 189, 319, 150);
+		scrollPane.setBounds(10, 189, 387, 150);
 		add(scrollPane);
 		
 		tblGuardian = new MyJTable();
@@ -131,12 +130,8 @@ public class EditChild extends PanelView {
 		tblGuardian.setModel(tblGuardianModel);
 		scrollPane.setViewportView(tblGuardian);
 		
-		lblPicture = new JLabel("");
-		lblPicture.setBounds(369, 66, 189, 129);
-		add(lblPicture);
-		
 		JScrollPane scrlTable = new JScrollPane();
-		scrlTable.setBounds(355, 63, 482, 316);
+		scrlTable.setBounds(411, 63, 426, 316);
 		add(scrlTable);
 		
 		tblObjective = new MyJTable();
@@ -172,11 +167,11 @@ public class EditChild extends PanelView {
 		add(btnDecrementStep);
 		
 		btnAddExistingGuardian = new JButton("Add Existing Guardian");
-		btnAddExistingGuardian.setBounds(10, 350, 154, 30);
+		btnAddExistingGuardian.setBounds(46, 350, 154, 30);
 		add(btnAddExistingGuardian);
 		
 		btnAddNewGuardian = new JButton("Add New Guardian");
-		btnAddNewGuardian.setBounds(175, 350, 154, 30);
+		btnAddNewGuardian.setBounds(211, 350, 154, 30);
 		add(btnAddNewGuardian);
 		String[] guardianColIdentifiers = {"Name", "Phone Number", "Email Address"};
 		tblGuardianModel.setColumnIdentifiers(guardianColIdentifiers);
