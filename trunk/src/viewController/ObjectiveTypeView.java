@@ -33,6 +33,7 @@ public class ObjectiveTypeView extends PanelView {
 	private ArrayList<ObjectiveType> otList;
 	private JButton btnHome;
 	private JButton btnBackToAdministration;
+	private JButton btnEditObjectiveType;
 
 	public ObjectiveTypeView() {
 		super();
@@ -53,14 +54,7 @@ public class ObjectiveTypeView extends PanelView {
 		super.setTitle("Objective Types");
 
 		btnAddObjectiveType = new JButton("Add New Objective Type");
-		btnAddObjectiveType.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				addObjectiveType();
-			}
-
-
-		});
-		btnAddObjectiveType.setBounds(50, 109, 126, 30);
+		btnAddObjectiveType.setBounds(50, 109, 189, 30);
 		add(btnAddObjectiveType);
 
 		scrollPane = new JScrollPane();
@@ -84,7 +78,7 @@ public class ObjectiveTypeView extends PanelView {
 		tblType.setRowSorter(sorter);
 		
 		btnRemoveObjectiveType = new JButton("Remove Objective Type");
-		btnRemoveObjectiveType.setBounds(322, 109, 137, 30);
+		btnRemoveObjectiveType.setBounds(256, 109, 217, 30);
 		add(btnRemoveObjectiveType);
 		
 		btnHome = new JButton("Home");
@@ -95,6 +89,7 @@ public class ObjectiveTypeView extends PanelView {
 		btnBackToAdministration.setBounds(119, 536, 165, 23);
 		add(btnBackToAdministration);
 		
+		
 		TableColumnModel tblColModel = tblType.getColumnModel();
 
 		/*tblColModel.getColumn(0).setPreferredWidth(100);
@@ -103,14 +98,25 @@ public class ObjectiveTypeView extends PanelView {
 
 	}
 	
-	private void addObjectiveType() {
-		String name = JOptionPane.showInputDialog(null, "Please enter the name of the new objective type");
-		if(name != null)
+	public void addObjectiveTypeListener(ActionListener al) {
+		btnAddObjectiveType.addActionListener(al);
+
+	}
+	
+	public void addObjectiveType() throws Exception {
+		String name = JOptionPane.showInputDialog(null, "Please enter the name of the new objective type.");
+		name = name.trim();
+		if(name != null && name.length() != 0)
 		{
 			this.getModel().addObjectiveType(name);
 		}
+		else
+		{
+			throw new Exception("Name must not be blank");
+		}
 		refreshView();
 	}
+	
 
 	// Overrides the refreshView method in PanelView and refreshes the view of this panel
 	public void refreshView() {
@@ -142,6 +148,7 @@ public class ObjectiveTypeView extends PanelView {
 	public void removeObjectiveTypeListener(ActionListener al) {
 		btnRemoveObjectiveType.addActionListener(al);
 	}
+	
 	
 	public ObjectiveType getSelectedObjectiveType()
 	{

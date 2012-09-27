@@ -181,4 +181,20 @@ public class EditAccount extends PanelView {
 	public void setUser(UserAccount selectedAccount) {
 		user = selectedAccount;
 	}
+
+	public UserAccount getAccount() {
+		return user;
+	}
+
+	public String getUserName() {
+		return txtName.getText();
+	}
+
+	public String getPhoneNumber() {
+		return txtPhoneNumber.getText();
+	}
+
+	public String getEmail() {
+		return txtEmailAddress.getText();
+	}
 }

@@ -102,11 +102,7 @@ public class ViewReport extends PanelView {
 		// Adds the second date chooser to the page
 
 		dateChooserFrom = new JDateChooser();
-		dateChooserFrom.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent arg0) {
-				refreshView();
-			}
-		});
+
 		dateChooserFrom.setBounds(319, 87, 200, 35);
 		add(dateChooserFrom);
 
@@ -159,6 +155,14 @@ public class ViewReport extends PanelView {
 
 	// For the Export to file button. Sets up a file chooser and then creates
 	// the file in the folder specified.
+	
+	public void dateToListener(PropertyChangeListener pcl) {
+		dateChooserTo.addPropertyChangeListener(pcl);
+	}
+	
+	public void dateFromListener(PropertyChangeListener pcl) {
+		dateChooserFrom.addPropertyChangeListener(pcl);
+	}
 
 	public void saveCSV() throws Exception {
 		File f = Helper.chooseFile();
@@ -247,6 +251,7 @@ public class ViewReport extends PanelView {
 			}
 			
 			sorter.setRowFilter(RowFilter.andFilter(filters));
+			
 		}
 
 	}
@@ -259,7 +264,25 @@ public class ViewReport extends PanelView {
 
 	// Overrides the refreshView method in PanelView and refreshes the view of
 	// this panel
-	public void refreshView() {
+	public void refreshView(){
 		refreshTable();
+		
+	}
+
+	public Date getDateFrom() {
+		return dateChooserFrom.getDate();
+	}
+	
+	public Date getDateTo() {
+		return dateChooserTo.getDate();
+	}
+
+	public void setDateTo(Date date) {
+		dateChooserTo.setDate(date);
+	}
+
+	public void setDateFrom(Date date) {
+		dateChooserFrom.setDate(date);
+		
 	}
 }
