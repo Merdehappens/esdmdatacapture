@@ -14,6 +14,10 @@ public class PlaySound implements Runnable {
 
 	private File file;
 	
+	/**
+	 * Plays the file passed through
+	 * @param file
+	 */
 	public PlaySound(File file)
 	{
 		this.file = file;

@@ -266,18 +266,8 @@ public class AddObjective extends PanelView {
 		return txtObjectiveDescription.getText();
 	}
 	
-	public int getLevel() throws Exception {
-		if(txtLevel.getText().length() != 0)
-		{
-			try{
-			return Integer.parseInt(txtLevel.getText());
-			}
-			catch(Exception e) {
-				throw new IllegalArgumentException("Level must be a number.");
-			}
-		}
-		
-		return 0;
+	public String getLevel() {
+		return txtLevel.getText();
 	}
 
 	// Returns a multi dimensional string array for the steps

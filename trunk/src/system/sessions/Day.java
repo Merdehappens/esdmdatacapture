@@ -54,6 +54,9 @@ public class Day implements SimpleKey {
     		fetch=FetchType.LAZY)
     private List<Mark> marks;
     
+    /**
+     * Creates a new Day object
+     */
     public Day()
     {
     	children = new ArrayList<Child>();
@@ -61,6 +64,13 @@ public class Day implements SimpleKey {
         marks = new ArrayList<Mark>();
     }
 
+    /**
+     * Creates a new day object with the parameters passed in
+     * @param children
+     * @param date
+     * @param id
+     * @param settings
+     */
     public Day(ArrayList<Child> children, Calendar date, int id, ArrayList<Setting> settings) {
         this.children = children;
         this.date = date;
@@ -78,6 +88,10 @@ public class Day implements SimpleKey {
         date.set(Calendar.MILLISECOND, 0);
     }
     
+    /**
+     * Creates a new day object with the date passed through
+     * @param date
+     */
     public Day(Calendar date)
     {
         this.date = date;
@@ -87,6 +101,11 @@ public class Day implements SimpleKey {
         settings = new ArrayList<Setting>();
     }
         
+    /**
+     * Creates a new Day with the date and id passed through
+     * @param date
+     * @param id
+     */
     public Day(Calendar date, int id)
     {
         this.date = date;
@@ -97,6 +116,11 @@ public class Day implements SimpleKey {
         settings = new ArrayList<Setting>();
     }
     
+    /**
+     * Creates a new day object with the date and room passed through
+     * @param date
+     * @param room
+     */
     public Day(Calendar date, Room room)
     {
     	this.date = date;
@@ -107,37 +131,65 @@ public class Day implements SimpleKey {
     	settings = new ArrayList<Setting>();
     }
     
+    /**
+     * Adds a mark to this day object
+     * @param mark
+     */
     public void addMark(Mark mark)
     {
     	marks.add(mark);
     }
     
+    /**
+     * Returns a list of all marks in this object.
+     * @return marksList
+     */
     public List<Mark> getMarks()
     {
     	return marks;
     }
     
+    /**
+     * Sets the room of this object to the one passed through.
+     * @param room
+     */
     public void setRoom(Room room)
     {
     	this.room = room;
     }
     
+    /**
+     * Returns the ID associated with this day object.
+     * @return id
+     */
     public int getId()
     {
         return id;
     }
     
+    /**
+     * Returns the room associated with this day object.
+     * @return
+     */
     public Room getRoom()
     {
     	return room;
     }
     
+    /**
+     * Returns all of the settings in this day.
+     * @return settingList
+     */
     public Collection<Setting> getSettings()
     {
     	return settings;
    
     }
 
+    /**
+     * Returns all of the children in this day.
+     * @return childList
+     */
 	public Collection<Child> getChildren() {
 		return children;
 	}
@@ -150,45 +202,77 @@ public class Day implements SimpleKey {
 		this.template = template;
 	}
 	
-	public String toString()
-	{
-		return (id+"");
-	}
-	
+	/**
+	 * Returns the date associated with this Day object.
+	 * @return date
+	 */
 	public Calendar getDate()
 	{
 		return date;
 	}
 	
+	/**
+	 * Adds the child parameter to the list of children.
+	 * @param child
+	 */
 	public void addChildren(Child child)
 	{
-	        children.add(child);
+		children.add(child);
 	}
 	
+	/**
+	 * Adds the setting parameter to the list of settings.
+	 * @param setting
+	 */
 	public void addSetting(Setting setting)
 	{
 		settings.add(setting);
 
 	}
 
+	/**
+	 * Sets the id of this Day object to the string passed through.
+	 * @param id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * Sets the list of children to the list passed through
+	 * @param childList
+	 */
 	public void setChildren(List<Child> children) {
 		this.children = children;
 	}
 
+	/**
+//	 * Sets the date in the Day object to the one passed through.
+	 * @param date
+	 */
 	public void setDate(Calendar date) {
 		this.date = date;
 	}
 
+	/**
+	 * Sets the setting list in the Day object to the one passed through.
+	 * @param settingsList
+	 */
 	public void setSettings(List<Setting> settings) {
 		this.settings = settings;
 	}
 
+	/**
+	 * Sets the marks list in the day object to the one passed through
+	 * @param marksList
+	 */
 	public void setMarks(List<Mark> marks) {
 		this.marks = marks;
+	}
+	
+	public String toString()
+	{
+		return (id+"");
 	}
     
 	

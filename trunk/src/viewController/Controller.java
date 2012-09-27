@@ -1594,7 +1594,7 @@ public class Controller extends JFrame {
 		try {
 			String name = addObjective.getObjectiveName();
 			String description = addObjective.getObjectiveDescription();
-			int level = addObjective.getLevel();
+			String level = addObjective.getLevel();
 			String[][] steps = addObjective.getSteps();
 			ObjectiveType objType = addObjective.getObjectiveType();
 

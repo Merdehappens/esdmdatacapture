@@ -48,9 +48,11 @@ public class ESDMModel {
     private AnnotationConfiguration config;
 	private SessionFactory factory;
     
-    public ESDMModel() throws MalformedURLException
+	/**
+	 * Creates a new Model object. Sets up all the lists and calls the hibernate setup methods
+	 */
+    public ESDMModel()
     {
-
     	childList = new ArrayList<Child>();
         settingList = new HashSet<Setting>();
         objectiveList = new ArrayList<Objective>();
@@ -69,7 +71,7 @@ public class ESDMModel {
         
     }
     
-    public void hibernateSetUp()
+    private void hibernateSetUp()
     {
     	config = new AnnotationConfiguration();
 		config.addAnnotatedClass(Step.class);
@@ -96,23 +98,33 @@ public class ESDMModel {
     
     // Is called when the program is closed. makes sure the session factory
     // object gets closed properly.
+    /**
+     * Is called when the program is closed. Makes sure the session factory is closed properly.
+     */
     public void modelExit()
     {
     	factory.close();
     }
     
-    // returns the annotation configuration object
+    /**
+     * Returns the annotation configuration object
+     * @return config
+     */
     public AnnotationConfiguration getConfig() {
 		return config;
 	}
 
-    // returns the session factory object
+    /**
+     * returns the session factory object
+     * @return
+     */
 	public SessionFactory getFactory() {
 		return factory;
 	}
     
-    /*
+    /**
      * Returns the list of all children in the system
+     * @return childList
      */
 
     public List<Child> getChildList() {
@@ -120,8 +132,9 @@ public class ESDMModel {
         return childList;
     }
     
-    /*
+    /**
      * Returns a list of all children in the system where the boolean parsed in is equal to the childs active attribute
+     * @return childList
      */
     
     public List<Child> getChildList(boolean active){
@@ -144,43 +157,34 @@ public class ESDMModel {
     	
     }
     
-    /*
-     * Returns all children in the list whose name contain the String parsed through.
+    /**
+     * Returns the list of all rooms in the system
+     * @return roomList
      */
-    
-    public List<Child> getChildList(String filter)
-    {
-    	ArrayList<Child> newChildList = new ArrayList<Child>();
-    	
-    	int size = childList.size();
-    	for(int i = 0; i < size; i++)
-    	{
-    		Child c = childList.get(i);
-    		if(c.getName().contains(filter))
-    		{
-    			newChildList.add(c);
-    		}
-    	}
-    	
-    	return newChildList;
-    }
-    
     public Collection<Room> getRoomList() {
     	return roomList;
     }
     
+    /**
+     * Returns the list of all settings in the system
+     * @return settingList
+     */
     public Collection<Setting> getSettingList() {
     	return settingList;
     }
     
+    /**
+     * Returns a list of all objectives in the system
+     * @return objectiveList
+     */
     public List<Objective> getObjectiveList() {
     	return objectiveList;
     }
     
+    
     /* 
      * Loads all data from the database
      */
-    
     private void loadFromDatabase() throws Exception
     {
     	org.hibernate.Session session = factory.openSession();
@@ -261,9 +265,7 @@ public class ESDMModel {
     		markList.add(m);
     	}
     	
-    	
-
-
+    
     	qry = ("Select account from UserAccount account");
     	query = session.createQuery(qry);
     	
@@ -277,12 +279,16 @@ public class ESDMModel {
     	session.getTransaction().commit();
     
     }
-    
-    /*
+  
+
+    /**
      * Checks the parsed through username and password and returns true if the password is correct for that user.
      * Returns false otherwise.
+     * 
+     * @param username
+     * @param password
+     * @return boolean
      */
-
     public boolean login(String username, String password)
     {
     	int size = userList.size();
@@ -308,9 +314,15 @@ public class ESDMModel {
     }
     
     /*
-     * Sets the password of the user that is currently logged in to the system.
+     * 
      */
     
+    /**
+     * Sets the password of the user that is currently logged in to the system to the String passed through.
+     * 
+     * @param temp
+     * @throws Exception
+     */
     public void setPassword(String temp) throws Exception
     {
     	if(currentUser != null)
@@ -324,9 +336,21 @@ public class ESDMModel {
     }
     
     /*
-     * Adds a new user account to the system.
+     * 
      */
     
+    
+    /**
+     * Adds a new user account to the system with the attributes passed through
+     * @param name
+     * @param username
+     * @param emailAddress
+     * @param phoneNo
+     * @param password
+     * @param access
+     * @return therapist
+     * @throws Exception
+     */
     public Therapist newTherapist(String name, String username, String emailAddress, String phoneNo, String password, String access) throws Exception
     {
     	// Checks that no strings are empty
@@ -364,6 +388,17 @@ public class ESDMModel {
     	return user;
     }
     
+    /**
+     * Adds a new user account to the system with the attributes passed through
+     * @param name
+     * @param username
+     * @param emailAddress
+     * @param phoneNo
+     * @param password
+     * @param access
+     * @return guardian
+     * @throws Exception
+     */
 	public Guardian newGuardian(String name, String username, String emailAddress, String phoneNo, String password, String access) throws Exception
 	{
     	// Checks that no strings are empty
@@ -403,15 +438,10 @@ public class ESDMModel {
 	}
     
     
-    
-    
-    /****************************************************
-     *  Returns true if a user is currently logged in   *
-     *  False otherwise                                 *
-     *                                                  *
-     * **************************************************/
-    
-    
+    /**
+     * Returns true if a user is currently logged in, false otherwise
+     * @return
+     */
     public boolean loggedIn()
     {
         if(currentUser == null)
@@ -421,11 +451,16 @@ public class ESDMModel {
         return true;
     }
     
-    /* 
+    
+    /**
      * Creates a new child object and Adds it to the system with the specified name,
      * dob, date joined and list of guardians
+     * @param name
+     * @param dob
+     * @param dateJoined
+     * @return child
+     * @throws Exception
      */
-    
     public Child addChild(String name, Calendar dob, Calendar dateJoined) throws Exception
     {
     	
@@ -466,9 +501,15 @@ public class ESDMModel {
     }
     
     /* 
-     * Returns child with the childID Specified
+     * 
      */
     
+    /**
+     * Returns child with the id passed through
+     * @param childId
+     * @return
+     * @throws Exception
+     */
 	public Child viewChild(int childId) throws Exception
     {
         Child child = (Child)Helper.search((Collection<Child>)childList, childId);
@@ -481,10 +522,16 @@ public class ESDMModel {
         return child;
     }
 	
-	/* Creates a new Day object, takes a list of Children and Session
+	/** 
+	 * Creates a new Day object, takes a list of Children and Session
 	 * objects and adds them to that Day
+	 * @param date
+	 * @param children
+	 * @param room
+	 * @param settings
+	 * @return
+	 * @throws Exception
 	 */
-	
 	public Day addDay(Calendar date, ArrayList<Child> children, Room room, ArrayList<Setting> settings) throws Exception
 	{
 		if(date == null)
@@ -523,18 +570,27 @@ public class ESDMModel {
 	}
 	
 	
-	
-	
-	/* Takes in a String Name Which is the name of the objective, String description which is the description of the Objective
+	/**
+	 * Takes in a String Name Which is the name of the objective, String description which is the description of the Objective
 	 * 
 	 *  it takes String[][] which are the steps.
 	 *  (i.e. steps[0][0] is the code of the first step, steps[0][1] is the Description of the first step
 	 *        steps[1][0] is the code of the second step, step [1][1] is the description of the second step. and so on.
+	 *        
+	 * @param name
+	 * @param description
+	 * @param steps
+	 * @param level
+	 * @param objType
+	 * @throws Exception
 	 */
-	
-	public void addObjective(String name, String description, String[][] steps, int level, ObjectiveType objType) throws Exception
+	public void addObjective(String name, String description, String[][] steps, String level, ObjectiveType objType) throws Exception
 	{
-	
+		level = level.trim();
+		name = name.trim();
+		description = description.trim();
+		int levelInt;
+		
 		//iterate through string
 		//create step for each pair
 		//create objective with these steps
@@ -542,10 +598,16 @@ public class ESDMModel {
 		{
 			throw new Exception("The Name Field is empty.");
 		}
-		if(level == 0)
+		if(level.length() == 0)
 		{
 			throw new Exception("The level field is empty.");
 		}
+		try {
+		levelInt = Integer.parseInt(level);
+		} catch (Exception e) {
+			throw new Exception("Level must be a number.");
+		}
+		
 		if(description.length() == 0)
 		{
 			throw new Exception("The description field is empty.");
@@ -558,17 +620,17 @@ public class ESDMModel {
     	org.hibernate.Session session = factory.getCurrentSession();
     	session.beginTransaction();
 		
-		Objective o = new Objective(name, description, level);
+		Objective o = new Objective(name, description, levelInt);
 		o.setType(objType);
 		for (int i = 0; i < steps.length; i++)
 		{
 			if(steps[i][0].length() == 0 )
 			{
-				throw new Exception("One of the codes isn't filled in.");
+				throw new Exception("One of the code fields is empty.");
 			}
 			if(steps[i][1].length() == 0 )
 			{
-				throw new Exception("One of the steps isn't filled in.");
+				throw new Exception("One of the step fields is empty.");
 			}
 			String no = (i + 1) + "";
 			Step step = new Step(no, steps[i][0], steps[i][1]);//retrieves info from 2D array and makes a new step
@@ -588,17 +650,23 @@ public class ESDMModel {
 	}
 
 	/*
-	 * Returns the user that is currently logged in to the system
+	 * 
 	 */
 	
+	/**
+	 * Returns the user that is currently logged in to the system
+	 * @return User
+	 */
 	public UserAccount getCurrentUser() {
 		return currentUser;
 	}
 
-	/*
-	 * Sets the email of the user that is currently logged into the system to the String parsed through
-	 */
 	
+	/**
+	 * Sets the email of the user that is currently logged into the system to the String passed through
+	 * @param email
+	 * @throws Exception
+	 */
 	public void setEmail(String email) throws Exception {
 		if(Helper.isValidEmailAddress(email))
 		{
@@ -617,24 +685,35 @@ public class ESDMModel {
 		}
 
 	}
-
-	/*
-	 * Adds a new guardian to the system
-	 */
 	
+	/**
+	 * Adds the guardian passed through to the system
+	 * @param guardian
+	 */
 	public void addGuardian(Guardian guardian) {
 		userList.add(guardian);
 	}
 
-
+	/**
+	 * Returns a list of all days in the system
+	 * @return dayList
+	 */
 	public List<Day> getDayList() {
 		return dayList;
 	}
 	
 	/*
-	 * Changes the password of the user that is currently logged in to the system to the new password parsed through
+	 *
 	 */
 	
+	/**
+	 * Changes the password of the user that is currently logged in to the system to the new password parsed through
+	 * Checks that both new passwords match and that they aren't same as old password and meet minimum complexity
+	 * @param oldPassword
+	 * @param newPassword1
+	 * @param newPassword2
+	 * @throws Exception
+	 */
 	public void changePassword(String oldPassword, String newPassword1, String newPassword2) throws Exception {
 		if(oldPassword.equals(newPassword1))
 		{
@@ -667,10 +746,16 @@ public class ESDMModel {
 		}
 	}
 	
-	/*
-	 * Adds a new mark to the system.
+	/**
+	 * Adds a new mark to the system with the attributes passed through.
+	 * @param setting
+	 * @param child
+	 * @param objective
+	 * @param step
+	 * @param mark
+	 * @param day
+	 * @throws Exception
 	 */
-	
 	public void addMark(Setting setting, Child child, Objective objective, Step step, int mark, Day day) throws Exception
 	{
 		if(setting == null)
@@ -716,6 +801,16 @@ public class ESDMModel {
 		
 	}
 	
+	/**
+	 * Adds a new timestamp to the system with the attributes passed through.
+	 * @param setting
+	 * @param child
+	 * @param objective
+	 * @param step
+	 * @param mark
+	 * @param day
+	 * @throws Exception
+	 */
 	public void addTimestamp(Setting setting, Child child, Objective objective, Step step, int mark, Day day) throws Exception
 	{
 		
@@ -742,17 +837,13 @@ public class ESDMModel {
 	
 	}
 
-	//searches through child list and returns child with the ID specified
 	
-	public Child getChild(int childId) {
-		return Helper.search(childList, childId);
-	}
-	
-	
-	/*
+	/**
 	 * Returns a list of all days that are between (inclusive) the 2 dates parsed through.
+	 * @param from
+	 * @param to
+	 * @return
 	 */
-	
 	public List<Day> getDays(Calendar from, Calendar to)
 	{
 		
@@ -815,16 +906,26 @@ public class ESDMModel {
 	}
 	
 	/*
-	 * Sets the child object active attribute to false.
 	 */
 
+	/**
+	 * Sets the child object active attribute to false.
+	 * @param child
+	 */
 	public void removeChild(Child child) {
 		child.setInactive();
 		updateObject(child);
 	}
 
 	
-	// updates the values of the child to the values parsed in.
+	/**
+	 * updates the values of the child to the values parsed in.
+	 * @param child
+	 * @param name
+	 * @param dob
+	 * @param dateJoined
+	 * @throws Exception
+	 */
 	public void updateChild(Child child, String name, Calendar dob, Calendar dateJoined) throws Exception {
     	if(name.length() == 0)
     	{
@@ -864,7 +965,12 @@ public class ESDMModel {
 	}
 
 	
-	// Takes in a child object and objective object and adds the objective to the child
+	/**
+	 * Takes in a child object and objective object and adds the objective to the child
+	 * @param child
+	 * @param objective
+	 * @throws Exception
+	 */
 	public void addObjectiveChild(Child child, Objective objective) throws Exception {
 		// Checks that neither object is null
 		if(child == null || objective == null)	
@@ -909,6 +1015,10 @@ public class ESDMModel {
 	}
 	
 	// Returns a list of the guardians in the system
+	/**
+	 * Returns a list of all guardians in the system
+	 * @return guardianList
+	 */
 	public ArrayList<Guardian> getGuardianList() {
 		ArrayList<Guardian> guardians = new ArrayList<Guardian>();
 		int size = userList.size();
@@ -922,9 +1032,13 @@ public class ESDMModel {
 		}
 		return guardians;
 	}
-
-	// Returns the user account with the same username as the username
-	// parsed through
+	
+	
+	/**
+	 * Returns the useraccount with the username passed throuhg
+	 * @param username
+	 * @return
+	 */
 	public UserAccount getUserAccount(String username) {
 		int size = userList.size();
 		for(int i = 0; i < size; i++)
@@ -938,12 +1052,27 @@ public class ESDMModel {
 		return null;
 	}
 
-	// Returns the string access level of the currently logged in user
+	// 
+	/**
+	 * Returns the string access level of the currently logged in user
+	 * @return access
+	 */
 	public String getCurrentAccess() {
 		return currentUser.getAccess();
 	}
 
-	// Takes in a mark and all details required for a mark
+	/**
+	 * Takes in a mark and all details required to update the mark
+	 * @param mark
+	 * @param setting
+	 * @param child
+	 * @param time
+	 * @param objective
+	 * @param step
+	 * @param markVal
+	 * @param comment
+	 * @throws Exception
+	 */
 	public void updateMark(Mark mark, Setting setting, Child child,
 			Calendar time, Objective objective, Step step, int markVal,
 			String comment) throws Exception {
@@ -973,9 +1102,19 @@ public class ESDMModel {
 		
 	}
 	
-	// Takes in objective, strings for name and description, int level, and a string array for steps.
-	// updates the details in the objective object with the ones parsed through and updates in
-	// Database
+	// 
+	/**
+	 * Takes in objective, strings for name and description, int level, and a string array for steps.
+	 * updates the details in the objective object with the ones parsed through and updates in Database
+	 * @param objective
+	 * @param name
+	 * @param description
+	 * @param level
+	 * @param steps
+	 * @param objType
+	 * @param hidden
+	 * @throws Exception
+	 */
 	public void saveObjective(Objective objective, String name, String description, int level, String[][] steps, ObjectiveType objType, boolean hidden) throws Exception
 	{
 		if(name.length() == 0)
@@ -1022,15 +1161,21 @@ public class ESDMModel {
     	session.getTransaction().commit();
 	}
 
-
-	// Takes in a boolean, child and objective object. if that objective exists in the child
-	// the value of mastered will be set to the value parsed through
+	/**
+	 * If objective passed through exists in child value of mastered gets set to the boolean passed through
+	 * @param c
+	 * @param o
+	 * @param value
+	 * @throws Exception
+	 */
 	public void setMastered(Child c, Objective o, boolean value) throws Exception {
 		c.setMastered(o, value);
 		updateObject(c);
 	}
 
-	// Takes in any object that is to be saved to the database. and saves it to the database.
+	/*
+	 * Takes in any object that is to be saved to the database. and saves it to the database.
+	 */
 	public void updateObject(Object o) {
 		org.hibernate.Session session = factory.getCurrentSession();
     	session.beginTransaction();
@@ -1039,7 +1184,12 @@ public class ESDMModel {
     	session.getTransaction().commit();
 	}
 
-	// Adds a guardian to a child
+	/**
+	 * Adds the passed in guardian to the child passed in
+	 * @param child
+	 * @param guardian
+	 * @throws Exception
+	 */
 	public void addChildGuardian(Child child, Guardian guardian) throws Exception {
 		
 		// Check if guardian already exists in this child.
@@ -1067,8 +1217,12 @@ public class ESDMModel {
 	}
 	
 	
-	// Takes in any SimpleKey object. and plays the WAV file associated to that object.
-	// Runs in a thread so that you can still navigate around while file is playing
+	/**
+	 * Takes in any SimpleKey object. and plays the WAV file associated to that object.
+	 * Runs in a thread so that you can still navigate around while file is playing
+	 * @param object
+	 * @throws Exception
+	 */
 	public void playSound(SimpleKey object) throws Exception {
 
 		String filePath = object.getClass().getSimpleName();
@@ -1080,7 +1234,12 @@ public class ESDMModel {
 		
 	}
 	
-	// Takes in a child object and Objective object and removes that 
+	
+	/**
+	 * Takes in a child and Objective and removes the objective from the child 
+	 * @param c
+	 * @param o
+	 */
 	public void removeObjective(Child c, Objective o)
 	{
 		ChildObjective co = c.removeObjective(o);
@@ -1091,26 +1250,35 @@ public class ESDMModel {
 	}
 	
 	
-	// Takes in a child object, an objective object and increments the 
-	// current step of that objective for that child (if exists in the 
-	// childs list of objectives)	
+	/**
+	 * Increments the step of that objective for that child
+	 * @param c
+	 * @param o
+	 * @throws Exception
+	 */
 	public void incrementStep(Child c, Objective o) throws Exception {
 		c.incrementStep(o, 1);
 		updateObject(c);
 		updateObject(o);
 	}
 
-	// Takes in a child object, an objective object and decrements the 
-	// current step of that objective for that child (if exists in the
-	// childs list of objectives)
+	/**
+	 * Decrements the step of that objective for that child
+	 * @param c
+	 * @param o
+	 * @throws Exception
+	 */
 	public void decrementStep(Child c, Objective o) throws Exception {
 		c.incrementStep(o, -1);
 		updateObject(c);
 		updateObject(o);
 	}
 	
-	// Takes in an objective and an objective type and sets the objective
-	// to the objectiveType parsed in.
+	/**
+	 * Sets the type of the objective passed in to the objectivetype passed in
+	 * @param objective
+	 * @param objectiveType
+	 */
 	public void setObjectiveType(Objective objective, ObjectiveType objectiveType) {
 		objective.setType(objectiveType);
 		objectiveType.addObjective(objective);
@@ -1123,8 +1291,10 @@ public class ESDMModel {
 		
 	}
 	
-	// Creates a new objective type object, adds it to the system
-	// and saves it to the database
+	/**
+	 * Creates a new objective type object and adds it to the system
+	 * @param name
+	 */
 	public void addObjectiveType(String name) {
 		ObjectiveType objType = new ObjectiveType(name);
 		
@@ -1136,6 +1306,10 @@ public class ESDMModel {
     	objectiveTypeList.add(objType);
 	}
 	
+	/**
+	 * Removes the ObjectiveType passed through from the system
+	 * @param objType
+	 */
 	public void removeObjectiveType(ObjectiveType objType) {
 
 		boolean temp = objectiveTypeList.remove(objType);
@@ -1150,16 +1324,10 @@ public class ESDMModel {
 		System.out.println("Successfully?: " + temp);
 	}
 	
-	public void setSettingTypeList(Setting setting, List<ObjectiveType> objTypeList) {
-		setting.setObjectives(objTypeList);
-		updateObject(setting);
-		//TODO Check Setting Type List in DB
-	}
-
-
-	// Takes in a string for the name of the room.
-	// Creates a new Room object with that name and 
-	// adds it to the database
+	/**
+	 * Creates a new room object with the name passed through
+	 * @param name
+	 */
 	public void addRoom(String name) {
 		Room room = new Room(name);
 
@@ -1171,10 +1339,11 @@ public class ESDMModel {
     	roomList.add(room);
 	}
 
-	
-	// Takes in a room object and a string for room name
-	// Updates the room objects name to the string and updates
-	// with the database
+	/**
+	 * Edits the name of the room object passed through with the string passed through
+	 * @param room
+	 * @param name
+	 */
 	public void editRoom(Room room, String name) {
 		if(name.length() == 0)
 		{
@@ -1189,9 +1358,10 @@ public class ESDMModel {
     	session.getTransaction().commit();
 	}
 
-	// Takes in a room object if it has no foreign constraints it is
-	// removed from the database and system. otherwise it throws
-	// an SQL exception
+	/**
+	 * Takes in a room and removes it from system if it's not added to any Day objects.
+	 * @param room
+	 */
 	public void removeRoom(Room room) {
 		
 		org.hibernate.Session session = factory.getCurrentSession();
@@ -1217,10 +1387,12 @@ public class ESDMModel {
     	
 	}
 	
-
-	
-	// Takes in a session object and sets the name attribute to the string
-	// that is parsed in
+	/**
+	 * Sets the name of the setting passed through to the description String passed through.
+	 * @param setting
+	 * @param description
+	 * @throws Exception
+	 */
 	public void updateSetting(Setting setting, String description) throws Exception {
 
 		if(description.length() == 0)
@@ -1236,9 +1408,11 @@ public class ESDMModel {
     	session.getTransaction().commit();
 	}
 	
-	// Takes in a session object. if it has no foreign constraints it is
-	// removed from the database and system. otherwise it throws
-	// an SQL exception
+	
+	/**
+	 * Takes in a session and removes it from the system if it is not associated with any days
+	 * @param setting
+	 */
 	public void removeSetting(Setting setting) {
 	
 
@@ -1265,8 +1439,10 @@ public class ESDMModel {
     	
 	}
 	
-	// Takes in a user account and a boolean enabled, sets the user accounts
-	// access attribute to d (Disabled)
+	/**
+	 * Takes in a User Account and sets the access to d (Disabled)
+	 * @param u
+	 */
 	public void disableAccount(UserAccount u) {
 		
 		u.setAccess("d");
@@ -1279,8 +1455,10 @@ public class ESDMModel {
 		
 	}
 
-	// Takes in a name, creates a new setting object with that name
-	// and adds it to the database and list
+	/**
+	 * Creates a setting object with the String passed through for the name
+	 * @param name
+	 */
 	public void addSetting(String name) {
 		Setting s = new Setting(name);
 		
@@ -1292,11 +1470,21 @@ public class ESDMModel {
     	settingList.add(s);
 	}
 
+	/**
+	 * Returns a list fo all Objective Types
+	 * @return objectiveTypeList
+	 */
 	public Collection<ObjectiveType> getObjectiveTypeList() {
 		return objectiveTypeList;
 	}
 
-	
+	/**
+	 * Adds a behavioural mark to the system with the items passed through
+	 * @param day
+	 * @param child
+	 * @param markInt
+	 * @throws Exception
+	 */
 	public void addBehaviouralMark(Day day, Child child, int markInt) throws Exception
 	{
 		if(child == null)
@@ -1325,6 +1513,12 @@ public class ESDMModel {
     	dbSession.getTransaction().commit();
 	}
 
+	/**
+	 * Checks if there is a day object associated with this room and date and returns true if so
+	 * @param room
+	 * @param date
+	 * @return
+	 */
 	public boolean dayExists(Room room, Calendar date) {
 
     	org.hibernate.Session session = factory.getCurrentSession();
@@ -1347,12 +1541,22 @@ public class ESDMModel {
     	return false;
 	}
 
+	/**
+	 * Returns a list of all Users in the system
+	 * @return userList
+	 */
 	public List<UserAccount> getUserList() {
 		return userList;
 	}
 
-	public void setPassword(UserAccount u, String name) throws Exception {
-		u.setPassword(name);
+	/**
+	 * Sets the password of the user passed through to the String passed through
+	 * @param u
+	 * @param password
+	 * @throws Exception
+	 */
+	public void setPassword(UserAccount u, String password) throws Exception {
+		u.setPassword(password);
 		
 		org.hibernate.Session dbSession = factory.getCurrentSession();
     	dbSession.beginTransaction();
@@ -1361,6 +1565,12 @@ public class ESDMModel {
     	dbSession.getTransaction().commit();
 	}
 
+	/**
+	 * Sets the name of the objective type passed through to the String passed through.
+	 * @param objType
+	 * @param name
+	 * @throws Exception
+	 */
 	public void editObjectiveType(ObjectiveType objType, String name) throws Exception  {
 		objType.setName(name);
 
@@ -1371,6 +1581,14 @@ public class ESDMModel {
     	dbSession.getTransaction().commit();
 	}
 
+	/**
+	 * Sets all details of the user acocunt passed through to the details passed through
+	 * @param u
+	 * @param name
+	 * @param ph
+	 * @param email
+	 * @throws Exception
+	 */
 	public void setUserDetails(UserAccount u, String name, String ph,
 			String email) throws Exception  {
 		
@@ -1384,7 +1602,4 @@ public class ESDMModel {
     	dbSession.update(u);
     	dbSession.getTransaction().commit();		
 	}
-	
-	
-
 }
