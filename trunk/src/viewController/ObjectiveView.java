@@ -226,7 +226,7 @@ public class ObjectiveView extends PanelView {
 			
 		
 		} catch (Exception e) {
-			throw new Exception("You must select an objective first.");
+			throw new Exception("30010: You must select an objective first.");
 		}
 
 		return objective;

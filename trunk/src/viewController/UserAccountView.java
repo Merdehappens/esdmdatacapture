@@ -138,7 +138,7 @@ public class UserAccountView extends PanelView {
 			account = (UserAccount) accounts.get(userAccountTable
 					.getSelectedRow());
 		} catch (Exception e) {
-			throw new Exception("You must select an account first.");
+			throw new Exception("30010: You must select an account first.");
 		}
 
 		return account;

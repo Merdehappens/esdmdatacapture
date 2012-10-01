@@ -122,7 +122,7 @@ public class RoomView extends PanelView {
 		try{
 		r = getSelectedRoom();
 		} catch (Exception e) {
-			throw new Exception("No room was selected");
+			throw new Exception("30010: No room was selected");
 		}
 		String name = JOptionPane.showInputDialog(null, "Please enter the NEW name of the room.");
 		if(name != null)
