@@ -188,8 +188,9 @@ public class Controller extends JFrame {
 
 	}
 
-	// Initialises all of the Graphical information in the class
-
+	/**
+	 * Iniitialises all of the graphical components for the program.
+	 */
 	public void initComponents() {
 		// Sets the main frame Title, and bounds.
 
@@ -351,7 +352,7 @@ public class Controller extends JFrame {
 	// retrieve an ActionListener
 	// And determine what should be done in the case of a button press.
 
-	public void initSessionButtonListeners() {
+	private void initSessionButtonListeners() {
 
 		homeView.logDataListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -890,7 +891,7 @@ public class Controller extends JFrame {
 
 	}
 
-	public void initChildButtonListeners() {
+	private void initChildButtonListeners() {
 
 		addChild.submitListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -963,7 +964,7 @@ public class Controller extends JFrame {
 
 	}
 
-	public void initAccountButtonListeners() {
+	private void initAccountButtonListeners() {
 
 		changePassword.changePassword(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -1045,7 +1046,7 @@ public class Controller extends JFrame {
 
 	}
 
-	public void initObjectiveButtonListeners() {
+	private void initObjectiveButtonListeners() {
 
 		addObjective.templateListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -1098,7 +1099,7 @@ public class Controller extends JFrame {
 
 	}
 
-	public void initReportingButtonListeners() {
+	private void initReportingButtonListeners() {
 
 
 		viewReport.exportListener(new java.awt.event.ActionListener() {
@@ -1132,6 +1133,10 @@ public class Controller extends JFrame {
 
 	}
 
+	/**
+	 * Is run after initialising all graphical components, adds all the button listeners to
+	 * the different buttons in the program.
+	 */
 	public void initButtonListeners() {
 		initSessionButtonListeners();
 		initChildButtonListeners();
@@ -1485,30 +1490,14 @@ public class Controller extends JFrame {
 			}
 		});
 
-		/*
-		 * accountView.changeEmailAddress(new java.awt.event.ActionListener() {
-		 * public void actionPerformed(ActionEvent evt) { //show(accountPanel,
-		 * "changeEmail"); show(esdmPanel, "changeEmail"); } });
-		 * 
-		 * accountView.changePassword(new java.awt.event.ActionListener() {
-		 * public void actionPerformed(ActionEvent evt) { //show(accountPanel,
-		 * "changePassword"); show(esdmPanel, "changePassword"); } });
-		 * 
-		 * accountView.newUserAccount(new java.awt.event.ActionListener() {
-		 * public void actionPerformed(ActionEvent evt) { //show(accountPanel,
-		 * "newUserAccount"); } });
-		 */
-
 		accountView.roomsListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				// show(accountPanel, "roomView");
 				show(esdmPanel, "roomView");
 			}
 		});
 
 		accountView.objectiveTypeListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				// show(accountPanel, "objectiveTypeView");
 				show(esdmPanel, "objectiveTypeView");
 			}
 		});
@@ -1530,7 +1519,6 @@ public class Controller extends JFrame {
 
 		accountView.settingListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				// show(accountPanel, "settingView");
 				show(esdmPanel, "settingView");
 			}
 		});
@@ -1696,9 +1684,7 @@ public class Controller extends JFrame {
 	 * Sets up the login JOptionpane, then calls the model object to log in.
 	 * 
 	 ***********************************************************************************/
-
-	@SuppressWarnings("deprecation")
-	public void showLogin() {
+	private void showLogin() {
 
 		loadingFrame.setVisible(false);
 
@@ -1771,7 +1757,7 @@ public class Controller extends JFrame {
 		showMessage(message);
 	}
 
-	public void saveMark() throws Exception {
+	private void saveMark() throws Exception {
 		try{
 			Setting setting = changeMark.getSetting();
 			Child child = changeMark.getChild();
