@@ -50,8 +50,9 @@ public class ESDMModel {
     
 	/**
 	 * Creates a new Model object. Sets up all the lists and calls the hibernate setup methods
+	 * @throws Exception 
 	 */
-    public ESDMModel()
+    public ESDMModel() throws Exception
     {
     	childList = new ArrayList<Child>();
         settingList = new HashSet<Setting>();
@@ -63,11 +64,8 @@ public class ESDMModel {
         objectiveTypeList = new ArrayList<ObjectiveType>();
         currentUser = null;
         hibernateSetUp();
-        try {
-			loadFromDatabase();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        loadFromDatabase();
+		
         
     }
     
@@ -86,7 +84,10 @@ public class ESDMModel {
 		config.addAnnotatedClass(Setting.class);
 		config.addAnnotatedClass(ChildObjective.class);
 		config.addAnnotatedClass(Room.class);
-		config.configure("hibernate.cfg.xml");
+
+		File f = new File("hibernate.cfg.xml");
+		
+		config.configure(f);
 		
 		//new SchemaExport(config).create(true, true);
 		// ^ ^ ^ SchemaExport is commented out once all tables are created,
@@ -94,6 +95,8 @@ public class ESDMModel {
 		// ^ ^ ^ therefore classes need to be added again.
 		
 		factory = config.buildSessionFactory();
+		
+		System.out.println("*************************************" + f.getAbsolutePath() + "************");
     }
     
     // Is called when the program is closed. makes sure the session factory
@@ -277,6 +280,7 @@ public class ESDMModel {
     	
 
     	session.getTransaction().commit();
+    	
     
     }
   
