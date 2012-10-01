@@ -85,7 +85,7 @@ public class ESDMModel {
 		config.addAnnotatedClass(ChildObjective.class);
 		config.addAnnotatedClass(Room.class);
 
-		File f = new File("hibernate.cfg.xml");
+		File f = new File("database\\hibernate.cfg.xml");
 		
 		config.configure(f);
 		
