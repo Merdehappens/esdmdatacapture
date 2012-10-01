@@ -105,14 +105,16 @@ public class Controller extends JFrame {
 	private JButton btnExit;
 	private JPanel mainPanel;
 
-	public Controller() throws MalformedURLException {
+	public Controller() throws Exception {
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent arg0) {
 				exitProgram();
 			}
 		});
 		setLookAndFeel();
+		
 		model = new ESDMModel();
+
 		// Initialises all the components of the screens
 		initComponents();
 		// Initialises all the button listeners for the components
@@ -149,6 +151,8 @@ public class Controller extends JFrame {
 
 				} catch (Exception e) {
 					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "There was an error loading from database. this program will now close.");
+					System.exit(0);
 				}
 
 			}
