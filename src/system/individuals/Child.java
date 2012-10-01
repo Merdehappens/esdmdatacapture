@@ -237,7 +237,7 @@ public class Child implements SimpleKey {
 		// If unable to find the objective in the childs list of objectives
 		// throw an exception
 		if (!(x)) {
-			throw new Exception("The objective does not exist in that child");
+			throw new Exception("10002: The objective does not exist in that child");
 		}
 
 	}
@@ -250,7 +250,7 @@ public class Child implements SimpleKey {
 	 */
 	public void setName(String name) throws Exception {
 		if (name.equals("")) {
-			throw new IllegalArgumentException("The child's name cannot be empty.");
+			throw new IllegalArgumentException("30001: The child's name cannot be empty.");
 		}
 		this.name = name;
 	}
@@ -409,7 +409,7 @@ public class Child implements SimpleKey {
 			}
 		}
 		if (!x) {
-			throw new Exception("Could not find objective in that child");
+			throw new Exception("10002: This objective does not exist for this child");
 		}
 	}
 	

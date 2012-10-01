@@ -153,7 +153,7 @@ public class SessionView extends PanelView {
 	// will be caught/handled by the caller
 	public Day getDay() throws Exception {
 		if (tblSession.getSelectedRow() == -1) {
-			throw new Exception("No Day was selected.");
+			throw new Exception("30010: No Day was selected.");
 		}
 		return (Day) tableModel.getValueAt(tblSession.getSelectedRow(), 0);
 	}

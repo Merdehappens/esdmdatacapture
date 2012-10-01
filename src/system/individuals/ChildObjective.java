@@ -85,7 +85,7 @@ public class ChildObjective{
 		int stepNum = currentStep + num;
 		if(stepNum <= 0 || stepNum > objective.getStepsNo())
 		{
-			throw new Exception("Cannot increment or decrement step any more");
+			throw new Exception("10003: Cannot increment or decrement step any more");
 		}
 		else
 		{

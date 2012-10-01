@@ -132,7 +132,7 @@ public class SettingView extends PanelView {
 		try{
 		s = getSelectedSetting();
 		} catch (Exception e) {
-			throw new Exception("No setting was selected");
+			throw new Exception("30010: No setting was selected");
 		}
 		String name = JOptionPane.showInputDialog(null, "Please enter the NEW name of the setting.");
 		if(name != null)

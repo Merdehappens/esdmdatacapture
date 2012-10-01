@@ -112,7 +112,7 @@ public class ObjectiveTypeView extends PanelView {
 		}
 		else
 		{
-			throw new Exception("Name must not be blank");
+			throw new Exception("30001: Name must not be blank");
 		}
 		refreshView();
 	}

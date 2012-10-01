@@ -121,7 +121,7 @@ public class UserAccount {
     public void setPassword(String password) throws Exception {
     	if(!(Helper.checkPasswordLength(password)))
     	{
-    		throw new IllegalArgumentException("Password is not enough letters");
+    		throw new IllegalArgumentException("10004: Password does not meet minimum complexity rules");
     	}
     	this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }

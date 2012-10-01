@@ -1627,7 +1627,7 @@ public class Controller extends JFrame {
 	private void findChildReportSubmit(ActionEvent evt) throws Exception {
 		ViewReport p = (ViewReport) findChildReport.getDestination();
 		if (findChildReport.getSelectedChild() == null) {
-			throw new Exception("No child is selected.");
+			throw new Exception("30001: No child is selected.");
 		}
 		p.setChild(findChildReport.getSelectedChild());
 		p.refreshTable();

@@ -227,7 +227,7 @@ public class EditChild extends PanelView {
 	{
 		if(tblObjective.getSelectedRow() == -1)
 		{
-			throw new Exception("10001: There is no row selected");
+			throw new Exception("30010: There is no row selected");
 		}
 		return (Objective)tblObjectiveModel.getValueAt(tblObjective.getSelectedRow(), 0);
 		
