@@ -1233,6 +1233,8 @@ public class ESDMModel {
 		File file = new File(filePath + "\\" + object.getId() + ".wav");
 		
 		PlaySound ps = new PlaySound(file);
+		
+		System.out.println(file.getAbsolutePath());
 		Thread thread = new Thread(ps);
 		thread.start();
 		
@@ -1605,5 +1607,31 @@ public class ESDMModel {
     	u = (UserAccount) dbSession.merge(u);
     	dbSession.update(u);
     	dbSession.getTransaction().commit();		
+	}
+
+	
+	
+	public void playBehaviouralMarkSound(int mark) {
+		
+		String filePath = "Mark"; 
+		File file = new File(filePath + "\\" + mark + ".wav");
+		
+		PlaySound ps = new PlaySound(file);
+		Thread thread = new Thread(ps);
+		thread.start();
+	}
+
+	public void playMarkSound(Mark m) {
+		String filePath = "Mark";
+		String path = m.toString();
+		if(m.toString().equalsIgnoreCase("/"))
+		{
+			path = "neutral";
+		}
+		File file = new File(filePath + "\\" + path + ".wav");
+		
+		PlaySound ps = new PlaySound(file);
+		Thread thread = new Thread(ps);
+		thread.start();
 	}
 }

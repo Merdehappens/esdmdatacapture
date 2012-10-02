@@ -50,7 +50,7 @@ public class SessionView extends PanelView {
 		super.setTitle("Session");
 		
 		// Adds view Day button to panel
-		btnViewDay = new JButton("View Day");
+		btnViewDay = new JButton("View Session");
 		btnViewDay.setBounds(180, 90, 108, 35);
 		add(btnViewDay);
 
@@ -95,7 +95,7 @@ public class SessionView extends PanelView {
 		tblSession.setModel(tableModel);
 		
 		// Adds the new day button to the screen
-		btnNewDay = new JButton("New Day");
+		btnNewDay = new JButton("New Session");
 		btnNewDay.setBounds(50, 90, 120, 35);
 		add(btnNewDay);
 		

@@ -64,6 +64,8 @@ public class LogSessionData extends PanelView {
 	private DefaultListModel<Integer> behaviourModel;
 	private JList<Integer> lstBehaviour;
 	private JButton btnSaveBehaviouralMark;
+	private JButton btnListenBehaviourMark;
+	private JButton btnListenMark;
 
 
 	public LogSessionData() {
@@ -269,14 +271,17 @@ public class LogSessionData extends PanelView {
 		add(lblStep);
 		
 		btnListenSetting = new JButton("Listen");
+		btnListenSetting.setMnemonic(KeyEvent.VK_4);
 		btnListenSetting.setBounds(41, 317, 89, 23);
 		add(btnListenSetting);
 		
 		btnListenChild = new JButton("Listen");
+		btnListenChild.setMnemonic(KeyEvent.VK_5);
 		btnListenChild.setBounds(198, 321, 89, 23);
 		add(btnListenChild);
 		
 		btnListenObjective = new JButton("Listen");
+		btnListenObjective.setMnemonic(KeyEvent.VK_7);
 		btnListenObjective.setBounds(527, 327, 89, 23);
 		add(btnListenObjective);
 		
@@ -286,18 +291,17 @@ public class LogSessionData extends PanelView {
 				setIndex(lstBehaviour, behaviourModel, -1);
 			}
 		});
-		btnBehaviourPrevious.setMnemonic(KeyEvent.VK_1);
 		btnBehaviourPrevious.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnBehaviourPrevious.setBounds(842, 474, 40, 40);
 		add(btnBehaviourPrevious);
 		
 		btnBehaviourNext = new JButton(">");
+		btnBehaviourNext.setMnemonic(KeyEvent.VK_8);
 		btnBehaviourNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setIndex(lstBehaviour, behaviourModel, 1);
 			}
 		});
-		btnBehaviourNext.setMnemonic(KeyEvent.VK_0);
 		btnBehaviourNext.setBounds(892, 474, 40, 40);
 		add(btnBehaviourNext);
 		
@@ -310,8 +314,19 @@ public class LogSessionData extends PanelView {
 		scrpnebehaviour.setViewportView(lstBehaviour);
 		
 		btnSaveBehaviouralMark = new JButton("Save Behavioural Mark");
+		btnSaveBehaviouralMark.setMnemonic(KeyEvent.VK_0);
 		btnSaveBehaviouralMark.setBounds(667, 415, 165, 48);
 		add(btnSaveBehaviouralMark);
+		
+		btnListenBehaviourMark = new JButton("Listen");
+		btnListenBehaviourMark.setMnemonic(KeyEvent.VK_1);
+		btnListenBehaviourMark.setBounds(842, 517, 89, 23);
+		add(btnListenBehaviourMark);
+		
+		btnListenMark = new JButton("Listen");
+		btnListenMark.setMnemonic(KeyEvent.VK_3);
+		btnListenMark.setBounds(836, 34, 89, 23);
+		add(btnListenMark);
 		
 		behaviourModel.addElement(new Integer(1));
 		behaviourModel.addElement(new Integer(2));
@@ -321,8 +336,18 @@ public class LogSessionData extends PanelView {
 		behaviourModel.addElement(new Integer(6));
 	}
 	
+	
+	
 	public void saveBehaviourMarkListener(ActionListener al) {
 		btnSaveBehaviouralMark.addActionListener(al);
+	}
+	
+	public void listenMarkListener(ActionListener al) {
+		btnListenMark.addActionListener(al);
+	}
+	
+	public void listenBehaviourMarkListener(ActionListener al) {
+		btnListenBehaviourMark.addActionListener(al);
 	}
 	
 	public void listenChildListener(ActionListener al)
@@ -428,7 +453,7 @@ public class LogSessionData extends PanelView {
 
 	}
 
-	public void addMark() {
+	public void addMark() throws Exception {
 		try {
 			Setting setting = settingModel.get(lstSetting.getSelectedIndex());
 			Child child = childModel.get(lstChild.getSelectedIndex());
@@ -438,9 +463,7 @@ public class LogSessionData extends PanelView {
 			int mark = markModel.get(lstMark.getSelectedIndex()).getMark();
 			this.getModel().addMark(setting, child, objective, step, mark, day);
 		} catch (Exception e) {
-			JOptionPane
-					.showMessageDialog(this,
-							"Error: One or more items are not selected. This mark was not saved.");
+			throw new Exception("Error: One or more items are not selected. This mark was not saved.");
 		}
 	}
 
@@ -493,4 +516,7 @@ public class LogSessionData extends PanelView {
 		return behaviourModel.getElementAt(lstBehaviour.getSelectedIndex());
 	}
 
+	public Mark getSelectedMark() {
+		return markModel.getElementAt(lstMark.getSelectedIndex());
+	}
 }

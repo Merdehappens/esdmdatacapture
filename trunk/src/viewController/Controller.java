@@ -739,6 +739,20 @@ public class Controller extends JFrame {
 				show(esdmPanel, "Session");
 			}
 		});
+		
+		logSessionData.listenBehaviourMarkListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				int mark = logSessionData.getSelectedBehaviourMark();
+				model.playBehaviouralMarkSound(mark);
+			}
+		});
+		
+		logSessionData.listenMarkListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				Mark m = logSessionData.getSelectedMark();
+				model.playMarkSound(m);
+			}
+		});
 
 		logSessionData.listenChildListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -775,8 +789,12 @@ public class Controller extends JFrame {
 
 		logSessionData.commitMarkListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				logSessionData.addMark();
-				showMessage("Mark added.");
+				try {
+					logSessionData.addMark();
+					showMessage("Mark added.");
+				} catch (Exception e) {
+					showMessage(e.getMessage());
+				}
 			}
 		});
 
@@ -805,6 +823,7 @@ public class Controller extends JFrame {
 							int markInt = logSessionData
 									.getSelectedBehaviourMark();
 							model.addBehaviouralMark(day, child, markInt);
+							showMessage("Behavioural Mark added.");
 						} catch (Exception e) {
 							showMessage("Unable to save the behavioural mark");
 							e.printStackTrace();
