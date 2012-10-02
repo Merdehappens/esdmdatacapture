@@ -1606,7 +1606,7 @@ public class ESDMModel {
     	dbSession.beginTransaction();
     	u = (UserAccount) dbSession.merge(u);
     	dbSession.update(u);
-    	dbSession.getTransaction().commit();		
+    	dbSession.getTransaction().commit();
 	}
 
 	
@@ -1633,5 +1633,23 @@ public class ESDMModel {
 		PlaySound ps = new PlaySound(file);
 		Thread thread = new Thread(ps);
 		thread.start();
+	}
+
+	/**
+	 * Removes the association between the guardian and child passed through
+	 * @param guardian
+	 * @param child
+	 */
+	public void removeGuardian(Guardian guardian, Child child) {
+		child.removeGuardian(guardian);
+		guardian.removeChild(child);
+		
+		org.hibernate.Session dbSession = factory.getCurrentSession();
+    	dbSession.beginTransaction();
+    	child = (Child) dbSession.merge(child);
+    	guardian = (Guardian) dbSession.merge(guardian);
+    	dbSession.update(child);
+    	dbSession.update(guardian);
+    	dbSession.getTransaction().commit();
 	}
 }

@@ -358,7 +358,7 @@ public class Controller extends JFrame {
 
 	private void initSessionButtonListeners() {
 
-		homeView.logDataListener(new java.awt.event.ActionListener() {
+		homeView.logDataListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
 					logSessionData.setDay(homeView.getSelectedDay());
@@ -1358,9 +1358,20 @@ public class Controller extends JFrame {
 
 			}
 		});
+		
+	
+		
+		editChild.removeGuardianListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Guardian g = editChild.getSelectedGuardian();
+				model.removeGuardian(g, editChild.getChild());
+				editChild.refreshView();
+				showMessage("Guardian successfully removed");
+			}
+		});
 
 		editChild
-				.addExistingGuardianListener(new java.awt.event.ActionListener() {
+				.addExistingGuardianListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 
 						addGuardian = new AddGuardian(model.getGuardianList());

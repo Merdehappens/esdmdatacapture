@@ -412,5 +412,11 @@ public class Child implements SimpleKey {
 			throw new Exception("10002: This objective does not exist for this child");
 		}
 	}
+
+
+	public void removeGuardian(Guardian guardian) {
+		guardians.remove(guardian);
+	}
+
 	
 }
