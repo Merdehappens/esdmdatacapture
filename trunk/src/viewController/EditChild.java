@@ -47,6 +47,8 @@ public class EditChild extends PanelView {
 	private JButton btnAddObjective;
 	private JButton btnAddExistingGuardian;
 	private JButton btnAddNewGuardian;
+	private JButton btnRemoveGuardian;
+	private ArrayList<Guardian> guardians;
 
 	/**
 	 * Create the panel.
@@ -166,13 +168,17 @@ public class EditChild extends PanelView {
 		btnDecrementStep.setBounds(857, 316, 132, 30);
 		add(btnDecrementStep);
 		
-		btnAddExistingGuardian = new JButton("Add Existing Guardian");
-		btnAddExistingGuardian.setBounds(46, 350, 154, 30);
+		btnAddExistingGuardian = new JButton("<HTML><FONT SIZE=\"2\">Add Existing Guardian</FONT></HTML>");
+		btnAddExistingGuardian.setBounds(10, 350, 140, 30);
 		add(btnAddExistingGuardian);
 		
-		btnAddNewGuardian = new JButton("Add New Guardian");
-		btnAddNewGuardian.setBounds(211, 350, 154, 30);
+		btnAddNewGuardian = new JButton("<HTML><FONT SIZE=\"2\">Add New Guardian</FONT></HTML>");
+		btnAddNewGuardian.setBounds(150, 350, 119, 30);
 		add(btnAddNewGuardian);
+		
+		btnRemoveGuardian = new JButton("<HTML><FONT SIZE=\"2\">Remove Guardian</FONT></HTML>");
+		btnRemoveGuardian.setBounds(270, 350, 127, 30);
+		add(btnRemoveGuardian);
 		String[] guardianColIdentifiers = {"Name", "Phone Number", "Email Address"};
 		tblGuardianModel.setColumnIdentifiers(guardianColIdentifiers);
 	}
@@ -182,11 +188,15 @@ public class EditChild extends PanelView {
 		btnAddNewGuardian.addActionListener(al);
 	}
 	
-	
 	// Takes in an ActionListener and adds it to the Add Guardian button
 	public void addExistingGuardianListener(ActionListener al) {
 		btnAddExistingGuardian.addActionListener(al);
 	}
+	
+	// Takes in an ActionListener and adds it to the Remove Guardian button
+	public void removeGuardianListener(ActionListener al) {
+		btnRemoveGuardian.addActionListener(al);
+	}	
 
 	// Takes in an ActionListener and adds it to the Save Child button
 	public void saveChildListener(ActionListener al) {
@@ -270,7 +280,7 @@ public class EditChild extends PanelView {
 	}
 
 	private void populateTable() {
-		ArrayList<Guardian> guardians = new ArrayList<Guardian>(child.getGuardians());
+		guardians = new ArrayList<Guardian>(child.getGuardians());
 		
 		while(tblGuardianModel.getRowCount() > 0)
 		{
@@ -311,5 +321,10 @@ public class EditChild extends PanelView {
 			tblObjectiveModel.addRow(o);
 		}
 		
+	}
+
+	public Guardian getSelectedGuardian() {
+		Guardian g = guardians.get(tblGuardian.getSelectedRow());
+		return g;
 	}
 }

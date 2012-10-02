@@ -102,6 +102,10 @@ public class Guardian extends UserAccount {
 			return false;
 		}
 	}
+
+	public void removeChild(Child child) {
+		children.remove(child);
+	}
     
     
 }
