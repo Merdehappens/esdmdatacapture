@@ -1363,10 +1363,15 @@ public class Controller extends JFrame {
 		
 		editChild.removeGuardianListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Guardian g = editChild.getSelectedGuardian();
-				model.removeGuardian(g, editChild.getChild());
-				editChild.refreshView();
-				showMessage("Guardian successfully removed");
+				try{
+					Guardian g = editChild.getSelectedGuardian();
+					model.removeGuardian(g, editChild.getChild());
+					editChild.refreshView();
+					showMessage("Guardian successfully removed");
+				} catch(Exception e)
+				{
+					showErrorMessage("30010: There was no row selected");
+				}
 			}
 		});
 
