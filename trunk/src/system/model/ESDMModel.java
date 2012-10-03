@@ -612,6 +612,11 @@ public class ESDMModel {
 			throw new Exception("30002: Level must be a number.");
 		}
 		
+		if(levelInt < 1)
+		{
+			throw new Exception("30002: Level must be greater than 0.");
+		}
+		
 		if(description.length() == 0)
 		{
 			throw new Exception("30001: The description field is empty.");
