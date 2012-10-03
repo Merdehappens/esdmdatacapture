@@ -696,6 +696,8 @@ public class Controller extends JFrame {
 					Room room = addDay.getRoom();
 					ArrayList<Setting> settings = addDay.getSettings();
 					Calendar date = addDay.getDate();
+					if(date != null)
+					{
 					boolean exists = model.dayExists(room, date);
 
 					int res = 0;
@@ -716,6 +718,11 @@ public class Controller extends JFrame {
 					} else {
 						// show(sessionPanel, "Session");
 						show(esdmPanel, "Session");
+					}
+					}
+					else
+					{
+						showErrorMessage("30001: Date must be selected");
 					}
 
 				} catch (Exception e) {
