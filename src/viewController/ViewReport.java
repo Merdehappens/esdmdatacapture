@@ -40,7 +40,6 @@ public class ViewReport extends PanelView {
 	private TableRowSorter<DefaultTableModel> sorter;
 	private JDateChooser dateChooserFrom;
 	private JDateChooser dateChooserTo;
-	private JButton btnHome;
 	private JButton btnBackToSelect;
 	private JButton btnResetDates;
 
@@ -123,12 +122,8 @@ public class ViewReport extends PanelView {
 		btnExport.setBounds(64, 468, 139, 26);
 		add(btnExport);
 		
-		btnHome = new JButton("Home");
-		btnHome.setBounds(20, 536, 89, 23);
-		add(btnHome);
-		
 		btnBackToSelect = new JButton("Back to Select");
-		btnBackToSelect.setBounds(119, 536, 117, 23);
+		btnBackToSelect.setBounds(66, 522, 117, 23);
 		add(btnBackToSelect);
 		
 		JButton btnToday = new JButton("Today");
@@ -172,10 +167,6 @@ public class ViewReport extends PanelView {
 	// Adds the action listener that is parsed in on the export button
 	public void exportListener(ActionListener al) {
 		btnExport.addActionListener(al);
-	}
-	
-	public void homeListener(ActionListener al) {
-		btnHome.addActionListener(al);
 	}
 	
 	public void backToSelectListener(ActionListener al) {
@@ -286,12 +277,4 @@ public class ViewReport extends PanelView {
 		
 	}
 
-	public void setAccess(String access) {
-		if(access.equalsIgnoreCase("g"))
-		{
-			btnHome.setVisible(false);
-		} else {
-			btnHome.setVisible(true);
-		}
-	}
 }

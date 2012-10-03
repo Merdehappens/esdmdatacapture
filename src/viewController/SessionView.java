@@ -31,7 +31,6 @@ public class SessionView extends PanelView {
 	private JTable tblSession;
 	private DefaultTableModel tableModel;
 	private JButton btnNewDay;
-	private JButton btnHome;
 
 
 	public SessionView() {
@@ -98,10 +97,6 @@ public class SessionView extends PanelView {
 		btnNewDay = new JButton("New Session");
 		btnNewDay.setBounds(50, 90, 120, 35);
 		add(btnNewDay);
-		
-		btnHome = new JButton("Home");
-		btnHome.setBounds(20, 536, 89, 23);
-		add(btnHome);
 
 	}
 
@@ -115,9 +110,6 @@ public class SessionView extends PanelView {
 		btnNewDay.addActionListener(al);
 	}
 	
-	public void homeListener(ActionListener al) {
-		btnHome.addActionListener(al);
-	}
 
 	// Refreshes the table to the list that was parsed through
 	

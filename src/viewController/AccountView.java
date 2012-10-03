@@ -13,7 +13,6 @@ public class AccountView extends PanelView {
 	private JButton btnRooms;
 	private JButton btnSetting;
 	private JButton btnObjectiveType;
-	private JButton btnHome;
 
 	public AccountView() {
 		super();
@@ -48,25 +47,8 @@ public class AccountView extends PanelView {
 		btnObjectiveType.setBounds(20, 222, 165, 40);
 		add(btnObjectiveType);
 		
-		btnHome = new JButton("Home");
-		btnHome.setBounds(20, 536, 89, 23);
-		add(btnHome);
 	}
 
-	// Takes in an ActionListener and adds it to the change password button
-	/*public void changePassword(ActionListener al) {
-		btnChangePassword.addActionListener(al);
-	}
-
-	// Takes in an ActionListener and adds it to the change email address button
-	public void changeEmailAddress(ActionListener al) {
-		btnChangeEmailAddress.addActionListener(al);
-	}
-
-	// Takes in an ActionListener and adds it to the new user button
-	public void newUserAccount(ActionListener al) {
-		btnNewUserAccount.addActionListener(al);
-	}*/
 	
 	public void roomsListener(ActionListener al) {
 		btnRooms.addActionListener(al);
@@ -80,19 +62,10 @@ public class AccountView extends PanelView {
 		btnObjectiveType.addActionListener(al);
 	}
 	
-	public void homeListener(ActionListener al) {
-		btnHome.addActionListener(al);
-	}
 	
 
 	// Overrides the refreshView method in PanelView and refreshes the view of this panel
 	public void refreshView() {
 	}
 
-	public void setAccess(String string) {
-		/*if(!string.equals("a"))
-		{
-			btnNewUserAccount.setEnabled(false);
-		}*/
-	}
 }
