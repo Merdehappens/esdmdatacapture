@@ -350,6 +350,10 @@ public class Controller extends JFrame {
 		backList.add("Home");
 
 		homeView.refreshView();
+		
+
+		setPermissions();
+		
 	}
 
 	// This function calls the functions from within each view class that
@@ -625,8 +629,7 @@ public class Controller extends JFrame {
 			public void actionPerformed(ActionEvent evt) {
 				if(access.equals("g"))
 				{
-				
-					show(esdmPanel, "Home");
+					show(esdmPanel, "findChildReport");
 					
 				} else
 				{
@@ -645,7 +648,11 @@ public class Controller extends JFrame {
 				
 				try {
 					model.setUserDetails(u, name, ph, email);
-					show(esdmPanel, "userAccountView");
+					if(access.equalsIgnoreCase("g")) {
+						show(esdmPanel, "findChildReport");
+					} else {
+						show(esdmPanel, "userAccountView");
+					}
 					showMessage("Successfully changed details.");
 				} catch (Exception e) {
 					showErrorMessage(e.getMessage());
@@ -1151,6 +1158,13 @@ public class Controller extends JFrame {
 					showErrorMessage(e.getMessage());
 					e.printStackTrace();
 				}
+			}
+		});
+		
+		findChildReport.changeDetailsListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				editAccount.setUser(model.getCurrentUser());
+				show(esdmPanel, "editAccount");
 			}
 		});
 
@@ -1667,13 +1681,12 @@ public class Controller extends JFrame {
 	// panel
 
 	private void findChildReportSubmit(ActionEvent evt) throws Exception {
-		ViewReport p = (ViewReport) findChildReport.getDestination();
+		
 		if (findChildReport.getSelectedChild() == null) {
 			throw new Exception("30001: No child is selected.");
 		}
-		p.setChild(findChildReport.getSelectedChild());
-		p.refreshTable();
-		// show(reportingPanel, "viewReport");
+		viewReport.setChild(findChildReport.getSelectedChild());
+		viewReport.refreshTable();
 		show(esdmPanel, "viewReport");
 	}
 
@@ -1776,19 +1789,24 @@ public class Controller extends JFrame {
 			System.exit(1);
 		}
 
-		access = model.getCurrentAccess();
-
-		setPermissions();
 
 	}
 
 	private void setPermissions() {
-		if (access.equals(adminAccess)) {
-
-		} else if (access.equals(therapistAccess)) {
-
-		} else if (access.equals(guardianAccess)) {
-			accountView.setAccess(guardianAccess);
+		UserAccount u = model.getCurrentUser();
+		access = u.getAccess();
+		homeView.setAccess(access);
+		accountView.setAccess(access);
+		
+		if(access.equalsIgnoreCase(guardianAccess))
+		{
+			Guardian g = (Guardian)u;
+			show(esdmPanel, "findChildReport");
+			findChildReport.setAccess(access);
+			findChildReport.setChildren(g.getChildren());
+			findChildReport.refreshView();
+			viewReport.setAccess(access);
+			
 		}
 	}
 

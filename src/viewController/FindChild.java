@@ -34,6 +34,7 @@ public class FindChild extends PanelView {
 	private DefaultListModel<Child> childListModel;
 	private ArrayList<Child> children;
 	private PanelView destination;
+	private JButton btnChangeDetails;
 
 	public FindChild() {
 		super();
@@ -103,6 +104,10 @@ public class FindChild extends PanelView {
 				childList = new JList<Child>(childListModel);
 				scrollPane.setViewportView(childList);
 				scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+				
+				btnChangeDetails = new JButton("Change Details");
+				btnChangeDetails.setBounds(704, 356, 137, 73);
+				add(btnChangeDetails);
 	}
 
 	public void setChildren(List<Child> list) {
@@ -118,6 +123,11 @@ public class FindChild extends PanelView {
 
 	public Child getSelectedChild() {
 		return childList.getSelectedValue();
+	}
+
+	// Takes in an ActionListener and adds it to the change details button
+	public void changeDetailsListener(ActionListener al) {
+		btnChangeDetails.addActionListener(al);
 	}
 
 	// Takes in an ActionListener and adds it to the submit button
@@ -163,5 +173,16 @@ public class FindChild extends PanelView {
 	public void refreshView() {
 		txtChildName.setText("");
 		searchList(txtChildName.getText());
+	}
+
+	public void setAccess(String acc) {
+		if(acc.equalsIgnoreCase("g"))
+		{
+			btnChangeDetails.setVisible(true);
+			btnCancel.setVisible(false);
+		} else {
+			btnChangeDetails.setVisible(false);
+			btnCancel.setVisible(true);
+		}
 	}
 }
