@@ -194,10 +194,18 @@ public class Day implements SimpleKey {
 		return children;
 	}
     
+	/**
+	 * Retrieves a boolean which states whether or not this day is a template
+	 * @return template
+	 */
 	public boolean getTemplate(){
 		return template;
 	}
 	
+	/**
+	 * Sets this day as a "template" day
+	 * @param template
+	 */
 	public void setTemplate(boolean template) {
 		this.template = template;
 	}
