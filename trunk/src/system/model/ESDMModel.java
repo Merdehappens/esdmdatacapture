@@ -735,7 +735,7 @@ public class ESDMModel {
 
 			    	org.hibernate.Session session = factory.getCurrentSession();
 			    	session.beginTransaction();
-			    	
+			    	currentUser = (UserAccount) session.merge(currentUser);
 			    	session.update(currentUser);
 			    	session.getTransaction().commit();
 				}

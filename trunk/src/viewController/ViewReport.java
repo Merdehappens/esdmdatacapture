@@ -285,4 +285,13 @@ public class ViewReport extends PanelView {
 		dateChooserFrom.setDate(date);
 		
 	}
+
+	public void setAccess(String access) {
+		if(access.equalsIgnoreCase("g"))
+		{
+			btnHome.setVisible(false);
+		} else {
+			btnHome.setVisible(true);
+		}
+	}
 }

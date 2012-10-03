@@ -193,4 +193,18 @@ public class HomeView extends PanelView {
 	
 		return (Day) tableModel.getValueAt(tblSession.getSelectedRow(), 0);
 	}
+
+	public void setAccess(String adminAccess) {
+		
+		if(adminAccess.equalsIgnoreCase("a"))
+		{
+			System.out.println("YES");
+			btnAdministration.setVisible(true);
+		} else
+		{
+			System.out.println("NOOOOO");
+			btnAdministration.setVisible(false);
+		}
+		
+	}
 }
