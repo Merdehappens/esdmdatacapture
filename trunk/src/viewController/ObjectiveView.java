@@ -31,7 +31,6 @@ public class ObjectiveView extends PanelView {
 	private JButton btnResetSearch;
 	private JButton btnRefineSearch;
 	private TableRowSorter<DefaultTableModel> sorter;
-	private JButton btnHome;
 
 	public ObjectiveView() {
 		super();
@@ -92,10 +91,6 @@ public class ObjectiveView extends PanelView {
 		});
 		btnResetSearch.setBounds(818, 90, 142, 35);
 		add(btnResetSearch);
-		
-		btnHome = new JButton("Home");
-		btnHome.setBounds(20, 536, 89, 23);
-		add(btnHome);
 
 		// sets the column names to the string array
 		String[] columnNames = new String[] { "ID", "Name", "Type",
@@ -153,16 +148,6 @@ public class ObjectiveView extends PanelView {
 	 */
 	public void refineSearch(ActionListener al) {
 		btnRefineSearch.addActionListener(al);
-	}
-
-	/**
-	 * Adds the parsed through ActionListener to the Home button.
-	 * 
-	 *  @param al
-	 *    - The action listener we wish to add to the button
-	 */
-	public void homeListener(ActionListener al) {
-		btnHome.addActionListener(al);
 	}
 
 	/**

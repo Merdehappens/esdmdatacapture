@@ -22,7 +22,6 @@ public class UserAccountView extends PanelView {
 	private ArrayList<UserAccount> accounts;
 	private MyJTable userAccountTable;
 	private DefaultTableModel tableModel;
-	private JButton btnHome;
 	private JButton btnResetPassword;
 
 	public UserAccountView() {
@@ -66,10 +65,6 @@ public class UserAccountView extends PanelView {
 		scrollPane.setViewportView(userAccountTable);
 		userAccountTable.setModel(tableModel);
 		
-		btnHome = new JButton("Home");
-		btnHome.setBounds(20, 536, 89, 23);
-		add(btnHome);
-		
 		btnResetPassword = new JButton("Reset Password");
 		btnResetPassword.setBounds(470, 90, 200, 35);
 		add(btnResetPassword);
@@ -98,10 +93,6 @@ public class UserAccountView extends PanelView {
 	
 	public void resetPasswordListener(ActionListener al) {
 		btnResetPassword.addActionListener(al);
-	}
-	
-	public void homeListener(ActionListener al) {
-		btnHome.addActionListener(al);
 	}
 	
 	public void viewUser(ActionListener al) {

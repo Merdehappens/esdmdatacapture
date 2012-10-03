@@ -32,7 +32,6 @@ public class SettingView extends PanelView {
 	private JScrollPane scrollPane;
 	private JButton btnRemoveSetting;
 	private JButton btnEditSetting;
-	private JButton btnHome;
 	private JButton btnBackToAdministration;
 
 	public SettingView() {
@@ -91,10 +90,6 @@ public class SettingView extends PanelView {
 		btnEditSetting.setBounds(186, 109, 115, 30);
 		add(btnEditSetting);
 		
-		btnHome = new JButton("Home");
-		btnHome.setBounds(20, 536, 89, 23);
-		add(btnHome);
-		
 		btnBackToAdministration = new JButton("Back to Administration");
 		btnBackToAdministration.setBounds(119, 536, 165, 23);
 		add(btnBackToAdministration);
@@ -110,9 +105,6 @@ public class SettingView extends PanelView {
 		btnEditSetting.addActionListener(al);
 	}
 	
-	public void homeListener(ActionListener al) {
-		btnHome.addActionListener(al);
-	}
 	
 	public void backToAdminListener(ActionListener al) {
 		btnBackToAdministration.addActionListener(al);

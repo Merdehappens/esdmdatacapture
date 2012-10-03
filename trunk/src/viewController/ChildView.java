@@ -33,7 +33,6 @@ public class ChildView extends PanelView {
 	private ArrayList<Child> childList;
 	private JScrollPane scrollPane;
 	private TableRowSorter<DefaultTableModel> sorter;
-	private JButton btnHome;
 
 	public ChildView() {
 		super();
@@ -106,10 +105,6 @@ public class ChildView extends PanelView {
 		btnResetSearch.setBounds(804, 90, 146, 35);
 		add(btnResetSearch);
 		
-		btnHome = new JButton("Home");
-		btnHome.setBounds(20, 536, 89, 23);
-		add(btnHome);
-		
 		TableColumnModel tblColModel = childTable.getColumnModel();
 
 		tblColModel.getColumn(0).setPreferredWidth(100);
@@ -173,10 +168,6 @@ public class ChildView extends PanelView {
 	// Takes in an ActionListener and adds it to the Edit Child button
 	public void editChildListener(ActionListener al) {
 		btnEditChild.addActionListener(al);
-	}
-	
-	public void homeListener(ActionListener al) {
-		btnHome.addActionListener(al);
 	}
 
 	public Child getSelectedChild() throws Exception {

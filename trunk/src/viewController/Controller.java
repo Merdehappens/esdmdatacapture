@@ -104,6 +104,7 @@ public class Controller extends JFrame {
 	private ObjectiveTypeView objectiveTypeView;
 	private JButton btnExit;
 	private JPanel mainPanel;
+	private JButton btnHome;
 
 	public Controller() throws Exception {
 		addWindowListener(new WindowAdapter() {
@@ -325,6 +326,20 @@ public class Controller extends JFrame {
 		footer.setBounds(20, 100, 200, 100);
 		footer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
+
+		btnHome = new JButton("Home");
+		btnHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("YES");
+				if(access.equalsIgnoreCase("g")) {
+					show(esdmPanel, "findChildReport");
+				} else {
+					show(esdmPanel, "Home");
+				}
+			}
+		});
+		footer.add(btnHome);
+		
 		int width = this.getWidth();
 		width = width / 2 + (width / 4);
 		lblMessage = new JLabel("");
@@ -333,6 +348,7 @@ public class Controller extends JFrame {
 		lblMessage.setPreferredSize(new Dimension(width, 30));
 		footer.add(lblMessage);
 
+		
 		btnExit = new JButton("Log Out");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -460,42 +476,7 @@ public class Controller extends JFrame {
 			}
 		});
 
-		userAccountView.homeListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(esdmPanel, "Home");
-			}
-		});
-		
 
-		childViewGrid.homeListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(esdmPanel, "Home");
-			}
-		});
-
-		sessionView.homeListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(esdmPanel, "Home");
-			}
-		});
-
-		objectiveView.homeListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(esdmPanel, "Home");
-			}
-		});
-
-		viewReport.homeListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(esdmPanel, "Home");
-			}
-		});
-
-		objectiveTypeView.homeListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(esdmPanel, "Home");
-			}
-		});
 		
 		objectiveTypeView.addObjectiveTypeListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -509,23 +490,6 @@ public class Controller extends JFrame {
 			}
 		});
 
-		accountView.homeListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(esdmPanel, "Home");
-			}
-		});
-
-		settingView.homeListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(esdmPanel, "Home");
-			}
-		});
-
-		roomView.homeListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(esdmPanel, "Home");
-			}
-		});
 		
 		roomView.addRoomListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -1796,7 +1760,6 @@ public class Controller extends JFrame {
 		UserAccount u = model.getCurrentUser();
 		access = u.getAccess();
 		homeView.setAccess(access);
-		accountView.setAccess(access);
 		
 		if(access.equalsIgnoreCase(guardianAccess))
 		{
@@ -1805,7 +1768,6 @@ public class Controller extends JFrame {
 			findChildReport.setAccess(access);
 			findChildReport.setChildren(g.getChildren());
 			findChildReport.refreshView();
-			viewReport.setAccess(access);
 			
 		}
 	}

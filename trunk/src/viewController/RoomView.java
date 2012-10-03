@@ -31,7 +31,6 @@ public class RoomView extends PanelView {
 	private ArrayList<Room> roomList;
 	private JScrollPane scrollPane;
 	private JButton btnEditRoom;
-	private JButton btnHome;
 	private JButton btnBackToAdministration;
 
 	public RoomView() {
@@ -86,9 +85,6 @@ public class RoomView extends PanelView {
 		btnEditRoom.setBounds(182, 109, 130, 30);
 		add(btnEditRoom);
 		
-		btnHome = new JButton("Home");
-		btnHome.setBounds(20, 536, 89, 23);
-		add(btnHome);
 		
 		btnBackToAdministration = new JButton("Back to Administration");
 		btnBackToAdministration.setBounds(119, 536, 165, 23);
@@ -109,9 +105,6 @@ public class RoomView extends PanelView {
 		btnEditRoom.addActionListener(al);
 	}
 	
-	public void homeListener(ActionListener al) {
-		btnHome.addActionListener(al);
-	}
 	
 	public void backToAdminListener(ActionListener al) {
 		btnBackToAdministration.addActionListener(al);
