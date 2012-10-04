@@ -501,12 +501,6 @@ public class Controller extends JFrame {
 			}
 		});
 
-		reviewSession.homeListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				show(esdmPanel, "Home");
-			}
-		});
-
 		// Listeners to link back to admin screen
 
 		objectiveTypeView
