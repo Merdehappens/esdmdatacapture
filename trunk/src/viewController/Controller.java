@@ -1742,7 +1742,7 @@ public class Controller extends JFrame {
 		if (model.loggedIn()) {
 
 		} else {
-			showErrorMessage("Three incorrect attempts. Exiting program.");
+			showErrorMessage("You have had three incorrect login attempts. Please consult an admin for your details.");
 
 			System.exit(1);
 		}
