@@ -550,6 +550,10 @@ public class ESDMModel {
 		{
 			throw new Exception("30006: No settings have been selected for this session.");
 		}
+		if(room == null) 
+		{
+			throw new Exception("30004: Room is not selected.");			
+		}
 
 		Day day = new Day(date, room);
 		int size = children.size();
