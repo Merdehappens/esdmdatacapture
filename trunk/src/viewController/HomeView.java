@@ -95,7 +95,7 @@ public class HomeView extends PanelView {
 		add(btnAdministration);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(257, 232, 496, 297);
+		scrollPane.setBounds(257, 232, 496, 262);
 		add(scrollPane);
 		
 		// Creates a new JTable
@@ -111,7 +111,7 @@ public class HomeView extends PanelView {
 		tblSession.setModel(tableModel);
 		
 		btnLogData = new JButton("Log data for selected session");
-		btnLogData.setBounds(257, 538, 496, 32);
+		btnLogData.setBounds(257, 503, 496, 32);
 		add(btnLogData);
 
 		
