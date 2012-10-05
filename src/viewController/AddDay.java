@@ -174,6 +174,7 @@ public class AddDay extends PanelView {
 
 		cmbRoom = new JComboBox<Room>();
 		Vector<Room> v = new Vector<Room>(this.getModel().getRoomList());
+		v.add(0, null);
 		cmbModel = new DefaultComboBoxModel<Room>(v);
 		cmbRoom.setModel(cmbModel);
 		cmbRoom.setBounds(451, 427, 138, 21);
