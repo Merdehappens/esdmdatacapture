@@ -45,7 +45,7 @@ public class AddDay extends PanelView {
 	private JList<Setting> lstSetting;
 	private Object[][] tglbtn;
 	private JDateChooser dateChooser;
-	private ComboBoxModel<Room> cmbModel;
+	private DefaultComboBoxModel<Room> cmbModel;
 
 	private DefaultListModel<Setting> listModel;
 	private JButton btnRemove;
@@ -173,10 +173,7 @@ public class AddDay extends PanelView {
 		// Adds a new combo box to the page which contains the rooms
 
 		cmbRoom = new JComboBox<Room>();
-		Vector<Room> v = new Vector<Room>(this.getModel().getRoomList());
-		v.add(0, null);
-		cmbModel = new DefaultComboBoxModel<Room>(v);
-		cmbRoom.setModel(cmbModel);
+		cmbModel = new DefaultComboBoxModel<Room>();
 		cmbRoom.setBounds(451, 427, 138, 21);
 		add(cmbRoom);
 
@@ -258,8 +255,16 @@ public class AddDay extends PanelView {
 
 		listModel.clear();
 		// Sets the room list
-		Vector<Room> v = new Vector<Room>(this.getModel().getRoomList());
-		ComboBoxModel<Room> cmbModel = new DefaultComboBoxModel<Room>(v);
+
+
+		ArrayList<Room> rooms = new ArrayList<Room>(this.getModel().getRoomList());
+		cmbModel.removeAllElements();
+		rooms.add(0, null);
+		for(int i = 0; i < rooms.size(); i++)
+		{
+			cmbModel.addElement(rooms.get(i));
+		}
+		
 		cmbRoom.setModel(cmbModel);
 		dateChooser.setCalendar(null);
 
@@ -311,8 +316,7 @@ public class AddDay extends PanelView {
 
 	// returns the room that is selected
 	public Room getRoom() {
-		Room room = cmbModel.getElementAt(cmbRoom.getSelectedIndex());
-		return room;
+		return (Room) cmbModel.getSelectedItem();
 	}
 
 	// Returns the sessions that are selected in the list in order
