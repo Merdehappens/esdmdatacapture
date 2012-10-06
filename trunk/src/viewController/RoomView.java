@@ -87,7 +87,7 @@ public class RoomView extends PanelView {
 		
 		
 		btnBackToAdministration = new JButton("Back to Administration");
-		btnBackToAdministration.setBounds(119, 536, 165, 23);
+		btnBackToAdministration.setBounds(119, 500, 165, 23);
 		add(btnBackToAdministration);
 		
 		TableColumnModel tblColModel = tblRoom.getColumnModel();

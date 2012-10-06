@@ -101,7 +101,7 @@ public class ReviewSession extends PanelView {
 		add(btnEditMark);
 		
 		btnReviewSessions = new JButton("Review Sessions");
-		btnReviewSessions.setBounds(25, 543, 125, 23);
+		btnReviewSessions.setBounds(25, 500, 125, 23);
 		add(btnReviewSessions);
 
 		// Sets the column widths 

@@ -123,7 +123,7 @@ public class ViewReport extends PanelView {
 		add(btnExport);
 		
 		btnBackToSelect = new JButton("Back to Select");
-		btnBackToSelect.setBounds(66, 522, 117, 23);
+		btnBackToSelect.setBounds(66, 515, 117, 23);
 		add(btnBackToSelect);
 		
 		JButton btnToday = new JButton("Today");
