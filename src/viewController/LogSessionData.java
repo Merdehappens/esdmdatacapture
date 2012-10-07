@@ -112,7 +112,7 @@ public class LogSessionData extends PanelView {
 
 		lblMark = new JLabel("Mark");
 		lblMark.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMark.setBounds(842, 65, 83, 14);
+		lblMark.setBounds(733, 62, 83, 14);
 		add(lblMark);
 
 		settingModel = new DefaultListModel<Setting>();
@@ -137,7 +137,7 @@ public class LogSessionData extends PanelView {
 		objectiveModel = new DefaultListModel<Objective>();
 		lstObjective = new JList<Objective>(objectiveModel);
 		lstObjective.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lstObjective.setBounds(310, 94, 522, 174);
+		lstObjective.setBounds(310, 94, 413, 174);
 		add(lstObjective);
 		
 		lstObjective.addListSelectionListener(new ListSelectionListener() {
@@ -151,7 +151,7 @@ public class LogSessionData extends PanelView {
 		markModel = new DefaultListModel<Mark>();
 		lstMark = new JList<Mark>(markModel);
 		lstMark.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lstMark.setBounds(842, 94, 83, 174);
+		lstMark.setBounds(733, 90, 83, 178);
 		add(lstMark);
 
 		markModel.addElement(new Mark(-1));
@@ -225,7 +225,7 @@ public class LogSessionData extends PanelView {
 			}
 		});
 
-		btnObjectivePrevious.setBounds(527, 270, 40, 40);
+		btnObjectivePrevious.setBounds(458, 270, 40, 40);
 		add(btnObjectivePrevious);
 
 		btnObjectiveNext = new JButton(">");
@@ -237,7 +237,7 @@ public class LogSessionData extends PanelView {
 			}
 		});
 
-		btnObjectiveNext.setBounds(577, 270, 40, 40);
+		btnObjectiveNext.setBounds(508, 270, 40, 40);
 		add(btnObjectiveNext);
 
 		btnMarkPrevious = new JButton("<");
@@ -248,7 +248,7 @@ public class LogSessionData extends PanelView {
 				setIndex(lstMark, markModel, -1);
 			}
 		});
-		btnMarkPrevious.setBounds(842, 270, 40, 40);
+		btnMarkPrevious.setBounds(733, 277, 40, 40);
 		add(btnMarkPrevious);
 
 		btnMarkNext = new JButton(">");
@@ -259,15 +259,15 @@ public class LogSessionData extends PanelView {
 			}
 
 		});
-		btnMarkNext.setBounds(885, 270, 40, 40);
+		btnMarkNext.setBounds(776, 277, 40, 40);
 		add(btnMarkNext);
 		
 		JLabel lblCurrStep = new JLabel("Step:");
-		lblCurrStep.setBounds(383, 361, 40, 14);
+		lblCurrStep.setBounds(247, 355, 40, 14);
 		add(lblCurrStep);
 		
 		lblStep = new JLabel("");
-		lblStep.setBounds(428, 361, 498, 21);
+		lblStep.setBounds(292, 355, 498, 21);
 		add(lblStep);
 		
 		btnListenSetting = new JButton("Listen");
@@ -282,7 +282,7 @@ public class LogSessionData extends PanelView {
 		
 		btnListenObjective = new JButton("Listen");
 		btnListenObjective.setMnemonic(KeyEvent.VK_7);
-		btnListenObjective.setBounds(527, 327, 89, 23);
+		btnListenObjective.setBounds(458, 327, 89, 23);
 		add(btnListenObjective);
 		
 		btnBehaviourPrevious = new JButton("<");
@@ -292,7 +292,7 @@ public class LogSessionData extends PanelView {
 			}
 		});
 		btnBehaviourPrevious.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnBehaviourPrevious.setBounds(842, 474, 40, 40);
+		btnBehaviourPrevious.setBounds(842, 277, 40, 40);
 		add(btnBehaviourPrevious);
 		
 		btnBehaviourNext = new JButton(">");
@@ -302,31 +302,37 @@ public class LogSessionData extends PanelView {
 				setIndex(lstBehaviour, behaviourModel, 1);
 			}
 		});
-		btnBehaviourNext.setBounds(892, 474, 40, 40);
+		btnBehaviourNext.setBounds(892, 277, 40, 40);
 		add(btnBehaviourNext);
+
+		behaviourModel = new DefaultListModel<Integer>();
 		
 		JScrollPane scrpnebehaviour = new JScrollPane();
-		scrpnebehaviour.setBounds(842, 321, 89, 142);
+		scrpnebehaviour.setBounds(842, 91, 89, 177);
 		add(scrpnebehaviour);
-		
-		behaviourModel = new DefaultListModel<Integer>();
 		lstBehaviour = new JList<Integer>(behaviourModel);
 		scrpnebehaviour.setViewportView(lstBehaviour);
 		
+		
 		btnSaveBehaviouralMark = new JButton("Save Behavioural Mark");
 		btnSaveBehaviouralMark.setMnemonic(KeyEvent.VK_0);
-		btnSaveBehaviouralMark.setBounds(667, 415, 165, 48);
+		btnSaveBehaviouralMark.setBounds(767, 389, 165, 48);
 		add(btnSaveBehaviouralMark);
 		
 		btnListenBehaviourMark = new JButton("Listen");
 		btnListenBehaviourMark.setMnemonic(KeyEvent.VK_1);
-		btnListenBehaviourMark.setBounds(842, 517, 89, 23);
+		btnListenBehaviourMark.setBounds(842, 327, 89, 23);
 		add(btnListenBehaviourMark);
 		
 		btnListenMark = new JButton("Listen");
 		btnListenMark.setMnemonic(KeyEvent.VK_3);
-		btnListenMark.setBounds(836, 34, 89, 23);
+		btnListenMark.setBounds(733, 327, 83, 23);
 		add(btnListenMark);
+		
+		JLabel label = new JLabel("Behavioural Mark");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setBounds(826, 65, 119, 14);
+		add(label);
 		
 		behaviourModel.addElement(new Integer(1));
 		behaviourModel.addElement(new Integer(2));
