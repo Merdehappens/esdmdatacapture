@@ -15,7 +15,6 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
-import java.awt.Color;
 
 public class HomeView extends PanelView {
 

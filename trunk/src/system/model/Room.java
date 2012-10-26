@@ -1,10 +1,7 @@
 package system.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import system.helper.SimpleKey;
 
 @Entity
 public class Room {

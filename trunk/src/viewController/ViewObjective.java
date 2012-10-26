@@ -20,7 +20,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
-import javax.swing.JCheckBox;
 
 public class ViewObjective extends PanelView {
 

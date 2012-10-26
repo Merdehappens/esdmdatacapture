@@ -7,7 +7,6 @@ import system.model.ESDMModel;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;

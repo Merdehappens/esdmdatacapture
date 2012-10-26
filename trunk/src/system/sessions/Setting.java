@@ -17,7 +17,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import system.helper.SimpleKey;
 import system.marking.Mark;
-import system.marking.Objective;
 import system.marking.ObjectiveType;
 
 

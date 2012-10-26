@@ -10,7 +10,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -22,9 +21,7 @@ import system.marking.Step;
 import system.model.ESDMModel;
 import system.sessions.Day;
 import system.sessions.Setting;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import javax.swing.JToggleButton;
 
 public class LogSessionData extends PanelView {
 	/**

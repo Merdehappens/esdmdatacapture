@@ -2,27 +2,14 @@ package viewController;
 
 import javax.swing.JButton;
 
-import system.individuals.Child;
-import system.individuals.ChildObjective;
-import system.individuals.Guardian;
 import system.individuals.UserAccount;
-import system.marking.Objective;
 import system.model.ESDMModel;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
-import com.toedter.calendar.JDateChooser;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-
-import javax.swing.JScrollPane;
-import javax.swing.table.DefaultTableModel;
-import java.awt.Font;
 
 public class EditAccount extends PanelView {
 
