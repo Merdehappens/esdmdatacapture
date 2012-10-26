@@ -98,7 +98,7 @@ public class Helper {
 			int colCount = tblModel.getColumnCount();
 			// Writes out the column names
 			for (int i = 0; i < colCount; i++) {
-				pw.write(tblModel.getColumnName(i) + '\t');
+				pw.write(tblModel.getColumnName(i) + ',');
 			}
 			pw.write('\n');
 
@@ -106,7 +106,12 @@ public class Helper {
 			// iterates through all the rows, writing out the toString from the items inside the table
 			for (int i = 0; i < rowCount; i++) {
 				for (int x = 0; x < colCount; x++) {
-					pw.write("\"" + tblModel.getValueAt(i, x) + "\"\t");
+					if(tblModel.getValueAt(i, x) == null)
+					{
+						pw.write(" , ");
+					} else {
+						pw.write("" + tblModel.getValueAt(i, x) + ", ");
+					}
 				}
 				pw.write('\n');
 			}

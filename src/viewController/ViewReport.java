@@ -65,7 +65,7 @@ public class ViewReport extends PanelView {
 		String[] columnNames = new String[] { "Date", "Objective", "Step",
 				"Setting", "Mark", "Comments" };
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(66, 154, 835, 303);
+		scrollPane.setBounds(52, 154, 902, 302);
 		add(scrollPane);
 
 		tableModel = new DefaultTableModel() {
@@ -83,6 +83,13 @@ public class ViewReport extends PanelView {
 		scrollPane.setViewportView(tblSession);
 
 		tblSession.setRowSorter(sorter);
+		
+		tblSession.getColumnModel().getColumn(0).setPreferredWidth(150);
+		tblSession.getColumnModel().getColumn(1).setPreferredWidth(270);
+		tblSession.getColumnModel().getColumn(2).setPreferredWidth(35);
+		tblSession.getColumnModel().getColumn(3).setPreferredWidth(130);
+		tblSession.getColumnModel().getColumn(4).setPreferredWidth(35);
+		tblSession.getColumnModel().getColumn(5).setPreferredWidth(240);
 
 		// Adds the date chooser to the page
 
@@ -119,11 +126,11 @@ public class ViewReport extends PanelView {
 		// Creates a new button to export report to file
 
 		btnExport = new JButton("Save to File");
-		btnExport.setBounds(64, 468, 139, 26);
+		btnExport.setBounds(52, 467, 139, 26);
 		add(btnExport);
 		
 		btnBackToSelect = new JButton("Back to Select");
-		btnBackToSelect.setBounds(66, 515, 117, 23);
+		btnBackToSelect.setBounds(52, 516, 117, 23);
 		add(btnBackToSelect);
 		
 		JButton btnToday = new JButton("Today");

@@ -146,6 +146,10 @@ public class EditChild extends PanelView {
 		String[] colIdentifiers = {"Objective", "Type", "Step", "Mastered?"};
 		tblObjectiveModel.setColumnIdentifiers(colIdentifiers);
 		
+		tblObjective.getColumnModel().getColumn(0).setPreferredWidth(250);
+		tblObjective.getColumnModel().getColumn(1).setPreferredWidth(120);
+		tblObjective.getColumnModel().getColumn(2).setPreferredWidth(50);
+		tblObjective.getColumnModel().getColumn(3).setPreferredWidth(70);
 		
 		btnAddObjective = new JButton("Add Objective");
 		btnAddObjective.setBounds(857, 66, 132, 30);
