@@ -17,9 +17,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Vector;
-
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
@@ -27,8 +24,6 @@ import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.ToolTipManager;
-
 import javax.swing.JToggleButton;
 import java.awt.BorderLayout;
 

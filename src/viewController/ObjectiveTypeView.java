@@ -2,22 +2,13 @@ package viewController;
 
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
-import system.helper.Helper;
-import system.individuals.Child;
 import system.marking.ObjectiveType;
 import system.model.ESDMModel;
-import system.model.Room;
-
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
@@ -32,7 +23,6 @@ public class ObjectiveTypeView extends PanelView {
 	private JScrollPane scrollPane;
 	private ArrayList<ObjectiveType> otList;
 	private JButton btnBackToAdministration;
-	private JButton btnEditObjectiveType;
 
 	public ObjectiveTypeView() {
 		super();

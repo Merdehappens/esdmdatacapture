@@ -3,8 +3,6 @@ package system.individuals;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.MissingResourceException;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,11 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
-import javax.swing.ImageIcon;
-
-import org.hibernate.SessionFactory;
-
 import system.helper.SimpleKey;
 import system.marking.Mark;
 import system.marking.Objective;

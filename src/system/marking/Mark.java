@@ -6,8 +6,6 @@ import java.util.Calendar;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;

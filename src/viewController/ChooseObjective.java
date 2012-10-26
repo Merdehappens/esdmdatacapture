@@ -20,7 +20,6 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JList;
 
-import system.individuals.Guardian;
 import system.marking.Objective;
 
 import java.awt.event.KeyAdapter;

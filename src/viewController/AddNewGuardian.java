@@ -3,12 +3,9 @@ package viewController;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
@@ -18,11 +15,7 @@ import java.util.List;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
-import javax.swing.JList;
-
 import system.individuals.Guardian;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class AddNewGuardian extends JDialog {
 

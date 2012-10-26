@@ -8,8 +8,6 @@ import system.model.ESDMModel;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JComboBox;
-import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.RowFilter;
 import javax.swing.ScrollPaneConstants;

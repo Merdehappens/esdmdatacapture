@@ -8,7 +8,6 @@ import system.individuals.Child;
 import system.marking.Objective;
 import system.model.ESDMModel;
 
-import javax.swing.AbstractButton;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JLabel;

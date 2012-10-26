@@ -1,6 +1,5 @@
 package viewController;
 
-import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -8,7 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
-import javax.swing.RowFilter.ComparisonType;
 import javax.swing.ScrollPaneConstants;
 
 import system.helper.Helper;
@@ -17,7 +15,6 @@ import system.model.ESDMModel;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;

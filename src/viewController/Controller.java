@@ -14,7 +14,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,22 +21,16 @@ import java.util.HashMap;
 import java.util.MissingResourceException;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.border.EtchedBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import org.hibernate.exception.ConstraintViolationException;
 
 import system.helper.Helper;
@@ -61,8 +54,6 @@ public class Controller extends JFrame {
 	private static final String guardianAccess = "g";
 
 	private static final long serialVersionUID = -6281745567153858417L;
-	private static final int xRes = 1024;
-	private static final int yRes = 600;
 
 	private ESDMModel model;
 

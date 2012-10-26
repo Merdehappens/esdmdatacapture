@@ -5,15 +5,11 @@ package system.model;
 
 import java.io.File;
 import java.math.BigInteger;
-import java.net.MalformedURLException;
-import java.sql.SQLException;
 import java.util.*;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.tool.hbm2ddl.SchemaExport;
-
 import system.helper.Helper;
 import system.helper.PlaySound;
 import system.helper.SimpleKey;

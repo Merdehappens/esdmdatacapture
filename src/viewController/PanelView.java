@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import system.model.ESDMModel;
-import java.awt.Color;
 
 public abstract class PanelView extends JPanel {
 
